@@ -1,5 +1,0 @@
-L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudioEditor\Private\Sequencer\FMODParameterSection.h
-L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\MovieSceneTracks\Public\Sections/MovieSceneParameterSection.h
-L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\MovieScene\Public\Channels/MovieSceneBoolChannel.h
-L:\Software\Unreal Engine\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\MovieScene\MovieSceneBoolChannel.generated.h
-L:\Software\Unreal Engine\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\MovieSceneTracks\MovieSceneParameterSection.generated.h

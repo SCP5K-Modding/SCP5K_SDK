@@ -1,6 +1,0 @@
-L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FSR\Intermediate\Build\Win64\UE4Editor\Development\FSR\Definitions.FSR.h
-L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FSR\Source\FSR\Public\FSR.h
-L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FSR\Source\FSRSpatialUpscaling\Public\FSRViewExtension.h
-L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Engine\Public\SceneViewExtension.h
-L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Engine\Public\SceneViewExtensionContext.h
-L:\Software\Unreal Engine\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\SceneViewExtensionContext.generated.h

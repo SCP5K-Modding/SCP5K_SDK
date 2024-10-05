@@ -1,5 +1,0 @@
-L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DiscordFeatures\Intermediate\Build\Win64\UE4Editor\Development\DiscordSdk\Definitions.DiscordSdk.h
-L:/P3 Downloads/SCP5K_SDK/Plugins/ThirdParty/Runtime/DiscordFeatures/Source/DiscordSdk/Private/DiscordSdkModule.cpp
-L:/P3 Downloads/SCP5K_SDK/Plugins/ThirdParty/Runtime/DiscordFeatures/Source/DiscordSdk/Private/DiscordSettings.cpp
-L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DiscordFeatures\Source\DiscordSdk\Public\DiscordSettings.h
-L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DiscordFeatures\Intermediate\Build\Win64\UE4Editor\Inc\DiscordSdk\DiscordSettings.generated.h
