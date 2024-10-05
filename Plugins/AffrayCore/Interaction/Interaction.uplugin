@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 2,
+	"VersionName": "2.0.1",
+	"FriendlyName": "Interaction",
+	"Description": "A networked interaction system.",
+	"Category": "Gameplay",
+	"CreatedBy": "Quentin Wright",
+	"CreatedByURL": "https://github.com/TsujimotoYukasuke",
+	"DocsURL": "https://github.com/TsujimotoYukasuke/Interaction-Plugin",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "Interaction",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}

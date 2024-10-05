@@ -1,0 +1,23 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.Interaction.cpp.obj": [
+			"InteractableComponent.cpp.obj",
+			"InteractionComponent.cpp.obj",
+			"InteractionModule.cpp.obj"
+		],
+		"Module.Interaction.gen.cpp.obj": [
+			"InteractableComponent.gen.cpp.obj",
+			"InteractableDeregisteredMCDelegateDelegate.gen.cpp.obj",
+			"InteractableFocusedMCDelegateDelegate.gen.cpp.obj",
+			"InteractableRegisteredMCDelegateDelegate.gen.cpp.obj",
+			"Interaction.init.gen.cpp.obj",
+			"InteractionComponent.gen.cpp.obj",
+			"InteractionFinishedMCDelegateDelegate.gen.cpp.obj",
+			"InteractionInterruptedMCDelegateDelegate.gen.cpp.obj",
+			"InteractionStartedMCDelegateDelegate.gen.cpp.obj",
+			"InteractMCDelegateDelegate.gen.cpp.obj",
+			"InterruptMCDelegateDelegate.gen.cpp.obj"
+		]
+	}
+}

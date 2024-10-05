@@ -1,0 +1,15 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.DiscordNetwork.cpp.obj": [
+			"DiscordNetworkManager.cpp.obj",
+			"DiscordNetworkModule.cpp.obj"
+		],
+		"Module.DiscordNetwork.gen.cpp.obj": [
+			"DiscordNetwork.init.gen.cpp.obj",
+			"DiscordNetworkManager.gen.cpp.obj",
+			"DiscordOnMessageDelegate.gen.cpp.obj",
+			"DiscordOnRouteUpdateDelegate.gen.cpp.obj"
+		]
+	}
+}

@@ -1,0 +1,50 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.Electronics.cpp.obj": [
+			"ActionSwitch.cpp.obj",
+			"DoorComponent.cpp.obj",
+			"DoorLinkComponent.cpp.obj",
+			"Electronic.cpp.obj",
+			"ElectronicDoor.cpp.obj",
+			"ElectronicGameAction.cpp.obj",
+			"ElectronicIndicator.cpp.obj",
+			"ElectronicLift.cpp.obj",
+			"ElectronicLight.cpp.obj",
+			"ElectronicMonitorSwitch.cpp.obj",
+			"ElectronicScreen.cpp.obj",
+			"ElectronicsModule.cpp.obj",
+			"ElectronicSwitch.cpp.obj",
+			"LiftFloor.cpp.obj",
+			"LiftState.cpp.obj",
+			"MultiSwitch.cpp.obj",
+			"PainComponent.cpp.obj"
+		],
+		"Module.Electronics.gen.cpp.obj": [
+			"ActionSwitch.gen.cpp.obj",
+			"Activatable.gen.cpp.obj",
+			"DoorComponent.gen.cpp.obj",
+			"DoorInteraction.gen.cpp.obj",
+			"DoorLinkComponent.gen.cpp.obj",
+			"DoorLinkReachedSignatureDelegate.gen.cpp.obj",
+			"EElectronicProperty.gen.cpp.obj",
+			"Electronic.gen.cpp.obj",
+			"ElectronicDoor.gen.cpp.obj",
+			"ElectronicGameAction.gen.cpp.obj",
+			"ElectronicIndicator.gen.cpp.obj",
+			"ElectronicLift.gen.cpp.obj",
+			"ElectronicLight.gen.cpp.obj",
+			"ElectronicMonitorSwitch.gen.cpp.obj",
+			"Electronics.init.gen.cpp.obj",
+			"ElectronicScreen.gen.cpp.obj",
+			"ElectronicSwitch.gen.cpp.obj",
+			"ElectronicUpdatedDelegateDelegate.gen.cpp.obj",
+			"ElectronicValueUpdatedDelegateDelegate.gen.cpp.obj",
+			"ESwitchResetMode.gen.cpp.obj",
+			"LiftFloor.gen.cpp.obj",
+			"LiftState.gen.cpp.obj",
+			"MultiSwitch.gen.cpp.obj",
+			"PainComponent.gen.cpp.obj"
+		]
+	}
+}

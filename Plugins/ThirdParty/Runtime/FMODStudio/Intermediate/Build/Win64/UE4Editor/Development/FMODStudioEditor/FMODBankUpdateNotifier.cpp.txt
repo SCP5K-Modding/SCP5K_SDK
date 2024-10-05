@@ -1,0 +1,10 @@
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudioEditor\Private\FMODBankUpdateNotifier.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio\Classes\FMODSettings.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio\Public\FMOD\fmod_common.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio\Public\FMOD\fmod_codec.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio\Public\FMOD\fmod_dsp.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio\Public\FMOD\fmod_dsp_effects.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio\Public\FMOD\fmod_output.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Intermediate\Build\Win64\UE4Editor\Inc\FMODStudio\FMODSettings.generated.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Core\Public\HAL/FileManager.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformFile.h

@@ -1,0 +1,13 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-GameplayObjectives.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\linck\Desktop\SCP5K_SDK\Intermediate\Build\Win64\PandemicEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\GameplayObjectives\Intermediate\Build\Win64\UE4Editor\Development\GameplayObjectives\Module.GameplayObjectives.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\GameplayObjectives\Intermediate\Build\Win64\UE4Editor\Development\GameplayObjectives\Module.GameplayObjectives.gen.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\GameplayObjectives\Intermediate\Build\Win64\UE4Editor\Development\GameplayObjectives\Default.rc2.res"
+/OUT:"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\GameplayObjectives\Intermediate\Build\Win64\UE4Editor\Development\GameplayObjectives\UE4Editor-GameplayObjectives.lib"

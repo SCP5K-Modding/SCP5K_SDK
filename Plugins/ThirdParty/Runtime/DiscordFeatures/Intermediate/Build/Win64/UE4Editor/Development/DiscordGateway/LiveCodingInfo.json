@@ -1,0 +1,37 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.DiscordGateway.cpp.obj": [
+			"ConnectToDiscordGatewayProxy.cpp.obj",
+			"DiscordGatewayActivity.cpp.obj",
+			"DiscordGatewayActivityAsset.cpp.obj",
+			"DiscordGatewayActivityParty.cpp.obj",
+			"DiscordGatewayActivitySecrets.cpp.obj",
+			"DiscordGatewayActivityTimestamps.cpp.obj",
+			"DiscordGatewayEmoji.cpp.obj",
+			"DiscordGatewayIdentifyProperties.cpp.obj",
+			"DiscordGatewayModule.cpp.obj",
+			"DiscordGatewayShard.cpp.obj",
+			"DiscordGatewaySocket.cpp.obj",
+			"DiscordGatewayStatusUpdate.cpp.obj"
+		],
+		"Module.DiscordGateway.gen.cpp.obj": [
+			"ConnectToDiscordGatewayProxy.gen.cpp.obj",
+			"DiscordGateway.init.gen.cpp.obj",
+			"DiscordGatewayActivity.gen.cpp.obj",
+			"DiscordGatewayActivityAsset.gen.cpp.obj",
+			"DiscordGatewayActivityParty.gen.cpp.obj",
+			"DiscordGatewayActivitySecrets.gen.cpp.obj",
+			"DiscordGatewayActivityTimestamps.gen.cpp.obj",
+			"DiscordGatewayEmoji.gen.cpp.obj",
+			"DiscordGatewayIdentifyProperties.gen.cpp.obj",
+			"DiscordGatewayShard.gen.cpp.obj",
+			"DiscordGatewaySocket.gen.cpp.obj",
+			"DiscordGatewaySocketEventDelegate.gen.cpp.obj",
+			"DiscordGatewayStatusUpdate.gen.cpp.obj",
+			"EDiscordGatewayActivity.gen.cpp.obj",
+			"EDiscordGatewayActivityFlags.gen.cpp.obj",
+			"EDiscordGatewayIntents.gen.cpp.obj"
+		]
+	}
+}

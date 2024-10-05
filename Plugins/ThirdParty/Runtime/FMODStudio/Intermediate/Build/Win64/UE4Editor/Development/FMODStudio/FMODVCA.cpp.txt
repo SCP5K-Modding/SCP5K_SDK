@@ -1,0 +1,8 @@
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio\Classes\FMODVCA.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio\Classes\FMODAsset.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Intermediate\Build\Win64\UE4Editor\Inc\FMODStudio\FMODAsset.generated.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Intermediate\Build\Win64\UE4Editor\Inc\FMODStudio\FMODVCA.generated.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio\Public\FMODStudioModule.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Core\Public\Modules/ModuleManager.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Core\Public\Modules/ModuleInterface.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Core\Public\Modules/Boilerplate/ModuleBoilerplate.h

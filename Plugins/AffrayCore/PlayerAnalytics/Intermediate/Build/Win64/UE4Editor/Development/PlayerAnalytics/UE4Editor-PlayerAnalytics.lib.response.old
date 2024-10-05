@@ -1,0 +1,13 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-PlayerAnalytics.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\linck\Desktop\SCP5K_SDK\Intermediate\Build\Win64\PandemicEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\PlayerAnalytics\Intermediate\Build\Win64\UE4Editor\Development\PlayerAnalytics\Module.PlayerAnalytics.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\PlayerAnalytics\Intermediate\Build\Win64\UE4Editor\Development\PlayerAnalytics\Module.PlayerAnalytics.gen.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\PlayerAnalytics\Intermediate\Build\Win64\UE4Editor\Development\PlayerAnalytics\Default.rc2.res"
+/OUT:"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\PlayerAnalytics\Intermediate\Build\Win64\UE4Editor\Development\PlayerAnalytics\UE4Editor-PlayerAnalytics.lib"

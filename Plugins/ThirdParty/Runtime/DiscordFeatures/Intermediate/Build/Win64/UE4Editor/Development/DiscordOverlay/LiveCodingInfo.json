@@ -1,0 +1,25 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.DiscordOverlay.cpp.obj": [
+			"BaseOverlayAsyncProxy.cpp.obj",
+			"DiscordOverlayManager.cpp.obj",
+			"DiscordOverlayModule.cpp.obj",
+			"OpenActivityInviteProxy.cpp.obj",
+			"OpenGuildInviteProxy.cpp.obj",
+			"OpenVoiceSettingsProxy.cpp.obj",
+			"SetLockedProxy.cpp.obj"
+		],
+		"Module.DiscordOverlay.gen.cpp.obj": [
+			"BaseOverlayAsyncProxy.gen.cpp.obj",
+			"DiscordOverlay.init.gen.cpp.obj",
+			"DiscordOverlayManager.gen.cpp.obj",
+			"DiscordOverlayToggleEventDelegate.gen.cpp.obj",
+			"OpenActivityInviteProxy.gen.cpp.obj",
+			"OpenGuildInviteProxy.gen.cpp.obj",
+			"OpenVoiceSettingsProxy.gen.cpp.obj",
+			"OverlayResultDelegate.gen.cpp.obj",
+			"SetLockedProxy.gen.cpp.obj"
+		]
+	}
+}

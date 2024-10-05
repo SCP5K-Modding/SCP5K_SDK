@@ -1,0 +1,34 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.AdvancedSteamSessions.cpp.obj": [
+			"AdvancedSteamFriendsLibrary.cpp.obj",
+			"AdvancedSteamSessionsModule.cpp.obj",
+			"AdvancedSteamWorkshopLibrary.cpp.obj",
+			"BPSteamGroupInfo.cpp.obj",
+			"BPSteamGroupOfficer.cpp.obj",
+			"BPSteamWorkshopID.cpp.obj",
+			"BPSteamWorkshopItemDetails.cpp.obj",
+			"SteamRequestGroupOfficersCallbackProxy.cpp.obj",
+			"SteamWSRequestUGCDetailsCallbackProxy.cpp.obj"
+		],
+		"Module.AdvancedSteamSessions.gen.cpp.obj": [
+			"AdvancedSteamFriendsLibrary.gen.cpp.obj",
+			"AdvancedSteamSessions.init.gen.cpp.obj",
+			"AdvancedSteamWorkshopLibrary.gen.cpp.obj",
+			"BlueprintGroupOfficerDetailsDelegateDelegate.gen.cpp.obj",
+			"BlueprintWorkshopDetailsDelegateDelegate.gen.cpp.obj",
+			"BPSteamGroupInfo.gen.cpp.obj",
+			"BPSteamGroupOfficer.gen.cpp.obj",
+			"BPSteamWorkshopID.gen.cpp.obj",
+			"BPSteamWorkshopItemDetails.gen.cpp.obj",
+			"EBPTextFilteringContext.gen.cpp.obj",
+			"ESteamUserOverlayType.gen.cpp.obj",
+			"FBPSteamResult.gen.cpp.obj",
+			"FBPWorkshopFileType.gen.cpp.obj",
+			"SteamAvatarSize.gen.cpp.obj",
+			"SteamRequestGroupOfficersCallbackProxy.gen.cpp.obj",
+			"SteamWSRequestUGCDetailsCallbackProxy.gen.cpp.obj"
+		]
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.Configurator.cpp.obj": [
+			"ConfiguratorLibrary.cpp.obj",
+			"ConfiguratorModule.cpp.obj"
+		],
+		"Module.Configurator.gen.cpp.obj": [
+			"Configurator.init.gen.cpp.obj",
+			"ConfiguratorLibrary.gen.cpp.obj"
+		]
+	}
+}

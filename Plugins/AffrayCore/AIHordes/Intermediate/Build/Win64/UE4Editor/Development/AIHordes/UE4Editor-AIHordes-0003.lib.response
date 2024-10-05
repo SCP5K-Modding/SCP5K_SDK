@@ -1,0 +1,13 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-AIHordes-0003.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"L:\P3 Downloads\SCP5K_SDK\Intermediate\Build\Win64\PandemicEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AIHordes\Intermediate\Build\Win64\UE4Editor\Development\AIHordes\Module.AIHordes.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AIHordes\Intermediate\Build\Win64\UE4Editor\Development\AIHordes\Module.AIHordes.gen.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AIHordes\Intermediate\Build\Win64\UE4Editor\Development\AIHordes\Default.rc2.res"
+/OUT:"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AIHordes\Intermediate\Build\Win64\UE4Editor\Development\AIHordes\UE4Editor-AIHordes-0003.lib"

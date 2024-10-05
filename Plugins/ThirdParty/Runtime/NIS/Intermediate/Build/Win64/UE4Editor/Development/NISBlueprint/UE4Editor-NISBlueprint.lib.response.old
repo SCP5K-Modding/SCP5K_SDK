@@ -1,0 +1,13 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-NISBlueprint.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\linck\Desktop\SCP5K_SDK\Intermediate\Build\Win64\PandemicEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\ThirdParty\Runtime\NIS\Intermediate\Build\Win64\UE4Editor\Development\NISBlueprint\Module.NISBlueprint.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\ThirdParty\Runtime\NIS\Intermediate\Build\Win64\UE4Editor\Development\NISBlueprint\Module.NISBlueprint.gen.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\ThirdParty\Runtime\NIS\Intermediate\Build\Win64\UE4Editor\Development\NISBlueprint\Default.rc2.res"
+/OUT:"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\ThirdParty\Runtime\NIS\Intermediate\Build\Win64\UE4Editor\Development\NISBlueprint\UE4Editor-NISBlueprint.lib"

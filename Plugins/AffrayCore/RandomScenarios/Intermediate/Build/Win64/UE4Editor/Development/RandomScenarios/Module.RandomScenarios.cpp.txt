@@ -1,0 +1,15 @@
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\RandomScenarios\Intermediate\Build\Win64\UE4Editor\Development\RandomScenarios\Definitions.RandomScenarios.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/RandomScenarios/Source/RandomScenarios/Private/RandomScenarioManager.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\RandomScenarios\Source\RandomScenarios\Public\RandomScenarioManager.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\RandomScenarios\Intermediate\Build\Win64\UE4Editor\Inc\RandomScenarios\RandomScenarioManager.generated.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\RandomScenarios\Source\RandomScenarios\Public\ScenarioManagerComponent.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\RandomScenarios\Intermediate\Build\Win64\UE4Editor\Inc\RandomScenarios\ScenarioManagerComponent.generated.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/RandomScenarios/Source/RandomScenarios/Private/RandomScenariosModule.cpp
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/RandomScenarios/Source/RandomScenarios/Private/Scenario.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\RandomScenarios\Source\RandomScenarios\Public\Scenario.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\RandomScenarios\Intermediate\Build\Win64\UE4Editor\Inc\RandomScenarios\Scenario.generated.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\RandomScenarios\Source\RandomScenarios\Public\ScenarioComponent.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\RandomScenarios\Intermediate\Build\Win64\UE4Editor\Inc\RandomScenarios\ScenarioComponent.generated.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/RandomScenarios/Source/RandomScenarios/Private/ScenarioComponent.cpp
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Engine\Public\Net/UnrealNetwork.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/RandomScenarios/Source/RandomScenarios/Private/ScenarioManagerComponent.cpp

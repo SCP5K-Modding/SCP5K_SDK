@@ -1,0 +1,13 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-DiscordNetwork.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\linck\Desktop\SCP5K_SDK\Intermediate\Build\Win64\PandemicEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\ThirdParty\Runtime\DiscordFeatures\Intermediate\Build\Win64\UE4Editor\Development\DiscordNetwork\Module.DiscordNetwork.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\ThirdParty\Runtime\DiscordFeatures\Intermediate\Build\Win64\UE4Editor\Development\DiscordNetwork\Module.DiscordNetwork.gen.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\ThirdParty\Runtime\DiscordFeatures\Intermediate\Build\Win64\UE4Editor\Development\DiscordNetwork\Default.rc2.res"
+/OUT:"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\ThirdParty\Runtime\DiscordFeatures\Intermediate\Build\Win64\UE4Editor\Development\DiscordNetwork\UE4Editor-DiscordNetwork.lib"

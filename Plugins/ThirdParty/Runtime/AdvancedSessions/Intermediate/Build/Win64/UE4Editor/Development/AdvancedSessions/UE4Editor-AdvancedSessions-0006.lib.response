@@ -1,0 +1,15 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-AdvancedSessions-0006.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"L:\P3 Downloads\SCP5K_SDK\Intermediate\Build\Win64\PandemicEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSessions\Module.AdvancedSessions.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSessions\Module.AdvancedSessions.gen.1_of_3.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSessions\Module.AdvancedSessions.gen.2_of_3.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSessions\Module.AdvancedSessions.gen.3_of_3.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSessions\Default.rc2.res"
+/OUT:"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSessions\UE4Editor-AdvancedSessions-0006.lib"

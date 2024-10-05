@@ -1,0 +1,16 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-AISentience.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\linck\Desktop\SCP5K_SDK\Intermediate\Build\Win64\PandemicEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\AISentience\Intermediate\Build\Win64\UE4Editor\Development\AISentience\Module.AISentience.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\AISentience\Intermediate\Build\Win64\UE4Editor\Development\AISentience\Module.AISentience.gen.1_of_4.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\AISentience\Intermediate\Build\Win64\UE4Editor\Development\AISentience\Module.AISentience.gen.2_of_4.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\AISentience\Intermediate\Build\Win64\UE4Editor\Development\AISentience\Module.AISentience.gen.3_of_4.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\AISentience\Intermediate\Build\Win64\UE4Editor\Development\AISentience\Module.AISentience.gen.4_of_4.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\AISentience\Intermediate\Build\Win64\UE4Editor\Development\AISentience\Default.rc2.res"
+/OUT:"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\AISentience\Intermediate\Build\Win64\UE4Editor\Development\AISentience\UE4Editor-AISentience.lib"

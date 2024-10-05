@@ -1,0 +1,147 @@
+#pragma once
+#include "CoreMinimal.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "Animation/AnimInstance.h"
+#include "Animation/PoseSnapshot.h"
+#include "SimpleHitData.h"
+#include "EZombieLifeState.h"
+#include "Templates/SubclassOf.h"
+#include "ZombieAnimationInstance.generated.h"
+
+class AAIZombieCharacter;
+class ACharacter;
+class UAnimMontage;
+class UDamageType;
+class UHealthComponent;
+
+UCLASS(Blueprintable, NonTransient)
+class PANDEMIC_API UZombieAnimationInstance : public UAnimInstance {
+    GENERATED_BODY()
+public:
+protected:
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsMoving;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float MovementSpeed;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float StrafeSpeed;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FVector LocalVelocity;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float DistToGround;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsFalling;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsDead;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsFakingDeath;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    EZombieLifeState CurrentLifeState;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FPoseSnapshot SavedRagdollSnapshot;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsFakeRagdolling;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float LookAtRotationAlpha;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FVector TargetLocation;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsTargetSeen;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsBallisticHit;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsMeleeHit;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsFrontHit;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FVector2D BodyHitPosition;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float HitDirectionAngle;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    int32 RandomIdleAnimationIndex;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float RandomizedAnimStartPosition;
+    
+private:
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float FallingDistanceCheckDelay;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float MaxFallDistanceTraceLength;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TSubclassOf<UDamageType> MeleeAttackDamageTypeSample;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TSubclassOf<UDamageType> BallisticDamageTypeSample;
+    
+public:
+    UZombieAnimationInstance();
+
+protected:
+    UFUNCTION(BlueprintCallable)
+    void StartFallingDistanceCheck();
+    
+    UFUNCTION(BlueprintCallable)
+    void SetZombieCharacter(AAIZombieCharacter* DesiredCharacter);
+    
+    UFUNCTION(BlueprintCallable)
+    void SetCharacter(ACharacter* DesiredCharacter);
+    
+    UFUNCTION(BlueprintCallable)
+    void PrepareReanimationEnd();
+    
+private:
+    UFUNCTION(BlueprintCallable)
+    void OnZombieUpdatedLifeState();
+    
+    UFUNCTION(BlueprintCallable)
+    void OnZombiePrepareReanimation();
+    
+protected:
+    UFUNCTION(BlueprintCallable)
+    void OnZombieDied(UHealthComponent* UpdatedHealthComponent);
+    
+    UFUNCTION(BlueprintCallable)
+    void OnZombieDamaged(UHealthComponent* UpdatedHealthComponent, FSimpleHitData HitData);
+    
+private:
+    UFUNCTION(BlueprintCallable)
+    void OnZombieBeganFakeDeath(UHealthComponent* UpdatedHealthComponent);
+    
+protected:
+    UFUNCTION(BlueprintCallable)
+    UAnimMontage* GetZombieDeathAnimation() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    AAIZombieCharacter* GetZombieCharacter() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    ACharacter* GetCharacter() const;
+    
+    UFUNCTION(BlueprintCallable)
+    void EndFallingDistanceCheck();
+    
+};
+

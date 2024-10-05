@@ -1,0 +1,13 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.DiscordSdk.cpp.obj": [
+			"DiscordSdkModule.cpp.obj",
+			"DiscordSettings.cpp.obj"
+		],
+		"Module.DiscordSdk.gen.cpp.obj": [
+			"DiscordSdk.init.gen.cpp.obj",
+			"DiscordSettings.gen.cpp.obj"
+		]
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "LensEffects",
+	"Description": "Thanks to froyok for his methodology",
+	"Category": "Other",
+	"CreatedBy": "Albarnie",
+	"CreatedByURL": "",
+	"DocsURL": "https://www.froyok.fr/blog/2021-09-ue4-custom-lens-flare/",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "LensEffects",
+			"Type": "Runtime",
+			"LoadingPhase": "PostConfigInit"
+		}
+	]
+}

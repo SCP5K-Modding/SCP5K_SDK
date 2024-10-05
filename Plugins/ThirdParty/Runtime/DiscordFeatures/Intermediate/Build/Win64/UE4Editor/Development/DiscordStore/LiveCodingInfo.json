@@ -1,0 +1,28 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.DiscordStore.cpp.obj": [
+			"BaseStoreAsyncProxy.cpp.obj",
+			"DiscordSku.cpp.obj",
+			"DiscordSkuPrice.cpp.obj",
+			"DiscordStoreManager.cpp.obj",
+			"DiscordStoreModule.cpp.obj",
+			"FetchEntitlementsProxy.cpp.obj",
+			"FetchSkusProxy.cpp.obj",
+			"StartPurchaseProxy.cpp.obj"
+		],
+		"Module.DiscordStore.gen.cpp.obj": [
+			"BaseStoreAsyncProxy.gen.cpp.obj",
+			"DiscordEntitlementEventDelegate.gen.cpp.obj",
+			"DiscordSku.gen.cpp.obj",
+			"DiscordSkuPrice.gen.cpp.obj",
+			"DiscordStore.init.gen.cpp.obj",
+			"DiscordStoreManager.gen.cpp.obj",
+			"EDiscordSkuType.gen.cpp.obj",
+			"FetchEntitlementsProxy.gen.cpp.obj",
+			"FetchSkusProxy.gen.cpp.obj",
+			"OnStoreResultEventDelegate.gen.cpp.obj",
+			"StartPurchaseProxy.gen.cpp.obj"
+		]
+	}
+}

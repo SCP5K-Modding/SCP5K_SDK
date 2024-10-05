@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "LevelStreaming",
+	"Description": "Tools for additive level streaming",
+	"Category": "Other",
+	"CreatedBy": "Albarnie",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "LevelStreaming",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}

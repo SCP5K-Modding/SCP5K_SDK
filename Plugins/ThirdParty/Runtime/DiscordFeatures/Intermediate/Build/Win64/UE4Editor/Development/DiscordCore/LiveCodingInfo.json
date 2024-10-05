@@ -1,0 +1,43 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.DiscordCore.cpp.obj": [
+			"DiscordActivity.cpp.obj",
+			"DiscordActivityAssets.cpp.obj",
+			"DiscordActivityParty.cpp.obj",
+			"DiscordActivitySecrets.cpp.obj",
+			"DiscordActivityTimestamps.cpp.obj",
+			"DiscordCore.cpp.obj",
+			"DiscordCoreModule.cpp.obj",
+			"DiscordEntitlement.cpp.obj",
+			"DiscordManager.cpp.obj",
+			"DiscordPartySize.cpp.obj",
+			"DiscordUser.cpp.obj",
+			"Uint64.cpp.obj"
+		],
+		"Module.DiscordCore.gen.cpp.obj": [
+			"DiscordActivity.gen.cpp.obj",
+			"DiscordActivityAssets.gen.cpp.obj",
+			"DiscordActivityParty.gen.cpp.obj",
+			"DiscordActivitySecrets.gen.cpp.obj",
+			"DiscordActivityTimestamps.gen.cpp.obj",
+			"DiscordCore.gen.cpp.obj",
+			"DiscordCore.init.gen.cpp.obj",
+			"DiscordEntitlement.gen.cpp.obj",
+			"DiscordLogEventDelegate.gen.cpp.obj",
+			"DiscordManager.gen.cpp.obj",
+			"DiscordPartySize.gen.cpp.obj",
+			"DiscordUser.gen.cpp.obj",
+			"EDiscordActivityActionType.gen.cpp.obj",
+			"EDiscordActivityJoinRequestReply.gen.cpp.obj",
+			"EDiscordActivityType.gen.cpp.obj",
+			"EDiscordCoreCreationFlags.gen.cpp.obj",
+			"EDiscordEntitlementType.gen.cpp.obj",
+			"EDiscordLogLevel.gen.cpp.obj",
+			"EDiscordOperationBranching.gen.cpp.obj",
+			"EDiscordResult.gen.cpp.obj",
+			"OnRunCallbacksDelegate.gen.cpp.obj",
+			"Uint64.gen.cpp.obj"
+		]
+	}
+}

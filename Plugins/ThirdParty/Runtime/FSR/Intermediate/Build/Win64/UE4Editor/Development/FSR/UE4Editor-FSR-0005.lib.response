@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-FSR-0005.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"L:\P3 Downloads\SCP5K_SDK\Intermediate\Build\Win64\PandemicEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FSR\Intermediate\Build\Win64\UE4Editor\Development\FSR\FSR.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FSR\Intermediate\Build\Win64\UE4Editor\Development\FSR\Default.rc2.res"
+/OUT:"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FSR\Intermediate\Build\Win64\UE4Editor\Development\FSR\UE4Editor-FSR-0005.lib"

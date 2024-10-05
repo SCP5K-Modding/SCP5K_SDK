@@ -1,0 +1,103 @@
+// Copyright Epic Games, Inc. All Rights Reserved.
+/*===========================================================================
+	Generated code exported from UnrealHeaderTool.
+	DO NOT modify this manually! Edit the corresponding .h files instead!
+===========================================================================*/
+
+#include "UObject/ObjectMacros.h"
+#include "UObject/ScriptMacros.h"
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class UObject;
+class USteamCoreWebAsyncActionFinalizeAssetTransaction;
+#ifdef STEAMCOREWEB_SteamCoreWebAsyncActionFinalizeAssetTransaction_generated_h
+#error "SteamCoreWebAsyncActionFinalizeAssetTransaction.generated.h already included, missing '#pragma once' in SteamCoreWebAsyncActionFinalizeAssetTransaction.h"
+#endif
+#define STEAMCOREWEB_SteamCoreWebAsyncActionFinalizeAssetTransaction_generated_h
+
+#define SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_SPARSE_DATA
+#define SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_RPC_WRAPPERS \
+ \
+	DECLARE_FUNCTION(execFinalizeAssetTransactionAsync);
+
+
+#define SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execFinalizeAssetTransactionAsync);
+
+
+#define SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_INCLASS_NO_PURE_DECLS \
+private: \
+	static void StaticRegisterNativesUSteamCoreWebAsyncActionFinalizeAssetTransaction(); \
+	friend struct Z_Construct_UClass_USteamCoreWebAsyncActionFinalizeAssetTransaction_Statics; \
+public: \
+	DECLARE_CLASS(USteamCoreWebAsyncActionFinalizeAssetTransaction, USteamCoreWebAsyncAction, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/SteamCoreWeb"), NO_API) \
+	DECLARE_SERIALIZER(USteamCoreWebAsyncActionFinalizeAssetTransaction)
+
+
+#define SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_INCLASS \
+private: \
+	static void StaticRegisterNativesUSteamCoreWebAsyncActionFinalizeAssetTransaction(); \
+	friend struct Z_Construct_UClass_USteamCoreWebAsyncActionFinalizeAssetTransaction_Statics; \
+public: \
+	DECLARE_CLASS(USteamCoreWebAsyncActionFinalizeAssetTransaction, USteamCoreWebAsyncAction, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/SteamCoreWeb"), NO_API) \
+	DECLARE_SERIALIZER(USteamCoreWebAsyncActionFinalizeAssetTransaction)
+
+
+#define SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_STANDARD_CONSTRUCTORS \
+	/** Standard constructor, called after all reflected properties have been initialized */ \
+	NO_API USteamCoreWebAsyncActionFinalizeAssetTransaction(const FObjectInitializer& ObjectInitializer); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(USteamCoreWebAsyncActionFinalizeAssetTransaction) \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, USteamCoreWebAsyncActionFinalizeAssetTransaction); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(USteamCoreWebAsyncActionFinalizeAssetTransaction); \
+private: \
+	/** Private move- and copy-constructors, should never be used */ \
+	NO_API USteamCoreWebAsyncActionFinalizeAssetTransaction(USteamCoreWebAsyncActionFinalizeAssetTransaction&&); \
+	NO_API USteamCoreWebAsyncActionFinalizeAssetTransaction(const USteamCoreWebAsyncActionFinalizeAssetTransaction&); \
+public:
+
+
+#define SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_ENHANCED_CONSTRUCTORS \
+private: \
+	/** Private move- and copy-constructors, should never be used */ \
+	NO_API USteamCoreWebAsyncActionFinalizeAssetTransaction(USteamCoreWebAsyncActionFinalizeAssetTransaction&&); \
+	NO_API USteamCoreWebAsyncActionFinalizeAssetTransaction(const USteamCoreWebAsyncActionFinalizeAssetTransaction&); \
+public: \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, USteamCoreWebAsyncActionFinalizeAssetTransaction); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(USteamCoreWebAsyncActionFinalizeAssetTransaction); \
+	DEFINE_DEFAULT_CONSTRUCTOR_CALL(USteamCoreWebAsyncActionFinalizeAssetTransaction)
+
+
+#define SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_PRIVATE_PROPERTY_OFFSET
+#define SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_9_PROLOG
+#define SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_GENERATED_BODY_LEGACY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_PRIVATE_PROPERTY_OFFSET \
+	SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_SPARSE_DATA \
+	SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_RPC_WRAPPERS \
+	SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_INCLASS \
+	SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_STANDARD_CONSTRUCTORS \
+public: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+#define SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_GENERATED_BODY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_PRIVATE_PROPERTY_OFFSET \
+	SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_SPARSE_DATA \
+	SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_RPC_WRAPPERS_NO_PURE_DECLS \
+	SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_INCLASS_NO_PURE_DECLS \
+	SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h_11_ENHANCED_CONSTRUCTORS \
+private: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+template<> STEAMCOREWEB_API UClass* StaticClass<class USteamCoreWebAsyncActionFinalizeAssetTransaction>();
+
+#undef CURRENT_FILE_ID
+#define CURRENT_FILE_ID SCP5K_SDK_Plugins_ThirdParty_Runtime_SteamCore_Source_SteamCoreWeb_Public_SteamCoreWebAsyncActionFinalizeAssetTransaction_h
+
+
+PRAGMA_ENABLE_DEPRECATION_WARNINGS

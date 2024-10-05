@@ -1,0 +1,15 @@
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\SurfaceDeformation\Intermediate\Build\Win64\UE4Editor\Development\SurfaceDeformation\Definitions.SurfaceDeformation.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/SurfaceDeformation/Source/SurfaceDeformation/Private/SurfaceDeformationCapture.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\SurfaceDeformation\Source\SurfaceDeformation\Public\SurfaceDeformationCapture.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/NoExportTypes.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/PropertyAccessUtil.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Core\Public\Math/UnitConversion.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Core\Public\Math/UnitConversion.inl
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Core\Public\Internationalization/PolyglotTextData.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\AssetRegistry/ARFilter.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\SurfaceDeformation\Intermediate\Build\Win64\UE4Editor\Inc\SurfaceDeformation\SurfaceDeformationCapture.generated.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Engine\Classes\Components/SceneCaptureComponent2D.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Engine\Classes\Components/SceneCaptureComponent.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\SceneCaptureComponent.generated.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\SceneCaptureComponent2D.generated.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/SurfaceDeformation/Source/SurfaceDeformation/Private/SurfaceDeformationModule.cpp

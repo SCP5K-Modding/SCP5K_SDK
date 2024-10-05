@@ -1,0 +1,7 @@
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\NIS\Intermediate\Build\Win64\UE4Editor\Development\NISBlueprint\Definitions.NISBlueprint.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/ThirdParty/Runtime/NIS/Source/NISBlueprint/Private/NISBlueprintModule.cpp
+L:/P3 Downloads/SCP5K_SDK/Plugins/ThirdParty/Runtime/NIS/Source/NISBlueprint/Private/NISLibrary.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\NIS\Source\NISBlueprint\Public\NISLibrary.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\NIS\Source\NISBlueprint\Public\UNISMode.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\NIS\Intermediate\Build\Win64\UE4Editor\Inc\NISBlueprint\UNISMode.generated.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\NIS\Intermediate\Build\Win64\UE4Editor\Inc\NISBlueprint\NISLibrary.generated.h

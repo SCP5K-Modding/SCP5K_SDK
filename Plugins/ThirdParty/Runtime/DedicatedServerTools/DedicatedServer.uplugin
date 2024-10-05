@@ -1,0 +1,28 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "0.0.0.1",
+	"FriendlyName": "DedicatedServer",
+	"Description": "Various utilities that are needed for proper dedicated server support.\nFeatures:\n\tConsole Input\n\tRCon",
+	"Category": "Server",
+	"CreatedBy": "YaS-Online",
+	"CreatedByURL": "https://yas-online.net",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"EnabledByDefault": true,
+	"CanContainContent": false,
+	"IsBetaVersion": true,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Plugins": [
+		{
+			"Name": "OnlineSubsystemSteam",
+			"Enabled": true
+		},
+		{
+			"Name": "OnlineSubsystem",
+			"Enabled": true
+		}
+	]
+}

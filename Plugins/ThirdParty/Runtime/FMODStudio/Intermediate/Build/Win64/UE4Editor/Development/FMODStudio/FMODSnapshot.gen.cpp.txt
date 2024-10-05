@@ -1,0 +1,9 @@
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/TextProperty.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio/Classes/FMODSnapshot.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio\Classes\FMODEvent.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio\Classes\FMODAsset.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Intermediate\Build\Win64\UE4Editor\Inc\FMODStudio\FMODAsset.generated.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Intermediate\Build\Win64\UE4Editor\Inc\FMODStudio\FMODEvent.generated.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Intermediate\Build\Win64\UE4Editor\Inc\FMODStudio\FMODSnapshot.generated.h

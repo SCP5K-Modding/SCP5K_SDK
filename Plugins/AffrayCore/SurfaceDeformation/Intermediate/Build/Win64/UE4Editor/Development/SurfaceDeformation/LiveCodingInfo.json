@@ -1,0 +1,13 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.SurfaceDeformation.cpp.obj": [
+			"SurfaceDeformationCapture.cpp.obj",
+			"SurfaceDeformationModule.cpp.obj"
+		],
+		"Module.SurfaceDeformation.gen.cpp.obj": [
+			"SurfaceDeformation.init.gen.cpp.obj",
+			"SurfaceDeformationCapture.gen.cpp.obj"
+		]
+	}
+}

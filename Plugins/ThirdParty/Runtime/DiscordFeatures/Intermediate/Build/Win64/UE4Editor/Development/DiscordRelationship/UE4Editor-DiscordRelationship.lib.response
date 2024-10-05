@@ -1,0 +1,13 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-DiscordRelationship.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"L:\P3 Downloads\SCP5K_SDK\Intermediate\Build\Win64\PandemicEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DiscordFeatures\Intermediate\Build\Win64\UE4Editor\Development\DiscordRelationship\Module.DiscordRelationship.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DiscordFeatures\Intermediate\Build\Win64\UE4Editor\Development\DiscordRelationship\Module.DiscordRelationship.gen.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DiscordFeatures\Intermediate\Build\Win64\UE4Editor\Development\DiscordRelationship\Default.rc2.res"
+/OUT:"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DiscordFeatures\Intermediate\Build\Win64\UE4Editor\Development\DiscordRelationship\UE4Editor-DiscordRelationship.lib"

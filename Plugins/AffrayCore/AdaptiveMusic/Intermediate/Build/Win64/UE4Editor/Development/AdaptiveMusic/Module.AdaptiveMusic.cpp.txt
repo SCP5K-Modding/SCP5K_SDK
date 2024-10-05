@@ -1,0 +1,13 @@
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AdaptiveMusic\Intermediate\Build\Win64\UE4Editor\Development\AdaptiveMusic\Definitions.AdaptiveMusic.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/AdaptiveMusic/Source/AdaptiveMusic/Private/AdaptiveMusicComponent.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AdaptiveMusic\Source\AdaptiveMusic\Public\AdaptiveMusicComponent.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AdaptiveMusic\Intermediate\Build\Win64\UE4Editor\Inc\AdaptiveMusic\AdaptiveMusicComponent.generated.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/AdaptiveMusic/Source/AdaptiveMusic/Private/AdaptiveMusicModule.cpp
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/AdaptiveMusic/Source/AdaptiveMusic/Private/AdaptiveMusicSubsystem.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AdaptiveMusic\Source\AdaptiveMusic\Public\AdaptiveMusicSubsystem.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AdaptiveMusic\Intermediate\Build\Win64\UE4Editor\Inc\AdaptiveMusic\AdaptiveMusicSubsystem.generated.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/AdaptiveMusic/Source/AdaptiveMusic/Private/AdaptiveMusicVolume.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AdaptiveMusic\Source\AdaptiveMusic\Public\AdaptiveMusicVolume.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Engine\Classes\Engine/TriggerVolume.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\TriggerVolume.generated.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AdaptiveMusic\Intermediate\Build\Win64\UE4Editor\Inc\AdaptiveMusic\AdaptiveMusicVolume.generated.h

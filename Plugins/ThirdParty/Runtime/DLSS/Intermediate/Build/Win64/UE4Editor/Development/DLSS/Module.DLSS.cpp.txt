@@ -1,0 +1,12 @@
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DLSS\Intermediate\Build\Win64\UE4Editor\Development\DLSS\Definitions.DLSS.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/ThirdParty/Runtime/DLSS/Source/DLSS/Private/DLSSModule.cpp
+L:/P3 Downloads/SCP5K_SDK/Plugins/ThirdParty/Runtime/DLSS/Source/DLSS/Private/DLSSOverrideSettings.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DLSS\Source\DLSS\Public\DLSSOverrideSettings.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DLSS\Source\DLSS\Public\EDLSSSettingOverride.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DLSS\Intermediate\Build\Win64\UE4Editor\Inc\DLSS\EDLSSSettingOverride.generated.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DLSS\Intermediate\Build\Win64\UE4Editor\Inc\DLSS\DLSSOverrideSettings.generated.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/ThirdParty/Runtime/DLSS/Source/DLSS/Private/DLSSSettings.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DLSS\Source\DLSS\Public\DLSSSettings.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DLSS\Source\DLSS\Public\EDLSSPreset.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DLSS\Intermediate\Build\Win64\UE4Editor\Inc\DLSS\EDLSSPreset.generated.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\DLSS\Intermediate\Build\Win64\UE4Editor\Inc\DLSS\DLSSSettings.generated.h

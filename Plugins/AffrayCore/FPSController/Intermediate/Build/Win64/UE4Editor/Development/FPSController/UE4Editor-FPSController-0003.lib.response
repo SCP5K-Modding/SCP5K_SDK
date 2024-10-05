@@ -1,0 +1,19 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-FPSController-0003.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"L:\P3 Downloads\SCP5K_SDK\Intermediate\Build\Win64\PandemicEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\FPSController\Intermediate\Build\Win64\UE4Editor\Development\FPSController\Module.FPSController.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\FPSController\Intermediate\Build\Win64\UE4Editor\Development\FPSController\Module.FPSController.gen.1_of_7.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\FPSController\Intermediate\Build\Win64\UE4Editor\Development\FPSController\Module.FPSController.gen.2_of_7.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\FPSController\Intermediate\Build\Win64\UE4Editor\Development\FPSController\Module.FPSController.gen.3_of_7.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\FPSController\Intermediate\Build\Win64\UE4Editor\Development\FPSController\Module.FPSController.gen.4_of_7.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\FPSController\Intermediate\Build\Win64\UE4Editor\Development\FPSController\Module.FPSController.gen.5_of_7.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\FPSController\Intermediate\Build\Win64\UE4Editor\Development\FPSController\Module.FPSController.gen.6_of_7.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\FPSController\Intermediate\Build\Win64\UE4Editor\Development\FPSController\Module.FPSController.gen.7_of_7.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\FPSController\Intermediate\Build\Win64\UE4Editor\Development\FPSController\Default.rc2.res"
+/OUT:"L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\FPSController\Intermediate\Build\Win64\UE4Editor\Development\FPSController\UE4Editor-FPSController-0003.lib"

@@ -1,0 +1,13 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-DebugUtils.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\linck\Desktop\SCP5K_SDK\Intermediate\Build\Win64\PandemicEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\DebugUtils\Intermediate\Build\Win64\UE4Editor\Development\DebugUtils\Module.DebugUtils.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\DebugUtils\Intermediate\Build\Win64\UE4Editor\Development\DebugUtils\Module.DebugUtils.gen.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\DebugUtils\Intermediate\Build\Win64\UE4Editor\Development\DebugUtils\Default.rc2.res"
+/OUT:"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\DebugUtils\Intermediate\Build\Win64\UE4Editor\Development\DebugUtils\UE4Editor-DebugUtils.lib"

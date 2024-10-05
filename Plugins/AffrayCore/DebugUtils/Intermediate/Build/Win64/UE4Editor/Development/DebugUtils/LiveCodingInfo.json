@@ -1,0 +1,13 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.DebugUtils.cpp.obj": [
+			"DebugUtilsBPLibrary.cpp.obj",
+			"DebugUtilsModule.cpp.obj"
+		],
+		"Module.DebugUtils.gen.cpp.obj": [
+			"DebugUtils.init.gen.cpp.obj",
+			"DebugUtilsBPLibrary.gen.cpp.obj"
+		]
+	}
+}

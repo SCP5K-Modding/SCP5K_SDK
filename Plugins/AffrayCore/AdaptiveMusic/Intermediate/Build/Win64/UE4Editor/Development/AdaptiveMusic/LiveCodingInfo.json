@@ -1,0 +1,17 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.AdaptiveMusic.cpp.obj": [
+			"AdaptiveMusicComponent.cpp.obj",
+			"AdaptiveMusicModule.cpp.obj",
+			"AdaptiveMusicSubsystem.cpp.obj",
+			"AdaptiveMusicVolume.cpp.obj"
+		],
+		"Module.AdaptiveMusic.gen.cpp.obj": [
+			"AdaptiveMusic.init.gen.cpp.obj",
+			"AdaptiveMusicComponent.gen.cpp.obj",
+			"AdaptiveMusicSubsystem.gen.cpp.obj",
+			"AdaptiveMusicVolume.gen.cpp.obj"
+		]
+	}
+}

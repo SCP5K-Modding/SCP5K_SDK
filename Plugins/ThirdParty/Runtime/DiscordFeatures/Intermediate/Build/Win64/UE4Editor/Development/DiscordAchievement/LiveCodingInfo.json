@@ -1,0 +1,23 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.DiscordAchievement.cpp.obj": [
+			"BaseAchievementAsyncProxy.cpp.obj",
+			"DiscordAchievementManager.cpp.obj",
+			"DiscordAchievementModule.cpp.obj",
+			"DiscordUserAchievement.cpp.obj",
+			"FetchUserAchievementsProxy.cpp.obj",
+			"SetUserAchievementProxy.cpp.obj"
+		],
+		"Module.DiscordAchievement.gen.cpp.obj": [
+			"AchievementOnUserAchievementUpdateDelegate.gen.cpp.obj",
+			"BaseAchievementAsyncProxy.gen.cpp.obj",
+			"DiscordAchievement.init.gen.cpp.obj",
+			"DiscordAchievementManager.gen.cpp.obj",
+			"DiscordResultEventDelegate.gen.cpp.obj",
+			"DiscordUserAchievement.gen.cpp.obj",
+			"FetchUserAchievementsProxy.gen.cpp.obj",
+			"SetUserAchievementProxy.gen.cpp.obj"
+		]
+	}
+}

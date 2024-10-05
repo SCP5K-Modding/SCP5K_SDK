@@ -1,0 +1,8 @@
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AmbientAudioVolumes\Intermediate\Build\Win64\UE4Editor\Development\AmbientAudioVolumes\Definitions.AmbientAudioVolumes.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/AmbientAudioVolumes/Source/AmbientAudioVolumes/Private/AmbientAudioComponent.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AmbientAudioVolumes\Source\AmbientAudioVolumes\Public\AmbientAudioComponent.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AmbientAudioVolumes\Intermediate\Build\Win64\UE4Editor\Inc\AmbientAudioVolumes\AmbientAudioComponent.generated.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/AmbientAudioVolumes/Source/AmbientAudioVolumes/Private/AmbientAudioVolume.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AmbientAudioVolumes\Source\AmbientAudioVolumes\Public\AmbientAudioVolume.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\AmbientAudioVolumes\Intermediate\Build\Win64\UE4Editor\Inc\AmbientAudioVolumes\AmbientAudioVolume.generated.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/AmbientAudioVolumes/Source/AmbientAudioVolumes/Private/AmbientAudioVolumesModule.cpp

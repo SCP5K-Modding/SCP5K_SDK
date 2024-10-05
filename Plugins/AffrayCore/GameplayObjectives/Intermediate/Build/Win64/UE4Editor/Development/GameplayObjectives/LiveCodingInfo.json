@@ -1,0 +1,56 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.GameplayObjectives.cpp.obj": [
+			"ActivateObjectiveTrigger.cpp.obj",
+			"DeactivateObjectiveTrigger.cpp.obj",
+			"GameplayObjectivesModule.cpp.obj",
+			"NumberObjective.cpp.obj",
+			"NumberObjectiveTrigger.cpp.obj",
+			"Objective.cpp.obj",
+			"ObjectiveAsyncAction.cpp.obj",
+			"ObjectiveFunctionLibrary.cpp.obj",
+			"ObjectiveManager.cpp.obj",
+			"ObjectiveSubsystem.cpp.obj",
+			"ObjectiveTrigger.cpp.obj",
+			"PlayerObjective.cpp.obj",
+			"PlayerObjectiveTrigger.cpp.obj",
+			"ProgressObjective.cpp.obj",
+			"ResetObjectiveTrigger.cpp.obj",
+			"SimpleObjectiveData.cpp.obj",
+			"StartObjectiveTrigger.cpp.obj"
+		],
+		"Module.GameplayObjectives.gen.cpp.obj": [
+			"ActivateObjectiveTrigger.gen.cpp.obj",
+			"DeactivateObjectiveTrigger.gen.cpp.obj",
+			"EObjectiveTriggerAction.gen.cpp.obj",
+			"GameplayObjectives.init.gen.cpp.obj",
+			"NumberObjective.gen.cpp.obj",
+			"NumberObjectiveTrigger.gen.cpp.obj",
+			"Objective.gen.cpp.obj",
+			"ObjectiveActivatedDelegateDelegate.gen.cpp.obj",
+			"ObjectiveAsyncAction.gen.cpp.obj",
+			"ObjectiveAsyncOutputPinDelegate.gen.cpp.obj",
+			"ObjectiveChildAddedDelegateDelegate.gen.cpp.obj",
+			"ObjectiveChildRemovedDelegateDelegate.gen.cpp.obj",
+			"ObjectiveCompletedBPDelegateDelegate.gen.cpp.obj",
+			"ObjectiveCompletedDelegateDelegate.gen.cpp.obj",
+			"ObjectiveDeactivatedDelegateDelegate.gen.cpp.obj",
+			"ObjectiveFunctionLibrary.gen.cpp.obj",
+			"ObjectiveManager.gen.cpp.obj",
+			"ObjectiveManagerUpdatedDelegateDelegate.gen.cpp.obj",
+			"ObjectiveModifiedDelegateDelegate.gen.cpp.obj",
+			"ObjectiveResetDelegateDelegate.gen.cpp.obj",
+			"ObjectiveStartedDelegateDelegate.gen.cpp.obj",
+			"ObjectiveSubsystem.gen.cpp.obj",
+			"ObjectiveTrigger.gen.cpp.obj",
+			"ObjectiveUpdatedDelegateDelegate.gen.cpp.obj",
+			"PlayerObjective.gen.cpp.obj",
+			"PlayerObjectiveTrigger.gen.cpp.obj",
+			"ProgressObjective.gen.cpp.obj",
+			"ResetObjectiveTrigger.gen.cpp.obj",
+			"SimpleObjectiveData.gen.cpp.obj",
+			"StartObjectiveTrigger.gen.cpp.obj"
+		]
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.DiscordStorage.cpp.obj": [
+			"BaseStorageAsyncProxy.cpp.obj",
+			"DiscordFileStat.cpp.obj",
+			"DiscordStorageManager.cpp.obj",
+			"DiscordStorageModule.cpp.obj",
+			"ReadAsyncPartialProxy.cpp.obj",
+			"ReadAsyncProxy.cpp.obj",
+			"WriteAsyncProxy.cpp.obj"
+		],
+		"Module.DiscordStorage.gen.cpp.obj": [
+			"BaseStorageAsyncProxy.gen.cpp.obj",
+			"DiscordFileStat.gen.cpp.obj",
+			"DiscordStorage.init.gen.cpp.obj",
+			"DiscordStorageManager.gen.cpp.obj",
+			"OnReadAsyncEventDelegate.gen.cpp.obj",
+			"OnWriteAsyncEventDelegate.gen.cpp.obj",
+			"ReadAsyncPartialProxy.gen.cpp.obj",
+			"ReadAsyncProxy.gen.cpp.obj",
+			"WriteAsyncProxy.gen.cpp.obj"
+		]
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.DiscordApplication.cpp.obj": [
+			"ApplicationGetOAuth2TokenProxy.cpp.obj",
+			"ApplicationGetTicketProxy.cpp.obj",
+			"ApplicationValidateOrExitProxy.cpp.obj",
+			"BaseApplicationAsyncProxy.cpp.obj",
+			"DiscordApplicationManager.cpp.obj",
+			"DiscordApplicationModule.cpp.obj",
+			"DiscordOAuth2Token.cpp.obj",
+			"DiscordSignedAppTicket.cpp.obj"
+		],
+		"Module.DiscordApplication.gen.cpp.obj": [
+			"ApplicationGetOAuth2TokenProxy.gen.cpp.obj",
+			"ApplicationGetTicketProxy.gen.cpp.obj",
+			"ApplicationValidateOrExitProxy.gen.cpp.obj",
+			"BaseApplicationAsyncProxy.gen.cpp.obj",
+			"DiscordApplication.init.gen.cpp.obj",
+			"DiscordApplicationManager.gen.cpp.obj",
+			"DiscordOAuth2Token.gen.cpp.obj",
+			"DiscordOnOAuth2TokenReceivedDelegate.gen.cpp.obj",
+			"DiscordOnTickerReceivedDelegate.gen.cpp.obj",
+			"DiscordOnValidateOrExitDelegate.gen.cpp.obj",
+			"DiscordSignedAppTicket.gen.cpp.obj"
+		]
+	}
+}

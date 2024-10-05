@@ -1,0 +1,9 @@
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/TextProperty.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio/Classes/FMODSnapshotReverb.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Source\FMODStudio\Classes\FMODAsset.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Intermediate\Build\Win64\UE4Editor\Inc\FMODStudio\FMODAsset.generated.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Engine\Classes\Sound/ReverbEffect.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\ReverbEffect.generated.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\FMODStudio\Intermediate\Build\Win64\UE4Editor\Inc\FMODStudio\FMODSnapshotReverb.generated.h

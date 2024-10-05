@@ -1,0 +1,16 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.SkinnedDecalComponent.cpp.obj": [
+			"SkinnedDecalComponentModule.cpp.obj",
+			"SkinnedDecalInstance.cpp.obj",
+			"SkinnedDecalSampler.cpp.obj"
+		],
+		"Module.SkinnedDecalComponent.gen.cpp.obj": [
+			"ESkinnedDecalAdditionalData.gen.cpp.obj",
+			"SkinnedDecalComponent.init.gen.cpp.obj",
+			"SkinnedDecalInstance.gen.cpp.obj",
+			"SkinnedDecalSampler.gen.cpp.obj"
+		]
+	}
+}

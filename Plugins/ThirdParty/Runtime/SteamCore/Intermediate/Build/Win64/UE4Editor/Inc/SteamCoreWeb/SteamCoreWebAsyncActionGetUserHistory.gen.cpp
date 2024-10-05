@@ -1,0 +1,195 @@
+// Copyright Epic Games, Inc. All Rights Reserved.
+/*===========================================================================
+	Generated code exported from UnrealHeaderTool.
+	DO NOT modify this manually! Edit the corresponding .h files instead!
+===========================================================================*/
+
+#include "UObject/GeneratedCppIncludes.h"
+#include "SteamCoreWeb/Public/SteamCoreWebAsyncActionGetUserHistory.h"
+#ifdef _MSC_VER
+#pragma warning (push)
+#pragma warning (disable : 4883)
+#endif
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+void EmptyLinkFunctionForGeneratedCodeSteamCoreWebAsyncActionGetUserHistory() {}
+// Cross Module References
+	STEAMCOREWEB_API UClass* Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory_NoRegister();
+	STEAMCOREWEB_API UClass* Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory();
+	STEAMCOREWEB_API UClass* Z_Construct_UClass_USteamCoreWebAsyncAction();
+	UPackage* Z_Construct_UPackage__Script_SteamCoreWeb();
+	COREUOBJECT_API UClass* Z_Construct_UClass_UObject_NoRegister();
+// End Cross Module References
+	DEFINE_FUNCTION(USteamCoreWebAsyncActionGetUserHistory::execGetUserHistoryAsync)
+	{
+		P_GET_OBJECT(UObject,Z_Param_WorldContextObject);
+		P_GET_PROPERTY(FStrProperty,Z_Param_Key);
+		P_GET_PROPERTY(FIntProperty,Z_Param_AppID);
+		P_GET_PROPERTY(FStrProperty,Z_Param_SteamID);
+		P_GET_PROPERTY(FStrProperty,Z_Param_contextID);
+		P_GET_PROPERTY(FIntProperty,Z_Param_StartTime);
+		P_GET_PROPERTY(FIntProperty,Z_Param_EndTime);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		*(USteamCoreWebAsyncActionGetUserHistory**)Z_Param__Result=USteamCoreWebAsyncActionGetUserHistory::GetUserHistoryAsync(Z_Param_WorldContextObject,Z_Param_Key,Z_Param_AppID,Z_Param_SteamID,Z_Param_contextID,Z_Param_StartTime,Z_Param_EndTime);
+		P_NATIVE_END;
+	}
+	void USteamCoreWebAsyncActionGetUserHistory::StaticRegisterNativesUSteamCoreWebAsyncActionGetUserHistory()
+	{
+		UClass* Class = USteamCoreWebAsyncActionGetUserHistory::StaticClass();
+		static const FNameNativePtrPair Funcs[] = {
+			{ "GetUserHistoryAsync", &USteamCoreWebAsyncActionGetUserHistory::execGetUserHistoryAsync },
+		};
+		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
+	}
+	struct Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics
+	{
+		struct SteamCoreWebAsyncActionGetUserHistory_eventGetUserHistoryAsync_Parms
+		{
+			UObject* WorldContextObject;
+			FString Key;
+			int32 AppID;
+			FString SteamID;
+			FString contextID;
+			int32 StartTime;
+			int32 EndTime;
+			USteamCoreWebAsyncActionGetUserHistory* ReturnValue;
+		};
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_WorldContextObject;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Key_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FStrPropertyParams NewProp_Key;
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_AppID;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SteamID_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FStrPropertyParams NewProp_SteamID;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_contextID_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FStrPropertyParams NewProp_contextID;
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_StartTime;
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_EndTime;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_ReturnValue;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_WorldContextObject = { "WorldContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(SteamCoreWebAsyncActionGetUserHistory_eventGetUserHistoryAsync_Parms, WorldContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_Key_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif
+	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_Key = { "Key", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(SteamCoreWebAsyncActionGetUserHistory_eventGetUserHistoryAsync_Parms, Key), METADATA_PARAMS(Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_Key_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_Key_MetaData)) };
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_AppID = { "AppID", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(SteamCoreWebAsyncActionGetUserHistory_eventGetUserHistoryAsync_Parms, AppID), METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_SteamID_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif
+	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_SteamID = { "SteamID", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(SteamCoreWebAsyncActionGetUserHistory_eventGetUserHistoryAsync_Parms, SteamID), METADATA_PARAMS(Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_SteamID_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_SteamID_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_contextID_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif
+	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_contextID = { "contextID", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(SteamCoreWebAsyncActionGetUserHistory_eventGetUserHistoryAsync_Parms, contextID), METADATA_PARAMS(Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_contextID_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_contextID_MetaData)) };
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_StartTime = { "StartTime", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(SteamCoreWebAsyncActionGetUserHistory_eventGetUserHistoryAsync_Parms, StartTime), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_EndTime = { "EndTime", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(SteamCoreWebAsyncActionGetUserHistory_eventGetUserHistoryAsync_Parms, EndTime), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(SteamCoreWebAsyncActionGetUserHistory_eventGetUserHistoryAsync_Parms, ReturnValue), Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory_NoRegister, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_WorldContextObject,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_Key,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_AppID,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_SteamID,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_contextID,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_StartTime,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_EndTime,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::NewProp_ReturnValue,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/SteamCoreWebAsyncActionGetUserHistory.h" },
+		{ "WorldContext", "WorldContextObject" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory, nullptr, "GetUserHistoryAsync", nullptr, nullptr, sizeof(SteamCoreWebAsyncActionGetUserHistory_eventGetUserHistoryAsync_Parms), Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	UClass* Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory_NoRegister()
+	{
+		return USteamCoreWebAsyncActionGetUserHistory::StaticClass();
+	}
+	struct Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory_Statics
+	{
+		static UObject* (*const DependentSingletons[])();
+		static const FClassFunctionLinkInfo FuncInfo[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
+#endif
+		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
+		static const UE4CodeGen_Private::FClassParams ClassParams;
+	};
+	UObject* (*const Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory_Statics::DependentSingletons[])() = {
+		(UObject* (*)())Z_Construct_UClass_USteamCoreWebAsyncAction,
+		(UObject* (*)())Z_Construct_UPackage__Script_SteamCoreWeb,
+	};
+	const FClassFunctionLinkInfo Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory_Statics::FuncInfo[] = {
+		{ &Z_Construct_UFunction_USteamCoreWebAsyncActionGetUserHistory_GetUserHistoryAsync, "GetUserHistoryAsync" }, // 4256447993
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory_Statics::Class_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "IncludePath", "SteamCoreWebAsyncActionGetUserHistory.h" },
+		{ "IsBlueprintBase", "true" },
+		{ "ModuleRelativePath", "Public/SteamCoreWebAsyncActionGetUserHistory.h" },
+	};
+#endif
+	const FCppClassTypeInfoStatic Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory_Statics::StaticCppClassTypeInfo = {
+		TCppClassTypeTraits<USteamCoreWebAsyncActionGetUserHistory>::IsAbstract,
+	};
+	const UE4CodeGen_Private::FClassParams Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory_Statics::ClassParams = {
+		&USteamCoreWebAsyncActionGetUserHistory::StaticClass,
+		nullptr,
+		&StaticCppClassTypeInfo,
+		DependentSingletons,
+		FuncInfo,
+		nullptr,
+		nullptr,
+		UE_ARRAY_COUNT(DependentSingletons),
+		UE_ARRAY_COUNT(FuncInfo),
+		0,
+		0,
+		0x009000A0u,
+		METADATA_PARAMS(Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory_Statics::Class_MetaDataParams))
+	};
+	UClass* Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory()
+	{
+		static UClass* OuterClass = nullptr;
+		if (!OuterClass)
+		{
+			UE4CodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory_Statics::ClassParams);
+		}
+		return OuterClass;
+	}
+	IMPLEMENT_CLASS(USteamCoreWebAsyncActionGetUserHistory, 2193844144);
+	template<> STEAMCOREWEB_API UClass* StaticClass<USteamCoreWebAsyncActionGetUserHistory>()
+	{
+		return USteamCoreWebAsyncActionGetUserHistory::StaticClass();
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_USteamCoreWebAsyncActionGetUserHistory(Z_Construct_UClass_USteamCoreWebAsyncActionGetUserHistory, &USteamCoreWebAsyncActionGetUserHistory::StaticClass, TEXT("/Script/SteamCoreWeb"), TEXT("USteamCoreWebAsyncActionGetUserHistory"), false, nullptr, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(USteamCoreWebAsyncActionGetUserHistory);
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+#ifdef _MSC_VER
+#pragma warning (pop)
+#endif

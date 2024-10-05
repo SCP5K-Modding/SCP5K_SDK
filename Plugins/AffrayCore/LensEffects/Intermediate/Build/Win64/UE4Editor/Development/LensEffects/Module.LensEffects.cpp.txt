@@ -1,0 +1,17 @@
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\LensEffects\Intermediate\Build\Win64\UE4Editor\Development\LensEffects\Definitions.LensEffects.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/LensEffects/Source/LensEffects/Private/LensEffectsModule.cpp
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/LensEffects/Source/LensEffects/Private/LensEffectsSubsystem.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\LensEffects\Source\LensEffects\Public\LensEffectsSubsystem.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\LensEffects\Intermediate\Build\Win64\UE4Editor\Inc\LensEffects\LensEffectsSubsystem.generated.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/LensEffects/Source/LensEffects/Private/LensFlareGhostSettings.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\LensEffects\Source\LensEffects\Public\LensFlareGhostSettings.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/NoExportTypes.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\UObject/PropertyAccessUtil.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Core\Public\Math/UnitConversion.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Core\Public\Math/UnitConversion.inl
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\Core\Public\Internationalization/PolyglotTextData.h
+L:\Software\Unreal Engine\UE_4.27\Engine\Source\Runtime\CoreUObject\Public\AssetRegistry/ARFilter.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\LensEffects\Intermediate\Build\Win64\UE4Editor\Inc\LensEffects\LensFlareGhostSettings.generated.h
+L:/P3 Downloads/SCP5K_SDK/Plugins/AffrayCore/LensEffects/Source/LensEffects/Private/PostProcessLensFlareAsset.cpp
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\LensEffects\Source\LensEffects\Public\PostProcessLensFlareAsset.h
+L:\P3 Downloads\SCP5K_SDK\Plugins\AffrayCore\LensEffects\Intermediate\Build\Win64\UE4Editor\Inc\LensEffects\PostProcessLensFlareAsset.generated.h

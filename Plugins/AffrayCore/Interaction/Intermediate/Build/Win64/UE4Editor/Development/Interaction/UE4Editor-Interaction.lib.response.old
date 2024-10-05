@@ -1,0 +1,13 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-Interaction.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\linck\Desktop\SCP5K_SDK\Intermediate\Build\Win64\PandemicEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\Interaction\Intermediate\Build\Win64\UE4Editor\Development\Interaction\Module.Interaction.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\Interaction\Intermediate\Build\Win64\UE4Editor\Development\Interaction\Module.Interaction.gen.cpp.obj"
+"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\Interaction\Intermediate\Build\Win64\UE4Editor\Development\Interaction\Default.rc2.res"
+/OUT:"C:\Users\linck\Desktop\SCP5K_SDK\Plugins\AffrayCore\Interaction\Intermediate\Build\Win64\UE4Editor\Development\Interaction\UE4Editor-Interaction.lib"

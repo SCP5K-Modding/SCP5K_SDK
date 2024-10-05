@@ -1,0 +1,147 @@
+// Copyright Epic Games, Inc. All Rights Reserved.
+/*===========================================================================
+	Generated code exported from UnrealHeaderTool.
+	DO NOT modify this manually! Edit the corresponding .h files instead!
+===========================================================================*/
+
+#include "UObject/GeneratedCppIncludes.h"
+#include "SteamCore/Public/SetPersonaNameResponse.h"
+#ifdef _MSC_VER
+#pragma warning (push)
+#pragma warning (disable : 4883)
+#endif
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+void EmptyLinkFunctionForGeneratedCodeSetPersonaNameResponse() {}
+// Cross Module References
+	STEAMCORE_API UScriptStruct* Z_Construct_UScriptStruct_FSetPersonaNameResponse();
+	UPackage* Z_Construct_UPackage__Script_SteamCore();
+	STEAMCORE_API UEnum* Z_Construct_UEnum_SteamCore_ESteamResult();
+// End Cross Module References
+class UScriptStruct* FSetPersonaNameResponse::StaticStruct()
+{
+	static class UScriptStruct* Singleton = NULL;
+	if (!Singleton)
+	{
+		extern STEAMCORE_API uint32 Get_Z_Construct_UScriptStruct_FSetPersonaNameResponse_Hash();
+		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSetPersonaNameResponse, Z_Construct_UPackage__Script_SteamCore(), TEXT("SetPersonaNameResponse"), sizeof(FSetPersonaNameResponse), Get_Z_Construct_UScriptStruct_FSetPersonaNameResponse_Hash());
+	}
+	return Singleton;
+}
+template<> STEAMCORE_API UScriptStruct* StaticStruct<FSetPersonaNameResponse>()
+{
+	return FSetPersonaNameResponse::StaticStruct();
+}
+static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSetPersonaNameResponse(FSetPersonaNameResponse::StaticStruct, TEXT("/Script/SteamCore"), TEXT("SetPersonaNameResponse"), false, nullptr, nullptr);
+static struct FScriptStruct_SteamCore_StaticRegisterNativesFSetPersonaNameResponse
+{
+	FScriptStruct_SteamCore_StaticRegisterNativesFSetPersonaNameResponse()
+	{
+		UScriptStruct::DeferCppStructOps<FSetPersonaNameResponse>(FName(TEXT("SetPersonaNameResponse")));
+	}
+} ScriptStruct_SteamCore_StaticRegisterNativesFSetPersonaNameResponse;
+	struct Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics
+	{
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
+#endif
+		static void* NewStructOps();
+		static const UE4CodeGen_Private::FBytePropertyParams NewProp_Result_Underlying;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Result_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FEnumPropertyParams NewProp_Result;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_bSuccess_MetaData[];
+#endif
+		static void NewProp_bSuccess_SetBit(void* Obj);
+		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_bSuccess;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_bLocalSuccess_MetaData[];
+#endif
+		static void NewProp_bLocalSuccess_SetBit(void* Obj);
+		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_bLocalSuccess;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+		static const UE4CodeGen_Private::FStructParams ReturnStructParams;
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::Struct_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "ModuleRelativePath", "Public/SetPersonaNameResponse.h" },
+	};
+#endif
+	void* Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewStructOps()
+	{
+		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSetPersonaNameResponse>();
+	}
+	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_Result_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UE4CodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_Result_MetaData[] = {
+		{ "AllowPrivateAccess", "TRUE" },
+		{ "Category", "SetPersonaNameResponse" },
+		{ "ModuleRelativePath", "Public/SetPersonaNameResponse.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_Result = { "Result", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSetPersonaNameResponse, Result), Z_Construct_UEnum_SteamCore_ESteamResult, METADATA_PARAMS(Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_Result_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_Result_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bSuccess_MetaData[] = {
+		{ "AllowPrivateAccess", "TRUE" },
+		{ "Category", "SetPersonaNameResponse" },
+		{ "ModuleRelativePath", "Public/SetPersonaNameResponse.h" },
+	};
+#endif
+	void Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bSuccess_SetBit(void* Obj)
+	{
+		((FSetPersonaNameResponse*)Obj)->bSuccess = 1;
+	}
+	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bSuccess = { "bSuccess", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Bool | UE4CodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(FSetPersonaNameResponse), &Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bSuccess_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bSuccess_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bSuccess_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bLocalSuccess_MetaData[] = {
+		{ "AllowPrivateAccess", "TRUE" },
+		{ "Category", "SetPersonaNameResponse" },
+		{ "ModuleRelativePath", "Public/SetPersonaNameResponse.h" },
+	};
+#endif
+	void Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bLocalSuccess_SetBit(void* Obj)
+	{
+		((FSetPersonaNameResponse*)Obj)->bLocalSuccess = 1;
+	}
+	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bLocalSuccess = { "bLocalSuccess", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Bool | UE4CodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(FSetPersonaNameResponse), &Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bLocalSuccess_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bLocalSuccess_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bLocalSuccess_MetaData)) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_Result_Underlying,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_Result,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bSuccess,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::NewProp_bLocalSuccess,
+	};
+	const UE4CodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::ReturnStructParams = {
+		(UObject* (*)())Z_Construct_UPackage__Script_SteamCore,
+		nullptr,
+		&NewStructOps,
+		"SetPersonaNameResponse",
+		sizeof(FSetPersonaNameResponse),
+		alignof(FSetPersonaNameResponse),
+		Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::PropPointers,
+		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::PropPointers),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EStructFlags(0x00000001),
+		METADATA_PARAMS(Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::Struct_MetaDataParams))
+	};
+	UScriptStruct* Z_Construct_UScriptStruct_FSetPersonaNameResponse()
+	{
+#if WITH_HOT_RELOAD
+		extern uint32 Get_Z_Construct_UScriptStruct_FSetPersonaNameResponse_Hash();
+		UPackage* Outer = Z_Construct_UPackage__Script_SteamCore();
+		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SetPersonaNameResponse"), sizeof(FSetPersonaNameResponse), Get_Z_Construct_UScriptStruct_FSetPersonaNameResponse_Hash(), false);
+#else
+		static UScriptStruct* ReturnStruct = nullptr;
+#endif
+		if (!ReturnStruct)
+		{
+			UE4CodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSetPersonaNameResponse_Statics::ReturnStructParams);
+		}
+		return ReturnStruct;
+	}
+	uint32 Get_Z_Construct_UScriptStruct_FSetPersonaNameResponse_Hash() { return 1907740080U; }
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+#ifdef _MSC_VER
+#pragma warning (pop)
+#endif

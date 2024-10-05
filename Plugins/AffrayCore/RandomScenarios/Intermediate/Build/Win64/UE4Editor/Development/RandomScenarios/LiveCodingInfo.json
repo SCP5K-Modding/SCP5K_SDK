@@ -1,0 +1,20 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.RandomScenarios.cpp.obj": [
+			"RandomScenarioManager.cpp.obj",
+			"RandomScenariosModule.cpp.obj",
+			"Scenario.cpp.obj",
+			"ScenarioComponent.cpp.obj",
+			"ScenarioManagerComponent.cpp.obj"
+		],
+		"Module.RandomScenarios.gen.cpp.obj": [
+			"RandomScenarioManager.gen.cpp.obj",
+			"RandomScenarios.init.gen.cpp.obj",
+			"Scenario.gen.cpp.obj",
+			"ScenarioComponent.gen.cpp.obj",
+			"ScenarioItem.gen.cpp.obj",
+			"ScenarioManagerComponent.gen.cpp.obj"
+		]
+	}
+}

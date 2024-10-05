@@ -1,0 +1,28 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-SteamCore-0003.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"L:\P3 Downloads\SCP5K_SDK\Intermediate\Build\Win64\PandemicEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.1_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.2_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.3_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.4_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.5_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.6_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.7_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.8_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.9_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.10_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.11_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.12_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.13_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.14_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.15_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Module.SteamCore.gen.16_of_16.cpp.obj"
+"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\Default.rc2.res"
+/OUT:"L:\P3 Downloads\SCP5K_SDK\Plugins\ThirdParty\Runtime\SteamCore\Intermediate\Build\Win64\UE4Editor\Development\SteamCore\UE4Editor-SteamCore-0003.lib"

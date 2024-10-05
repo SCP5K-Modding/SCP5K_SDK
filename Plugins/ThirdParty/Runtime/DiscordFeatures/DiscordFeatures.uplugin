@@ -1,0 +1,200 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.2.9",
+	"FriendlyName": "Discord Features",
+	"Description": "Discord Game SDK features for the Unreal Engine. Easily integrate Discord with your game.",
+	"Category": "Discord",
+	"CreatedBy": "Pandores",
+	"CreatedByURL": "https://www.unrealengine.com/marketplace/en-US/profile/Pandores?count=200&sortBy=effectiveDate&sortDir=DESC&start=0",
+	"DocsURL": "https://github.com/Pandoa/DiscordFeatures/blob/master/README.md",
+	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/116f31feebb24938aaba6227f8617db4",
+	"SupportURL": "https://github.com/Pandoa/DiscordFeatures/blob/master/README.md",
+	"EngineVersion": "4.27.0",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "DiscordGateway",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux",
+				"IOS",
+				"Android"
+			]
+		},
+		{
+			"Name": "DiscordHttpApi",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux",
+				"IOS",
+				"Android"
+			]
+		},
+		{
+			"Name": "DiscordSdk",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		},
+		{
+			"Name": "DiscordCore",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		},
+		{
+			"Name": "DiscordAchievement",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		},
+		{
+			"Name": "DiscordActivity",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		},
+		{
+			"Name": "DiscordApplication",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		},
+		{
+			"Name": "DiscordImage",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		},
+		{
+			"Name": "DiscordLobby",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		},
+		{
+			"Name": "DiscordNetwork",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		},
+		{
+			"Name": "DiscordOverlay",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		},
+		{
+			"Name": "DiscordStorage",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		},
+		{
+			"Name": "DiscordStore",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		},
+		{
+			"Name": "DiscordVoice",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		},
+		{
+			"Name": "DiscordUser",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		},
+		{
+			"Name": "DiscordRelationship",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Mac",
+				"Linux"
+			]
+		}
+	]
+}
