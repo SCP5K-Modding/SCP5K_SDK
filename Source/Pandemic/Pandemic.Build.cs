@@ -13,7 +13,6 @@ public class Pandemic : ModuleRules {
             "Core",
             "CoreUObject",
             "DeveloperSettings",
-            "DialogueSystem",
             "Dismemberment",
             "Electronics",
             "Engine",

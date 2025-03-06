@@ -18,7 +18,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     UActivatableWidget* DisplayedWidget;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     FUserWidgetPool GeneratedWidgetsPool;
     
 private:

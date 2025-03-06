@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "4.27Source",
+	"EngineAssociation": "4.27",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -104,7 +104,7 @@
 		},
 		{
 			"Name": "FMODStudioNiagara",
-			"Enabled": true
+			"Enabled": false
 		},
 		{
 			"Name": "FPSController",
@@ -360,7 +360,7 @@
 		},
 		{
 			"Name": "BlockoutToolsPlugin",
-			"Enabled": true,
+			"Enabled": false,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/d337b97aca8947a893526964e179acfd"
 		}
 	],

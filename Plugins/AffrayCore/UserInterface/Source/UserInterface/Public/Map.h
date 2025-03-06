@@ -10,7 +10,7 @@ class USERINTERFACE_API AMap : public AActor {
     GENERATED_BODY()
 public:
 private:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true, Category=Map))
     UMapComponent* MapComponent;
     
 public:

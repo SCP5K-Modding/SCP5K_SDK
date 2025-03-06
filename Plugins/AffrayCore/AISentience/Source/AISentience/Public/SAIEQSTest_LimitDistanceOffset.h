@@ -13,7 +13,7 @@ UCLASS(Blueprintable)
 class AISENTIENCE_API USAIEQSTest_LimitDistanceOffset : public UEnvQueryTest {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
     FEnvTraceData TraceData;
     
     UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))

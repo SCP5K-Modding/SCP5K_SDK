@@ -39,7 +39,7 @@ private:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, Transient, meta=(AllowPrivateAccess=true))
     bool bIsReanimating;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_ServerPoseRepMovement, meta=(AllowPrivateAccess=true))
+    UPROPERTY(EditAnywhere, Transient, ReplicatedUsing=OnRep_ServerPoseRepMovement, meta=(AllowPrivateAccess=true))
     FRepMovement ServerPoseRepMovement;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))

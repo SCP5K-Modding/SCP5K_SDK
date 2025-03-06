@@ -23,7 +23,7 @@ public:
     FOnSyncSnapshotDelegate OnSyncPoseSnapshot;
     
 private:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
+    UPROPERTY(EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     FRepMovement PelvisReplicatedMovement;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, Transient, meta=(AllowPrivateAccess=true))

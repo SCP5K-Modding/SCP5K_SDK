@@ -13,7 +13,7 @@ UCLASS(Blueprintable)
 class AISENTIENCE_API USAIEQSTest_LineLimitedDistance : public UEnvQueryTest {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
     FEnvTraceData TraceData;
     
     UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -25,10 +25,10 @@ public:
     UPROPERTY(AdvancedDisplay, EditAnywhere, meta=(AllowPrivateAccess=true))
     FAIDataProviderFloatValue ContextHeightOffset;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
     TSubclassOf<UEnvQueryContext> Context;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
     float MaxDistance;
     
     USAIEQSTest_LineLimitedDistance();

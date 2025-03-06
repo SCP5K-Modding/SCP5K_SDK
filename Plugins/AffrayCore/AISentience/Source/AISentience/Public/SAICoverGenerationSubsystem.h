@@ -10,7 +10,7 @@ public:
     USAICoverGenerationSubsystem();
 
     UFUNCTION(BlueprintCallable)
-    void QueueTilesForCoverRegeneration(const TSet<uint32>& TileIndices);
+    void QueueTilesForCoverRegeneration(const TSet<int32>& TileIndices);
     
 };
 
