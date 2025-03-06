@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "OnlineSessionClient.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=OnlineSubsystemUtils -ObjectName=OnlineSessionClient -FallbackName=OnlineSessionClient
 #include "PandemicOnlineSessionClient.generated.h"
 
 UCLASS(Blueprintable)

@@ -21,6 +21,9 @@ AFPSPlayerControllerBase::AFPSPlayerControllerBase(const FObjectInitializer& Obj
     this->LastActionTimestamp = 0;
 }
 
+void AFPSPlayerControllerBase::UpdateCameraTarget_Implementation() {
+}
+
 ASpectatorPawn* AFPSPlayerControllerBase::Spectate() {
     return NULL;
 }

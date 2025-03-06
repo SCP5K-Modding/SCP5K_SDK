@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Navigation/CrowdFollowingComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=CrowdFollowingComponent -FallbackName=CrowdFollowingComponent
 #include "SAIPathFollowingComponent.generated.h"
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))

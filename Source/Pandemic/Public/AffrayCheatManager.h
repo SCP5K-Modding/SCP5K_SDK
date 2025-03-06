@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameFramework/CheatManager.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=CheatManager -FallbackName=CheatManager
 #include "AffrayCheatManager.generated.h"
 
 UCLASS(Blueprintable)

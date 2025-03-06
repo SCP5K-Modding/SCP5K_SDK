@@ -1,16 +1,18 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "DoorInteraction.h"
-#include "GameFramework/Character.h"
-#include "Engine/EngineTypes.h"
-#include "Engine/NetSerialization.h"
-#include "AIMeleeAttackType.h"
-#include "Damageable.h"
-#include "SimpleHitData.h"
-#include "Suppressable.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Electronics -ObjectName=DoorInteraction -FallbackName=DoorInteraction
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Character -FallbackName=Character
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=HitResult -FallbackName=HitResult
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PoseSnapshot -FallbackName=PoseSnapshot
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Vector_NetQuantize -FallbackName=Vector_NetQuantize
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=AIMeleeAttackType -FallbackName=AIMeleeAttackType
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Damageable -FallbackName=Damageable
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=SimpleHitData -FallbackName=SimpleHitData
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Suppressable -FallbackName=Suppressable
 #include "DeathAnimationData.h"
 #include "EZombieLifeState.h"
+#include "RagdollPuppet.h"
 #include "ReanimationData.h"
 #include "Templates/SubclassOf.h"
 #include "AIZombieCharacter.generated.h"
@@ -19,23 +21,27 @@ class AController;
 class AElectronicDoor;
 class UAIPerceptionStimuliSourceComponent;
 class UAnimMontage;
+class UBodySubsystem;
 class UDamageType;
 class UDismembermentComponent;
+class UEnemySubsystem;
 class UFMODAudioComponent;
 class UFMODEvent;
+class UFastReplicatedRagdoll;
 class UFootstepComponent;
 class UGoreComponent;
 class UHealthComponent;
 class UNavLinkCustomComponent;
 class UNavigationQueryFilter;
 class UPhysicalAnimationComponent;
+class UReanimationComponent;
 class USAIMeleeComponent;
 class USkeletalMesh;
 class USplatterComponent;
 class UTickOptimizerComponent;
 
 UCLASS(Blueprintable)
-class PANDEMIC_API AAIZombieCharacter : public ACharacter, public IDamageable, public ISuppressable, public IDoorInteraction {
+class PANDEMIC_API AAIZombieCharacter : public ACharacter, public IDamageable, public ISuppressable, public IDoorInteraction, public IRagdollPuppet {
     GENERATED_BODY()
 public:
     DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnZombieUpdatedLifeStateDelegate);
@@ -63,7 +69,20 @@ public:
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FOnZombieInteractDoorDelegate OnZombieInteractDoor;
     
+protected:
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FPoseSnapshot RagdolledPoseSnapshot;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bRagdollIsFaceUp;
+    
 private:
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UEnemySubsystem* EnemySubsystem;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UBodySubsystem* BodySubsystem;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     UDismembermentComponent* DismembermentComponent;
     
@@ -94,6 +113,12 @@ private:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     UAIPerceptionStimuliSourceComponent* StimuliSourceComponent;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
+    UFastReplicatedRagdoll* ReplicatedRagdollComponent;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
+    UReanimationComponent* ReanimationComponent;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float MaxEventInstanceSpeed;
     
@@ -111,6 +136,18 @@ private:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UFMODEvent* AttackSound;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UFMODEvent* AttackHeavySound;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UFMODEvent* AttackSwingSound;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UFMODEvent* AttackHeavySwingSound;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bAutoPlayAttackSound;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_CurrentMoveSpeed, meta=(AllowPrivateAccess=true))
     float CurrentMoveSpeed;
@@ -149,6 +186,12 @@ private:
     float RagdollHitImpulseMultiplier;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bSetTrulyDeadPrimitiveData;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    int32 VertAnimSpeedPrimDataChannel;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<FReanimationData> ReanimationMontages;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -162,9 +205,6 @@ private:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float FakeDeathHealthPercentageThreshold;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, Transient, meta=(AllowPrivateAccess=true))
-    float RandomReanimationStartDelay;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float ReanimationStartDelayMin;
@@ -181,10 +221,7 @@ private:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float FakeRagdollVelocityThreshold;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    bool bIsFakingDeath;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_CurrentLifeState, meta=(AllowPrivateAccess=true))
     EZombieLifeState CurrentLifeState;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -290,10 +327,10 @@ public:
 
 protected:
     UFUNCTION(BlueprintCallable)
-    void StopZombieReanimationMontage();
+    void StopZombieAttackAnimation();
     
     UFUNCTION(BlueprintCallable)
-    void StopZombieAttackAnimation();
+    void StopReanimationMontage();
     
     UFUNCTION(BlueprintCallable)
     void StopFakeDeathRagdoll();
@@ -310,9 +347,6 @@ protected:
     UFUNCTION(BlueprintCallable)
     void Stagger();
     
-    UFUNCTION(BlueprintCallable)
-    void SetZombieReanimationMontage(const UAnimMontage* DesiredMontage);
-    
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void SetZombieDeathAnimation(const UAnimMontage* Animation);
     
@@ -327,8 +361,8 @@ protected:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void SetServerRagdollLocation(FVector_NetQuantize RagdollLocation);
     
-    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
-    void SetRandomReanimationStartDelay(float DesiredDelay);
+    UFUNCTION(BlueprintCallable)
+    void SetReplicatedRagdollComponent(UFastReplicatedRagdoll* InReplicatedRagdollComponent);
     
     UFUNCTION(BlueprintCallable)
     void SetMinMoveSpeedVariance(float DesiredMinVariance);
@@ -353,9 +387,6 @@ protected:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void SetIsFrontHit(bool bDidHitFront);
     
-    UFUNCTION(BlueprintCallable)
-    void SetIsFakingDeath(bool bIsDeathFake);
-    
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void SetIsAIDying(bool bIsDying);
     
@@ -364,9 +395,6 @@ protected:
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void SetHitDirectionAngle(float Direction);
-    
-    UFUNCTION(BlueprintCallable)
-    void SetEndReanimationDelay(float DesiredDelay);
     
     UFUNCTION(BlueprintCallable)
     void SetDoorAttackMontage(UAnimMontage* NewMontage);
@@ -408,11 +436,34 @@ protected:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void ServerDie(const AController* DamageInstigator, FName LastHitBone);
     
+public:
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void Server_RagdollStopAndReclaim();
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void Server_RagdollPrepare();
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void Server_RagdollInitiate();
+    
+protected:
     UFUNCTION(BlueprintCallable)
     void SelectSkeletalMesh();
     
     UFUNCTION(BlueprintCallable)
+    void PlayAttackSwingSound(bool bIsHeavy);
+    
+    UFUNCTION(BlueprintCallable)
+    void PlayAttackSound(bool bIsHeavy);
+    
+    UFUNCTION(BlueprintCallable)
     void PlayAmbientSound();
+    
+    UFUNCTION(BlueprintCallable)
+    void OnZombieStartReanimation(UReanimationComponent* InReanimationComponent, UAnimMontage* ReanimationMontage, FVector TargetCapsuleLocation);
+    
+    UFUNCTION(BlueprintCallable)
+    void OnZombieEndReanimation(UReanimationComponent* InReanimationComponent);
     
 private:
     UFUNCTION(BlueprintCallable)
@@ -435,6 +486,9 @@ protected:
     void OnRep_CurrentMoveSpeed();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_CurrentLifeState(EZombieLifeState PreviousLifeState);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_CanFlinch();
     
 private:
@@ -444,20 +498,25 @@ private:
     UFUNCTION(BlueprintCallable)
     void OnHealthComponentDamaged(UHealthComponent* UpdatedHealthComponent, FSimpleHitData HitData);
     
+public:
     UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
-    void MulticastCosmeticPrepareReanimation_Delayed();
+    void NetMulticast_RagdollStopAndReclaim();
     
+    UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
+    void NetMulticast_RagdollPrepare();
+    
+    UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
+    void NetMulticast_RagdollInitiate();
+    
+protected:
+    UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+    void MulticastFakeDeath();
+    
+private:
     UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
     void MulticastCosmeticDoorAttack();
     
-protected:
-    UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
-    void MulticastCosmeticBeginReanimation(UAnimMontage* ReanimationMontage, float ReanimationDelay);
-    
 public:
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    UAnimMontage* GetZombieReanimationMontage() const;
-    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     UAnimMontage* GetZombieDeathAnimation() const;
     
@@ -484,11 +543,9 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     USAIMeleeComponent* GetSAIMeleeComponent() const;
     
-protected:
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetRandomReanimationStartDelay() const;
+    UFastReplicatedRagdoll* GetReplicatedRagdollComponent() const;
     
-public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetRandomMoveSpeedVariance() const;
     
@@ -633,5 +690,8 @@ public:
     
 
     // Fix for true pure virtual functions not being implemented
+    UFUNCTION()
+    bool RagdollCanActivate() override PURE_VIRTUAL(RagdollCanActivate, return false;);
+    
 };
 

@@ -1,16 +1,21 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "GameFramework/Character.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Color -FallbackName=Color
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Character -FallbackName=Character
+#include "DeferredDespawnImplementor.h"
 #include "SCP173Base.generated.h"
 
 class AActor;
+class UAIPerceptionStimuliSourceComponent;
+class UDeferredDespawnComponent;
+class UFMODAudioComponent;
+class UFMODEvent;
 class USCP173ObserverComponent;
 
 UCLASS(Blueprintable)
-class PANDEMIC_API ASCP173Base : public ACharacter {
+class PANDEMIC_API ASCP173Base : public ACharacter, public IDeferredDespawnImplementor {
     GENERATED_BODY()
 public:
 protected:
@@ -25,6 +30,39 @@ protected:
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     int32 VisibilityTraceSubdivisions;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FName IsObservedParameterName;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UFMODEvent* RandomIntervalSound;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float RandomSoundInterval;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float RandomSoundIntervalDeviation;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    UAIPerceptionStimuliSourceComponent* StimuliSourceComponent;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    UDeferredDespawnComponent* DeferredDespawnComponent;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    UFMODAudioComponent* OneshotAudioComponent;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    UFMODAudioComponent* MovementAudioComponent;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UFMODEvent* MovementSound;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UFMODEvent* TeleportSound;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UFMODEvent* KillSound;
     
 public:
     ASCP173Base(const FObjectInitializer& ObjectInitializer);
@@ -47,6 +85,23 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     TArray<FVector> TransformPoints(const FTransform& TargetTransform, FColor DebugColor) const;
     
+    UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+    void SetSoundParameter(FName ParameterName, float Value);
+    
+    UFUNCTION(BlueprintCallable)
+    void PlayRandomStingerSound();
+    
+    UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+    void PlayOneshotSound(UFMODEvent* Sound);
+    
+    UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+    void PlayKillSound(AActor* KillTarget);
+    
+private:
+    UFUNCTION(BlueprintCallable)
+    void OnDespawn();
+    
+public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsObserved() const;
     
@@ -59,5 +114,7 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     TArray<USCP173ObserverComponent*> GetCurrentObservers(FColor DebugColor) const;
     
+
+    // Fix for true pure virtual functions not being implemented
 };
 

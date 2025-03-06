@@ -86,12 +86,28 @@ UFPSRangedWeaponData::UFPSRangedWeaponData() {
     this->ReloadAnimationSpeed = 1.00f;
 }
 
+FVector2D UFPSRangedWeaponData::GetRecoilMultiplier(const TArray<int32>& Attachments) {
+    return FVector2D{};
+}
+
+float UFPSRangedWeaponData::GetIdleMultiplier(const TArray<int32>& Attachments) {
+    return 0.0f;
+}
+
 int32 UFPSRangedWeaponData::GetFireRate(int32& EffectiveFireRate, int32 FireModeIndex) {
     return 0;
 }
 
+float UFPSRangedWeaponData::GetControl(const TArray<int32>& Attachments) {
+    return 0.0f;
+}
+
 UAnimSequence* UFPSRangedWeaponData::GetAlternateGripPose(bool& bWantsAlternateGripPose) {
     return NULL;
+}
+
+float UFPSRangedWeaponData::GetADSTime(const TArray<int32>& Attachments) {
+    return 0.0f;
 }
 
 

@@ -1,20 +1,25 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Perception/AISightTargetInterface.h"
-#include "GenericTeamAgentInterface.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "GameFramework/Character.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AISightTargetInterface -FallbackName=AISightTargetInterface
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=GenericTeamAgentInterface -FallbackName=GenericTeamAgentInterface
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=LinearColor -FallbackName=LinearColor
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Rotator -FallbackName=Rotator
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector2D -FallbackName=Vector2D
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Character -FallbackName=Character
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=DamageEvent -FallbackName=DamageEvent
+//CROSS-MODULE INCLUDE V2: -ModuleName=SignificanceBase -ObjectName=SignificanceUser -FallbackName=SignificanceUser
 #include "CharacterControllerChangedDelegateDelegate.h"
 #include "CharacterItemSlotUpdatedDelegateDelegate.h"
 #include "CharacterItemUpdatedDelegateDelegate.h"
 #include "CharacterPlayerStateChangedDelegateDelegate.h"
 #include "CharacterSlotUpdatedDelegateDelegate.h"
+#include "ClimbableExit.h"
 #include "EFPSCharacterAbilities.h"
 #include "EFPSCharacterState.h"
+#include "FPSDamageSound.h"
 #include "FPSItemSlotData.h"
 #include "FPSLoadout.h"
 #include "MagazineData.h"
@@ -24,14 +29,22 @@
 #include "Templates/SubclassOf.h"
 #include "FPSCharacterBase.generated.h"
 
+class AActor;
+class AController;
 class AFPSItem;
 class AFPSItemPickup;
+class APawn;
+class APlayerController;
+class APlayerState;
 class UAimingCameraModifier;
 class UAnimMontage;
 class UCameraAnimationCameraModifier;
 class UCameraComponent;
+class UCameraModifier;
+class UClimbableComponent;
 class UDamageCameraModifier;
 class UDamageType;
+class UFMODEvent;
 class UFPSCharacterMovementComponent;
 class UFPSItemData;
 class ULowHealthCameraModifier;
@@ -39,12 +52,13 @@ class UNightVisionCameraModifier;
 class UObject;
 class UPrimitiveComponent;
 class USceneComponent;
+class USignificanceComponent;
 class USkeletalMeshComponent;
 class USprintingCameraModifier;
 class USuppressionCameraModifier;
 
 UCLASS(Blueprintable)
-class FPSCONTROLLER_API AFPSCharacterBase : public ACharacter, public IAISightTargetInterface, public IMeleeUser, public ISuppressable, public IGenericTeamAgentInterface {
+class FPSCONTROLLER_API AFPSCharacterBase : public ACharacter, public IAISightTargetInterface, public IMeleeUser, public ISuppressable, public IGenericTeamAgentInterface, public ISignificanceUser {
     GENERATED_BODY()
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -111,6 +125,12 @@ public:
     TMap<FName, float> BoneDamageMultipliers;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UFMODEvent* DefaultDamageSound;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TMap<TSubclassOf<UDamageType>, FFPSDamageSound> DamageSoundOverrides;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float WalkingSpeed;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -169,6 +189,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float LandJumpDelay;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bDisableSprintDelay;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     float JumpDelay;
@@ -321,6 +344,9 @@ public:
     float SmoothEyeHeight;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float LastApexHeight;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     float LastGroundedHeight;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
@@ -329,17 +355,20 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     float CurrentCrouchSpeed;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_Rotation, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Interp, Transient, ReplicatedUsing=OnRep_Rotation, meta=(AllowPrivateAccess=true))
     FRotator Rotation;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     float DeltaTime;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Interp, meta=(AllowPrivateAccess=true))
     bool bIsDisplay;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     TArray<FMagazineData> Ammunition;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Interp, meta=(AllowPrivateAccess=true))
+    bool bShouldUseDeathCamera;
     
     UPROPERTY(BlueprintAssignable, BlueprintCallable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FCharacterItemSlotUpdatedDelegate OnEquipItem;
@@ -432,6 +461,9 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_LastHit, meta=(AllowPrivateAccess=true))
     FSimpleHitData LastHit;
     
+    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TWeakObjectPtr<APlayerController> LastViewTarget;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UFPSCharacterMovementComponent* FPSCharacterMovement;
     
@@ -446,6 +478,9 @@ public:
 
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+    UFUNCTION(BlueprintCallable)
+    void UpdateSkinColor(const FLinearColor& Color, int32 PrimitiveColorIndex);
+    
 protected:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void UpdateMount();
@@ -485,6 +520,9 @@ public:
     
     UFUNCTION(BlueprintCallable)
     void StartKick(UObject* Kickable);
+    
+    UFUNCTION(BlueprintCallable)
+    void StartClimb(UClimbableComponent* Climbable);
     
     UFUNCTION(BlueprintCallable)
     void SetWantsBracedAim(bool bWantsBracedAim);
@@ -538,11 +576,26 @@ public:
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void ServerSetBracedAim(bool bBracedAim);
     
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerDie(AController* InInstigator, TSubclassOf<UDamageType> KillingDamageType, FName LastHitBone);
+    
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, BlueprintNativeEvent)
     void RemoveItemAndEquip(AFPSItem* Item, int32 Slot);
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, BlueprintNativeEvent)
     void RemoveItem(AFPSItem* Item);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    float ReceiveTakeDamage(float DamageAmount, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    bool ReceiveShouldTakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser) const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+    void ReceiveServerDie(AController* InInstigator, TSubclassOf<UDamageType> KillingDamageType, FName LastHitBone);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void PlayerStateUpdated(APlayerState* NewPlayerState);
     
 protected:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
@@ -575,6 +628,9 @@ protected:
 public:
     UFUNCTION(BlueprintCallable)
     void OnItemDataLoaded(AFPSItem* Item);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnEndClimb(UClimbableComponent* ClimbableComponent, const FClimbableExit& Exit);
     
     UFUNCTION(BlueprintCallable)
     bool IsReserveAmmoFull();
@@ -708,9 +764,6 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetCancelledReload() const;
     
-    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
-    UCameraComponent* GetCamera();
-    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetBracedAiming() const;
     
@@ -737,6 +790,12 @@ public:
     
     UFUNCTION(BlueprintCallable)
     bool FindCorner(FVector Normal, float WallDistance, float CapsuleRadius, float CornerDistance, bool bUseComplex, FVector& CornerPosition, UPrimitiveComponent*& CornerObject);
+    
+    UFUNCTION(BlueprintCallable)
+    void EndClimb();
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    AFPSItemPickup* DropItem(AFPSItem* Item, TSubclassOf<AFPSItemPickup> PickupClass);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void CosmeticUpdatedSprinting(bool bSprinting);
@@ -781,6 +840,9 @@ public:
     void CosmeticUpdatedCrouching(bool bCrouching);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void CosmeticUpdatedCheckingWatch(bool bIsCheckingWatch);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void CosmeticUpdatedCheckingAmmo(bool bCheckingAmmo);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
@@ -788,6 +850,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void CosmeticSwitchItem(AFPSItem* Item);
+    
+    UFUNCTION(BlueprintCallable, BlueprintCosmetic)
+    void CosmeticPlayDamageSound(float Damage, APawn* InInstigatorPawn, TSubclassOf<UDamageType> DamageType);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void CosmeticFinishEquipItem();
@@ -799,7 +864,13 @@ public:
     void CosmeticEquipItem(AFPSItem* Item);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void CosmeticDie(APawn* InInstigatorPawn, TSubclassOf<UDamageType> KillingDamageType, FName LastHitBone);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void CosmeticDequipItem(AFPSItem* Item);
+    
+    UFUNCTION(BlueprintCallable, BlueprintCosmetic, BlueprintNativeEvent)
+    void CosmeticDeathCamera(APawn* InInstigatorPawn, TSubclassOf<UDamageType> KillingDamageType, FName LastHitBone);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool CanVault(FTransform CornerLocation, float EyeHeight, UAnimMontage* Montage) const;
@@ -811,7 +882,16 @@ public:
     bool CanPickupItem(AFPSItemPickup* Pickup) const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool CanLowReady() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool CanForceLowReady() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     bool CanAddAmmo(bool bUseFullAmmo, bool bAllItems, int32 Amount) const;
+    
+    UFUNCTION(BlueprintCallable)
+    static UCameraModifier* BlueprintFindOrAddCameraModifier(APlayerController* PC, TSubclassOf<UCameraModifier> Class);
     
 protected:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
@@ -827,6 +907,9 @@ protected:
     void ApplyPositionOffset(FVector& Delta);
     
 public:
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, BlueprintNativeEvent)
+    void ApplyDamage(AController* InInstigator, float Damage, TSubclassOf<UDamageType> DamageType);
+    
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void AddSuppression(float Amount);
     
@@ -845,5 +928,9 @@ protected:
     
 
     // Fix for true pure virtual functions not being implemented
+public:
+    UFUNCTION()
+    void ApplySignificance(USignificanceComponent* Component, float NewSignificance, float OldSignificance) override PURE_VIRTUAL(ApplySignificance,);
+    
 };
 

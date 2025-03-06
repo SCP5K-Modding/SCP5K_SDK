@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "4.27",
+	"EngineAssociation": "4.27Source",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -17,6 +17,11 @@
 				"NavigationSystem",
 				"UMG"
 			]
+		},
+		{
+			"Name": "PandemicEditor",
+			"Type": "Editor",
+			"LoadingPhase": "PostEngineInit"
 		}
 	],
 	"Plugins": [
@@ -27,6 +32,10 @@
 		{
 			"Name": "AdvancedSteamSessions",
 			"Enabled": true
+		},
+		{
+			"Name": "AIFramework",
+			"Enabled": false
 		},
 		{
 			"Name": "AISentience",
@@ -57,6 +66,11 @@
 			"Enabled": true
 		},
 		{
+			"Name": "DarkerNodes",
+			"Enabled": false,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/4b3441f0228a40ec9ca986489a5bd682"
+		},
+		{
 			"Name": "DatasmithContent",
 			"Enabled": false
 		},
@@ -80,7 +94,16 @@
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/5cb2a394d0c04e73891762be4cbd7216"
 		},
 		{
+			"Name": "EOSCore",
+			"Enabled": false,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/af157f773f084ca89036cd7bc03fb416"
+		},
+		{
 			"Name": "FMODStudio",
+			"Enabled": true
+		},
+		{
+			"Name": "FMODStudioNiagara",
 			"Enabled": true
 		},
 		{
@@ -113,6 +136,11 @@
 		{
 			"Name": "LightSensing",
 			"Enabled": true
+		},
+		{
+			"Name": "Linter",
+			"Enabled": false,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/ca0639af6339476da86fa3bcf15de8ec"
 		},
 		{
 			"Name": "LiveLink",
@@ -150,6 +178,16 @@
 				"Mac",
 				"Win64"
 			]
+		},
+		{
+			"Name": "MeshTool",
+			"Enabled": false,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/7289f8ad4b6c43b289affc9870db344a"
+		},
+		{
+			"Name": "Modio",
+			"Enabled": false,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/1ab22ed2961a4cc19b9151bd072df998"
 		},
 		{
 			"Name": "NetworkPrediction",
@@ -226,6 +264,15 @@
 			"Enabled": true
 		},
 		{
+			"Name": "RSSFeederPlugin",
+			"Enabled": false,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/0cdacfadade5413ba59a60f46e2cb24e"
+		},
+		{
+			"Name": "RTXGI",
+			"Enabled": false
+		},
+		{
 			"Name": "SequencerScripting",
 			"Enabled": true
 		},
@@ -233,6 +280,11 @@
 			"Name": "SkinnedDecalComponent",
 			"Enabled": true,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/05b6b0f2f8f049aaa469a1da4e09275c"
+		},
+		{
+			"Name": "Smartsuit",
+			"Enabled": false,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/7e20fe7d4247410cb4f7d3e162d61c21"
 		},
 		{
 			"Name": "SteamCore",
@@ -263,8 +315,17 @@
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/97ef36447df7427ca9b46edf1a438731"
 		},
 		{
+			"Name": "VehicleSystemPlugin",
+			"Enabled": false,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/9577489aa3264ecf94142dad1bc2956c"
+		},
+		{
 			"Name": "DedicatedServer",
 			"Enabled": true
+		},
+		{
+			"Name": "UnrealRCON",
+			"Enabled": false
 		},
 		{
 			"Name": "HDRIBackdrop",
@@ -292,6 +353,15 @@
 		{
 			"Name": "GameActions",
 			"Enabled": true
+		},
+		{
+			"Name": "SignificanceBase",
+			"Enabled": true
+		},
+		{
+			"Name": "BlockoutToolsPlugin",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/d337b97aca8947a893526964e179acfd"
 		}
 	],
 	"PostBuildSteps":

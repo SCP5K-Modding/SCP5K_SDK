@@ -8,9 +8,21 @@ UShootableGlass::UShootableGlass(const FObjectInitializer& ObjectInitializer) : 
     this->ShatteredMesh = NULL;
     this->ShatterEffect = NULL;
     this->ShatterSound = NULL;
+    this->ImpactSound = NULL;
+    this->bHasAppliedHit = false;
+    this->bHasInitialized = false;
     this->bIsBroken = false;
     this->CurrentHealth = -1.00f;
     this->MaxHealth = 0.00f;
+}
+
+void UShootableGlass::SetIsBroken(bool bNewBroken) {
+}
+
+void UShootableGlass::SetHitData(const FSimpleHitData& InHitData) {
+}
+
+void UShootableGlass::SetCurrentHealth(float InHealth) {
 }
 
 void UShootableGlass::OnRep_IsBroken() {
@@ -23,6 +35,12 @@ void UShootableGlass::OnRep_CurrentHealth() {
 }
 
 void UShootableGlass::OnPointDamage(AActor* DamagedActor, float Damage, AController* InstigatedBy, FVector HitLocation, UPrimitiveComponent* FHitComponent, FName BoneName, FVector ShotFromDirection, const UDamageType* DamageType, AActor* DamageCauser) {
+}
+
+void UShootableGlass::MulticastImpact_Implementation(FVector Location) {
+}
+
+void UShootableGlass::MulticastBreak_Implementation() {
 }
 
 void UShootableGlass::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {

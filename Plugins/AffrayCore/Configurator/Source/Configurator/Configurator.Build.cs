@@ -11,7 +11,6 @@ public class Configurator : ModuleRules {
             "CoreUObject",
             "Engine",
             "OnlineSubsystemUtils",
-             "OnlineSubsystem",
         });
     }
 }

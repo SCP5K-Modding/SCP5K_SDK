@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameAction.h"
-#include "EObjectiveTriggerAction.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameActions -ObjectName=GameAction -FallbackName=GameAction
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayObjectives -ObjectName=EObjectiveTriggerAction -FallbackName=EObjectiveTriggerAction
 #include "ObjectiveGameAction.generated.h"
 
 UCLASS(Blueprintable, CollapseCategories, EditInlineNew)

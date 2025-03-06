@@ -1,6 +1,6 @@
 #include "LevelStreamingInfoVolume.h"
-#include "Components/BoxComponent.h"
-#include "GameFramework/Actor.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BoxComponent -FallbackName=BoxComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EActorUpdateOverlapsMethod -FallbackName=EActorUpdateOverlapsMethod
 
 ALevelStreamingInfoVolume::ALevelStreamingInfoVolume(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->bGenerateOverlapEventsDuringLevelStreaming = true;

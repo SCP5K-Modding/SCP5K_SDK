@@ -10,6 +10,9 @@ ASpawnerTrigger::ASpawnerTrigger(const FObjectInitializer& ObjectInitializer) : 
     this->MinDistance = 1000.00f;
     this->bAllowVisibleSpawns = false;
     this->VisualizerComponent = NULL;
+    this->bInvestigate = false;
+    this->InvestigateDelayDuration = 0.00f;
+    this->InvestigationRange = 15000.00f;
 }
 
 

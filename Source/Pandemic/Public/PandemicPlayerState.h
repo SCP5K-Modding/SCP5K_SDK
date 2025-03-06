@@ -1,8 +1,12 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerState.h"
-#include "FPSLoadout.h"
-#include "Journal.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PlayerState -FallbackName=PlayerState
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FPSItemSlot -FallbackName=FPSItemSlot
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FPSLoadout -FallbackName=FPSLoadout
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTag -FallbackName=GameplayTag
+#include "CosmeticProfile.h"
+#include "CosmeticRequirements.h"
 #include "DLCOwnership.h"
 #include "EMissionItemType.h"
 #include "EPlayerStatus.h"
@@ -14,8 +18,10 @@ class AController;
 class APandemicPlayerState;
 class APawn;
 class APlayerController;
+class UJournalDataEntry;
 class UMissionItem;
 class UMissionItemSlot;
+class UPandemicFaction;
 
 UCLASS(Blueprintable)
 class PANDEMIC_API APandemicPlayerState : public APlayerState {
@@ -24,11 +30,15 @@ public:
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPlayerUpdatedDelegate, APandemicPlayerState*, Player);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerStatusUpdatedDelegate, APandemicPlayerState*, Player, EPlayerStatus, Status);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerStatsUpdatedDelegate, APandemicPlayerState*, Player, int32, Stat);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerSelectedCosmeticUpdatedDelegate, APandemicPlayerState*, Player, const FPrimaryAssetId&, SelectedItem);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerSelectedCosmeticsUpdatedDelegate, APandemicPlayerState*, Player, const TArray<FPrimaryAssetId>&, SelectedItems);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FPlayerPVPKillStatsUpdatedDelegate, APandemicPlayerState*, Player, int32, Stat, APlayerState*, Target);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerNameUpdatedDelegate, APandemicPlayerState*, Player, const FString&, Name);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerLoadoutUpdatedDelegate, APandemicPlayerState*, Player, FFPSLoadout, Loadout);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FPlayerKillStatsUpdatedDelegate, APandemicPlayerState*, Player, int32, Stat, APawn*, Target);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerFlagUpdatedDelegate, APandemicPlayerState*, Player, bool, Flag);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerAvailableItemsUpdatedDelegate, APandemicPlayerState*, Player, const TArray<FFPSItemSlot>&, AvailableItems);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerAvailableCosmeticsUpdatedDelegate, APandemicPlayerState*, Player, const TArray<FPrimaryAssetId>&, AvailableItems);
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_Status, meta=(AllowPrivateAccess=true))
     EPlayerStatus Status;
@@ -117,6 +127,9 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_MissionInventory, meta=(AllowPrivateAccess=true))
     TArray<UMissionItemSlot*> MissionInventory;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_PrivateCustomJournalList, meta=(AllowPrivateAccess=true))
+    TArray<UJournalDataEntry*> PrivateCustomJournalList;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     TArray<FDLCOwnership> CachedDLCOwnership;
     
@@ -133,8 +146,32 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_CurrentLoadout, meta=(AllowPrivateAccess=true))
     FFPSLoadout CurrentLoadout;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_AvailableCharacterSkins, meta=(AllowPrivateAccess=true))
+    TArray<FPrimaryAssetId> AvailableCharacterSkins;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_AvailablePatches, meta=(AllowPrivateAccess=true))
+    TArray<FPrimaryAssetId> AvailablePatches;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_AvailableItems, meta=(AllowPrivateAccess=true))
+    TArray<FFPSItemSlot> AvailableItems;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_SelectedCharacterSkin, meta=(AllowPrivateAccess=true))
+    FPrimaryAssetId SelectedCharacterSkin;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_SelectedPatches, meta=(AllowPrivateAccess=true))
+    TArray<FPrimaryAssetId> SelectedPatches;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_SelectedSkinToneIndex, meta=(AllowPrivateAccess=true))
+    uint8 SelectedSkinToneIndex;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_SelectedGenderIndex, meta=(AllowPrivateAccess=true))
+    uint8 SelectedGenderIndex;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_IsReady, meta=(AllowPrivateAccess=true))
     bool bIsReady;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
+    bool bIsFullyLoaded;
     
 public:
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -180,16 +217,32 @@ public:
     FPlayerLoadoutUpdatedDelegate OnPlayerLoadoutUpdated;
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FPlayerAvailableItemsUpdatedDelegate OnPlayerAvailableItemsUpdated;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FPlayerAvailableCosmeticsUpdatedDelegate OnPlayerAvailableCharacterSkinsUpdated;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FPlayerAvailableCosmeticsUpdatedDelegate OnPlayerAvailablePatchesUpdated;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FPlayerSelectedCosmeticUpdatedDelegate OnPlayerSelectedCharacterSkinUpdated;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FPlayerSelectedCosmeticsUpdatedDelegate OnPlayerSelectedPatchesUpdated;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FPlayerStatsUpdatedDelegate OnPlayerSkinToneIndexSelected;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FPlayerStatsUpdatedDelegate OnPlayerGenderIndexSelected;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FPlayerStatsUpdatedDelegate OnPlayerDied;
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FPlayerUpdatedDelegate OnPlayerMissionInventoryUpdated;
     
-private:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_PrivateJournalEntry, meta=(AllowPrivateAccess=true))
-    TArray<FJournal> PrivateJournalEntry;
-    
-public:
     APandemicPlayerState(const FObjectInitializer& ObjectInitializer);
 
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
@@ -224,6 +277,24 @@ public:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void SetLoadout(FFPSLoadout Loadout);
     
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void SetDLCOwnership(int32 DLCID, FName DLCName, bool bIsOwned);
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerSubmitDLCOwnership(const TArray<FDLCOwnership>& Ownership);
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerSetFinishedLoading(bool bFinishedLoading);
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerRequestSelectedPatches(const TArray<int32>& InSelectedPatches);
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerRequestSelectedCharacterSkin(int32 InSelectedSkin);
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerRequestCosmeticsProfile(const FCosmeticProfile& Profile);
+    
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void Server_RequestUnBanPlayer(const FPlayerID& Player);
     
@@ -248,11 +319,29 @@ public:
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void Server_RequestAddAdmin(const FPlayerID& Player);
     
-    UFUNCTION(BlueprintCallable)
-    void RemovePrivateJournalEntry(FJournal JournalEntry);
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void RequestSelectedSkinToneIndex(uint8 InSelectedIndex);
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void RequestSelectedGenderIndex(uint8 InSelectedIndex);
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void RequestAvailablePatches();
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void RequestAvailableItems(int32 Slots);
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void RequestAvailableCharacterSkins();
+    
+    UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+    void ReceiveSubmitDLCOwnership(const TArray<FDLCOwnership>& Ownership);
     
     UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
     void ReceiveClientInitialize(AController* C);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool PassesCosmeticRequirements(const FCosmeticRequirements& Requirements);
     
 protected:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
@@ -270,11 +359,27 @@ protected:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_Status();
     
+public:
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_SelectedSkinToneIndex();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_SelectedPatches();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_SelectedGenderIndex();
+    
+protected:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_SelectedFaction();
     
+public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void OnRep_PrivateJournalEntry();
+    void OnRep_SelectedCharacterSkin();
+    
+protected:
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_PrivateCustomJournalList();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_PlayerKills();
@@ -310,8 +415,20 @@ protected:
     void OnRep_CurrentLoadout();
     
 public:
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_AvailablePatches();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_AvailableItems();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_AvailableCharacterSkins();
+    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsReady() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool IsFullyLoaded() const;
     
     UFUNCTION(BlueprintCallable)
     bool HasSecurityAccess(int32 SecurityLevel, EMissionItemType ItemType, FName ID, bool UseIfFound);
@@ -344,6 +461,12 @@ public:
     int32 GetHeadshots() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    FGameplayTag GetFactionTag();
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    UPandemicFaction* GetFaction();
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     int32 GetEnemyKills() const;
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
@@ -358,11 +481,20 @@ public:
     UFUNCTION(BlueprintCallable)
     void FinishGrantMissionItem(TSoftObjectPtr<UMissionItem> Item);
     
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    FCosmeticProfile CreateProfileFromCosmetics(FName ProfileName) const;
+    
+    UFUNCTION(BlueprintCallable, Client, Reliable)
+    void ClientCheckDLCOwnership();
+    
     UFUNCTION(BlueprintCallable, Client, Reliable)
     void ClientApplyOfflineScore();
     
     UFUNCTION(BlueprintCallable, Client, Reliable)
     void Client_AddAchievement(const FString& AchievementName);
+    
+    UFUNCTION(BlueprintCallable)
+    void CheckDLCOwnership();
     
     UFUNCTION(BlueprintCallable)
     void ChangeTeam(int32 NewTeam);
@@ -400,14 +532,20 @@ public:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void AddScore(int32 Amount);
     
-    UFUNCTION(BlueprintCallable)
-    void AddPrivateJournalEntry(FJournal JournalEntry);
-    
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void AddKill(bool IsHeadshot, bool IsPlayer, APawn* Killed, APlayerState* PlayerState, float ScoreModifier);
     
+    UFUNCTION(BlueprintCallable, Client, Reliable)
+    void AddJournalEntryToUser(UJournalDataEntry* JournalEntry);
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void AddJournalEntry(UJournalDataEntry* JournalEntry);
+    
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void AddDeath();
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void AddCustomJournalEntry(UJournalDataEntry* JournalEntry);
     
 };
 

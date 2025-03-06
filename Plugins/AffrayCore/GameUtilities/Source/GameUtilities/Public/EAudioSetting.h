@@ -9,5 +9,6 @@ enum class EAudioSetting : uint8 {
     SFX,
     Voice,
     UI,
+    Subtitle,
 };
 

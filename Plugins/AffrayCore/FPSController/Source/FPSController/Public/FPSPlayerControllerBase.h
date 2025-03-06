@@ -1,8 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GenericTeamAgentInterface.h"
-#include "GameFramework/PlayerController.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=GenericTeamAgentInterface -FallbackName=GenericTeamAgentInterface
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PlayerController -FallbackName=PlayerController
 #include "FPSCosmetic.h"
+#include "OnPawnPossessionDelegate.h"
 #include "FPSPlayerControllerBase.generated.h"
 
 class AFPSCharacterBase;
@@ -50,6 +51,12 @@ protected:
     AFPSCharacterBase* FPSCharacterBase;
     
 public:
+    UPROPERTY(BlueprintAssignable, BlueprintCallable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FOnPawnPossession OnPawnPossessed;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintCallable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FOnPawnPossession OnPawnUnpossessed;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     uint8 AITeam;
     
@@ -58,6 +65,9 @@ public:
     
     AFPSPlayerControllerBase(const FObjectInitializer& ObjectInitializer);
 
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void UpdateCameraTarget();
+    
     UFUNCTION(BlueprintCallable)
     ASpectatorPawn* Spectate();
     

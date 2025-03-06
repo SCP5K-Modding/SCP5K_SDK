@@ -1,6 +1,7 @@
 #include "PandemicGameUserSettings.h"
 
 UPandemicGameUserSettings::UPandemicGameUserSettings() {
+    this->LastBuild = TEXT("0.16.0.72");
     this->bToggleCrouch = false;
     this->bToggleSprint = false;
     this->bToggleAim = false;
@@ -14,27 +15,35 @@ UPandemicGameUserSettings::UPandemicGameUserSettings() {
     this->AimingSensitivity = 0.70f;
     this->DeadzoneSensitivity = 0.50f;
     this->HeadBobIntensity = 1.00f;
+    this->bUseBodyCam = false;
+    this->bEnableSeasonalEvents = true;
     this->ReflexMode = ECustomReflexMode::Disabled;
     this->UpscalerMode = EUpscalerMode::None;
     this->UpscalerQuality = EUpscalerQuality::Quality;
-    this->bEnableDepthOfField = false;
+    this->bEnableUpscalerAutoExposure = false;
+    this->bEnableDepthOfField = true;
     this->bEnableMotionBlur = false;
+    this->bEnableSSGI = true;
     this->bEnablePaniniProjection = false;
     this->PaniniProjectionAmount = 0.20f;
     this->Brightness = 1.00f;
-    this->FieldOfView = 105.00f;
+    this->FieldOfView = 110.00f;
     this->Language = TEXT("en");
     this->TextSize = ETextSize::Normal;
     this->UIScale = 1.00f;
     this->DisplayTimeScale = 1;
-    this->MasterVolume = 0.50f;
+    this->MasterVolume = 0.30f;
     this->MusicVolume = 0.50f;
     this->SFXVolume = 0.50f;
     this->UIVolume = 0.50f;
     this->VoiceVolume = 0.50f;
+    this->SubtitleDisplayMode = ESubtitleDisplayMode::All;
 }
 
 void UPandemicGameUserSettings::SetVoiceVolume(float NewVoiceVolume) {
+}
+
+void UPandemicGameUserSettings::SetUseBodyCam(bool bNewUseBodyCam) {
 }
 
 void UPandemicGameUserSettings::SetUpscalerQuality(EUpscalerQuality NewUpscalerQuality) {
@@ -70,6 +79,9 @@ void UPandemicGameUserSettings::SetToggleAim(bool bNewToggleAim) {
 void UPandemicGameUserSettings::SetTextSize(ETextSize NewTextSize) {
 }
 
+void UPandemicGameUserSettings::SetSubtitleDisplayMode(ESubtitleDisplayMode NewMode) {
+}
+
 void UPandemicGameUserSettings::SetSFXVolume(float NewSFXVolume) {
 }
 
@@ -89,6 +101,9 @@ void UPandemicGameUserSettings::SetMusicVolume(float NewMusicVolume) {
 }
 
 void UPandemicGameUserSettings::SetMasterVolume(float NewMasterVolume) {
+}
+
+void UPandemicGameUserSettings::SetLastBuild(const FString& NewLastBuild) {
 }
 
 void UPandemicGameUserSettings::SetLanguage(const FString& NewLanguage) {
@@ -115,6 +130,15 @@ void UPandemicGameUserSettings::SetGreenColor(FLinearColor NewGreenColor) {
 void UPandemicGameUserSettings::SetFieldOfView(float Value) {
 }
 
+void UPandemicGameUserSettings::SetEnableUpscalerAutoExposure(bool bNewEnableUpscalerAutoExposure) {
+}
+
+void UPandemicGameUserSettings::SetEnableSSGI(bool bNewEnableSSGI) {
+}
+
+void UPandemicGameUserSettings::SetEnableSeasonalEvents(bool bNewEnableSeasonalEvents) {
+}
+
 void UPandemicGameUserSettings::SetEnablePaniniProjection(bool bNewEnablePaniniProjection) {
 }
 
@@ -138,6 +162,10 @@ void UPandemicGameUserSettings::SetAimingSensitivity(float NewAimingSensitivity)
 
 float UPandemicGameUserSettings::GetVoiceVolume() const {
     return 0.0f;
+}
+
+bool UPandemicGameUserSettings::GetUseBodyCam() const {
+    return false;
 }
 
 TArray<FText> UPandemicGameUserSettings::GetUpscalerQualityNamesFromArray(TArray<EUpscalerQuality> UpscalerQualities) {
@@ -200,6 +228,14 @@ TArray<EUpscalerMode> UPandemicGameUserSettings::GetSupportedUpscalerModes() {
     return TArray<EUpscalerMode>();
 }
 
+ESubtitleDisplayMode UPandemicGameUserSettings::GetSubtitleDisplayMode() const {
+    return ESubtitleDisplayMode::None;
+}
+
+bool UPandemicGameUserSettings::GetSSGI() const {
+    return false;
+}
+
 float UPandemicGameUserSettings::GetSFXVolume() const {
     return 0.0f;
 }
@@ -240,6 +276,10 @@ float UPandemicGameUserSettings::GetMasterVolume() const {
     return 0.0f;
 }
 
+FString UPandemicGameUserSettings::GetLastBuild() const {
+    return TEXT("");
+}
+
 FString UPandemicGameUserSettings::GetLanguage() const {
     return TEXT("");
 }
@@ -270,6 +310,14 @@ FLinearColor UPandemicGameUserSettings::GetGreenColor() const {
 
 float UPandemicGameUserSettings::GetFieldOfView() const {
     return 0.0f;
+}
+
+bool UPandemicGameUserSettings::GetEnableUpscalerAutoExposure() const {
+    return false;
+}
+
+bool UPandemicGameUserSettings::GetEnableSeasonalEvents() const {
+    return false;
 }
 
 bool UPandemicGameUserSettings::GetDepthOfField() const {

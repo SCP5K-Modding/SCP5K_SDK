@@ -18,8 +18,6 @@ UButtonBase::UButtonBase() : UUserWidget(FObjectInitializer::Get()) {
     this->BaseSelectedAudio = NULL;
     this->FMODHoveredAudio = NULL;
     this->FMODSelectedAudio = NULL;
-    this->BaseHoveredVolume = 1.00f;
-    this->BaseSelectedVolume = 1.00f;
     this->VisualDelta = 0.00f;
     this->VisualLock = false;
     this->ObjectClass = NULL;

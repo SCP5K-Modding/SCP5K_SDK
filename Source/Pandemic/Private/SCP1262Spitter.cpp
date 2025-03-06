@@ -1,9 +1,10 @@
 #include "SCP1262Spitter.h"
-#include "SAIMeleeComponent.h"
-#include "Components/SceneComponent.h"
-#include "Components/SkeletalMeshComponent.h"
-#include "FMODAudioComponent.h"
-#include "HealthComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIMeleeComponent -FallbackName=SAIMeleeComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SkeletalMeshComponent -FallbackName=SkeletalMeshComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=HealthComponent -FallbackName=HealthComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=SignificanceBase -ObjectName=SignificanceComponent -FallbackName=SignificanceComponent
 #include "Net/UnrealNetwork.h"
 #include "SCP1262SpitterProjectile.h"
 
@@ -19,10 +20,12 @@ ASCP1262Spitter::ASCP1262Spitter(const FObjectInitializer& ObjectInitializer) : 
     this->bStartDead = false;
     this->IdleSound = NULL;
     this->bStartAlert = false;
+    this->MinBlendPhysicsSignificance = 0.70f;
     this->MeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
     this->LoopingAudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("LoopingAudio"));
     this->MeleeComponent = CreateDefaultSubobject<USAIMeleeComponent>(TEXT("Melee"));
     this->HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
+    this->SignificanceComponent = CreateDefaultSubobject<USignificanceComponent>(TEXT("Significance"));
     this->AnimationInstance = NULL;
     this->SCP1262Controller = NULL;
     this->bIsFiring = false;

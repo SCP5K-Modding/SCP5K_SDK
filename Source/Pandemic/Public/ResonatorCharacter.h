@@ -1,21 +1,21 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Climber.h"
-#include "GameFramework/Character.h"
-#include "Engine/NetSerialization.h"
-#include "Damageable.h"
-#include "MeleeUser.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=Climber -FallbackName=Climber
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Character -FallbackName=Character
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Vector_NetQuantize -FallbackName=Vector_NetQuantize
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Damageable -FallbackName=Damageable
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=MeleeUser -FallbackName=MeleeUser
+#include "HungerInterface.h"
 #include "ResonatorMeleeHitDataMCDelegateDelegate.h"
 #include "Rotator_NetQuantize.h"
 #include "ResonatorCharacter.generated.h"
 
 class AActor;
 class AController;
-class UDamageType;
 class USAIMeleeComponent;
 
 UCLASS(Blueprintable)
-class PANDEMIC_API AResonatorCharacter : public ACharacter, public IMeleeUser, public IDamageable, public IClimber {
+class PANDEMIC_API AResonatorCharacter : public ACharacter, public IMeleeUser, public IDamageable, public IClimber, public IHungerInterface {
     GENERATED_BODY()
 public:
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -41,6 +41,15 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     FRotator_NetQuantize ControlRotation;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
+    FRotator_NetQuantize DesiredRotation;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TMap<FName, float> BoneDamageMultipliers;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_Eating, meta=(AllowPrivateAccess=true))
+    bool bEating;
     
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_IsDead, meta=(AllowPrivateAccess=true))
@@ -91,6 +100,9 @@ protected:
     
 public:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void SetEating(bool bNewEating);
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void SetCurrentMoveSpeed(float DesiredSpeed);
     
 private:
@@ -99,12 +111,12 @@ private:
     
 protected:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_Eating();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_CurrentMoveSpeed();
     
 public:
-    UFUNCTION(BlueprintCallable)
-    void OnDamage(AActor* DamagedActor, float Damage, const UDamageType* RecievingDamageType, AController* InstigatedBy, AActor* DamageCauser);
-    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetRandomMoveSpeedVariance() const;
     

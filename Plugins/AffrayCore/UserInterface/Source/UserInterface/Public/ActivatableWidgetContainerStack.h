@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidgetPool.h"
-#include "Components/Widget.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=UMG -ObjectName=UserWidgetPool -FallbackName=UserWidgetPool
+//CROSS-MODULE INCLUDE V2: -ModuleName=UMG -ObjectName=Widget -FallbackName=Widget
 #include "Templates/SubclassOf.h"
 #include "ActivatableWidgetContainerStack.generated.h"
 
@@ -18,7 +18,7 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     UActivatableWidget* DisplayedWidget;
     
-    UPROPERTY(EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     FUserWidgetPool GeneratedWidgetsPool;
     
 private:
@@ -50,7 +50,7 @@ public:
     
 private:
     UFUNCTION(BlueprintCallable)
-    void BP_AddWidgetList(TArray<TSubclassOf<UActivatableWidget>> WidgetClassList);
+    void BP_AddWidgetList(const TArray<TSoftClassPtr<UActivatableWidget>>& WidgetClassList);
     
     UFUNCTION(BlueprintCallable)
     UActivatableWidget* BP_AddWidget(TSubclassOf<UActivatableWidget> WidgetClass);

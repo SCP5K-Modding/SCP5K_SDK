@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Perception/AISenseEvent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AISenseEvent -FallbackName=AISenseEvent
 #include "AIVisualEvent.h"
 #include "AISenseEvent_VisualEvent.generated.h"
 

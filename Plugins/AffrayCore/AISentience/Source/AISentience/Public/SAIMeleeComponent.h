@@ -1,11 +1,11 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "Components/ActorComponent.h"
-#include "Engine/EngineTypes.h"
-#include "AIMeleeAttackType.h"
-#include "EMeleeAttackDirection.h"
-#include "MeleeHitData.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ActorComponent -FallbackName=ActorComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EObjectTypeQuery -FallbackName=EObjectTypeQuery
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=AIMeleeAttackType -FallbackName=AIMeleeAttackType
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=EMeleeAttackDirection -FallbackName=EMeleeAttackDirection
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=MeleeHitData -FallbackName=MeleeHitData
 #include "Templates/SubclassOf.h"
 #include "SAIMeleeComponent.generated.h"
 

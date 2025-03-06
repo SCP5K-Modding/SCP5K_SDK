@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
 #include "CrowdFollowingAIControllerBase.h"
 #include "CrowdFollowingAIController.generated.h"
 
@@ -35,10 +35,10 @@ public:
     ACrowdFollowingAIController(const FObjectInitializer& ObjectInitializer);
 
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    FVector GetNextPathPoint();
+    FVector GetNextPathPoint() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    FVector GetNextPathDir();
+    FVector GetNextPathDir() const;
     
 };
 

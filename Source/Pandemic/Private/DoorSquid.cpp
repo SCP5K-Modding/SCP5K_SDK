@@ -1,10 +1,10 @@
 #include "DoorSquid.h"
-#include "Perception/AIPerceptionStimuliSourceComponent.h"
-#include "Components/BoxComponent.h"
-#include "PhysicsEngine/PhysicsHandleComponent.h"
-#include "Components/SkeletalMeshComponent.h"
-#include "Components/SphereComponent.h"
-#include "FMODAudioComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIPerceptionStimuliSourceComponent -FallbackName=AIPerceptionStimuliSourceComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BoxComponent -FallbackName=BoxComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PhysicsHandleComponent -FallbackName=PhysicsHandleComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SkeletalMeshComponent -FallbackName=SkeletalMeshComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SphereComponent -FallbackName=SphereComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
 #include "DoorSquidAIController.h"
 #include "Net/UnrealNetwork.h"
 
@@ -63,13 +63,13 @@ ADoorSquid::ADoorSquid(const FObjectInitializer& ObjectInitializer) : Super(Obje
     this->TongueHookTargetComponent = NULL;
     this->BulletCatchTrigger = CreateDefaultSubobject<UBoxComponent>(TEXT("BulletCatchTrigger"));
     this->PhysicsHandleComponent = CreateDefaultSubobject<UPhysicsHandleComponent>(TEXT("PhysicsHandle"));
-    this->DetectionZoneSphereComponent->SetupAttachment(RootComponent);
-    this->DangerZoneSphereComponent->SetupAttachment(RootComponent);
-    this->DeathZoneSphereComponent->SetupAttachment(RootComponent);
     this->BulletCatchTrigger->SetupAttachment(RootComponent);
     this->SkeletalMeshComponent->SetupAttachment(RootComponent);
     this->AudioComponent->SetupAttachment(RootComponent);
     this->IdleAudioComponent->SetupAttachment(RootComponent);
+    this->DetectionZoneSphereComponent->SetupAttachment(RootComponent);
+    this->DangerZoneSphereComponent->SetupAttachment(RootComponent);
+    this->DeathZoneSphereComponent->SetupAttachment(RootComponent);
 }
 
 void ADoorSquid::TryKillActorInitiate(AActor* TargetActor) {

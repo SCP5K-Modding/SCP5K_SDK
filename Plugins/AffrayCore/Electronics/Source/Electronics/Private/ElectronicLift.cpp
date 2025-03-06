@@ -1,6 +1,6 @@
 #include "ElectronicLift.h"
-#include "Components/SceneComponent.h"
-#include "FMODAudioComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
 #include "Net/UnrealNetwork.h"
 
 AElectronicLift::AElectronicLift(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {

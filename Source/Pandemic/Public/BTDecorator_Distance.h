@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "BehaviorTree/Decorators/BTDecorator_BlackboardBase.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=BTDecorator_BlackboardBase -FallbackName=BTDecorator_BlackboardBase
 #include "BTDecorator_Distance.generated.h"
 
 UCLASS(Blueprintable)

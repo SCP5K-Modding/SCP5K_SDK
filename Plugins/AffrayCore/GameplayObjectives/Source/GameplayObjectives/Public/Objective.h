@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/Object.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Object -FallbackName=Object
 #include "ObjectiveActivatedDelegateDelegate.h"
 #include "ObjectiveCompletedDelegateDelegate.h"
 #include "ObjectiveDeactivatedDelegateDelegate.h"
@@ -176,6 +176,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     FText GetObjectiveDescription() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    int32 GetNumChildObjectives() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetMaxTime() const;

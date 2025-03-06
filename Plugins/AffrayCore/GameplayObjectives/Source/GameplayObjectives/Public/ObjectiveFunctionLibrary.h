@@ -1,10 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Kismet/BlueprintFunctionLibrary.h"
-#include "SimpleObjectiveData.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BlueprintFunctionLibrary -FallbackName=BlueprintFunctionLibrary
 #include "ObjectiveFunctionLibrary.generated.h"
-
-class UObjective;
 
 UCLASS(Blueprintable)
 class GAMEPLAYOBJECTIVES_API UObjectiveFunctionLibrary : public UBlueprintFunctionLibrary {
@@ -12,9 +9,5 @@ class GAMEPLAYOBJECTIVES_API UObjectiveFunctionLibrary : public UBlueprintFuncti
 public:
     UObjectiveFunctionLibrary();
 
-private:
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    FSimpleObjectiveData MakeSimpleObjectiveData(UObjective* Objective);
-    
 };
 

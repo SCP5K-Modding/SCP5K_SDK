@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=DateTime -FallbackName=DateTime
 #include "PlayerAnalyticsEvent.h"
 #include "PlayerAnalyticsPlayer.h"
 #include "PlayerAnalyticsSession.generated.h"

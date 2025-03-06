@@ -3,6 +3,7 @@
 
 UFPSThrowableData::UFPSThrowableData() {
     this->ItemType = EItemType::Throwable;
+    this->bCanLowReady = false;
     this->ProjectileClass = NULL;
     this->Velocity = 2000.00f;
     this->LobMultiplier = 0.50f;

@@ -24,6 +24,10 @@ void USpiderAnimationInstance::SetPositions() {
 void USpiderAnimationInstance::OnFootstep_Implementation(FVector position, int32 LegIndex) {
 }
 
+bool USpiderAnimationInstance::IsPlayingAnimationInSlot(FName SlotName) {
+    return false;
+}
+
 FVector USpiderAnimationInstance::FindTargetLocation_Implementation(int32 Index, FVector ProjectedLocation, FVector& Normal) {
     return FVector{};
 }

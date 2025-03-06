@@ -4,5 +4,5 @@
 
 class APawn;
 
-UDELEGATE(BlueprintCallable) DECLARE_DYNAMIC_DELEGATE_ThreeParams(FEnemyCounterUpdatedSingleDelegate, APawn*, Enemy, int32, EnemyCount, FName, CounterName);
+UDELEGATE(BlueprintCallable) DECLARE_DYNAMIC_DELEGATE_ThreeParams(FEnemyCounterUpdatedSingleDelegate, APawn*, Enemy, int32, RemainingEnemies, FName, CounterName);
 

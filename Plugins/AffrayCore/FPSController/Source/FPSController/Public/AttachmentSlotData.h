@@ -1,12 +1,12 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Rotator -FallbackName=Rotator
 #include "AttachmentMeshSetup.h"
 #include "EAttachmentSlotType.h"
 #include "AttachmentSlotData.generated.h"
 
-class AFPSAttachment;
 class UAnimSequence;
+class UFPSAttachmentData;
 
 USTRUCT(BlueprintType)
 struct FAttachmentSlotData {
@@ -19,7 +19,7 @@ public:
     EAttachmentSlotType Type;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    TArray<TSoftClassPtr<AFPSAttachment>> AvailableAttachments;
+    TArray<TSoftObjectPtr<UFPSAttachmentData>> AvailableAttachments;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FName AttachSocketName;

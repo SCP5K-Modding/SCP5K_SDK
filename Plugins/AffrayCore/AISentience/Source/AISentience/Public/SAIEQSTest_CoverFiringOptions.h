@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "EnvironmentQuery/EnvQueryTest.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryTest -FallbackName=EnvQueryTest
 #include "SAIEQSTest_CoverFiringOptions.generated.h"
 
 UCLASS(Blueprintable)

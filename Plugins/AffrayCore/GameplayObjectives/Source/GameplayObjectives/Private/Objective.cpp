@@ -98,6 +98,10 @@ FText UObjective::GetObjectiveDescription() const {
     return FText::GetEmpty();
 }
 
+int32 UObjective::GetNumChildObjectives() const {
+    return 0;
+}
+
 float UObjective::GetMaxTime() const {
     return 0.0f;
 }

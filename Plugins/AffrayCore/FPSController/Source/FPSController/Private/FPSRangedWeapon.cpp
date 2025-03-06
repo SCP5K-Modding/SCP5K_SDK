@@ -1,4 +1,3 @@
-
 #include "FPSRangedWeapon.h"
 #include "Net/UnrealNetwork.h"
 
@@ -19,6 +18,7 @@ AFPSRangedWeapon::AFPSRangedWeapon(const FObjectInitializer& ObjectInitializer) 
     this->CurrentSight = NULL;
     this->CurrentAmmo = 0;
     this->BurstCount = 0;
+    this->ServerRejectedShots = 0;
     this->CurrentFireMode = EFireMode::FM_Automatic;
     this->bUsingAlternateGripPose = false;
     this->bWantsAction = false;
@@ -27,9 +27,14 @@ AFPSRangedWeapon::AFPSRangedWeapon(const FObjectInitializer& ObjectInitializer) 
     this->ControlFactor = 1.00f;
     this->ADSAlignmentSpeedMultiplier = 1.00f;
     this->ADSSpeedMultiplier = 1.00f;
+    this->bUpdateClientMagazinesOnMagCheck = true;
 }
 
 bool AFPSRangedWeapon::WantsDiscardMagazine() const {
+    return false;
+}
+
+bool AFPSRangedWeapon::WantsAlternateGripPose() const {
     return false;
 }
 
@@ -41,6 +46,15 @@ bool AFPSRangedWeapon::UseFullAutoAudio() const {
     return false;
 }
 
+void AFPSRangedWeapon::UpdateRemainingAmmoAudio_Implementation() {
+}
+
+void AFPSRangedWeapon::UpdateControl_Implementation() {
+}
+
+void AFPSRangedWeapon::UpdateAttachMeshes_Implementation() {
+}
+
 void AFPSRangedWeapon::StopFireAudio_Implementation() {
 }
 
@@ -48,6 +62,9 @@ void AFPSRangedWeapon::StartMuzzleSmoke_Implementation(UFXSystemAsset* Particle)
 }
 
 void AFPSRangedWeapon::StartMuzzleFlash_Implementation(UFXSystemAsset* Particle) {
+}
+
+void AFPSRangedWeapon::StartLoadAndAddAttachment(TSoftObjectPtr<UFPSAttachmentData> AttachmentData, int32 Slot) {
 }
 
 UFMODAudioComponent* AFPSRangedWeapon::StartFireAudio_Implementation() {
@@ -129,6 +146,17 @@ void AFPSRangedWeapon::SerializeAttachments() {
 void AFPSRangedWeapon::SendMagazines_Implementation() {
 }
 
+bool AFPSRangedWeapon::SelectQuickLoadAnimation(FAlternateLoadAnimation& SelectedAnimation) const {
+    return false;
+}
+
+bool AFPSRangedWeapon::RemoveAttachmentAtSlot_Implementation(int32 SlotIndex) {
+    return false;
+}
+
+void AFPSRangedWeapon::OnRep_ServerRejectedShots(int32 OldValue) {
+}
+
 void AFPSRangedWeapon::OnRep_ReloadData_Implementation() {
 }
 
@@ -177,7 +205,10 @@ void AFPSRangedWeapon::OnRep_bIsAiming_Implementation() {
 void AFPSRangedWeapon::OnRep_Attachments_Implementation() {
 }
 
-void AFPSRangedWeapon::OnParticleCollide_Implementation(FVector Location, FVector Velocity, EPhysicalSurface Surface) {
+void AFPSRangedWeapon::OnRep_AttachmentIDsToLoad() {
+}
+
+void AFPSRangedWeapon::OnParticleCollide_Implementation(FVector Location, FVector Velocity, TEnumAsByte<EPhysicalSurface> Surface) {
 }
 
 void AFPSRangedWeapon::OnCascadeParticleCollide(FName EventName, float EmitterTime, int32 ParticleTime, FVector Location, FVector Velocity, FVector Direction, FVector Normal, FName BoneName, UPhysicalMaterial* PhysMat) {
@@ -206,6 +237,10 @@ bool AFPSRangedWeapon::IsLoaded() const {
     return false;
 }
 
+bool AFPSRangedWeapon::IsInspecting() const {
+    return false;
+}
+
 bool AFPSRangedWeapon::IsCompensated() const {
     return false;
 }
@@ -231,6 +266,14 @@ bool AFPSRangedWeapon::HasAttachment(int32 Index) const {
 }
 
 bool AFPSRangedWeapon::HasAmmo() const {
+    return false;
+}
+
+float AFPSRangedWeapon::GetWeaponLength() const {
+    return 0.0f;
+}
+
+bool AFPSRangedWeapon::GetWantsAiming() const {
     return false;
 }
 
@@ -342,6 +385,14 @@ FVector AFPSRangedWeapon::GetBarrelLocation_Implementation(bool bTransformToMesh
     return FVector{};
 }
 
+bool AFPSRangedWeapon::GetAttachmentSlotData(int32 SlotIndex, FAttachmentSlotData& OutSlotData) {
+    return false;
+}
+
+FTransform AFPSRangedWeapon::GetAttachmentDesiredTransform(const FAttachmentSlotData& InSlotData) const {
+    return FTransform{};
+}
+
 TArray<int32> AFPSRangedWeapon::GetAttachmentData() const {
     return TArray<int32>();
 }
@@ -354,6 +405,13 @@ float AFPSRangedWeapon::GetADSAlignmentSpeedMultiplier_Implementation() const {
     return 0.0f;
 }
 
+void AFPSRangedWeapon::FinishLoadAndAddAttachment(TSoftObjectPtr<UFPSAttachmentData> AttachmentData, int32 Slot) {
+}
+
+bool AFPSRangedWeapon::FindAttachmentSlotClassIndex(int32 SlotIndex, int32& ClassIndex, bool& bFoundSlot) {
+    return false;
+}
+
 AFPSAttachment* AFPSRangedWeapon::FindAttachmentAtSlot(int32 Index, FAttachmentSlotData& AttachmentSlotData, bool& bFound) const {
     return NULL;
 }
@@ -362,6 +420,13 @@ void AFPSRangedWeapon::DropMagazine_Implementation() {
 }
 
 void AFPSRangedWeapon::CycleMagazines_Implementation() {
+}
+
+void AFPSRangedWeapon::ClientSetMagazines_Implementation(int32 NewCurrentAmmo, const TArray<int32>& NewMagazines) {
+}
+
+bool AFPSRangedWeapon::CanUseIronSights() const {
+    return false;
 }
 
 bool AFPSRangedWeapon::CanReloadWhileSprinting() const {
@@ -392,6 +457,9 @@ bool AFPSRangedWeapon::CanAim() const {
     return false;
 }
 
+void AFPSRangedWeapon::AttachmentFinishedLoading_Implementation(AFPSAttachment* Attachment, UFPSAttachmentData* AttachmentData) {
+}
+
 void AFPSRangedWeapon::AddMultipleMagazines(int32 Ammo) {
 }
 
@@ -401,9 +469,13 @@ void AFPSRangedWeapon::AddMagazines_Implementation(bool bForceFullAmmo, bool bRe
 void AFPSRangedWeapon::AddMagazine(int32 Ammo) {
 }
 
+AFPSAttachment* AFPSRangedWeapon::AddAttachment_Implementation(UFPSAttachmentData* AttachmentData, int32 Slot) {
+    return NULL;
+}
+
 void AFPSRangedWeapon::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
+    
     DOREPLIFETIME(AFPSRangedWeapon, bIsInspecting);
     DOREPLIFETIME(AFPSRangedWeapon, bIsPreFiring);
     DOREPLIFETIME(AFPSRangedWeapon, bIsFiring);
@@ -420,9 +492,12 @@ void AFPSRangedWeapon::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
     DOREPLIFETIME(AFPSRangedWeapon, CurrentSight);
     DOREPLIFETIME(AFPSRangedWeapon, CurrentAmmo);
     DOREPLIFETIME(AFPSRangedWeapon, BurstCount);
+    DOREPLIFETIME(AFPSRangedWeapon, ServerRejectedShots);
     DOREPLIFETIME(AFPSRangedWeapon, CurrentFireMode);
     DOREPLIFETIME(AFPSRangedWeapon, LastProjectiles);
     DOREPLIFETIME(AFPSRangedWeapon, Sights);
     DOREPLIFETIME(AFPSRangedWeapon, Physmats);
+    DOREPLIFETIME(AFPSRangedWeapon, AttachmentIDsToLoad);
 }
+
 

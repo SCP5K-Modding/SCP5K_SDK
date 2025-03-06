@@ -25,11 +25,11 @@ void UConsumableSubsystem::RegisterHealthPickup(UConsumableComponent* Consumable
 void UConsumableSubsystem::RegisterAmmoPickup(UConsumableComponent* Consumable) {
 }
 
-int32 UConsumableSubsystem::QueryNeededHealth(AFPSCharacterBase* InteractingCharacter) {
+int32 UConsumableSubsystem::QueryNeededHealth(AFPSCharacterBase* InteractingCharacter, float OverrideConsumableRange) {
     return 0;
 }
 
-int32 UConsumableSubsystem::QueryNeededAmmo(AFPSCharacterBase* InteractingCharacter) {
+int32 UConsumableSubsystem::QueryNeededAmmo(AFPSCharacterBase* InteractingCharacter, float OverrideConsumableRange) {
     return 0;
 }
 
@@ -56,11 +56,11 @@ float UConsumableSubsystem::GetPlayersTotalAmmoPercentage() {
     return 0.0f;
 }
 
-TArray<UConsumableComponent*> UConsumableSubsystem::GetNearbyConsumables(AFPSCharacterBase* InteractingCharacter, EConsumableType ConsumableType) {
+TArray<UConsumableComponent*> UConsumableSubsystem::GetNearbyConsumables(AFPSCharacterBase* InteractingCharacter, EConsumableType ConsumableType, float OverrideConsumableRange) {
     return TArray<UConsumableComponent*>();
 }
 
-int32 UConsumableSubsystem::CalculateNeededConsumables(AFPSCharacterBase* InteractingCharacter, EConsumableType ConsumableType) {
+int32 UConsumableSubsystem::CalculateNeededConsumables(AFPSCharacterBase* InteractingCharacter, EConsumableType ConsumableType, float OverrideConsumableRange) {
     return 0;
 }
 

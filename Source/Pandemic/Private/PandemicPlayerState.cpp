@@ -31,8 +31,11 @@ APandemicPlayerState::APandemicPlayerState(const FObjectInitializer& ObjectIniti
     this->PlayerKillScoreAmount = 30;
     this->TeamKillScoreAmount = -50;
     this->SelectedFaction = 0;
-    this->RandomValue = 6604;
+    this->RandomValue = 15040;
+    this->SelectedSkinToneIndex = 0;
+    this->SelectedGenderIndex = 0;
     this->bIsReady = false;
+    this->bIsFullyLoaded = false;
 }
 
 void APandemicPlayerState::UseMissionItem(TSoftObjectPtr<UMissionItem> Item) {
@@ -66,6 +69,24 @@ void APandemicPlayerState::SetMuted(bool bNewMuted) {
 void APandemicPlayerState::SetLoadout(FFPSLoadout Loadout) {
 }
 
+void APandemicPlayerState::SetDLCOwnership(int32 DLCID, FName DLCName, bool bIsOwned) {
+}
+
+void APandemicPlayerState::ServerSubmitDLCOwnership_Implementation(const TArray<FDLCOwnership>& Ownership) {
+}
+
+void APandemicPlayerState::ServerSetFinishedLoading_Implementation(bool bFinishedLoading) {
+}
+
+void APandemicPlayerState::ServerRequestSelectedPatches_Implementation(const TArray<int32>& InSelectedPatches) {
+}
+
+void APandemicPlayerState::ServerRequestSelectedCharacterSkin_Implementation(int32 InSelectedSkin) {
+}
+
+void APandemicPlayerState::ServerRequestCosmeticsProfile_Implementation(const FCosmeticProfile& Profile) {
+}
+
 void APandemicPlayerState::Server_RequestUnBanPlayer_Implementation(const FPlayerID& Player) {
 }
 
@@ -90,9 +111,26 @@ void APandemicPlayerState::Server_RequestAddOwner_Implementation(const FPlayerID
 void APandemicPlayerState::Server_RequestAddAdmin_Implementation(const FPlayerID& Player) {
 }
 
-void APandemicPlayerState::RemovePrivateJournalEntry(FJournal JournalEntry) {
+void APandemicPlayerState::RequestSelectedSkinToneIndex_Implementation(uint8 InSelectedIndex) {
 }
 
+void APandemicPlayerState::RequestSelectedGenderIndex_Implementation(uint8 InSelectedIndex) {
+}
+
+void APandemicPlayerState::RequestAvailablePatches_Implementation() {
+}
+
+void APandemicPlayerState::RequestAvailableItems_Implementation(int32 Slots) {
+}
+
+void APandemicPlayerState::RequestAvailableCharacterSkins_Implementation() {
+}
+
+
+
+bool APandemicPlayerState::PassesCosmeticRequirements(const FCosmeticRequirements& Requirements) {
+    return false;
+}
 
 void APandemicPlayerState::OnRep_TotalKills_Implementation() {
 }
@@ -109,10 +147,22 @@ void APandemicPlayerState::OnRep_Team_Implementation() {
 void APandemicPlayerState::OnRep_Status_Implementation() {
 }
 
+void APandemicPlayerState::OnRep_SelectedSkinToneIndex_Implementation() {
+}
+
+void APandemicPlayerState::OnRep_SelectedPatches_Implementation() {
+}
+
+void APandemicPlayerState::OnRep_SelectedGenderIndex_Implementation() {
+}
+
 void APandemicPlayerState::OnRep_SelectedFaction_Implementation() {
 }
 
-void APandemicPlayerState::OnRep_PrivateJournalEntry_Implementation() {
+void APandemicPlayerState::OnRep_SelectedCharacterSkin_Implementation() {
+}
+
+void APandemicPlayerState::OnRep_PrivateCustomJournalList_Implementation() {
 }
 
 void APandemicPlayerState::OnRep_PlayerKills_Implementation() {
@@ -148,7 +198,20 @@ void APandemicPlayerState::OnRep_IsAdmin_Implementation() {
 void APandemicPlayerState::OnRep_CurrentLoadout_Implementation() {
 }
 
+void APandemicPlayerState::OnRep_AvailablePatches_Implementation() {
+}
+
+void APandemicPlayerState::OnRep_AvailableItems_Implementation() {
+}
+
+void APandemicPlayerState::OnRep_AvailableCharacterSkins_Implementation() {
+}
+
 bool APandemicPlayerState::IsReady() const {
+    return false;
+}
+
+bool APandemicPlayerState::IsFullyLoaded() const {
     return false;
 }
 
@@ -192,6 +255,14 @@ int32 APandemicPlayerState::GetHeadshots() const {
     return 0;
 }
 
+FGameplayTag APandemicPlayerState::GetFactionTag() {
+    return FGameplayTag{};
+}
+
+UPandemicFaction* APandemicPlayerState::GetFaction() {
+    return NULL;
+}
+
 int32 APandemicPlayerState::GetEnemyKills() const {
     return 0;
 }
@@ -211,10 +282,20 @@ APlayerController* APandemicPlayerState::GetController() const {
 void APandemicPlayerState::FinishGrantMissionItem(TSoftObjectPtr<UMissionItem> Item) {
 }
 
+FCosmeticProfile APandemicPlayerState::CreateProfileFromCosmetics(FName ProfileName) const {
+    return FCosmeticProfile{};
+}
+
+void APandemicPlayerState::ClientCheckDLCOwnership_Implementation() {
+}
+
 void APandemicPlayerState::ClientApplyOfflineScore_Implementation() {
 }
 
 void APandemicPlayerState::Client_AddAchievement_Implementation(const FString& AchievementName) {
+}
+
+void APandemicPlayerState::CheckDLCOwnership() {
 }
 
 void APandemicPlayerState::ChangeTeam(int32 NewTeam) {
@@ -263,13 +344,19 @@ int32 APandemicPlayerState::CalculateRandomValue(int32 Seed, int32 Max) const {
 void APandemicPlayerState::AddScore(int32 Amount) {
 }
 
-void APandemicPlayerState::AddPrivateJournalEntry(FJournal JournalEntry) {
-}
-
 void APandemicPlayerState::AddKill(bool IsHeadshot, bool IsPlayer, APawn* Killed, APlayerState* PlayerState, float ScoreModifier) {
 }
 
+void APandemicPlayerState::AddJournalEntryToUser_Implementation(UJournalDataEntry* JournalEntry) {
+}
+
+void APandemicPlayerState::AddJournalEntry(UJournalDataEntry* JournalEntry) {
+}
+
 void APandemicPlayerState::AddDeath() {
+}
+
+void APandemicPlayerState::AddCustomJournalEntry(UJournalDataEntry* JournalEntry) {
 }
 
 void APandemicPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
@@ -297,12 +384,20 @@ void APandemicPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>&
     DOREPLIFETIME(APandemicPlayerState, bRespawning);
     DOREPLIFETIME(APandemicPlayerState, RespawnTimeStamp);
     DOREPLIFETIME(APandemicPlayerState, MissionInventory);
+    DOREPLIFETIME(APandemicPlayerState, PrivateCustomJournalList);
     DOREPLIFETIME(APandemicPlayerState, CachedDLCOwnership);
     DOREPLIFETIME(APandemicPlayerState, SelectedFaction);
     DOREPLIFETIME(APandemicPlayerState, RandomValue);
     DOREPLIFETIME(APandemicPlayerState, CurrentLoadout);
+    DOREPLIFETIME(APandemicPlayerState, AvailableCharacterSkins);
+    DOREPLIFETIME(APandemicPlayerState, AvailablePatches);
+    DOREPLIFETIME(APandemicPlayerState, AvailableItems);
+    DOREPLIFETIME(APandemicPlayerState, SelectedCharacterSkin);
+    DOREPLIFETIME(APandemicPlayerState, SelectedPatches);
+    DOREPLIFETIME(APandemicPlayerState, SelectedSkinToneIndex);
+    DOREPLIFETIME(APandemicPlayerState, SelectedGenderIndex);
     DOREPLIFETIME(APandemicPlayerState, bIsReady);
-    DOREPLIFETIME(APandemicPlayerState, PrivateJournalEntry);
+    DOREPLIFETIME(APandemicPlayerState, bIsFullyLoaded);
 }
 
 

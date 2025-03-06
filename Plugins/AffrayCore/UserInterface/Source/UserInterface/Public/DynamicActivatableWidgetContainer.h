@@ -1,7 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "ActivatableWidget.h"
-#include "Templates/SubclassOf.h"
 #include "DynamicActivatableWidgetContainer.generated.h"
 
 UCLASS(Blueprintable, EditInlineNew)
@@ -11,7 +10,7 @@ public:
     UDynamicActivatableWidgetContainer();
 
     UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
-    void AddWidgets(const TArray<TSubclassOf<UActivatableWidget>>& Widgets);
+    void AddWidgets(const TArray<TSoftClassPtr<UActivatableWidget>>& Widgets);
     
 };
 

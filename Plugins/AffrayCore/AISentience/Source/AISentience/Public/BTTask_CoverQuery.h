@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "BehaviorTree/Tasks/BTTask_RunEQSQuery.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=BTTask_RunEQSQuery -FallbackName=BTTask_RunEQSQuery
 #include "BTTask_CoverQuery.generated.h"
 
 UCLASS(Blueprintable)

@@ -1,6 +1,6 @@
 #include "FPSItem.h"
-#include "Components/SceneComponent.h"
-#include "Components/SkeletalMeshComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SkeletalMeshComponent -FallbackName=SkeletalMeshComponent
 #include "FPSItemData.h"
 #include "Net/UnrealNetwork.h"
 
@@ -12,6 +12,7 @@ AFPSItem::AFPSItem(const FObjectInitializer& ObjectInitializer) : Super(ObjectIn
     this->RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
     this->ItemDataClass = UFPSItemData::StaticClass();
     this->bIsEquipped = false;
+    this->bHasPreviouslyEquipped = false;
     this->bIsDisplay = false;
     this->bIsEquipping = false;
     this->bIsAnimationInitialized = false;
@@ -21,6 +22,7 @@ AFPSItem::AFPSItem(const FObjectInitializer& ObjectInitializer) : Super(ObjectIn
     this->MeleeDistanceTolerance = 150.00f;
     this->MeleeAngleTolerance = 90.00f;
     this->bSubtractPingFromMeleeDelay = false;
+    this->bDisableCollisionWhenUnequipped = true;
     this->FPSCharacter = NULL;
     this->ItemData = NULL;
     this->Delay = 0.00f;
@@ -31,6 +33,7 @@ AFPSItem::AFPSItem(const FObjectInitializer& ObjectInitializer) : Super(ObjectIn
     this->ThirdPerson = CreateDefaultSubobject<USceneComponent>(TEXT("ThirdPerson"));
     this->Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
     this->Mesh3P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh3P"));
+    this->bIsCheckingAmmo = false;
     this->FirstPerson->SetupAttachment(RootComponent);
     this->ThirdPerson->SetupAttachment(RootComponent);
     this->Mesh->SetupAttachment(FirstPerson);
@@ -83,9 +86,6 @@ void AFPSItem::SetDelay(float NewDelay) {
 }
 
 void AFPSItem::SetCurrentCosmetic(int32 NewCosmetic) {
-}
-
-void AFPSItem::SetCharacter(AFPSCharacterBase* Character) {
 }
 
 void AFPSItem::SetBoneVisibility(FName Name, bool bVisible) {
@@ -166,6 +166,10 @@ bool AFPSItem::IsValidItem() const {
 }
 
 bool AFPSItem::IsLocallyOwned() const {
+    return false;
+}
+
+bool AFPSItem::IsCheckingAmmo() const {
     return false;
 }
 
@@ -292,10 +296,12 @@ void AFPSItem::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetime
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     
     DOREPLIFETIME(AFPSItem, bIsEquipped);
+    DOREPLIFETIME(AFPSItem, bHasPreviouslyEquipped);
     DOREPLIFETIME(AFPSItem, CurrentCosmetic);
     DOREPLIFETIME(AFPSItem, FPSCharacter);
     DOREPLIFETIME(AFPSItem, ItemDataAssetID);
     DOREPLIFETIME(AFPSItem, MeleeData);
+    DOREPLIFETIME(AFPSItem, bIsCheckingAmmo);
     DOREPLIFETIME(AFPSItem, SlotData);
 }
 

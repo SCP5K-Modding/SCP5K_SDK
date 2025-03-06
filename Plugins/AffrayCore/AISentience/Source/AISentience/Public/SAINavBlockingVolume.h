@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "AI/Navigation/NavRelevantInterface.h"
-#include "GameFramework/Volume.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=NavRelevantInterface -FallbackName=NavRelevantInterface
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Volume -FallbackName=Volume
 #include "SAINavBlockingVolume.generated.h"
 
 UCLASS(Blueprintable)

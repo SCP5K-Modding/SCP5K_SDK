@@ -18,8 +18,13 @@ USplatterComponent::USplatterComponent(const FObjectInitializer& ObjectInitializ
     this->DecalLifeSpan = 60.00f;
     this->DecalFadeInTime = 0.10f;
     this->DecalFadeOutTime = 10.00f;
+    this->PelvisBoneName = TEXT("pelvis");
+    this->DeathDecalDelay = 5.00f;
+    this->DeathDecalFadeTime = 15.00f;
+    this->MaxDeathDecalVelocity = 200.00f;
     this->bCheckDamageTypes = false;
     this->bAutoLoadResources = true;
+    this->bSpawnSplattersOnDedicatedServer = false;
 }
 
 void USplatterComponent::SpawnSplatterDecals() {

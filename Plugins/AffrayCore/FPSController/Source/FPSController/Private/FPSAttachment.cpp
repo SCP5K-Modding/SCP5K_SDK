@@ -1,7 +1,7 @@
 #include "FPSAttachment.h"
-#include "Components/SceneComponent.h"
-#include "Components/SkeletalMeshComponent.h"
-#include "FMODAudioComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SkeletalMeshComponent -FallbackName=SkeletalMeshComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
 #include "Net/UnrealNetwork.h"
 
 AFPSAttachment::AFPSAttachment(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
@@ -21,8 +21,6 @@ AFPSAttachment::AFPSAttachment(const FObjectInitializer& ObjectInitializer) : Su
     this->AudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("FMODAudio"));
     this->AttachmentData = NULL;
     this->OwningItem = NULL;
-    this->FirstPersonAttachComponent = NULL;
-    this->ThirdPersonAttachComponent = NULL;
     this->FirstPerson->SetupAttachment(RootComponent);
     this->ThirdPerson->SetupAttachment(RootComponent);
     this->Mesh->SetupAttachment(FirstPerson);
@@ -30,7 +28,7 @@ AFPSAttachment::AFPSAttachment(const FObjectInitializer& ObjectInitializer) : Su
     this->AudioComponent->SetupAttachment(Mesh);
 }
 
-void AFPSAttachment::SetupAttachmentData_Implementation() {
+void AFPSAttachment::SetupAttachmentData_Implementation(UFPSAttachmentData* InAttachmentData) {
 }
 
 void AFPSAttachment::SetOwningItem(AFPSItem* NewItem) {
@@ -72,6 +70,9 @@ void AFPSAttachment::OnRep_IsEnabled_Implementation() {
 void AFPSAttachment::OnRep_AttachmentReplicatedData_Implementation() {
 }
 
+void AFPSAttachment::OnRep_AttachmentDataAssetID_Implementation() {
+}
+
 void AFPSAttachment::OnParentItemDataLoaded(AFPSItem* Item) {
 }
 
@@ -85,6 +86,10 @@ void AFPSAttachment::OnDeath_Implementation() {
 }
 
 void AFPSAttachment::OnApplyCosmetic_Implementation(int32 Index, FFPSCosmetic Cosmetic) {
+}
+
+bool AFPSAttachment::IsValidAttachment_Implementation() const {
+    return false;
 }
 
 USceneComponent* AFPSAttachment::GetThirdPersonRoot() const {
@@ -126,6 +131,10 @@ UStaticMesh* AFPSAttachment::GetAttachMesh(FName& AttachSocket) const {
     return NULL;
 }
 
+FPrimaryAssetId AFPSAttachment::GetAttachmentDataAssetID() const {
+    return FPrimaryAssetId{};
+}
+
 UFPSAttachmentData* AFPSAttachment::GetAttachmentData() const {
     return NULL;
 }
@@ -146,6 +155,7 @@ void AFPSAttachment::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
     DOREPLIFETIME(AFPSAttachment, AttachmentReplicatedData);
     DOREPLIFETIME(AFPSAttachment, BIsEnabled);
     DOREPLIFETIME(AFPSAttachment, OwningItem);
+    DOREPLIFETIME(AFPSAttachment, AttachmentDataAssetID);
 }
 
 

@@ -1,7 +1,7 @@
 #include "Horde.h"
-#include "Engine/EngineTypes.h"
-#include "Engine/EngineTypes.h"
-#include "Components/SphereComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EAutoPossessAI -FallbackName=EAutoPossessAI
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ESpawnActorCollisionHandlingMethod -FallbackName=ESpawnActorCollisionHandlingMethod
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SphereComponent -FallbackName=SphereComponent
 #include "HordeController.h"
 #include "Net/UnrealNetwork.h"
 #include "Templates/SubclassOf.h"

@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "EnvironmentQuery/EnvQueryContext.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryContext -FallbackName=EnvQueryContext
 #include "EnvQueryContext_AllSAITargets.generated.h"
 
 class AActor;

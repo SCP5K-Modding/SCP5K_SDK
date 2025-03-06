@@ -3,7 +3,7 @@
 #include "EMessageType.generated.h"
 
 UENUM(BlueprintType)
-enum EMessageType {
+enum class EMessageType : uint8 {
     Message,
     Log,
     Warning,

@@ -1,44 +1,22 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "Animation/AnimInstance.h"
-#include "FPSAnimationInstance.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Rotator -FallbackName=Rotator
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector2D -FallbackName=Vector2D
+#include "FPSAnimInstanceBase.h"
 #include "Templates/SubclassOf.h"
+#include "ThirdPersonAnimInstanceProxy.h"
 #include "ThirdPersonAnimInstance.generated.h"
 
-class AFPSCharacterBase;
 class UAnimMontage;
 class UAnimSequence;
 class UFPSItemData;
-class UFPSMeleeWeaponData;
-class UFPSRangedWeaponData;
-class UFPSThrowableData;
-class UFPSWeaponData;
 
 UCLASS(Blueprintable, NonTransient)
-class FPSCONTROLLER_API UThirdPersonAnimInstance : public UAnimInstance, public IFPSAnimationInstance {
+class FPSCONTROLLER_API UThirdPersonAnimInstance : public UFPSAnimInstanceBase {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    AFPSCharacterBase* FPSCharacter;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    UFPSItemData* ItemData;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    UFPSWeaponData* WeaponData;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    UFPSThrowableData* ThrowableData;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    UFPSMeleeWeaponData* MeleeData;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    UFPSRangedWeaponData* RangedWeaponData;
-    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UAnimSequence* BasePoseAnimation;
     
@@ -72,13 +50,37 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bUpdateDistanceToGround;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     float DistanceToGround;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FTransform LockedLeftFootTransform;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FTransform LockedRightFootTransform;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FRotator LockedRotationReference;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float LeftFootLockingAlpha;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float RightFootLockingAlpha;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float SimpleThirdPersonAlpha;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsClimbing;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FThirdPersonAnimInstanceProxy Proxy;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     bool bIsReadyRight;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     bool bIsReadyLeft;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -259,6 +261,9 @@ public:
     bool bIsTurning;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UAnimMontage* FootPlantAnim;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UAnimMontage* TurnRight90Anim;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -273,12 +278,19 @@ public:
     UThirdPersonAnimInstance();
 
     UFUNCTION(BlueprintCallable)
+    void UpdateRightFootLockedTransform();
+    
+    UFUNCTION(BlueprintCallable)
+    void UpdateLockedRotationReference();
+    
+    UFUNCTION(BlueprintCallable)
+    void UpdateLeftFootLockedTransform();
+    
+    UFUNCTION(BlueprintCallable)
     void StopTurning();
     
     UFUNCTION(BlueprintCallable)
     void StartTurning(UAnimMontage* Montage, float PlayRate);
     
-
-    // Fix for true pure virtual functions not being implemented
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "EnvironmentQuery/EnvQueryContext.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryContext -FallbackName=EnvQueryContext
 #include "EnvQueryContext_SAITarget.generated.h"
 
 class AActor;
@@ -14,7 +14,7 @@ public:
 
 private:
     UFUNCTION(BlueprintCallable)
-    void ProvideCurrentTarget(const UObject* QuerierObject, AActor*& OutTarget) const;
+    AActor* ProvideCurrentTarget(const UObject* QuerierObject) const;
     
 };
 

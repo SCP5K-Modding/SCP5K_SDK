@@ -22,15 +22,33 @@ void AUIHUD::ToggleHUD() {
 void AUIHUD::SetHUDVisibility(bool Visible) {
 }
 
+void AUIHUD::SetForceHideHUD(bool bShouldHideHUD) {
+}
+
 void AUIHUD::SetChatWidget(UWidget* Widget) {
 }
 
-void AUIHUD::PushUI(TArray<TSubclassOf<UActivatableWidget>> WidgetList) {
+void AUIHUD::PushUI(const TArray<TSoftClassPtr<UActivatableWidget>>& WidgetList) {
 }
 
-void AUIHUD::PushPostGameUI(TArray<TSubclassOf<UActivatableWidget>> WidgetList) {
+void AUIHUD::PushPostGameUI(const TArray<TSoftClassPtr<UActivatableWidget>>& WidgetList) {
 }
 
+void AUIHUD::PushCachedPreGameUI() {
+}
+
+void AUIHUD::PushCachedPostGameUI() {
+}
+
+void AUIHUD::PlayerUpdated(APlayerState* PlayerState) {
+}
+
+void AUIHUD::PlayerHealthUpdated(APlayerState* PlayerState, float Health) {
+}
+
+
+void AUIHUD::LocalPlayerPawnUpdated(APlayerController* Controller, APawn* Pawn) {
+}
 
 bool AUIHUD::IsPlayerBlocked(APlayerState* PlayerState) {
     return false;

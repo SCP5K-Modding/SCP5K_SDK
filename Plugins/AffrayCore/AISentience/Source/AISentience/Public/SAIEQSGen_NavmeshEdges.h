@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "DataProviders/AIDataProvider.h"
-#include "DataProviders/AIDataProvider.h"
-#include "EnvironmentQuery/Generators/EnvQueryGenerator_SimpleGrid.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIDataProviderBoolValue -FallbackName=AIDataProviderBoolValue
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIDataProviderFloatValue -FallbackName=AIDataProviderFloatValue
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryGenerator_SimpleGrid -FallbackName=EnvQueryGenerator_SimpleGrid
 #include "Templates/SubclassOf.h"
 #include "SAIEQSGen_NavmeshEdges.generated.h"
 

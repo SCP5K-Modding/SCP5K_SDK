@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/Interface.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Interface -FallbackName=Interface
 #include "Templates/SubclassOf.h"
 #include "Damageable.generated.h"
 
@@ -17,6 +17,9 @@ class IDamageable : public IInterface {
 public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     float GetMaxHealth() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    bool GetIsPermenantlyDead() const;
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     bool GetIsDead() const;

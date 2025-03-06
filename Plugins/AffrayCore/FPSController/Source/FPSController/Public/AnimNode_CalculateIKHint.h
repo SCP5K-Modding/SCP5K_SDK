@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "BoneControllers/AnimNode_SkeletalControlBase.h"
-#include "BoneContainer.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AnimGraphRuntime -ObjectName=AnimNode_SkeletalControlBase -FallbackName=AnimNode_SkeletalControlBase
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BoneReference -FallbackName=BoneReference
 #include "AnimNode_CalculateIKHint.generated.h"
 
 USTRUCT(BlueprintType)

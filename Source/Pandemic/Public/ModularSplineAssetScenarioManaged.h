@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "ModularSplineAsset.h"
-#include "ScenarioItem.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=ModularAssets -ObjectName=ModularSplineAsset -FallbackName=ModularSplineAsset
+//CROSS-MODULE INCLUDE V2: -ModuleName=RandomScenarios -ObjectName=ScenarioItem -FallbackName=ScenarioItem
 #include "ModularSplineAssetScenarioManaged.generated.h"
 
 UCLASS(Blueprintable)

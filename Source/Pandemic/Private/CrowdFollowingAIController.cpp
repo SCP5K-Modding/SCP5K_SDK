@@ -1,5 +1,5 @@
 #include "CrowdFollowingAIController.h"
-#include "Navigation/CrowdFollowingComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=CrowdFollowingComponent -FallbackName=CrowdFollowingComponent
 
 ACrowdFollowingAIController::ACrowdFollowingAIController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>(TEXT("PathFollowingComponent"))) {
     this->bEnableCrowdSeparation = true;
@@ -12,11 +12,11 @@ ACrowdFollowingAIController::ACrowdFollowingAIController(const FObjectInitialize
     this->Team = 255;
 }
 
-FVector ACrowdFollowingAIController::GetNextPathPoint() {
+FVector ACrowdFollowingAIController::GetNextPathPoint() const {
     return FVector{};
 }
 
-FVector ACrowdFollowingAIController::GetNextPathDir() {
+FVector ACrowdFollowingAIController::GetNextPathDir() const {
     return FVector{};
 }
 

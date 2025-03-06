@@ -1,16 +1,19 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameFramework/HUD.h"
-#include "GameplayTagContainer.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=HUD -FallbackName=HUD
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTag -FallbackName=GameplayTag
 #include "AddChatMessageDelegate.h"
 #include "AddNotifierDelegate.h"
 #include "EPlayerActionReturn.h"
 #include "HUDVisibilityDelegate.h"
+#include "LocalPlayerPawnUpdatedDelegate.h"
 #include "PlayerHealthUpdatedDelegate.h"
 #include "PlayerUpdatedDelegate.h"
 #include "Templates/SubclassOf.h"
 #include "UIHUD.generated.h"
 
+class APawn;
+class APlayerController;
 class APlayerState;
 class UActivatableWidget;
 class UDynamicActivatableWidgetContainer;
@@ -36,8 +39,17 @@ public:
     UPROPERTY(BlueprintAssignable, BlueprintCallable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FPlayerHealthUpdated OnPlayerHealthUpdated;
     
+    UPROPERTY(BlueprintAssignable, BlueprintCallable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FLocalPlayerPawnUpdated OnLocalPlayerPawnUpdated;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     int32 MaxChatCharacterAmount;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TArray<TSoftClassPtr<UActivatableWidget>> PreGameUICache;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TArray<TSoftClassPtr<UActivatableWidget>> PostGameUICache;
     
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -74,16 +86,34 @@ public:
     void SetHUDVisibility(bool Visible);
     
     UFUNCTION(BlueprintCallable)
+    void SetForceHideHUD(bool bShouldHideHUD);
+    
+    UFUNCTION(BlueprintCallable)
     void SetChatWidget(UWidget* Widget);
     
     UFUNCTION(BlueprintCallable)
-    void PushUI(TArray<TSubclassOf<UActivatableWidget>> WidgetList);
+    void PushUI(const TArray<TSoftClassPtr<UActivatableWidget>>& WidgetList);
     
     UFUNCTION(BlueprintCallable)
-    void PushPostGameUI(TArray<TSubclassOf<UActivatableWidget>> WidgetList);
+    void PushPostGameUI(const TArray<TSoftClassPtr<UActivatableWidget>>& WidgetList);
+    
+    UFUNCTION(BlueprintCallable)
+    void PushCachedPreGameUI();
+    
+    UFUNCTION(BlueprintCallable)
+    void PushCachedPostGameUI();
+    
+    UFUNCTION(BlueprintCallable)
+    void PlayerUpdated(APlayerState* PlayerState);
+    
+    UFUNCTION(BlueprintCallable)
+    void PlayerHealthUpdated(APlayerState* PlayerState, float Health);
     
     UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
     void MainUIInitialised();
+    
+    UFUNCTION(BlueprintCallable)
+    void LocalPlayerPawnUpdated(APlayerController* Controller, APawn* Pawn);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsPlayerBlocked(APlayerState* PlayerState);

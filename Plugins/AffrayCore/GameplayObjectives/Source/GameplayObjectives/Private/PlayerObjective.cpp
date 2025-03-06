@@ -4,6 +4,7 @@
 UPlayerObjective::UPlayerObjective() {
     this->RequiredPlayers = 0;
     this->CurrentPlayers = 0;
+    this->bRequireAllAlivePlayers = false;
     this->bRequiresPlayersForTimer = true;
     this->bStopUnderRequiredPlayers = true;
 }
@@ -11,7 +12,7 @@ UPlayerObjective::UPlayerObjective() {
 void UPlayerObjective::SetRequiredPlayers(int32 NewRequiredPlayers) {
 }
 
-void UPlayerObjective::RemovePlayer() {
+void UPlayerObjective::RemovePlayer(APawn* Player) {
 }
 
 void UPlayerObjective::OnRep_RequiredPlayers() {
@@ -32,7 +33,13 @@ UPlayerObjective* UPlayerObjective::CreatePlayerObjective(UObject* Outer, FName 
     return NULL;
 }
 
-void UPlayerObjective::AddPlayer() {
+void UPlayerObjective::CheckPlayerArray() {
+}
+
+void UPlayerObjective::AlivePlayersUpdated(int32 AlivePlayers) {
+}
+
+void UPlayerObjective::AddPlayer(APawn* Player) {
 }
 
 void UPlayerObjective::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {

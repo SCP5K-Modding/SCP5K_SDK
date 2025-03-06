@@ -4,6 +4,7 @@
 UHealthComponent::UHealthComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->CurrentHealth = 100.00f;
     this->MaxHealth = 100.00f;
+    this->MaxHealthPlayerMultiplier = 0.00f;
     this->bIsDead = false;
     this->DefaultDamageMultiplier = 1.00f;
 }

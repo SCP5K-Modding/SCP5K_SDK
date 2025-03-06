@@ -1,9 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Actor -FallbackName=Actor
 #include "MissionItemPickup.generated.h"
 
 class AController;
+class UFMODEvent;
 class UGameAction;
 class UInteractableComponent;
 class UMissionItem;
@@ -19,6 +20,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UStaticMesh* Mesh;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UFMODEvent* PickupSound;
     
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
@@ -44,6 +48,9 @@ public:
 
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void SetActive(bool bNewActive);
+    
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, BlueprintNativeEvent)
     void Pickup(AController* Controller);
     
@@ -57,6 +64,9 @@ public:
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, BlueprintNativeEvent)
     void OnFailed(AController* Controller);
+    
+    UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+    void MulticastPickup();
     
 };
 

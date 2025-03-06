@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/Interface.h"
-#include "UObject/NoExportTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Interface -FallbackName=Interface
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
 #include "EMeleeAttackDirection.h"
 #include "MeleeUser.generated.h"
 
@@ -20,7 +20,7 @@ public:
     FVector GetAttackVector(const TEnumAsByte<EMeleeAttackDirection>& Direction);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    EMeleeAttackDirection GetAttackDirection();
+    TEnumAsByte<EMeleeAttackDirection> GetAttackDirection();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void Cancel();

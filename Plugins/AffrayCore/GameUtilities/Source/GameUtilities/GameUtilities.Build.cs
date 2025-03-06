@@ -11,9 +11,12 @@ public class GameUtilities : ModuleRules {
             "CoreUObject",
             "DLSSBlueprint",
             "Engine",
+            "FMODStudio",
+            "GameplayTags",
             "LevelSequence",
             "NISBlueprint",
             "UIUtilities",
+            "UMG",
         });
     }
 }

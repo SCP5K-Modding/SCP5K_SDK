@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "PlayerTriggerVolume.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameUtilities -ObjectName=PlayerTriggerVolume -FallbackName=PlayerTriggerVolume
 #include "ESpawnTriggerMode.h"
 #include "SpawnerTrigger.generated.h"
 
@@ -35,6 +36,20 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     URelationshipVisualizerComponent* VisualizerComponent;
     
+protected:
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bInvestigate;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FVector InvestigatePosition;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float InvestigateDelayDuration;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float InvestigationRange;
+    
+public:
     ASpawnerTrigger(const FObjectInitializer& ObjectInitializer);
 
 };

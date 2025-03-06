@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Date.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=UserInterface -ObjectName=Date -FallbackName=Date
 #include "PlayerID.h"
 #include "PlayerBan.generated.h"
 

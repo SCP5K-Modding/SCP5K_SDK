@@ -1,8 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "ESCP173BSound.h"
-#include "SCP173BSoundInfo.h"
+#include "ESCP173BehaviorState.h"
 #include "SCP173Base.h"
 #include "Templates/SubclassOf.h"
 #include "SCP173B.generated.h"
@@ -22,7 +20,10 @@ protected:
     USCP173HallucinogenComponent* HallucinogenComponent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    TMap<ESCP173BSound, UFMODEvent*> Sounds;
+    UFMODEvent* WarningSound;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FName BloodthirstParameterName;
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TSubclassOf<UDamageType> DamageType;
@@ -31,14 +32,17 @@ protected:
     UCurveFloat* GraceCurve;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float MinMovementSoundDistance;
+    float StalkingMovementSpeed;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float BloodthirstMovementSpeed;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_BehaviorState, meta=(AllowPrivateAccess=true))
+    ESCP173BehaviorState BehaviorState;
     
 private:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     bool bIsAttemptingKill;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_SoundsToPlay, meta=(AllowPrivateAccess=true))
-    TArray<FSCP173BSoundInfo> SoundsToPlay;
     
 public:
     ASCP173B(const FObjectInitializer& ObjectInitializer);
@@ -46,11 +50,11 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
-    void PlaySound(ESCP173BSound SoundType, const FVector& TargetLocation);
+    void SetBehaviorState(ESCP173BehaviorState InBehaviorState);
     
 private:
     UFUNCTION(BlueprintCallable)
-    void OnRep_SoundsToPlay();
+    void OnRep_BehaviorState();
     
 public:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
@@ -61,6 +65,12 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     AActor* GetCurrentKillTarget() const;
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void EnterStalkingState();
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void EnterBloodthirstState();
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void CancelKill();

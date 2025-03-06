@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameFramework/RootMotionSource.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=RootMotionSource_MoveToForce -FallbackName=RootMotionSource_MoveToForce
 #include "RootMotionSource_TargetTransform.generated.h"
 
 USTRUCT(BlueprintType)

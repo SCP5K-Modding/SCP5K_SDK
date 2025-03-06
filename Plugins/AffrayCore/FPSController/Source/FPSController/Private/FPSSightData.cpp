@@ -7,6 +7,8 @@ UFPSSightData::UFPSSightData() {
     this->ZoomMultiplier = 1.00f;
     this->RingSize = 0.80f;
     this->ADSOffset = -5.00f;
+    this->bAllowIronSight = false;
+    this->SightSocket = TEXT("Sight");
 }
 
 

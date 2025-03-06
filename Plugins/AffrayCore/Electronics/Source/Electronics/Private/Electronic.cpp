@@ -1,6 +1,6 @@
 #include "Electronic.h"
-#include "Components/SceneComponent.h"
-#include "FMODAudioComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
 #include "Net/UnrealNetwork.h"
 
 AElectronic::AElectronic(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
@@ -15,6 +15,7 @@ AElectronic::AElectronic(const FObjectInitializer& ObjectInitializer) : Super(Ob
     this->bAutoLockOnDisable = false;
     this->AutoLockTime = 3.00f;
     this->bCanBreakWhenLocked = false;
+    this->bScenarioEnabled = true;
     this->bUpdateEnabledOnPower = true;
     this->bOneUse = false;
     this->bHasBeenUsed = false;
@@ -65,7 +66,10 @@ void AElectronic::UnBreak() {
 void AElectronic::Toggle(AActor* Caller) {
 }
 
-void AElectronic::StartLoopingSound_Implementation(bool bRandomPosition) {
+void AElectronic::StopLoopingSound_Implementation() {
+}
+
+void AElectronic::StartLoopingSound_Implementation() {
 }
 
 void AElectronic::SetPowered(bool bPower, AActor* Caller) {
@@ -104,6 +108,7 @@ void AElectronic::ServerBreak_Implementation(AActor* Caller) {
 
 
 
+
 void AElectronic::Power(AActor* Caller) {
 }
 
@@ -117,6 +122,9 @@ void AElectronic::OnUnlock() {
 }
 
 void AElectronic::OnRep_Health() {
+}
+
+void AElectronic::OnRep_bScenarioEnabled() {
 }
 
 void AElectronic::OnRep_bPowered() {
@@ -220,6 +228,7 @@ void AElectronic::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
     DOREPLIFETIME(AElectronic, bPowered);
     DOREPLIFETIME(AElectronic, bBroken);
     DOREPLIFETIME(AElectronic, bLocked);
+    DOREPLIFETIME(AElectronic, bScenarioEnabled);
     DOREPLIFETIME(AElectronic, bHasBeenUsed);
     DOREPLIFETIME(AElectronic, MaxHealth);
     DOREPLIFETIME(AElectronic, Health);

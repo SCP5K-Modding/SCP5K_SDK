@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "GameFramework/Actor.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Actor -FallbackName=Actor
 #include "AttachMeshHierachy.h"
 #include "AttachmentSlotData.h"
 #include "FPSCosmetic.h"
@@ -38,6 +38,9 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_IsEquipped, meta=(AllowPrivateAccess=true))
     bool bIsEquipped;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, Transient, meta=(AllowPrivateAccess=true))
+    bool bHasPreviouslyEquipped;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bIsDisplay;
     
@@ -64,6 +67,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bSubtractPingFromMeleeDelay;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bDisableCollisionWhenUnequipped;
     
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_FPSCharacter, meta=(AllowPrivateAccess=true))
@@ -110,6 +116,9 @@ protected:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     USkeletalMeshComponent* Mesh3P;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsCheckingAmmo;
     
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
@@ -175,9 +184,6 @@ public:
     
     UFUNCTION(BlueprintCallable)
     void SetCurrentCosmetic(int32 NewCosmetic);
-    
-    UFUNCTION(BlueprintCallable)
-    void SetCharacter(AFPSCharacterBase* Character);
     
     UFUNCTION(BlueprintCallable)
     void SetBoneVisibility(FName Name, bool bVisible);
@@ -256,6 +262,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsLocallyOwned() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool IsCheckingAmmo() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     USceneComponent* GetThirdPersonRoot() const;

@@ -17,5 +17,7 @@ enum class EGameplaySetting : uint8 {
     AimingSensitivity,
     DeadzoneSensitivity,
     HeadBobIntensity,
+    UseBodyCam,
+    EnableSeasonalEvents,
 };
 

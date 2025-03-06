@@ -1,6 +1,9 @@
 #include "SAIController.h"
-#include "Perception/AIPerceptionComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIPerceptionComponent -FallbackName=AIPerceptionComponent
+#include "SAIAwarenessComponent.h"
+#include "SAICombatProcessingComponent.h"
 #include "SAIPathFollowingComponent.h"
+#include "SAIStimuliProcessingComponent.h"
 
 ASAIController::ASAIController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.SetDefaultSubobjectClass<USAIPathFollowingComponent>(TEXT("PathFollowingComponent"))) {
     this->PerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception"));
@@ -36,6 +39,10 @@ ASAIController::ASAIController(const FObjectInitializer& ObjectInitializer) : Su
     this->DetectionAlertnessWeight = 0.03f;
     this->SuppressionDetectionAmount = 3.00f;
     this->MinFriendlySoundRadius = 1500.00f;
+    this->bUseAwarenessComponent = false;
+    this->AwarenessComponent = CreateDefaultSubobject<USAIAwarenessComponent>(TEXT("AwarenessComponent"));
+    this->StimuliProcessingComponent = CreateDefaultSubobject<USAIStimuliProcessingComponent>(TEXT("StimuliProcessingComponent"));
+    this->CombatProcessingComponent = CreateDefaultSubobject<USAICombatProcessingComponent>(TEXT("CombatProcessingComponent"));
     this->CurrentTargetKeyName = TEXT("CurrentTarget");
     this->LastSeenLocationKeyName = TEXT("LastSeenLocation");
     this->LastSensedLocationKeyName = TEXT("LastSensedLocation");
@@ -49,12 +56,14 @@ ASAIController::ASAIController(const FObjectInitializer& ObjectInitializer) : Su
     this->CanSeeAgentKeyName = TEXT("TargetCanSeeAgent");
     this->MaxThreatKeyName = TEXT("TargetMaxThreat");
     this->AlertnessKeyName = TEXT("Alertness");
+    this->AwarenessLevelKeyName = TEXT("AwarenessLevel");
     this->DetectionKeyName = TEXT("TargetDetection");
     this->TargetHealthKeyName = TEXT("TargetHealth");
     this->HealthKeyName = TEXT("Health");
     this->PredictedLocationKeyName = TEXT("PredictedLocation");
     this->TimeSinceSawTargetKeyName = TEXT("TimeSinceSawTarget");
     this->DistanceKeyName = TEXT("TargetDistance");
+    this->SightMinSignificance = 0.20f;
     this->Team = ESAITeam::NoTeam;
     this->MinSoundLocationUpdatePriority = ESAISoundType::FriendlyAttack;
     this->MinSoundSwitchAge = 7.00f;
@@ -161,6 +170,12 @@ AActor* ASAIController::GetCurrentTarget() const {
 }
 
 void ASAIController::EndIdle(ESAIState NewState) {
+}
+
+void ASAIController::EnableAI() {
+}
+
+void ASAIController::DisableAI(bool bRestart) {
 }
 
 TEnumAsByte<ETeamAttitude::Type> ASAIController::BlueprintGetTeamAttitudeTowards(const AActor* Other) const {

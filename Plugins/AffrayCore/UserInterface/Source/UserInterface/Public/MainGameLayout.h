@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameplayTagContainer.h"
-#include "Blueprint/UserWidget.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTag -FallbackName=GameplayTag
+//CROSS-MODULE INCLUDE V2: -ModuleName=UMG -ObjectName=UserWidget -FallbackName=UserWidget
 #include "Templates/SubclassOf.h"
 #include "MainGameLayout.generated.h"
 
@@ -26,6 +26,9 @@ protected:
 public:
     UFUNCTION(BlueprintCallable)
     UActivatableWidgetContainerStack* GetLayerWidget(FGameplayTag LayerName);
+    
+    UFUNCTION(BlueprintCallable)
+    UActivatableWidget* GetActiveLayerWidget(FGameplayTag LayerName, TSubclassOf<UActivatableWidget> ActivatableWidgetClass);
     
     UFUNCTION(BlueprintCallable)
     UActivatableWidget* AddWidgetToLayer(FGameplayTag Layer, TSubclassOf<UActivatableWidget> ActivatableWidgetClass);

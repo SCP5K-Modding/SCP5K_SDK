@@ -1,5 +1,5 @@
 #include "FPSSight.h"
-#include "Components/ArrowComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ArrowComponent -FallbackName=ArrowComponent
 
 AFPSSight::AFPSSight(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->SightData = NULL;

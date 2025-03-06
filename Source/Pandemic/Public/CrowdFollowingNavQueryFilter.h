@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "NavFilters/NavigationQueryFilter.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=NavigationSystem -ObjectName=NavigationQueryFilter -FallbackName=NavigationQueryFilter
 #include "CrowdFollowingNavQueryFilter.generated.h"
 
 UCLASS(Blueprintable)

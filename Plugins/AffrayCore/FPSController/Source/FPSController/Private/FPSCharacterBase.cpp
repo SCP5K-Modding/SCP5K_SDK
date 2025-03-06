@@ -8,6 +8,7 @@
 #include "NightVisionCameraModifier.h"
 #include "SprintingCameraModifier.h"
 #include "SuppressionCameraModifier.h"
+#include "Templates/SubclassOf.h"
 
 AFPSCharacterBase::AFPSCharacterBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.SetDefaultSubobjectClass<UFPSCharacterMovementComponent>(TEXT("CharMoveComp"))) {
     this->MaxDistance = 5000.00f;
@@ -27,6 +28,7 @@ AFPSCharacterBase::AFPSCharacterBase(const FObjectInitializer& ObjectInitializer
     this->bCanUseItems = true;
     this->JumpItemDelay = 0.30f;
     this->LowReadySpeedMultiplier = 0.65f;
+    this->DefaultDamageSound = NULL;
     this->WalkingSpeed = 300.00f;
     this->SprintingSpeed = 500.00f;
     this->CrouchingSpeed = 200.00f;
@@ -46,6 +48,7 @@ AFPSCharacterBase::AFPSCharacterBase(const FObjectInitializer& ObjectInitializer
     this->MinSprintForwardFraction = 0.50f;
     this->LandSprintDelay = 0.50f;
     this->LandJumpDelay = 0.50f;
+    this->bDisableSprintDelay = false;
     this->JumpDelay = 0.00f;
     this->SprintDelay = 0.00f;
     this->RecoilSmoothingSpeed = 4.00f;
@@ -82,11 +85,13 @@ AFPSCharacterBase::AFPSCharacterBase(const FObjectInitializer& ObjectInitializer
     this->TargetEyeHeight = 0.00f;
     this->CurrentEyeHeight = 90.00f;
     this->SmoothEyeHeight = 0.00f;
+    this->LastApexHeight = 0.00f;
     this->LastGroundedHeight = 0.00f;
     this->CurrentWalkSpeed = 0.00f;
     this->CurrentCrouchSpeed = 0.00f;
     this->DeltaTime = 0.00f;
     this->bIsDisplay = false;
+    this->bShouldUseDeathCamera = true;
     this->SuppressionCameraModifierClass = USuppressionCameraModifier::StaticClass();
     this->LowHealthCameraModifierClass = ULowHealthCameraModifier::StaticClass();
     this->SprintingCameraModifierClass = USprintingCameraModifier::StaticClass();
@@ -110,6 +115,9 @@ AFPSCharacterBase::AFPSCharacterBase(const FObjectInitializer& ObjectInitializer
     this->DamageCameraModifier = NULL;
     FProperty* p_CharacterMovement_Prior = GetClass()->FindPropertyByName("CharacterMovement");
     this->FPSCharacterMovement = (UFPSCharacterMovementComponent*)*p_CharacterMovement_Prior->ContainerPtrToValuePtr<UFPSCharacterMovementComponent*>(this);
+}
+
+void AFPSCharacterBase::UpdateSkinColor(const FLinearColor& Color, int32 PrimitiveColorIndex) {
 }
 
 void AFPSCharacterBase::UpdateMount_Implementation() {
@@ -148,6 +156,9 @@ void AFPSCharacterBase::StartLoadAndAddItem(TSoftObjectPtr<UFPSItemData> Item, F
 }
 
 void AFPSCharacterBase::StartKick(UObject* Kickable) {
+}
+
+void AFPSCharacterBase::StartClimb(UClimbableComponent* Climbable) {
 }
 
 void AFPSCharacterBase::SetWantsBracedAim(bool bWantsBracedAim) {
@@ -198,10 +209,25 @@ void AFPSCharacterBase::ServerSwitchItem_Implementation(AFPSItem* Item) {
 void AFPSCharacterBase::ServerSetBracedAim_Implementation(bool bBracedAim) {
 }
 
+void AFPSCharacterBase::ServerDie_Implementation(AController* InInstigator, TSubclassOf<UDamageType> KillingDamageType, FName LastHitBone) {
+}
+
 void AFPSCharacterBase::RemoveItemAndEquip_Implementation(AFPSItem* Item, int32 Slot) {
 }
 
 void AFPSCharacterBase::RemoveItem_Implementation(AFPSItem* Item) {
+}
+
+float AFPSCharacterBase::ReceiveTakeDamage_Implementation(float DamageAmount, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser) {
+    return 0.0f;
+}
+
+bool AFPSCharacterBase::ReceiveShouldTakeDamage_Implementation(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser) const {
+    return false;
+}
+
+
+void AFPSCharacterBase::PlayerStateUpdated_Implementation(APlayerState* NewPlayerState) {
 }
 
 void AFPSCharacterBase::OnRep_Suppression_Implementation() {
@@ -232,6 +258,9 @@ void AFPSCharacterBase::OnRep_Abilities() {
 }
 
 void AFPSCharacterBase::OnItemDataLoaded(AFPSItem* Item) {
+}
+
+void AFPSCharacterBase::OnEndClimb_Implementation(UClimbableComponent* ClimbableComponent, const FClimbableExit& Exit) {
 }
 
 bool AFPSCharacterBase::IsReserveAmmoFull() {
@@ -410,10 +439,6 @@ bool AFPSCharacterBase::GetCancelledReload() const {
     return false;
 }
 
-UCameraComponent* AFPSCharacterBase::GetCamera_Implementation() {
-    return NULL;
-}
-
 bool AFPSCharacterBase::GetBracedAiming() const {
     return false;
 }
@@ -444,6 +469,13 @@ void AFPSCharacterBase::FinishKick_Implementation() {
 
 bool AFPSCharacterBase::FindCorner(FVector Normal, float WallDistance, float CapsuleRadius, float CornerDistance, bool bUseComplex, FVector& CornerPosition, UPrimitiveComponent*& CornerObject) {
     return false;
+}
+
+void AFPSCharacterBase::EndClimb() {
+}
+
+AFPSItemPickup* AFPSCharacterBase::DropItem(AFPSItem* Item, TSubclassOf<AFPSItemPickup> PickupClass) {
+    return NULL;
 }
 
 void AFPSCharacterBase::CosmeticUpdatedSprinting_Implementation(bool bSprinting) {
@@ -488,6 +520,9 @@ void AFPSCharacterBase::CosmeticUpdatedDead_Implementation(bool bDead) {
 void AFPSCharacterBase::CosmeticUpdatedCrouching_Implementation(bool bCrouching) {
 }
 
+void AFPSCharacterBase::CosmeticUpdatedCheckingWatch_Implementation(bool bIsCheckingWatch) {
+}
+
 void AFPSCharacterBase::CosmeticUpdatedCheckingAmmo_Implementation(bool bCheckingAmmo) {
 }
 
@@ -495,6 +530,9 @@ void AFPSCharacterBase::CosmeticUpdatedAiming_Implementation(bool bAiming) {
 }
 
 void AFPSCharacterBase::CosmeticSwitchItem_Implementation(AFPSItem* Item) {
+}
+
+void AFPSCharacterBase::CosmeticPlayDamageSound(float Damage, APawn* InInstigatorPawn, TSubclassOf<UDamageType> DamageType) {
 }
 
 void AFPSCharacterBase::CosmeticFinishEquipItem_Implementation() {
@@ -506,7 +544,13 @@ void AFPSCharacterBase::CosmeticFinishDequipItem_Implementation() {
 void AFPSCharacterBase::CosmeticEquipItem_Implementation(AFPSItem* Item) {
 }
 
+void AFPSCharacterBase::CosmeticDie_Implementation(APawn* InInstigatorPawn, TSubclassOf<UDamageType> KillingDamageType, FName LastHitBone) {
+}
+
 void AFPSCharacterBase::CosmeticDequipItem_Implementation(AFPSItem* Item) {
+}
+
+void AFPSCharacterBase::CosmeticDeathCamera_Implementation(APawn* InInstigatorPawn, TSubclassOf<UDamageType> KillingDamageType, FName LastHitBone) {
 }
 
 bool AFPSCharacterBase::CanVault(FTransform CornerLocation, float EyeHeight, UAnimMontage* Montage) const {
@@ -521,8 +565,20 @@ bool AFPSCharacterBase::CanPickupItem(AFPSItemPickup* Pickup) const {
     return false;
 }
 
+bool AFPSCharacterBase::CanLowReady() const {
+    return false;
+}
+
+bool AFPSCharacterBase::CanForceLowReady() const {
+    return false;
+}
+
 bool AFPSCharacterBase::CanAddAmmo(bool bUseFullAmmo, bool bAllItems, int32 Amount) const {
     return false;
+}
+
+UCameraModifier* AFPSCharacterBase::BlueprintFindOrAddCameraModifier(APlayerController* PC, TSubclassOf<UCameraModifier> Class) {
+    return NULL;
 }
 
 void AFPSCharacterBase::BlendNightVision_Implementation() {
@@ -535,6 +591,9 @@ void AFPSCharacterBase::ApplyRotationOffset() {
 }
 
 void AFPSCharacterBase::ApplyPositionOffset(FVector& Delta) {
+}
+
+void AFPSCharacterBase::ApplyDamage_Implementation(AController* InInstigator, float Damage, TSubclassOf<UDamageType> DamageType) {
 }
 
 void AFPSCharacterBase::AddSuppression(float Amount) {

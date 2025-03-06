@@ -1,10 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "EClearanceLevel.h"
-#include "EContainmentClass.h"
-#include "EDisruptionClass.h"
-#include "ERiskClass.h"
-#include "ESecondaryClass.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameUtilities -ObjectName=EClearanceLevel -FallbackName=EClearanceLevel
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameUtilities -ObjectName=EContainmentClass -FallbackName=EContainmentClass
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameUtilities -ObjectName=EDisruptionClass -FallbackName=EDisruptionClass
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameUtilities -ObjectName=ERiskClass -FallbackName=ERiskClass
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameUtilities -ObjectName=ESecondaryClass -FallbackName=ESecondaryClass
 #include "JournalEntry.h"
 #include "JournalDocument.generated.h"
 

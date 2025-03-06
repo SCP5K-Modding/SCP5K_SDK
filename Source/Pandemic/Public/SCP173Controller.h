@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "AIController.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIController -FallbackName=AIController
 #include "SCP173NavmeshTarget.h"
 #include "SCP173Controller.generated.h"
 

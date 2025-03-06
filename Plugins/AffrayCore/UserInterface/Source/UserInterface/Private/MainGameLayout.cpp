@@ -11,6 +11,10 @@ UActivatableWidgetContainerStack* UMainGameLayout::GetLayerWidget(FGameplayTag L
     return NULL;
 }
 
+UActivatableWidget* UMainGameLayout::GetActiveLayerWidget(FGameplayTag LayerName, TSubclassOf<UActivatableWidget> ActivatableWidgetClass) {
+    return NULL;
+}
+
 UActivatableWidget* UMainGameLayout::AddWidgetToLayer(FGameplayTag Layer, TSubclassOf<UActivatableWidget> ActivatableWidgetClass) {
     return NULL;
 }

@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Camera/PlayerCameraManager.h"
-#include "Engine/Scene.h"
-#include "EVideoSetting.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PlayerCameraManager -FallbackName=PlayerCameraManager
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PostProcessSettings -FallbackName=PostProcessSettings
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameUtilities -ObjectName=EVideoSetting -FallbackName=EVideoSetting
 #include "FPSPlayerCameraManager.generated.h"
 
 UCLASS(Blueprintable, NonTransient)

@@ -1,5 +1,5 @@
 #include "ModularAsset.h"
-#include "Components/SceneComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
 
 AModularAsset::AModularAsset(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
@@ -9,6 +9,7 @@ AModularAsset::AModularAsset(const FObjectInitializer& ObjectInitializer) : Supe
     this->bUseAsOccluder = true;
     this->bCastShadows = true;
     this->bUseSubtractorCaching = true;
+    this->bAllowDistanceCull = true;
     this->bEnableCollisionAggregation = false;
     this->bOverridePhysicalMaterial = false;
     this->AggregatePhysicalMaterial = NULL;

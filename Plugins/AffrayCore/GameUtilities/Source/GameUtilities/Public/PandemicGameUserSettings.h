@@ -1,11 +1,12 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "DLSSLibrary.h"
-#include "GameFramework/GameUserSettings.h"
-#include "UNISMode.h"
-#include "HUDElementVisibility.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=LinearColor -FallbackName=LinearColor
+//CROSS-MODULE INCLUDE V2: -ModuleName=DLSSBlueprint -ObjectName=UDLSSMode -FallbackName=UDLSSMode
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=GameUserSettings -FallbackName=GameUserSettings
+//CROSS-MODULE INCLUDE V2: -ModuleName=NISBlueprint -ObjectName=UNISMode -FallbackName=UNISMode
+//CROSS-MODULE INCLUDE V2: -ModuleName=UIUtilities -ObjectName=HUDElementVisibility -FallbackName=HUDElementVisibility
 #include "ECustomReflexMode.h"
+#include "ESubtitleDisplayMode.h"
 #include "ETextSize.h"
 #include "EUpscalerMode.h"
 #include "EUpscalerQuality.h"
@@ -24,6 +25,9 @@ class GAMEUTILITIES_API UPandemicGameUserSettings : public UGameUserSettings {
     GENERATED_BODY()
 public:
 protected:
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FString LastBuild;
+    
     UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bToggleCrouch;
     
@@ -64,6 +68,12 @@ protected:
     float HeadBobIntensity;
     
     UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bUseBodyCam;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bEnableSeasonalEvents;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     ECustomReflexMode ReflexMode;
     
     UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -73,10 +83,16 @@ protected:
     EUpscalerQuality UpscalerQuality;
     
     UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bEnableUpscalerAutoExposure;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bEnableDepthOfField;
     
     UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bEnableMotionBlur;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bEnableSSGI;
     
     UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bEnablePaniniProjection;
@@ -126,6 +142,9 @@ protected:
     UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     float VoiceVolume;
     
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    ESubtitleDisplayMode SubtitleDisplayMode;
+    
 public:
     UPROPERTY(BlueprintAssignable, BlueprintCallable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FOnGameplaySettingsUpdated OnGameplaySettingUpdated;
@@ -152,6 +171,9 @@ public:
 
     UFUNCTION(BlueprintCallable)
     void SetVoiceVolume(float NewVoiceVolume);
+    
+    UFUNCTION(BlueprintCallable)
+    void SetUseBodyCam(bool bNewUseBodyCam);
     
     UFUNCTION(BlueprintCallable)
     void SetUpscalerQuality(EUpscalerQuality NewUpscalerQuality);
@@ -187,6 +209,9 @@ public:
     void SetTextSize(ETextSize NewTextSize);
     
     UFUNCTION(BlueprintCallable)
+    void SetSubtitleDisplayMode(ESubtitleDisplayMode NewMode);
+    
+    UFUNCTION(BlueprintCallable)
     void SetSFXVolume(float NewSFXVolume);
     
     UFUNCTION(BlueprintCallable)
@@ -206,6 +231,9 @@ public:
     
     UFUNCTION(BlueprintCallable)
     void SetMasterVolume(float NewMasterVolume);
+    
+    UFUNCTION(BlueprintCallable)
+    void SetLastBuild(const FString& NewLastBuild);
     
     UFUNCTION(BlueprintCallable)
     void SetLanguage(const FString& NewLanguage);
@@ -232,6 +260,15 @@ public:
     void SetFieldOfView(float Value);
     
     UFUNCTION(BlueprintCallable)
+    void SetEnableUpscalerAutoExposure(bool bNewEnableUpscalerAutoExposure);
+    
+    UFUNCTION(BlueprintCallable)
+    void SetEnableSSGI(bool bNewEnableSSGI);
+    
+    UFUNCTION(BlueprintCallable)
+    void SetEnableSeasonalEvents(bool bNewEnableSeasonalEvents);
+    
+    UFUNCTION(BlueprintCallable)
     void SetEnablePaniniProjection(bool bNewEnablePaniniProjection);
     
     UFUNCTION(BlueprintCallable)
@@ -254,6 +291,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetVoiceVolume() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool GetUseBodyCam() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     TArray<FText> GetUpscalerQualityNamesFromArray(TArray<EUpscalerQuality> UpscalerQualities);
@@ -301,6 +341,12 @@ public:
     TArray<EUpscalerMode> GetSupportedUpscalerModes();
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    ESubtitleDisplayMode GetSubtitleDisplayMode() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool GetSSGI() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetSFXVolume() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -331,6 +377,9 @@ public:
     float GetMasterVolume() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    FString GetLastBuild() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     FString GetLanguage() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -353,6 +402,12 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetFieldOfView() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool GetEnableUpscalerAutoExposure() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool GetEnableSeasonalEvents() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetDepthOfField() const;

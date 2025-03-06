@@ -1,9 +1,17 @@
 #include "PandemicPreGameManager.h"
-#include "Camera/CameraComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=CameraComponent -FallbackName=CameraComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
 
 APandemicPreGameManager::APandemicPreGameManager(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
-    this->RootComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-    this->CameraComponent = (UCameraComponent*)RootComponent;
+    this->RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+    this->CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+    this->MoveableCameraComponent = NULL;
+    this->ChestPatchCamera = NULL;
+    this->LeftShoulderPatchCamera = NULL;
+    this->RightShoulderPatchCamera = NULL;
+    this->HelmetPatchCamera = NULL;
+    this->BackPatchCamera = NULL;
+    this->CameraComponent->SetupAttachment(RootComponent);
 }
 
 void APandemicPreGameManager::SpawnCharacterForPlayer_Implementation(APandemicPlayerState* Player, bool bForceRespawn) {

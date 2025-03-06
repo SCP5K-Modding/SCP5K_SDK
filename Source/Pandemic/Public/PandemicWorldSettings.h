@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameFramework/WorldSettings.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=WorldSettings -FallbackName=WorldSettings
 #include "Checkpoint.h"
 #include "PandemicGameOverride.h"
 #include "TeamDefinition.h"
@@ -50,10 +50,16 @@ public:
     bool bCanHost;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bWaitForAllLevelsToLoad;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FString SpawnLevel;
     
     APandemicWorldSettings(const FObjectInitializer& ObjectInitializer);
 
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    FPandemicGameOverride GetGameOverride();
+    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetCheckpoint(FName CheckpointID, FCheckpoint& Checkpoint);
     

@@ -1,14 +1,15 @@
 #include "SCP1262Core.h"
-#include "Components/SceneComponent.h"
-#include "Components/SphereComponent.h"
-#include "FMODAudioComponent.h"
-#include "HealthComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SphereComponent -FallbackName=SphereComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=HealthComponent -FallbackName=HealthComponent
 #include "Net/UnrealNetwork.h"
 
 ASCP1262Core::ASCP1262Core(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->bReplicates = true;
     const FProperty* p_RemoteRole = GetClass()->FindPropertyByName("RemoteRole");
     (*p_RemoteRole->ContainerPtrToValuePtr<TEnumAsByte<ENetRole>>(this)) = ROLE_SimulatedProxy;
+    this->NetDormancy = DORM_Initial;
     this->RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
     this->HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
     this->WeakPoint = CreateDefaultSubobject<USphereComponent>(TEXT("WeakPoint"));
@@ -29,9 +30,9 @@ ASCP1262Core::ASCP1262Core(const FObjectInitializer& ObjectInitializer) : Super(
     this->OpenDuringPuzzleSound = NULL;
     this->LoopingAudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("LoopingAudio"));
     this->AudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("Audio"));
-    this->WeakPoint->SetupAttachment(RootComponent);
     this->LoopingAudioComponent->SetupAttachment(RootComponent);
     this->AudioComponent->SetupAttachment(RootComponent);
+    this->WeakPoint->SetupAttachment(RootComponent);
 }
 
 void ASCP1262Core::StartStage(int32 InStage) {

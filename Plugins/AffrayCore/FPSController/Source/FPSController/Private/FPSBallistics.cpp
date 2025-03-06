@@ -15,7 +15,11 @@ bool UFPSBallistics::SimulateBallistics(AActor* User, FProjectileData Projectile
     return false;
 }
 
-FVector UFPSBallistics::GetResultingImpactVelocity(FVector ProjectileVelocity, FVector ImpactNormal, float ProjectilePiercing, float ProjectileMass, float SurfaceHardness, float SurfaceThickness, float SurfaceFriction, float SurfaceRicochetChance) {
+bool UFPSBallistics::IsCloseToPoints(FVector Point, const TArray<FVector>& Points, float Distance) {
+    return false;
+}
+
+FVector UFPSBallistics::GetResultingImpactVelocity(FVector ProjectileVelocity, FVector ImpactNormal, float ProjectilePiercing, float ProjectileMass, float SurfaceHardness, float SurfaceThickness, float SurfaceFriction, float SurfaceRicochetChance, bool& bIsRicochet) {
     return FVector{};
 }
 
@@ -39,7 +43,7 @@ float UFPSBallistics::CalculateSpread(float Spread, FRandomStream& Stream) {
     return 0.0f;
 }
 
-void UFPSBallistics::CalculateBallistics(AActor* User, float ProjectileMass, float ProjectilePiercing, FRandomStream& Stream, FVector position, FVector Velocity, float TimeStep, float Drag, float Time, bool bWasHit, FVector& OutPosition, FVector& OutVelocity, float& OutDistance, FHitResult& OutHit, float& OutTime) {
+void UFPSBallistics::CalculateBallistics(AActor* User, float ProjectileMass, float ProjectilePiercing, FRandomStream& Stream, FVector position, FVector Velocity, float TimeStep, float Drag, float Time, bool bWasHit, FVector& OutPosition, FVector& OutVelocity, float& OutDistance, FHitResult& OutHit, float& OutTime, bool& bOutWasRicochet) {
 }
 
 void UFPSBallistics::ApplyBallisticDamage(AActor* User, TArray<FBallisticProjectileData> Projectiles, float IdealRange, float MaxRange, float ProjectileVelocity, float Damage, TSubclassOf<UDamageType> DamageType) {

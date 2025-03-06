@@ -13,6 +13,7 @@ public class Electronics : ModuleRules {
             "FMODStudio",
             "GameActions",
             "NavigationSystem",
+            "RandomScenarios",
         });
     }
 }

@@ -1,8 +1,6 @@
 #include "RangedWeaponAnimInstance.h"
 
 URangedWeaponAnimInstance::URangedWeaponAnimInstance() {
-    this->FPSCharacter = NULL;
-    this->ItemData = NULL;
     this->WeaponData = NULL;
     this->RangedWeaponData = NULL;
     this->RangedWeapon = NULL;
@@ -14,10 +12,8 @@ URangedWeaponAnimInstance::URangedWeaponAnimInstance() {
     this->ReloadSpeed = 1.00f;
     this->MovementAlpha = 0.00f;
     this->SafetyTime = 0.20f;
-    this->BasePoseAnim = NULL;
     this->EmptyBasePoseAnim = NULL;
     this->SightFoldedBasePoseAnim = NULL;
-    this->MovementAnim = NULL;
     this->ActionMontage = NULL;
     this->FiringMontage = NULL;
     this->ReloadingMontage = NULL;

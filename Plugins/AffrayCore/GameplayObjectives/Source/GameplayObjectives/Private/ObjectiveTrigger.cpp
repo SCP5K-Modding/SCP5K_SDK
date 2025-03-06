@@ -1,6 +1,6 @@
 #include "ObjectiveTrigger.h"
-#include "Components/BoxComponent.h"
-#include "GameFramework/Actor.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BoxComponent -FallbackName=BoxComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EActorUpdateOverlapsMethod -FallbackName=EActorUpdateOverlapsMethod
 
 AObjectiveTrigger::AObjectiveTrigger(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->bNetLoadOnClient = false;
@@ -11,6 +11,7 @@ AObjectiveTrigger::AObjectiveTrigger(const FObjectInitializer& ObjectInitializer
     this->bDestroyOnObjectiveActivate = false;
     this->bDestroyOnObjectiveDeactivate = false;
     this->bSucceed = true;
+    this->bEvenIfNotActive = false;
     this->bStart = false;
     this->bDisplayOnUI = true;
     this->bReset = false;

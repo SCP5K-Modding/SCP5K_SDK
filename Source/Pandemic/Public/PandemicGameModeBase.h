@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "GameFramework/GameModeBase.h"
-#include "GameFramework/OnlineReplStructs.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=GameModeBase -FallbackName=GameModeBase
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=UniqueNetIdRepl -FallbackName=UniqueNetIdRepl
 #include "ChatMessageContent.h"
 #include "PlayerReport.h"
 #include "Templates/SubclassOf.h"
@@ -17,6 +17,7 @@ class APlayerController;
 class APlayerState;
 class UActivatableWidget;
 class UDataTable;
+class UFPSItemData;
 class UPrimitiveComponent;
 
 UCLASS(Blueprintable, NonTransient)
@@ -28,6 +29,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     int32 RespawnWaveTime;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    int32 GameStartRespawnWaveTime;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bTriggerRespawnWaveOnMajorObjective;
@@ -93,10 +97,10 @@ public:
     int32 MinPlayers;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    TArray<TSubclassOf<UActivatableWidget>> PreGameUI;
+    TArray<TSoftClassPtr<UActivatableWidget>> PreGameUI;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    TArray<TSubclassOf<UActivatableWidget>> PostGameUI;
+    TArray<TSoftClassPtr<UActivatableWidget>> PostGameUI;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<FChatMessageContent> MessageLog;
@@ -113,6 +117,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void TryAddGlobalBan(const FString& PlayerID, const FString& Reason, int32 Days);
+    
+    UFUNCTION(BlueprintCallable)
+    void StartRespawnWaveWithTime(int32 CustomRespawnWaveTime);
     
     UFUNCTION(BlueprintCallable)
     void StartRespawnWave();
@@ -139,7 +146,7 @@ public:
     bool ShouldEndGame();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void ServerTravel(const FString& URL, bool bAbsolute, bool bShouldSkipGameNotify);
+    bool ServerTravel(const FString& URL, bool bAbsolute, bool bShouldSkipGameNotify);
     
     UFUNCTION(BlueprintCallable)
     bool RemoveOwnerFromPlayerState(APlayerState* Player);
@@ -235,6 +242,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetAveragePlayerDistance(FVector Location) const;
+    
+    UFUNCTION(BlueprintCallable)
+    TArray<TSoftObjectPtr<UFPSItemData>> GetAvailableItemsInSlot(int32 SlotIndex, APandemicPlayerState* Player);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     bool CanAlwaysJoin(FUniqueNetIdRepl NetID);

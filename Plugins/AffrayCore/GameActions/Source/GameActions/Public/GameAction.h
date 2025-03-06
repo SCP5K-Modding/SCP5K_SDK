@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/Object.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Object -FallbackName=Object
 #include "GameAction.generated.h"
 
 class AActor;
@@ -15,16 +15,16 @@ public:
     UGameAction();
 
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, meta=(WorldContext="WorldContextObject"))
-    bool OnExecute(UObject* WorldContextObject, AActor* Subject, AActor* Instigator);
+    bool OnExecute(UObject* WorldContextObject, AActor* Owner, AActor* Instigator);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     AActor* GetOwningActor() const;
     
     UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
-    void ExecuteDelayed(UObject* WorldContextObject, AActor* Subject, AActor* Instigator);
+    void ExecuteDelayed(UObject* WorldContextObject, AActor* Owner, AActor* Instigator);
     
     UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
-    void Execute(UObject* WorldContextObject, AActor* Subject, AActor* Instigator);
+    void Execute(UObject* WorldContextObject, AActor* Owner, AActor* Instigator);
     
 };
 

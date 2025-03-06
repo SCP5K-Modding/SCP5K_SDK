@@ -22,40 +22,19 @@ int64 UConfiguratorLibrary::ToUnixTimestamp(FDateTime InTime) {
     return 0;
 }
 
+void UConfiguratorLibrary::SetRenderInDepthPass(UPrimitiveComponent* PrimitiveComponent, bool bRenderInDepthPass) {
+}
+
 void UConfiguratorLibrary::SetDirectionalLightAngle(UDirectionalLightComponent* Light, float SourceAngle, float SoftSourceAngle) {
 }
 
 void UConfiguratorLibrary::SetCrashData(const FString& Key, const FString& Value) {
 }
 
-void UConfiguratorLibrary::SetConfigString(const FString& Filename, const FString& Section, const FString& Name, const FString& Value) {
-}
-
-void UConfiguratorLibrary::SetConfigInt(const FString& Filename, const FString& Section, const FString& Name, int32 Value) {
-}
-
-void UConfiguratorLibrary::SetConfigFloat(const FString& Filename, const FString& Section, const FString& Name, float Value) {
-}
-
-void UConfiguratorLibrary::SetConfigBool(const FString& Filename, const FString& Section, const FString& Name, bool Value) {
-}
-
 void UConfiguratorLibrary::SetBit(bool bValue, int32& Mask, int32 MaskValue) {
 }
 
-void UConfiguratorLibrary::SaveObjectConfig(UObject* Object, const FString& Path) {
-}
-
-void UConfiguratorLibrary::SaveDefaultObjectConfig(UObject* Object) {
-}
-
-void UConfiguratorLibrary::SaveConfigFile(const FString& Filename) {
-}
-
-void UConfiguratorLibrary::ReloadObjectConfig(UObject* Object, const FString& Path) {
-}
-
-void UConfiguratorLibrary::ReloadDefaultObjectConfig(UObject* Object) {
+void UConfiguratorLibrary::ResetMaterials(UMeshComponent* MeshComponent) {
 }
 
 bool UConfiguratorLibrary::ReadText(const FString& Path, FString& Text) {
@@ -79,16 +58,6 @@ void UConfiguratorLibrary::LogText(const FString& Text) {
 void UConfiguratorLibrary::LogError(const FString& Text) {
 }
 
-void UConfiguratorLibrary::LoadObjectConfig(UObject* Object, const FString& Path) {
-}
-
-void UConfiguratorLibrary::LoadDefaultObjectConfig(UObject* Object) {
-}
-
-bool UConfiguratorLibrary::LoadConfigFile(const FString& Filename, FString& FinalIniFilename) {
-    return false;
-}
-
 bool UConfiguratorLibrary::IsWorldValid(UObject* WorldContextObject) {
     return false;
 }
@@ -107,6 +76,10 @@ bool UConfiguratorLibrary::HasConsoleArgument(const FString& Argument) {
 
 AWorldSettings* UConfiguratorLibrary::GetWorldSettings(UObject* WorldContextObject, TSubclassOf<AWorldSettings> SettingsClass) {
     return NULL;
+}
+
+FName UConfiguratorLibrary::GetUniqueObjectName(UObject* Object, UClass* Class, FName BaseName) {
+    return NAME_None;
 }
 
 FString UConfiguratorLibrary::GetUniqueIDAsString(FUniqueNetIdRepl ID) {
@@ -157,11 +130,11 @@ FString UConfiguratorLibrary::GetNetworkURL(UObject* WorldContextObject) {
     return TEXT("");
 }
 
-FString UConfiguratorLibrary::GetLocalIP(UObject* WorldContextObject, int32& Port) {
+FString UConfiguratorLibrary::GetMapName(UObject* WorldContextObject) {
     return TEXT("");
 }
 
-FString UConfiguratorLibrary::GetGlobalUserObjectConfigFilename(UObject* Object) {
+FString UConfiguratorLibrary::GetLocalIP(UObject* WorldContextObject, int32& Port) {
     return TEXT("");
 }
 
@@ -177,11 +150,11 @@ UGameInstance* UConfiguratorLibrary::GetGameInstance(UObject* WorldContextObject
     return NULL;
 }
 
-FString UConfiguratorLibrary::GetEditorLevelName(UObject* WorldContextObject) {
-    return TEXT("");
+APlayerController* UConfiguratorLibrary::GetFirstLocalPlayerController(UObject* WorldContextObject) {
+    return NULL;
 }
 
-FString UConfiguratorLibrary::GetDefaultObjectConfigFilename(UObject* Object) {
+FString UConfiguratorLibrary::GetEditorLevelName(UObject* WorldContextObject) {
     return TEXT("");
 }
 
@@ -217,32 +190,20 @@ FString UConfiguratorLibrary::GetConnectedIP(UObject* WorldContextObject, int32&
     return TEXT("");
 }
 
-FString UConfiguratorLibrary::GetConfigString(const FString& Filename, const FString& Section, const FString& Name, bool& HasValue) {
-    return TEXT("");
+UClass* UConfiguratorLibrary::GetClassFromBlueprintAsset(UObject* Asset) {
+    return NULL;
 }
 
-FString UConfiguratorLibrary::GetConfigPath(const FString& Filename) {
-    return TEXT("");
-}
-
-int32 UConfiguratorLibrary::GetConfigInt(const FString& Filename, const FString& Section, const FString& Name, bool& HasValue) {
-    return 0;
-}
-
-float UConfiguratorLibrary::GetConfigFloat(const FString& Filename, const FString& Section, const FString& Name, bool& HasValue) {
-    return 0.0f;
-}
-
-bool UConfiguratorLibrary::GetConfigBool(const FString& Filename, const FString& Section, const FString& Name, bool& HasValue) {
-    return false;
+FFindFloorResult UConfiguratorLibrary::GetCharacterKnownFloor(ACharacter* Character) {
+    return FFindFloorResult{};
 }
 
 int32 UConfiguratorLibrary::GetBuildID() {
     return 0;
 }
 
-bool UConfiguratorLibrary::DefaultConfigFileExists(UObject* Object) {
-    return false;
+AActor* UConfiguratorLibrary::FindContainingVolume(AActor* Actor, const TArray<AActor*>& Volumes) {
+    return NULL;
 }
 
 bool UConfiguratorLibrary::ContainsBitIndex(int32 Mask, int32 MaskValue) {
@@ -250,10 +211,6 @@ bool UConfiguratorLibrary::ContainsBitIndex(int32 Mask, int32 MaskValue) {
 }
 
 bool UConfiguratorLibrary::ContainsBit(int32 Mask, int32 MaskValue) {
-    return false;
-}
-
-bool UConfiguratorLibrary::ConfigFileExists(const FString& Path) {
     return false;
 }
 
@@ -268,8 +225,14 @@ int32 UConfiguratorLibrary::BitShiftLeft(int32 Original, int32 Shift) {
 void UConfiguratorLibrary::ApplyTextureCompressionSettings(UTexture2D* Texture) {
 }
 
+void UConfiguratorLibrary::ApplyMaterialOverrides(UMeshComponent* MeshComponent, const TArray<TSoftObjectPtr<UMaterialInterface>>& Overrides) {
+}
+
 float UConfiguratorLibrary::AngleBetween(float From, float To) {
     return 0.0f;
+}
+
+void UConfiguratorLibrary::AddToMessageLog(UObject* Object, EBlueprintMessageSeverity Severity, const FString& Message) {
 }
 
 

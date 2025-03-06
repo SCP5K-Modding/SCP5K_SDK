@@ -8,6 +8,7 @@ APandemicGameModeBase::APandemicGameModeBase(const FObjectInitializer& ObjectIni
     this->PlayerStateClass = APandemicPlayerState::StaticClass();
     this->bUseRespawnWaves = false;
     this->RespawnWaveTime = 4;
+    this->GameStartRespawnWaveTime = 60;
     this->bTriggerRespawnWaveOnMajorObjective = true;
     this->DefaultRespawnTime = 10.00f;
     this->bAllowSinglePlayerRespawns = true;
@@ -33,6 +34,9 @@ void APandemicGameModeBase::TryRemoveGlobalBan_Implementation(const FString& Pla
 }
 
 void APandemicGameModeBase::TryAddGlobalBan_Implementation(const FString& PlayerID, const FString& Reason, int32 Days) {
+}
+
+void APandemicGameModeBase::StartRespawnWaveWithTime(int32 CustomRespawnWaveTime) {
 }
 
 void APandemicGameModeBase::StartRespawnWave() {
@@ -64,7 +68,8 @@ bool APandemicGameModeBase::ShouldEndGame_Implementation() {
     return false;
 }
 
-void APandemicGameModeBase::ServerTravel_Implementation(const FString& URL, bool bAbsolute, bool bShouldSkipGameNotify) {
+bool APandemicGameModeBase::ServerTravel_Implementation(const FString& URL, bool bAbsolute, bool bShouldSkipGameNotify) {
+    return false;
 }
 
 bool APandemicGameModeBase::RemoveOwnerFromPlayerState(APlayerState* Player) {
@@ -183,6 +188,10 @@ float APandemicGameModeBase::GetMaxPlayerDistance(FVector Location) const {
 
 float APandemicGameModeBase::GetAveragePlayerDistance(FVector Location) const {
     return 0.0f;
+}
+
+TArray<TSoftObjectPtr<UFPSItemData>> APandemicGameModeBase::GetAvailableItemsInSlot(int32 SlotIndex, APandemicPlayerState* Player) {
+    return TArray<TSoftObjectPtr<UFPSItemData>>();
 }
 
 bool APandemicGameModeBase::CanAlwaysJoin_Implementation(FUniqueNetIdRepl NetID) {

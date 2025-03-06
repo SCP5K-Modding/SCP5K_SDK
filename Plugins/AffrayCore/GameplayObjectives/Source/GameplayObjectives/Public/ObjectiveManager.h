@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Actor -FallbackName=Actor
 #include "ObjectiveCompletedDelegateDelegate.h"
 #include "ObjectiveModifiedDelegateDelegate.h"
 #include "SimpleObjectiveData.h"

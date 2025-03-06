@@ -13,7 +13,7 @@ public:
     bool bIsValid;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    FScreenPathSettings settings;
+    FScreenPathSettings Settings;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     TArray<UTheatreScreenComponent*> Path;

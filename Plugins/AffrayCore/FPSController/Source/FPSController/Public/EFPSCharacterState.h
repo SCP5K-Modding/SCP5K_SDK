@@ -35,5 +35,6 @@ enum EFPSCharacterState {
     MeleeReadyRight,
     UsingMelee,
     Kicking,
+    CheckingWatch,
 };
 

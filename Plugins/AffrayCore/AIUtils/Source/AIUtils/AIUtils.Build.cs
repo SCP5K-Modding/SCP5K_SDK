@@ -11,9 +11,6 @@ public class AIUtils : ModuleRules {
             "Core",
             "CoreUObject",
             "Engine",
-            "AIHordes",
-            "AISentience",
-            "GameplayTasks",
         });
     }
 }

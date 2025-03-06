@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Subsystems/WorldSubsystem.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=WorldSubsystem -FallbackName=WorldSubsystem
 #include "EConsumableType.h"
 #include "ConsumableSubsystem.generated.h"
 
@@ -64,10 +64,10 @@ public:
     void RegisterAmmoPickup(UConsumableComponent* Consumable);
     
     UFUNCTION(BlueprintCallable)
-    int32 QueryNeededHealth(AFPSCharacterBase* InteractingCharacter);
+    int32 QueryNeededHealth(AFPSCharacterBase* InteractingCharacter, float OverrideConsumableRange);
     
     UFUNCTION(BlueprintCallable)
-    int32 QueryNeededAmmo(AFPSCharacterBase* InteractingCharacter);
+    int32 QueryNeededAmmo(AFPSCharacterBase* InteractingCharacter, float OverrideConsumableRange);
     
     UFUNCTION(BlueprintCallable)
     void OverwriteTargetHealth(float NewPercentage);
@@ -91,10 +91,10 @@ public:
     float GetPlayersTotalAmmoPercentage();
     
     UFUNCTION(BlueprintCallable)
-    TArray<UConsumableComponent*> GetNearbyConsumables(AFPSCharacterBase* InteractingCharacter, EConsumableType ConsumableType);
+    TArray<UConsumableComponent*> GetNearbyConsumables(AFPSCharacterBase* InteractingCharacter, EConsumableType ConsumableType, float OverrideConsumableRange);
     
     UFUNCTION(BlueprintCallable)
-    int32 CalculateNeededConsumables(AFPSCharacterBase* InteractingCharacter, EConsumableType ConsumableType);
+    int32 CalculateNeededConsumables(AFPSCharacterBase* InteractingCharacter, EConsumableType ConsumableType, float OverrideConsumableRange);
     
 };
 

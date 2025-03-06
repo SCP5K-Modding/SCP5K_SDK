@@ -1,7 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Camera/CameraModifier.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=CameraModifier -FallbackName=CameraModifier
 #include "DamageCameraModifier.generated.h"
+
+class UMaterialInterface;
 
 UCLASS(Blueprintable)
 class FPSCONTROLLER_API UDamageCameraModifier : public UCameraModifier {
@@ -12,6 +14,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float AberrationAmount;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UMaterialInterface* PostProcessMaterial;
     
     UDamageCameraModifier();
 

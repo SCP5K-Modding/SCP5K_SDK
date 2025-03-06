@@ -1,8 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "GameFramework/Actor.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Rotator -FallbackName=Rotator
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Actor -FallbackName=Actor
 #include "FPSAttachmentReplicatedData.h"
 #include "FPSCosmetic.h"
 #include "Templates/SubclassOf.h"
@@ -59,11 +60,14 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_OwningItem, meta=(AllowPrivateAccess=true))
     AFPSItem* OwningItem;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
-    USceneComponent* FirstPersonAttachComponent;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_AttachmentDataAssetID, meta=(AllowPrivateAccess=true))
+    FPrimaryAssetId AttachmentDataAssetID;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
-    USceneComponent* ThirdPersonAttachComponent;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    TWeakObjectPtr<USceneComponent> FirstPersonAttachComponent;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Export, meta=(AllowPrivateAccess=true))
+    TWeakObjectPtr<USceneComponent> ThirdPersonAttachComponent;
     
 public:
     AFPSAttachment(const FObjectInitializer& ObjectInitializer);
@@ -71,7 +75,7 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void SetupAttachmentData();
+    void SetupAttachmentData(UFPSAttachmentData* InAttachmentData);
     
     UFUNCTION(BlueprintCallable)
     void SetOwningItem(AFPSItem* NewItem);
@@ -113,6 +117,9 @@ protected:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_AttachmentReplicatedData();
     
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_AttachmentDataAssetID();
+    
 public:
     UFUNCTION(BlueprintCallable)
     void OnParentItemDataLoaded(AFPSItem* Item);
@@ -128,6 +135,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnApplyCosmetic(int32 Index, FFPSCosmetic Cosmetic);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
+    bool IsValidAttachment() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     USceneComponent* GetThirdPersonRoot() const;
@@ -158,6 +168,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     UStaticMesh* GetAttachMesh(FName& AttachSocket) const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    FPrimaryAssetId GetAttachmentDataAssetID() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     UFPSAttachmentData* GetAttachmentData() const;

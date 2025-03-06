@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GenericTeamAgentInterface.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=ETeamAttitude -FallbackName=ETeamAttitude
 #include "ESAITeam.h"
 #include "TeamAttitude.generated.h"
 

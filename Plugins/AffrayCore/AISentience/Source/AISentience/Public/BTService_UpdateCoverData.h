@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "BehaviorTree/BTService.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=BTService -FallbackName=BTService
 #include "BTService_UpdateCoverData.generated.h"
 
 UCLASS(Blueprintable)

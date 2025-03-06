@@ -1,16 +1,16 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Camera/CameraModifier.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=CameraModifier -FallbackName=CameraModifier
 #include "NightVisionCameraModifier.generated.h"
 
-class UMaterialInstance;
+class UMaterialInterface;
 
 UCLASS(Blueprintable)
 class FPSCONTROLLER_API UNightVisionCameraModifier : public UCameraModifier {
     GENERATED_BODY()
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    UMaterialInstance* NightVisionMaterial;
+    TArray<UMaterialInterface*> NightVisionMaterials;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float BloomAmount;

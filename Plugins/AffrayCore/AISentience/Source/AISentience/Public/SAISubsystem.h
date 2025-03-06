@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "Subsystems/WorldSubsystem.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Guid -FallbackName=Guid
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=WorldSubsystem -FallbackName=WorldSubsystem
 #include "SAISquad.h"
 #include "SAISubsystem.generated.h"
 
@@ -23,7 +23,7 @@ public:
     USAISubsystem();
 
     UFUNCTION(BlueprintCallable)
-    void RemovePointOfInterest(USAIPointOfInterest* Point);
+    void RemovePointOfInterest(USAIPointOfInterest* Point, bool bPreserveOrder);
     
     UFUNCTION(BlueprintCallable)
     AActor* GetRelevantPointOfInterest(FVector Location, FVector Direction, float MaxRadius, float MinRadius, float MaxAngle, bool bUseFirst);

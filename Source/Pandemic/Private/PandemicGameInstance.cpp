@@ -6,6 +6,7 @@ UPandemicGameInstance::UPandemicGameInstance() {
     this->bRestartServerEachGame = false;
     this->bUseSeamlessTravel = true;
     this->bAnyoneUseAdminCam = false;
+    this->bHasPublisherAPIKey = false;
     this->bUseServerPassword = false;
     this->MaxGameBans = 6;
     this->MaxVACBans = 6;
@@ -59,6 +60,9 @@ void UPandemicGameInstance::SetServerPassword(const FString& NewPassword) {
 void UPandemicGameInstance::SetServerName(const FString& NewServerName, bool bUpdateSession) {
 }
 
+void UPandemicGameInstance::SetPSOCacheUsageMask(int32 QualityLevel, int32 MapIndex) {
+}
+
 void UPandemicGameInstance::SetMaxPlayerCount(int32 NewMaxPlayers, bool bUpdateSession) {
 }
 
@@ -98,7 +102,7 @@ bool UPandemicGameInstance::RemoveAdmin(const FString& PlayerID) {
     return false;
 }
 
-void UPandemicGameInstance::ReceiveNetworkFailure_Implementation(ENetworkFailure::Type FailureType, const FString& ErrorString, bool bIsServer) {
+void UPandemicGameInstance::ReceiveNetworkFailure_Implementation(TEnumAsByte<ENetworkFailure::Type> FailureType, const FString& ErrorString, bool bIsServer) {
 }
 
 void UPandemicGameInstance::ParseMapRotation() {
@@ -163,6 +167,14 @@ bool UPandemicGameInstance::IsJoiningServer() const {
 }
 
 bool UPandemicGameInstance::IsFriendsOnly() const {
+    return false;
+}
+
+bool UPandemicGameInstance::HasValidPublisherAPIKey() const {
+    return false;
+}
+
+bool UPandemicGameInstance::HasValidAPIKey() const {
     return false;
 }
 

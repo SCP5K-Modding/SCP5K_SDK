@@ -1,5 +1,5 @@
 #include "HordeAgentController.h"
-#include "Navigation/CrowdFollowingComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=CrowdFollowingComponent -FallbackName=CrowdFollowingComponent
 
 AHordeAgentController::AHordeAgentController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>(TEXT("PathFollowingComponent"))) {
     this->bEnableCrowdSeparation = true;

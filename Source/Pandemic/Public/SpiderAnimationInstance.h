@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "Animation/AnimInstance.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=AnimInstance -FallbackName=AnimInstance
 #include "SpiderAnimationInstance.generated.h"
 
 class ACharacter;
@@ -116,6 +116,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnFootstep(FVector position, int32 LegIndex);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool IsPlayingAnimationInSlot(FName SlotName);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     FVector FindTargetLocation(int32 Index, FVector ProjectedLocation, FVector& Normal);

@@ -5,10 +5,10 @@
 UENUM(BlueprintType)
 enum class EZombieLifeState : uint8 {
     Alive,
-    Ragdolling,
-    FakeRagdolling,
+    Dead,
+    FakingDeath,
     Reanimating,
     FakedDeath,
-    Dead,
+    Dormant,
 };
 

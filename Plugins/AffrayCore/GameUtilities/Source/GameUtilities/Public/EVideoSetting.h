@@ -15,5 +15,7 @@ enum class EVideoSetting : uint8 {
     FieldOfView,
     ScalabilitySettings,
     ResolutionScale,
+    EnableSSGI,
+    EnableUpscalerAutoExposure,
 };
 

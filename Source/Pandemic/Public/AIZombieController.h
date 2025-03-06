@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "SAIController.h"
-#include "Engine/EngineTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIController -FallbackName=SAIController
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=HitResult -FallbackName=HitResult
 #include "AIZombieController.generated.h"
 
 class AAIZombieCharacter;

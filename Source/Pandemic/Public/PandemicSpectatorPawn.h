@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameFramework/SpectatorPawn.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SpectatorPawn -FallbackName=SpectatorPawn
 #include "Templates/SubclassOf.h"
 #include "PandemicSpectatorPawn.generated.h"
 

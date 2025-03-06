@@ -1,16 +1,18 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "SimpleHitData.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Actor -FallbackName=Actor
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=SimpleHitData -FallbackName=SimpleHitData
+//CROSS-MODULE INCLUDE V2: -ModuleName=SignificanceBase -ObjectName=SignificanceUser -FallbackName=SignificanceUser
 #include "SCP621Flower.generated.h"
 
 class UFMODAudioComponent;
 class UFMODEvent;
 class UHealthComponent;
+class USignificanceComponent;
 class USkeletalMeshComponent;
 
 UCLASS(Blueprintable)
-class PANDEMIC_API ASCP621Flower : public AActor {
+class PANDEMIC_API ASCP621Flower : public AActor, public ISignificanceUser {
     GENERATED_BODY()
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_bIsOpen, meta=(AllowPrivateAccess=true))
@@ -31,6 +33,9 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UFMODEvent* AudioFlowerLoopingOpenEvent;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float MinSignificanceForAnimation;
+    
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UHealthComponent* HealthComponent;
@@ -43,6 +48,9 @@ protected:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UFMODAudioComponent* LoopingAudioComponent;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    USignificanceComponent* SignificanceComponent;
     
 public:
     ASCP621Flower(const FObjectInitializer& ObjectInitializer);
@@ -71,6 +79,11 @@ public:
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void Close();
+    
+
+    // Fix for true pure virtual functions not being implemented
+    UFUNCTION()
+    void ApplySignificance(USignificanceComponent* Component, float NewSignificance, float OldSignificance) override PURE_VIRTUAL(ApplySignificance,);
     
 };
 

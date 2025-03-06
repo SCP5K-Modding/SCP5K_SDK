@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "NavLinkCustomComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=NavigationSystem -ObjectName=NavLinkCustomComponent -FallbackName=NavLinkCustomComponent
 #include "DoorLinkComponent.generated.h"
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))

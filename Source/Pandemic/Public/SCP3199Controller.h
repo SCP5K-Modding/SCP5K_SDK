@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "SAITarget.h"
-#include "UObject/NoExportTypes.h"
-#include "Engine/EngineTypes.h"
-#include "AIMeleeAttackType.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAITarget -FallbackName=SAITarget
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EObjectTypeQuery -FallbackName=EObjectTypeQuery
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=AIMeleeAttackType -FallbackName=AIMeleeAttackType
 #include "AIZombieController.h"
 #include "ESCP3199ActionState.h"
 #include "SCP3199NavmeshTarget.h"
@@ -26,6 +26,9 @@ public:
     FName AgentDamagedKeyName;
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FName AttackBlockKeyName;
+    
+    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FName AgentSeenKeyName;
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -33,6 +36,9 @@ public:
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FName ChargeCrashingKeyName;
+    
+    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FName EatingKeyName;
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FName TraversalRangeKeyName;
@@ -73,9 +79,6 @@ private:
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float NearProximityRange;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    bool bIsPanicking;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     bool bHasAttackedRecently;
@@ -197,7 +200,16 @@ private:
     void OnSAIMeleeAttackCompleted(USAIMeleeComponent* AttackingComponent, AActor* AttackedActor, uint8 AttackIndex, FAIMeleeAttackType Attack);
     
     UFUNCTION(BlueprintCallable)
-    void OnChargeCrashed();
+    void OnPlayingAttackBlockAnim(bool bIsPlayingAnim);
+    
+    UFUNCTION(BlueprintCallable)
+    void OnChargeCrashed(bool bIsAICrashing);
+    
+    UFUNCTION(BlueprintCallable)
+    void OnAIPanicking(bool bIsAIPanicking);
+    
+    UFUNCTION(BlueprintCallable)
+    void OnAIEating(bool bIsAIEating);
     
 public:
     UFUNCTION(BlueprintCallable)

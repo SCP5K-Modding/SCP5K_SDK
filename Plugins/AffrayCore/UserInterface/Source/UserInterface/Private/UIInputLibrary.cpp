@@ -22,6 +22,10 @@ EInputType UUIInputLibrary::GetOwningPlayerInputType(const UUserWidget* WidgetCo
     return EInputType::MouseAndKeyboard;
 }
 
+UUserWidget* UUIInputLibrary::GetFirstWidgetNative(UWidget* Widget) {
+    return NULL;
+}
+
 UUserWidget* UUIInputLibrary::GetFirstWidget(const UUserWidget* Widget) {
     return NULL;
 }

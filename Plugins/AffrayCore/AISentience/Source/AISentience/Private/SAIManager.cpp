@@ -1,5 +1,5 @@
 #include "SAIManager.h"
-#include "Components/BillboardComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BillboardComponent -FallbackName=BillboardComponent
 
 ASAIManager::ASAIManager(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->bAlwaysRelevant = true;

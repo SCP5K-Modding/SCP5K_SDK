@@ -5,9 +5,11 @@ ASCP3199Controller::ASCP3199Controller(const FObjectInitializer& ObjectInitializ
     this->DefaultNavigationFilterClass = USCP3199NavigationQueryFilter::StaticClass();
     this->AgentAttackKeyName = TEXT("bDidAgentRecentlyAttack");
     this->AgentDamagedKeyName = TEXT("bWasAgentRecentlyDamaged");
+    this->AttackBlockKeyName = TEXT("bIsPlayingAttackBlockAnim");
     this->AgentSeenKeyName = TEXT("bIsAgentSeen");
     this->AgentPanickingKeyName = TEXT("bIsPanicking");
     this->ChargeCrashingKeyName = TEXT("bIsCrashing");
+    this->EatingKeyName = TEXT("bIsEating");
     this->TraversalRangeKeyName = TEXT("TraversalPathRange");
     this->ChargeRangeKeyName = TEXT("ChargePathRange");
     this->AttackRangeKeyName = TEXT("AttackPathRange");
@@ -20,7 +22,6 @@ ASCP3199Controller::ASCP3199Controller(const FObjectInitializer& ObjectInitializ
     this->DirectSightLineDot = 0.87f;
     this->NearProximityCost = 200.00f;
     this->NearProximityRange = 500.00f;
-    this->bIsPanicking = false;
     this->bHasAttackedRecently = false;
     this->AttackRecencyDelay = 2.00f;
     this->bWasDamagedRecently = false;
@@ -85,7 +86,16 @@ void ASCP3199Controller::OnSCP3199AllyDied(APawn* Ally, int32 AllyCount) {
 void ASCP3199Controller::OnSAIMeleeAttackCompleted(USAIMeleeComponent* AttackingComponent, AActor* AttackedActor, uint8 AttackIndex, FAIMeleeAttackType Attack) {
 }
 
-void ASCP3199Controller::OnChargeCrashed() {
+void ASCP3199Controller::OnPlayingAttackBlockAnim(bool bIsPlayingAnim) {
+}
+
+void ASCP3199Controller::OnChargeCrashed(bool bIsAICrashing) {
+}
+
+void ASCP3199Controller::OnAIPanicking(bool bIsAIPanicking) {
+}
+
+void ASCP3199Controller::OnAIEating(bool bIsAIEating) {
 }
 
 bool ASCP3199Controller::IsAIFacingTarget() {

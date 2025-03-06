@@ -1,8 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "Components/StaticMeshComponent.h"
-#include "SimpleHitData.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Rotator -FallbackName=Rotator
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=StaticMeshComponent -FallbackName=StaticMeshComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=SimpleHitData -FallbackName=SimpleHitData
+#include "OnGlassBreakDelegate.h"
 #include "ShootableGlass.generated.h"
 
 class AActor;
@@ -30,8 +32,20 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UFMODEvent* ShatterSound;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UFMODEvent* ImpactSound;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FRotator GlassPlaneRotation;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_HitData, meta=(AllowPrivateAccess=true))
     FSimpleHitData HitData;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bHasAppliedHit;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bHasInitialized;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_IsBroken, meta=(AllowPrivateAccess=true))
     bool bIsBroken;
@@ -42,11 +56,26 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float MaxHealth;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FVector DefaultShatterLocation;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FOnGlassBreak OnBreak;
+    
 public:
     UShootableGlass(const FObjectInitializer& ObjectInitializer);
 
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void SetIsBroken(bool bNewBroken);
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void SetHitData(const FSimpleHitData& InHitData);
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void SetCurrentHealth(float InHealth);
+    
 protected:
     UFUNCTION(BlueprintCallable)
     void OnRep_IsBroken();
@@ -59,6 +88,13 @@ protected:
     
     UFUNCTION(BlueprintCallable)
     void OnPointDamage(AActor* DamagedActor, float Damage, AController* InstigatedBy, FVector HitLocation, UPrimitiveComponent* FHitComponent, FName BoneName, FVector ShotFromDirection, const UDamageType* DamageType, AActor* DamageCauser);
+    
+public:
+    UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+    void MulticastImpact(FVector Location);
+    
+    UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+    void MulticastBreak();
     
 };
 

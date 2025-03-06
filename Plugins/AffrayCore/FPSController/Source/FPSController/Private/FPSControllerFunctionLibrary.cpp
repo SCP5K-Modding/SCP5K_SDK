@@ -44,7 +44,7 @@ float UFPSControllerFunctionLibrary::SettleFloat(float Offset, float Settling, f
     return 0.0f;
 }
 
-FSimpleHitData UFPSControllerFunctionLibrary::MakeSimpleHitData(float Damage, FVector position, FVector HitFromDirection, FVector HitNormal, bool bRadial, UPrimitiveComponent* HitComponent, FName HitBoneName) {
+FSimpleHitData UFPSControllerFunctionLibrary::MakeSimpleHitData(float Damage, FVector position, FVector HitFromDirection, FVector HitNormal, bool bRadial, UPrimitiveComponent* HitComponent, FName HitBoneName, TSubclassOf<UDamageType> DamageType, AActor* DamageCauser) {
     return FSimpleHitData{};
 }
 
@@ -52,7 +52,7 @@ FMeleeHitData UFPSControllerFunctionLibrary::MakeMeleeHitData(bool bUsingMelee, 
     return FMeleeHitData{};
 }
 
-FBallisticHitData UFPSControllerFunctionLibrary::MakeBallisticHitData(bool bDamage, bool bHit, uint8 Time, uint8 PhysicsMaterialIndex, FVector_NetQuantize position, FVector_NetQuantize Velocity, FVector_NetQuantizeNormal Normal, uint8 Distance, UPrimitiveComponent* HitComponent, FName HitBoneName) {
+FBallisticHitData UFPSControllerFunctionLibrary::MakeBallisticHitData(bool bDamage, bool bHit, bool bRicochet, uint8 Time, uint8 PhysicsMaterialIndex, FVector_NetQuantize position, FVector_NetQuantize Velocity, FVector_NetQuantizeNormal Normal, uint8 Distance, UPrimitiveComponent* HitComponent, FName HitBoneName) {
     return FBallisticHitData{};
 }
 
@@ -61,6 +61,10 @@ bool UFPSControllerFunctionLibrary::IsNiagaraComponent(UFXSystemComponent* Compo
 }
 
 bool UFPSControllerFunctionLibrary::IsNiagaraAsset(UFXSystemAsset* Asset) {
+    return false;
+}
+
+bool UFPSControllerFunctionLibrary::IsLoadoutEmpty(const FFPSLoadout& Loadout) {
     return false;
 }
 
@@ -108,10 +112,6 @@ float UFPSControllerFunctionLibrary::GetControl(AFPSCharacterBase* Character, UF
     return 0.0f;
 }
 
-FName UFPSControllerFunctionLibrary::GetClosestSyncMarker(UAnimInstance* AnimInstance, FName SyncGroupName) {
-    return NAME_None;
-}
-
 bool UFPSControllerFunctionLibrary::GetBallisticDidHit(const FBallisticHitData& Data) {
     return false;
 }
@@ -122,14 +122,6 @@ bool UFPSControllerFunctionLibrary::GetBallisticDidDamage(const FBallisticHitDat
 
 FName UFPSControllerFunctionLibrary::GetBallisticBoneName(const FBallisticHitData& Data) {
     return NAME_None;
-}
-
-FVector UFPSControllerFunctionLibrary::CubicInterpVector(FVector A, FVector B, float Alpha) {
-    return FVector{};
-}
-
-float UFPSControllerFunctionLibrary::CubicInterpFloat(float A, float B, float Alpha) {
-    return 0.0f;
 }
 
 FVector UFPSControllerFunctionLibrary::ConvertVectorToItemSpace(FVector Forward, FVector Up, FVector Vector) {

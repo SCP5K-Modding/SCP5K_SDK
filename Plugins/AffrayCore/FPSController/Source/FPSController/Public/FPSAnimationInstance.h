@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/Interface.h"
-#include "UObject/NoExportTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Interface -FallbackName=Interface
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
 #include "EFireMode.h"
 #include "EMeleeAttackDirection.h"
 #include "Templates/SubclassOf.h"
@@ -29,6 +29,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void PlayVaultAnimation();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void PlayUtilityUseAnimation();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void PlayThrowAnimation(bool bUnderhand);
@@ -64,7 +67,7 @@ public:
     void PlayFiremodeAnimation(bool bUp, EFireMode FireMode);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void PlayEquipAnimation();
+    void PlayEquipAnimation(bool bIsFirstEquip);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void PlayEndADSAnimation();
@@ -85,7 +88,7 @@ public:
     void PlayCheckAmmoAnimation();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void PlayCancelAnimation(EMeleeAttackDirection Direction);
+    void PlayCancelAnimation(TEnumAsByte<EMeleeAttackDirection> Direction);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void PlayBreachAnimation();
@@ -97,7 +100,7 @@ public:
     void PlayBashAnimation(bool bHit);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void PlayAttackAnimation(EMeleeAttackDirection Direction);
+    void PlayAttackAnimation(TEnumAsByte<EMeleeAttackDirection> Direction);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void PlayActionAnimation();

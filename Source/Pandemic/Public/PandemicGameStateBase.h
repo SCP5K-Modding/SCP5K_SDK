@@ -1,23 +1,28 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "GameFramework/GameStateBase.h"
-#include "Journal.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=GameStateBase -FallbackName=GameStateBase
 #include "AlivePlayersUpdatedDelegateDelegate.h"
+#include "AllPlayersLoadedDelegateDelegate.h"
 #include "CharacterCountUpdatedDelegateDelegate.h"
 #include "Checkpoint.h"
 #include "CheckpointUpdatedDelegateDelegate.h"
+#include "CinematicEndedDelegateDelegate.h"
+#include "CinematicStartedDelegateDelegate.h"
+#include "CinematicState.h"
 #include "EGameStatus.h"
 #include "GameStatusDelegateDelegate.h"
+#include "GameUIState.h"
 #include "MapListUpdatedDelegateDelegate.h"
 #include "PlayerUpdatedDelegateDelegate.h"
 #include "SelectedMap.h"
-#include "Templates/SubclassOf.h"
 #include "PandemicGameStateBase.generated.h"
 
+class ALevelSequenceActor;
 class APandemicPlayerState;
 class APlayerState;
 class UActivatableWidget;
+class UJournalDataEntry;
 class UMissionItem;
 class UMissionItemSlot;
 class UObjective;
@@ -51,8 +56,8 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_FullMapList, meta=(AllowPrivateAccess=true))
     TArray<FSelectedMap> FullMapList;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_CurrentMapList, meta=(AllowPrivateAccess=true))
-    TArray<FSelectedMap> CurrentMapList;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_CurrentCollectionMapList, meta=(AllowPrivateAccess=true))
+    TArray<FSelectedMap> CurrentCollectionMapList;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_MapCollectionIndex, meta=(AllowPrivateAccess=true))
     int32 CurrentMapCollectionIndex;
@@ -61,10 +66,28 @@ public:
     TArray<APlayerState*> AlivePlayers;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_GameUIList, meta=(AllowPrivateAccess=true))
-    TArray<TSubclassOf<UActivatableWidget>> GameUIList;
+    TArray<TSoftClassPtr<UActivatableWidget>> GameUIList;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_SpawnLocations, meta=(AllowPrivateAccess=true))
     TArray<FString> SpawnLocations;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_bForceHideHUD, meta=(AllowPrivateAccess=true))
+    bool bForceHideHUD;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_UIState, meta=(AllowPrivateAccess=true))
+    FGameUIState UIState;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_CinematicState, meta=(AllowPrivateAccess=true))
+    FCinematicState CinematicState;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FCinematicStartedDelegate OnCinematicStarted;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FCinematicEndedDelegate OnCinematicEnded;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FAllPlayersLoadedDelegate OnAllPlayersLoaded;
     
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
@@ -75,6 +98,12 @@ protected:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     int32 StartGameTimestamp;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
+    bool bPendingStart;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    int32 EarlyStartDelay;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_CurrentSinglePlayerRespawns, meta=(AllowPrivateAccess=true))
     int32 CurrentSinglePlayerRespawns;
@@ -113,8 +142,8 @@ protected:
     FCheckpointUpdatedDelegate OnLastCheckpointUpdated;
     
 private:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_PublicJournalEntry, meta=(AllowPrivateAccess=true))
-    TArray<FJournal> PublicJournalEntry;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_PublicCustomJournalList, meta=(AllowPrivateAccess=true))
+    TArray<UJournalDataEntry*> PublicCustomJournalList;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     bool bIsUsingMapCollection;
@@ -131,8 +160,19 @@ public:
     bool TryPassOnMissionItemsFromPlayer(APandemicPlayerState* Player, bool bForcePassOn);
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void StartCinematic(bool bSkippable, float Duration, FName Name, ALevelSequenceActor* SequenceActor);
+    
+    UFUNCTION(BlueprintCallable)
+    void SkipCinematic(FName Name);
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void SetUnlockedCheckpoint(FName CheckpointName);
     
+protected:
+    UFUNCTION(BlueprintCallable)
+    void SetUIState(FGameUIState NewUIState);
+    
+public:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void SetStatus(EGameStatus NewStatus);
     
@@ -148,23 +188,45 @@ public:
     UFUNCTION(BlueprintCallable)
     void SetFullMapList(TArray<FSelectedMap> Maps);
     
+protected:
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void SetForceHideHUD(bool bShouldForceHideHUD);
+    
+public:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void SetCurrentSinglePlayerRespawns(int32 NewSinglePlayerRespawns);
     
     UFUNCTION(BlueprintCallable)
-    void SetCurrentMapList(TArray<FSelectedMap> Maps);
-    
-    UFUNCTION(BlueprintCallable)
     void SetCurrentMapCollectionIndex(int32 Index);
     
+    UFUNCTION(BlueprintCallable)
+    void SetCurrentCollectionMapList(TArray<FSelectedMap> Maps);
+    
+protected:
+    UFUNCTION(BlueprintCallable)
+    void SetCinematicState(FCinematicState NewCinematicState);
+    
+public:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void SetAllowSinglePlayerRespawns(bool bNewAllowSinglePlayerRespawns);
     
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void SavePlayerLoadouts();
+    
     UFUNCTION(BlueprintCallable)
-    void RemovePublicJournalEntry(FJournal JournalEntry);
+    void RemoveCustomJournalEntryByID(FName JournalID);
+    
+    UFUNCTION(BlueprintCallable)
+    void RemoveCustomJournalEntry(UJournalDataEntry* JournalList);
     
     UFUNCTION(BlueprintCallable, Reliable, Server)
-    void PushGameUI(const TArray<TSubclassOf<UActivatableWidget>>& UIList);
+    void PushGameUI(const TArray<TSoftClassPtr<UActivatableWidget>>& UIList);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void PlayerReadyUpdated(APandemicPlayerState* Player, bool bIsReady);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void PlayerFinishedLoading(APandemicPlayerState* Player);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void PlayerDied(APandemicPlayerState* Player, bool bIsDeath);
@@ -180,10 +242,13 @@ protected:
     void OnRep_UpdateCharacterCount();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_UIState(FGameUIState PreviousState);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_SpawnLocations();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void OnRep_PublicJournalEntry();
+    void OnRep_PublicCustomJournalList();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_MissionInventory();
@@ -216,7 +281,13 @@ protected:
     void OnRep_CurrentSinglePlayerRespawns();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void OnRep_CurrentMapList();
+    void OnRep_CurrentCollectionMapList();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_CinematicState(FCinematicState PreviousState);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_bForceHideHUD();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_AlivePlayers();
@@ -234,6 +305,12 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsSessionBegun();
     
+    UFUNCTION(BlueprintCallable)
+    bool IsReadyForUI();
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool IsInCinematic(FName Name);
+    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsAnyPlayerReady() const;
     
@@ -244,6 +321,9 @@ public:
     bool HasNextMap() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool HasCinematicEnded(FName Name, float History);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     bool HasCheckpoint() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -251,6 +331,12 @@ public:
     
     UFUNCTION(BlueprintCallable)
     FVector GetRandomPlayerLocation(APlayerState*& Player);
+    
+    UFUNCTION(BlueprintCallable)
+    TArray<UJournalDataEntry*> GetPublicCustomJournalList();
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    int32 GetNumReadyPlayers() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     int32 GetNumAlivePlayers() const;
@@ -274,19 +360,34 @@ public:
     int32 GetCurrentSinglePlayerRespawns() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    FSelectedMap GetCurrentMapFromCollection() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     FName GetCurrentMapCollection() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetAllowSinglePlayerRespawns() const;
     
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void EndCinematic(FName Name);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void CinematicStarted(FName Name, ALevelSequenceActor* LevelSequence, float Duration);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void CinematicEnded(FName Name, bool bWasSkipped);
+    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool AreAllPlayersReady() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool AreAllPlayersLoaded() const;
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void AddSharedMissionItem(UMissionItem* MissionItem);
     
     UFUNCTION(BlueprintCallable)
-    void AddPublicJournalEntry(FJournal JournalEntry);
+    void AddCustomJournalEntry(UJournalDataEntry* JournalEntry);
     
 };
 

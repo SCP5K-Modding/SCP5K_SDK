@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameFramework/Pawn.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Pawn -FallbackName=Pawn
 #include "Templates/SubclassOf.h"
 #include "TheatreAnomalyTarget.h"
 #include "TheatreAnomaly.generated.h"

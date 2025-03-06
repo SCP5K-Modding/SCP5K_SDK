@@ -1,20 +1,26 @@
 #include "AIZombieCharacter.h"
-#include "Perception/AIPerceptionStimuliSourceComponent.h"
-#include "SAIMeleeComponent.h"
-#include "DismembermentComponent.h"
-#include "GoreComponent.h"
-#include "Engine/EngineTypes.h"
-#include "PhysicsEngine/PhysicalAnimationComponent.h"
-#include "FMODAudioComponent.h"
-#include "FootstepComponent.h"
-#include "HealthComponent.h"
-#include "SplatterComponent.h"
-#include "TickOptimizerComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIPerceptionStimuliSourceComponent -FallbackName=AIPerceptionStimuliSourceComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIMeleeComponent -FallbackName=SAIMeleeComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Dismemberment -ObjectName=DismembermentComponent -FallbackName=DismembermentComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Dismemberment -ObjectName=GoreComponent -FallbackName=GoreComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EAutoPossessAI -FallbackName=EAutoPossessAI
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PhysicalAnimationComponent -FallbackName=PhysicalAnimationComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FootstepComponent -FallbackName=FootstepComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=HealthComponent -FallbackName=HealthComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=SplatterComponent -FallbackName=SplatterComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=TickOptimizerComponent -FallbackName=TickOptimizerComponent
+#include "FastCharacterMovementComponent.h"
+#include "FastReplicatedRagdoll.h"
 #include "Net/UnrealNetwork.h"
+#include "ReanimationComponent.h"
 
-AAIZombieCharacter::AAIZombieCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
+AAIZombieCharacter::AAIZombieCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.SetDefaultSubobjectClass<UFastCharacterMovementComponent>(TEXT("CharMoveComp"))) {
     this->bUseControllerRotationYaw = false;
     this->AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+    this->bRagdollIsFaceUp = false;
+    this->EnemySubsystem = NULL;
+    this->BodySubsystem = NULL;
     this->DismembermentComponent = CreateDefaultSubobject<UDismembermentComponent>(TEXT("Dismemberment"));
     this->GoreComponent = CreateDefaultSubobject<UGoreComponent>(TEXT("Gore"));
     this->FMODAudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("FMODAudio"));
@@ -25,12 +31,18 @@ AAIZombieCharacter::AAIZombieCharacter(const FObjectInitializer& ObjectInitializ
     this->SplatterComponent = CreateDefaultSubobject<USplatterComponent>(TEXT("Splatter"));
     this->TickOptimizerComponent = CreateDefaultSubobject<UTickOptimizerComponent>(TEXT("TickOptimizer"));
     this->StimuliSourceComponent = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>(TEXT("AIPerceptionStimuliSource"));
+    this->ReplicatedRagdollComponent = CreateDefaultSubobject<UFastReplicatedRagdoll>(TEXT("FastReplicatedRagdollComponent"));
+    this->ReanimationComponent = CreateDefaultSubobject<UReanimationComponent>(TEXT("Reanimation"));
     this->MaxEventInstanceSpeed = 500.00f;
     this->AmbientLoopSound = NULL;
     this->DamageSound = NULL;
     this->DeathSound = NULL;
     this->AlertSound = NULL;
     this->AttackSound = NULL;
+    this->AttackHeavySound = NULL;
+    this->AttackSwingSound = NULL;
+    this->AttackHeavySwingSound = NULL;
+    this->bAutoPlayAttackSound = false;
     this->CurrentMoveSpeed = 0.00f;
     this->MinimumMovementSpeed = 19.00f;
     this->MaximumMovementSpeed = 400.00f;
@@ -43,16 +55,16 @@ AAIZombieCharacter::AAIZombieCharacter(const FObjectInitializer& ObjectInitializ
     this->DestroyEnemyActorDelay = 120.00f;
     this->DeathHitImpulseMultiplier = 1.00f;
     this->RagdollHitImpulseMultiplier = 1.00f;
+    this->bSetTrulyDeadPrimitiveData = false;
+    this->VertAnimSpeedPrimDataChannel = 4;
     this->bIsFakeDeathPossible = false;
     this->bCanFakeDeathBegin = false;
     this->FakeDeathChance = 0.10f;
     this->FakeDeathHealthPercentageThreshold = 0.25f;
-    this->RandomReanimationStartDelay = 0.00f;
     this->ReanimationStartDelayMin = 2.00f;
     this->ReanimationStartDelayMax = 8.00f;
     this->FakeRagdollVelocityCheckDuration = 1.00f;
     this->FakeRagdollVelocityThreshold = 15.00f;
-    this->bIsFakingDeath = false;
     this->CurrentLifeState = EZombieLifeState::Alive;
     this->VelocityCheckAbortDuration = 15.00f;
     this->StopOnDeathRagdollDelay = 5.00f;
@@ -86,10 +98,10 @@ AAIZombieCharacter::AAIZombieCharacter(const FObjectInitializer& ObjectInitializ
     this->FMODAudioComponent->SetupAttachment(RootComponent);
 }
 
-void AAIZombieCharacter::StopZombieReanimationMontage() {
+void AAIZombieCharacter::StopZombieAttackAnimation() {
 }
 
-void AAIZombieCharacter::StopZombieAttackAnimation() {
+void AAIZombieCharacter::StopReanimationMontage() {
 }
 
 void AAIZombieCharacter::StopFakeDeathRagdoll() {
@@ -107,9 +119,6 @@ void AAIZombieCharacter::StartActiveRagdoll() {
 void AAIZombieCharacter::Stagger() {
 }
 
-void AAIZombieCharacter::SetZombieReanimationMontage(const UAnimMontage* DesiredMontage) {
-}
-
 void AAIZombieCharacter::SetZombieDeathAnimation(const UAnimMontage* Animation) {
 }
 
@@ -122,7 +131,7 @@ void AAIZombieCharacter::SetTargetLocation(FVector_NetQuantize Location) {
 void AAIZombieCharacter::SetServerRagdollLocation(FVector_NetQuantize RagdollLocation) {
 }
 
-void AAIZombieCharacter::SetRandomReanimationStartDelay(float DesiredDelay) {
+void AAIZombieCharacter::SetReplicatedRagdollComponent(UFastReplicatedRagdoll* InReplicatedRagdollComponent) {
 }
 
 void AAIZombieCharacter::SetMinMoveSpeedVariance(float DesiredMinVariance) {
@@ -146,9 +155,6 @@ void AAIZombieCharacter::SetIsTargetSeen(bool bIsSeen) {
 void AAIZombieCharacter::SetIsFrontHit(bool bDidHitFront) {
 }
 
-void AAIZombieCharacter::SetIsFakingDeath(bool bIsDeathFake) {
-}
-
 void AAIZombieCharacter::SetIsAIDying(bool bIsDying) {
 }
 
@@ -156,9 +162,6 @@ void AAIZombieCharacter::SetIsAIDead(bool bIsDead) {
 }
 
 void AAIZombieCharacter::SetHitDirectionAngle(float Direction) {
-}
-
-void AAIZombieCharacter::SetEndReanimationDelay(float DesiredDelay) {
 }
 
 void AAIZombieCharacter::SetDoorAttackMontage(UAnimMontage* NewMontage) {
@@ -195,10 +198,31 @@ void AAIZombieCharacter::ServerFakeDeath() {
 void AAIZombieCharacter::ServerDie(const AController* DamageInstigator, FName LastHitBone) {
 }
 
+void AAIZombieCharacter::Server_RagdollStopAndReclaim_Implementation() {
+}
+
+void AAIZombieCharacter::Server_RagdollPrepare_Implementation() {
+}
+
+void AAIZombieCharacter::Server_RagdollInitiate_Implementation() {
+}
+
 void AAIZombieCharacter::SelectSkeletalMesh() {
 }
 
+void AAIZombieCharacter::PlayAttackSwingSound(bool bIsHeavy) {
+}
+
+void AAIZombieCharacter::PlayAttackSound(bool bIsHeavy) {
+}
+
 void AAIZombieCharacter::PlayAmbientSound() {
+}
+
+void AAIZombieCharacter::OnZombieStartReanimation(UReanimationComponent* InReanimationComponent, UAnimMontage* ReanimationMontage, FVector TargetCapsuleLocation) {
+}
+
+void AAIZombieCharacter::OnZombieEndReanimation(UReanimationComponent* InReanimationComponent) {
 }
 
 void AAIZombieCharacter::OnSAIMeleeAttackStarted(USAIMeleeComponent* AttackingComponent, uint8 AttackIndex, FAIMeleeAttackType Attack) {
@@ -219,6 +243,9 @@ void AAIZombieCharacter::OnRep_IsAIDead_Implementation() {
 void AAIZombieCharacter::OnRep_CurrentMoveSpeed_Implementation() {
 }
 
+void AAIZombieCharacter::OnRep_CurrentLifeState_Implementation(EZombieLifeState PreviousLifeState) {
+}
+
 void AAIZombieCharacter::OnRep_CanFlinch_Implementation() {
 }
 
@@ -228,17 +255,19 @@ void AAIZombieCharacter::OnHealthComponentDied(UHealthComponent* UpdatedHealthCo
 void AAIZombieCharacter::OnHealthComponentDamaged(UHealthComponent* UpdatedHealthComponent, FSimpleHitData HitData) {
 }
 
-void AAIZombieCharacter::MulticastCosmeticPrepareReanimation_Delayed_Implementation() {
+void AAIZombieCharacter::NetMulticast_RagdollStopAndReclaim_Implementation() {
+}
+
+void AAIZombieCharacter::NetMulticast_RagdollPrepare_Implementation() {
+}
+
+void AAIZombieCharacter::NetMulticast_RagdollInitiate_Implementation() {
+}
+
+void AAIZombieCharacter::MulticastFakeDeath_Implementation() {
 }
 
 void AAIZombieCharacter::MulticastCosmeticDoorAttack_Implementation() {
-}
-
-void AAIZombieCharacter::MulticastCosmeticBeginReanimation_Implementation(UAnimMontage* ReanimationMontage, float ReanimationDelay) {
-}
-
-UAnimMontage* AAIZombieCharacter::GetZombieReanimationMontage() const {
-    return NULL;
 }
 
 UAnimMontage* AAIZombieCharacter::GetZombieDeathAnimation() const {
@@ -273,8 +302,8 @@ USAIMeleeComponent* AAIZombieCharacter::GetSAIMeleeComponent() const {
     return NULL;
 }
 
-float AAIZombieCharacter::GetRandomReanimationStartDelay() const {
-    return 0.0f;
+UFastReplicatedRagdoll* AAIZombieCharacter::GetReplicatedRagdollComponent() const {
+    return NULL;
 }
 
 float AAIZombieCharacter::GetRandomMoveSpeedVariance() const {
@@ -447,8 +476,8 @@ void AAIZombieCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
     DOREPLIFETIME(AAIZombieCharacter, bIsAIDying);
     DOREPLIFETIME(AAIZombieCharacter, bIsAIDead);
     DOREPLIFETIME(AAIZombieCharacter, bCanFakeDeathBegin);
-    DOREPLIFETIME(AAIZombieCharacter, RandomReanimationStartDelay);
     DOREPLIFETIME(AAIZombieCharacter, ServerRagdollLocation);
+    DOREPLIFETIME(AAIZombieCharacter, CurrentLifeState);
     DOREPLIFETIME(AAIZombieCharacter, ThirdPersonMesh);
     DOREPLIFETIME(AAIZombieCharacter, MeshScale);
     DOREPLIFETIME(AAIZombieCharacter, bIsTargetSeen);

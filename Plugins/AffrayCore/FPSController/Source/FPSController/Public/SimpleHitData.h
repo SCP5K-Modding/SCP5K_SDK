@@ -1,10 +1,12 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Engine/NetSerialization.h"
-#include "Engine/NetSerialization.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Vector_NetQuantize -FallbackName=Vector_NetQuantize
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Vector_NetQuantizeNormal -FallbackName=Vector_NetQuantizeNormal
+#include "Templates/SubclassOf.h"
 #include "SimpleHitData.generated.h"
 
 class AActor;
+class UDamageType;
 class UPrimitiveComponent;
 
 USTRUCT(BlueprintType)
@@ -36,7 +38,7 @@ public:
     bool bHasAppliedPhysics;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    UClass* DamageType;
+    TSubclassOf<UDamageType> DamageType;
     
 private:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))

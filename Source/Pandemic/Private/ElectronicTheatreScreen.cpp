@@ -1,5 +1,5 @@
 #include "ElectronicTheatreScreen.h"
-#include "Components/StaticMeshComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=StaticMeshComponent -FallbackName=StaticMeshComponent
 #include "TheatreScreenComponent.h"
 
 AElectronicTheatreScreen::AElectronicTheatreScreen(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {

@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Subsystems/WorldSubsystem.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=TickableWorldSubsystem -FallbackName=TickableWorldSubsystem
 #include "SAICoverGenerationSubsystem.generated.h"
 
 UCLASS(Blueprintable, Config=Game)
@@ -10,7 +10,7 @@ public:
     USAICoverGenerationSubsystem();
 
     UFUNCTION(BlueprintCallable)
-    void QueueTilesForCoverRegeneration(const TSet<int32>& TileIndices);
+    void QueueTilesForCoverRegeneration(const TSet<uint32>& TileIndices);
     
 };
 

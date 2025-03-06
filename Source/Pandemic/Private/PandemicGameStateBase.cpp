@@ -1,16 +1,18 @@
 #include "PandemicGameStateBase.h"
 #include "Net/UnrealNetwork.h"
-#include "Templates/SubclassOf.h"
 
 APandemicGameStateBase::APandemicGameStateBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->bUseRespawnWaves = false;
     this->RespawnWaveTimestamp = 0;
-    this->RespawnWaveTime = 0;
+    this->RespawnWaveTime = 10;
     this->Difficulty = NULL;
     this->CurrentMapCollectionIndex = -1;
+    this->bForceHideHUD = false;
     this->EndGameTimestamp = 0;
     this->RestartGameTimestamp = 0;
     this->StartGameTimestamp = 0;
+    this->bPendingStart = false;
+    this->EarlyStartDelay = 30;
     this->CurrentSinglePlayerRespawns = 0;
     this->bAllowSinglePlayerRespawns = false;
     this->GameStatus = EGameStatus::GS_PreGame;
@@ -22,7 +24,16 @@ bool APandemicGameStateBase::TryPassOnMissionItemsFromPlayer(APandemicPlayerStat
     return false;
 }
 
+void APandemicGameStateBase::StartCinematic(bool bSkippable, float Duration, FName Name, ALevelSequenceActor* SequenceActor) {
+}
+
+void APandemicGameStateBase::SkipCinematic(FName Name) {
+}
+
 void APandemicGameStateBase::SetUnlockedCheckpoint(FName CheckpointName) {
+}
+
+void APandemicGameStateBase::SetUIState(FGameUIState NewUIState) {
 }
 
 void APandemicGameStateBase::SetStatus(EGameStatus NewStatus) {
@@ -40,22 +51,40 @@ void APandemicGameStateBase::SetIndividualMapList(TArray<FSelectedMap> Maps) {
 void APandemicGameStateBase::SetFullMapList(TArray<FSelectedMap> Maps) {
 }
 
-void APandemicGameStateBase::SetCurrentSinglePlayerRespawns(int32 NewSinglePlayerRespawns) {
+void APandemicGameStateBase::SetForceHideHUD(bool bShouldForceHideHUD) {
 }
 
-void APandemicGameStateBase::SetCurrentMapList(TArray<FSelectedMap> Maps) {
+void APandemicGameStateBase::SetCurrentSinglePlayerRespawns(int32 NewSinglePlayerRespawns) {
 }
 
 void APandemicGameStateBase::SetCurrentMapCollectionIndex(int32 Index) {
 }
 
+void APandemicGameStateBase::SetCurrentCollectionMapList(TArray<FSelectedMap> Maps) {
+}
+
+void APandemicGameStateBase::SetCinematicState(FCinematicState NewCinematicState) {
+}
+
 void APandemicGameStateBase::SetAllowSinglePlayerRespawns(bool bNewAllowSinglePlayerRespawns) {
 }
 
-void APandemicGameStateBase::RemovePublicJournalEntry(FJournal JournalEntry) {
+void APandemicGameStateBase::SavePlayerLoadouts() {
 }
 
-void APandemicGameStateBase::PushGameUI_Implementation(const TArray<TSubclassOf<UActivatableWidget>>& UIList) {
+void APandemicGameStateBase::RemoveCustomJournalEntryByID(FName JournalID) {
+}
+
+void APandemicGameStateBase::RemoveCustomJournalEntry(UJournalDataEntry* JournalList) {
+}
+
+void APandemicGameStateBase::PushGameUI_Implementation(const TArray<TSoftClassPtr<UActivatableWidget>>& UIList) {
+}
+
+void APandemicGameStateBase::PlayerReadyUpdated_Implementation(APandemicPlayerState* Player, bool bIsReady) {
+}
+
+void APandemicGameStateBase::PlayerFinishedLoading_Implementation(APandemicPlayerState* Player) {
 }
 
 void APandemicGameStateBase::PlayerDied_Implementation(APandemicPlayerState* Player, bool bIsDeath) {
@@ -70,10 +99,13 @@ void APandemicGameStateBase::PassOnMissionItemFromPlayer(APandemicPlayerState* P
 void APandemicGameStateBase::OnRep_UpdateCharacterCount_Implementation() {
 }
 
+void APandemicGameStateBase::OnRep_UIState_Implementation(FGameUIState PreviousState) {
+}
+
 void APandemicGameStateBase::OnRep_SpawnLocations_Implementation() {
 }
 
-void APandemicGameStateBase::OnRep_PublicJournalEntry_Implementation() {
+void APandemicGameStateBase::OnRep_PublicCustomJournalList_Implementation() {
 }
 
 void APandemicGameStateBase::OnRep_MissionInventory_Implementation() {
@@ -106,7 +138,13 @@ void APandemicGameStateBase::OnRep_Difficulty_Implementation() {
 void APandemicGameStateBase::OnRep_CurrentSinglePlayerRespawns_Implementation() {
 }
 
-void APandemicGameStateBase::OnRep_CurrentMapList_Implementation() {
+void APandemicGameStateBase::OnRep_CurrentCollectionMapList_Implementation() {
+}
+
+void APandemicGameStateBase::OnRep_CinematicState_Implementation(FCinematicState PreviousState) {
+}
+
+void APandemicGameStateBase::OnRep_bForceHideHUD_Implementation() {
 }
 
 void APandemicGameStateBase::OnRep_AlivePlayers_Implementation() {
@@ -126,6 +164,14 @@ bool APandemicGameStateBase::IsSessionBegun() {
     return false;
 }
 
+bool APandemicGameStateBase::IsReadyForUI() {
+    return false;
+}
+
+bool APandemicGameStateBase::IsInCinematic(FName Name) {
+    return false;
+}
+
 bool APandemicGameStateBase::IsAnyPlayerReady() const {
     return false;
 }
@@ -135,6 +181,10 @@ bool APandemicGameStateBase::IsAnyPlayerAlive() const {
 }
 
 bool APandemicGameStateBase::HasNextMap() const {
+    return false;
+}
+
+bool APandemicGameStateBase::HasCinematicEnded(FName Name, float History) {
     return false;
 }
 
@@ -148,6 +198,14 @@ EGameStatus APandemicGameStateBase::GetStatus() const {
 
 FVector APandemicGameStateBase::GetRandomPlayerLocation(APlayerState*& Player) {
     return FVector{};
+}
+
+TArray<UJournalDataEntry*> APandemicGameStateBase::GetPublicCustomJournalList() {
+    return TArray<UJournalDataEntry*>();
+}
+
+int32 APandemicGameStateBase::GetNumReadyPlayers() const {
+    return 0;
 }
 
 int32 APandemicGameStateBase::GetNumAlivePlayers() const {
@@ -178,6 +236,10 @@ int32 APandemicGameStateBase::GetCurrentSinglePlayerRespawns() const {
     return 0;
 }
 
+FSelectedMap APandemicGameStateBase::GetCurrentMapFromCollection() const {
+    return FSelectedMap{};
+}
+
 FName APandemicGameStateBase::GetCurrentMapCollection() const {
     return NAME_None;
 }
@@ -186,14 +248,27 @@ bool APandemicGameStateBase::GetAllowSinglePlayerRespawns() const {
     return false;
 }
 
+void APandemicGameStateBase::EndCinematic(FName Name) {
+}
+
+void APandemicGameStateBase::CinematicStarted_Implementation(FName Name, ALevelSequenceActor* LevelSequence, float Duration) {
+}
+
+void APandemicGameStateBase::CinematicEnded_Implementation(FName Name, bool bWasSkipped) {
+}
+
 bool APandemicGameStateBase::AreAllPlayersReady() const {
+    return false;
+}
+
+bool APandemicGameStateBase::AreAllPlayersLoaded() const {
     return false;
 }
 
 void APandemicGameStateBase::AddSharedMissionItem(UMissionItem* MissionItem) {
 }
 
-void APandemicGameStateBase::AddPublicJournalEntry(FJournal JournalEntry) {
+void APandemicGameStateBase::AddCustomJournalEntry(UJournalDataEntry* JournalEntry) {
 }
 
 void APandemicGameStateBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
@@ -207,19 +282,23 @@ void APandemicGameStateBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
     DOREPLIFETIME(APandemicGameStateBase, IndividualMapList);
     DOREPLIFETIME(APandemicGameStateBase, MapCollectionList);
     DOREPLIFETIME(APandemicGameStateBase, FullMapList);
-    DOREPLIFETIME(APandemicGameStateBase, CurrentMapList);
+    DOREPLIFETIME(APandemicGameStateBase, CurrentCollectionMapList);
     DOREPLIFETIME(APandemicGameStateBase, CurrentMapCollectionIndex);
     DOREPLIFETIME(APandemicGameStateBase, AlivePlayers);
     DOREPLIFETIME(APandemicGameStateBase, GameUIList);
     DOREPLIFETIME(APandemicGameStateBase, SpawnLocations);
+    DOREPLIFETIME(APandemicGameStateBase, bForceHideHUD);
+    DOREPLIFETIME(APandemicGameStateBase, UIState);
+    DOREPLIFETIME(APandemicGameStateBase, CinematicState);
     DOREPLIFETIME(APandemicGameStateBase, EndGameTimestamp);
     DOREPLIFETIME(APandemicGameStateBase, RestartGameTimestamp);
     DOREPLIFETIME(APandemicGameStateBase, StartGameTimestamp);
+    DOREPLIFETIME(APandemicGameStateBase, bPendingStart);
     DOREPLIFETIME(APandemicGameStateBase, CurrentSinglePlayerRespawns);
     DOREPLIFETIME(APandemicGameStateBase, bAllowSinglePlayerRespawns);
     DOREPLIFETIME(APandemicGameStateBase, LastCheckpointID);
     DOREPLIFETIME(APandemicGameStateBase, GameStatus);
-    DOREPLIFETIME(APandemicGameStateBase, PublicJournalEntry);
+    DOREPLIFETIME(APandemicGameStateBase, PublicCustomJournalList);
     DOREPLIFETIME(APandemicGameStateBase, bIsUsingMapCollection);
     DOREPLIFETIME(APandemicGameStateBase, MaxCharacterCount);
 }

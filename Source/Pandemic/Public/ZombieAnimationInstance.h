@@ -1,11 +1,12 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "Animation/AnimInstance.h"
-#include "Animation/PoseSnapshot.h"
-#include "SimpleHitData.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector2D -FallbackName=Vector2D
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=AnimInstance -FallbackName=AnimInstance
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PoseSnapshot -FallbackName=PoseSnapshot
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=SimpleHitData -FallbackName=SimpleHitData
 #include "EZombieLifeState.h"
+#include "ReanimationAnimInstance.h"
 #include "Templates/SubclassOf.h"
 #include "ZombieAnimationInstance.generated.h"
 
@@ -16,7 +17,7 @@ class UDamageType;
 class UHealthComponent;
 
 UCLASS(Blueprintable, NonTransient)
-class PANDEMIC_API UZombieAnimationInstance : public UAnimInstance {
+class PANDEMIC_API UZombieAnimationInstance : public UAnimInstance, public IReanimationAnimInstance {
     GENERATED_BODY()
 public:
 protected:
@@ -45,13 +46,25 @@ protected:
     bool bIsFakingDeath;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsServer;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     EZombieLifeState CurrentLifeState;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     FPoseSnapshot SavedRagdollSnapshot;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsRagdolling;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FPoseSnapshot SyncedRagdollSnapshot;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     bool bIsFakeRagdolling;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsReanimating;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     float LookAtRotationAlpha;
@@ -120,7 +133,7 @@ private:
     void OnZombiePrepareReanimation();
     
 protected:
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnZombieDied(UHealthComponent* UpdatedHealthComponent);
     
     UFUNCTION(BlueprintCallable)
@@ -132,10 +145,16 @@ private:
     
 protected:
     UFUNCTION(BlueprintCallable)
+    void OnSyncPoseSnapshot(const FPoseSnapshot UpdatedPoseSnapshot, const bool bIsFaceUp);
+    
+    UFUNCTION(BlueprintCallable)
     UAnimMontage* GetZombieDeathAnimation() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     AAIZombieCharacter* GetZombieCharacter() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    FPoseSnapshot GetSyncedRagdollSnapshot() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     ACharacter* GetCharacter() const;
@@ -143,5 +162,7 @@ protected:
     UFUNCTION(BlueprintCallable)
     void EndFallingDistanceCheck();
     
+
+    // Fix for true pure virtual functions not being implemented
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Engine/GameViewportClient.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=GameViewportClient -FallbackName=GameViewportClient
 #include "LoadingScreenGameViewportClient.generated.h"
 
 UCLASS(Blueprintable, NonTransient)

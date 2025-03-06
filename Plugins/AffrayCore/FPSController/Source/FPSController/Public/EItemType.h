@@ -2,8 +2,8 @@
 #include "CoreMinimal.h"
 #include "EItemType.generated.h"
 
-UENUM()
-enum class EItemType : int32 {
+UENUM(BlueprintType)
+enum class EItemType : uint8 {
     Generic,
     Consumable,
     Throwable,

@@ -1,8 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "PlayerTriggerVolume.h"
-#include "Journal.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameUtilities -ObjectName=PlayerTriggerVolume -FallbackName=PlayerTriggerVolume
 #include "JournalTrigger.generated.h"
+
+class UJournalDataEntry;
 
 UCLASS(Blueprintable)
 class PANDEMIC_API AJournalTrigger : public APlayerTriggerVolume {
@@ -12,7 +13,7 @@ public:
     bool AddJournalEntry;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    FJournal JournalEntry;
+    UJournalDataEntry* JournalEntry;
     
     AJournalTrigger(const FObjectInitializer& ObjectInitializer);
 

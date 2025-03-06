@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Perception/AIPerceptionComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIPerceptionComponent -FallbackName=AIPerceptionComponent
 #include "Templates/SubclassOf.h"
 #include "SAIPerceptionComponent.generated.h"
 

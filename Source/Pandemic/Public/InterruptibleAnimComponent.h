@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ActorComponent -FallbackName=ActorComponent
 #include "InterruptibleAnimComponent.generated.h"
 
 class UAnimMontage;
@@ -12,7 +12,7 @@ public:
     UInterruptibleAnimComponent(const FObjectInitializer& ObjectInitializer);
 
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
-    void UnblockBehaviour();
+    void UnblockBehaviour(bool bCancelLastMontage);
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void PlayBlockingAnimation(UAnimMontage* AnimMontage);
@@ -25,6 +25,11 @@ public:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, BlueprintPure)
     bool IsBlockingBehaviourTree() const;
     
+private:
+    UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+    void CancelMontageOnAllClients(UAnimMontage* AnimMontage);
+    
+public:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void BlockBehaviour(float BlockTime);
     

@@ -14,10 +14,10 @@ bool UConsoleCommand::ValidateServer_Implementation(UConsoleComponent* Component
     return false;
 }
 
-void UConsoleCommand::ServerAddMessage(const FString& Text, TEnumAsByte<EMessageType> MessageType, const FString& Tooltip) {
+void UConsoleCommand::ServerAddMessage(const FString& Text, EMessageType MessageType, const FString& Tooltip) {
 }
 
-void UConsoleCommand::MulticastAddMessage(const FString& Text, TEnumAsByte<EMessageType> MessageType, const FString& Tooltip) {
+void UConsoleCommand::MulticastAddMessage(const FString& Text, EMessageType MessageType, const FString& Tooltip) {
 }
 
 UConsoleComponent* UConsoleCommand::GetOwningComponent() const {
@@ -57,7 +57,7 @@ void UConsoleCommand::ExecuteServer_Implementation(UConsoleComponent* Component,
 void UConsoleCommand::ExecuteClient_Implementation(UConsoleComponent* Component, APlayerController* Controller, const TArray<FConsoleArgument>& InArguments) {
 }
 
-void UConsoleCommand::ClientAddMessage(const FString& Text, TEnumAsByte<EMessageType> MessageType, const FString& Tooltip) {
+void UConsoleCommand::ClientAddMessage(const FString& Text, EMessageType MessageType, const FString& Tooltip) {
 }
 
 

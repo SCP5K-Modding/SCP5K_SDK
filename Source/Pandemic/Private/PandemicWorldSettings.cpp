@@ -7,6 +7,11 @@ APandemicWorldSettings::APandemicWorldSettings(const FObjectInitializer& ObjectI
     this->PreGameManager = NULL;
     this->bIsGameplay = true;
     this->bCanHost = true;
+    this->bWaitForAllLevelsToLoad = false;
+}
+
+FPandemicGameOverride APandemicWorldSettings::GetGameOverride() {
+    return FPandemicGameOverride{};
 }
 
 bool APandemicWorldSettings::GetCheckpoint(FName CheckpointID, FCheckpoint& Checkpoint) {

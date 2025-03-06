@@ -13,6 +13,7 @@ public class UserInterface : ModuleRules {
             "GameUtilities",
             "GameplayTags",
             "MediaAssets",
+            "SlateCore",
             "UMG",
         });
     }

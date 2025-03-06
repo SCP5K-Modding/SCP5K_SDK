@@ -7,7 +7,7 @@ UFPSIKAnimInstance::UFPSIKAnimInstance() {
     this->SphereTraceRadius = 10.00f;
     this->LeftFootIKBone = TEXT("ik_foot_l");
     this->RightFootIKBone = TEXT("ik_foot_r");
-    this->IKAlpha = 0.00f;
+    this->IKAlpha = 1.00f;
 }
 
 FVector UFPSIKAnimInstance::GetPelvisOffset(float DeltaTime) {

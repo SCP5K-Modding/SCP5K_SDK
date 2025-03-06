@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Framework/Text/TextLayout.h"
-#include "Layout/Margin.h"
-#include "Styling/SlateColor.h"
-#include "Fonts/SlateFontInfo.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Slate -ObjectName=ETextTransformPolicy -FallbackName=ETextTransformPolicy
+//CROSS-MODULE INCLUDE V2: -ModuleName=SlateCore -ObjectName=Margin -FallbackName=Margin
+//CROSS-MODULE INCLUDE V2: -ModuleName=SlateCore -ObjectName=SlateColor -FallbackName=SlateColor
+//CROSS-MODULE INCLUDE V2: -ModuleName=SlateCore -ObjectName=SlateFontInfo -FallbackName=SlateFontInfo
 #include "ButtonTextState.generated.h"
 
 USTRUCT(BlueprintType)

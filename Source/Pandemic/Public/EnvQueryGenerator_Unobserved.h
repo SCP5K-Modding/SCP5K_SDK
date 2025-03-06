@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "EnvironmentQuery/Generators/EnvQueryGenerator_ProjectedPoints.h"
-#include "Kismet/KismetSystemLibrary.h"
-#include "Engine/EngineTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryGenerator_ProjectedPoints -FallbackName=EnvQueryGenerator_ProjectedPoints
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EDrawDebugTrace -FallbackName=EDrawDebugTrace
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ETraceTypeQuery -FallbackName=ETraceTypeQuery
 #include "EnvQueryGenerator_Unobserved.generated.h"
 
 UCLASS(Blueprintable, EditInlineNew)

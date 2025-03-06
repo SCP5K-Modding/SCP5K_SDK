@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Perception/AISense.h"
-#include "UObject/NoExportTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AISense -FallbackName=AISense
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
 #include "AISense_Suppression.generated.h"
 
 class AActor;

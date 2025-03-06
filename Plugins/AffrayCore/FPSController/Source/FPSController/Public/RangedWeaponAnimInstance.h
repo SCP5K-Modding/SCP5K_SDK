@@ -1,28 +1,19 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Animation/AnimInstance.h"
 #include "ConstantLerpDriver.h"
-#include "FPSAnimationInstance.h"
+#include "ItemAnimInstance.h"
 #include "RangedWeaponAnimInstance.generated.h"
 
-class AFPSCharacterBase;
 class AFPSRangedWeapon;
 class UAnimMontage;
 class UAnimSequence;
-class UFPSItemData;
 class UFPSRangedWeaponData;
 class UFPSWeaponData;
 
 UCLASS(Blueprintable, NonTransient)
-class FPSCONTROLLER_API URangedWeaponAnimInstance : public UAnimInstance, public IFPSAnimationInstance {
+class FPSCONTROLLER_API URangedWeaponAnimInstance : public UItemAnimInstance {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    AFPSCharacterBase* FPSCharacter;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    UFPSItemData* ItemData;
-    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     UFPSWeaponData* WeaponData;
     
@@ -84,16 +75,10 @@ public:
     float SafetyTime;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    UAnimSequence* BasePoseAnim;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UAnimSequence* EmptyBasePoseAnim;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UAnimSequence* SightFoldedBasePoseAnim;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    UAnimSequence* MovementAnim;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UAnimMontage* ActionMontage;
@@ -166,7 +151,5 @@ public:
     UFUNCTION(BlueprintCallable)
     void EjectCasing();
     
-
-    // Fix for true pure virtual functions not being implemented
 };
 

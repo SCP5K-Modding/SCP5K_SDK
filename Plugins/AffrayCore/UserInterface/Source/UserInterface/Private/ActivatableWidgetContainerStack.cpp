@@ -1,5 +1,5 @@
 #include "ActivatableWidgetContainerStack.h"
-#include "Components/SlateWrapperTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=UMG -ObjectName=ESlateVisibility -FallbackName=ESlateVisibility
 #include "Templates/SubclassOf.h"
 
 UActivatableWidgetContainerStack::UActivatableWidgetContainerStack() {
@@ -26,7 +26,7 @@ UActivatableWidget* UActivatableWidgetContainerStack::GetActiveWidget() const {
 void UActivatableWidgetContainerStack::ClearWidgets() {
 }
 
-void UActivatableWidgetContainerStack::BP_AddWidgetList(TArray<TSubclassOf<UActivatableWidget>> WidgetClassList) {
+void UActivatableWidgetContainerStack::BP_AddWidgetList(const TArray<TSoftClassPtr<UActivatableWidget>>& WidgetClassList) {
 }
 
 UActivatableWidget* UActivatableWidgetContainerStack::BP_AddWidget(TSubclassOf<UActivatableWidget> WidgetClass) {

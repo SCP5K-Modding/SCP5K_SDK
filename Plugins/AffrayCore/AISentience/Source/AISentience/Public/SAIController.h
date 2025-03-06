@@ -1,10 +1,12 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "AIController.h"
-#include "Perception/AIPerceptionTypes.h"
-#include "GenericTeamAgentInterface.h"
-#include "UObject/NoExportTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIController -FallbackName=AIController
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIStimulus -FallbackName=AIStimulus
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=ETeamAttitude -FallbackName=ETeamAttitude
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=SignificanceBase -ObjectName=SignificanceUser -FallbackName=SignificanceUser
 #include "AIInfoSharer.h"
+#include "ESAIAwarenessState.h"
 #include "ESAISoundType.h"
 #include "ESAIState.h"
 #include "ESAITeam.h"
@@ -17,9 +19,13 @@
 class AActor;
 class ALightManager;
 class UAIInfoSharingComponent;
+class USAIAwarenessComponent;
+class USAICombatProcessingComponent;
+class USAIStimuliProcessingComponent;
+class USignificanceComponent;
 
 UCLASS(Blueprintable)
-class AISENTIENCE_API ASAIController : public AAIController, public IAIInfoSharer {
+class AISENTIENCE_API ASAIController : public AAIController, public IAIInfoSharer, public ISignificanceUser {
     GENERATED_BODY()
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -121,6 +127,21 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float MinFriendlySoundRadius;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bUseAwarenessComponent;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    USAIAwarenessComponent* AwarenessComponent;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    USAIStimuliProcessingComponent* StimuliProcessingComponent;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    USAICombatProcessingComponent* CombatProcessingComponent;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TMap<ESAIAwarenessState, float> FocusRotationSpeed;
+    
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FName CurrentTargetKeyName;
     
@@ -161,6 +182,9 @@ public:
     FName AlertnessKeyName;
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FName AwarenessLevelKeyName;
+    
+    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FName DetectionKeyName;
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -177,6 +201,9 @@ public:
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FName DistanceKeyName;
+    
+    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float SightMinSignificance;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     ESAITeam Team;
@@ -329,6 +356,12 @@ public:
     UFUNCTION(BlueprintCallable)
     void EndIdle(ESAIState NewState);
     
+    UFUNCTION(BlueprintCallable)
+    void EnableAI();
+    
+    UFUNCTION(BlueprintCallable)
+    void DisableAI(bool bRestart);
+    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     TEnumAsByte<ETeamAttitude::Type> BlueprintGetTeamAttitudeTowards(const AActor* Other) const;
     
@@ -343,5 +376,8 @@ public:
     
 
     // Fix for true pure virtual functions not being implemented
+    UFUNCTION()
+    void ApplySignificance(USignificanceComponent* Component, float NewSignificance, float OldSignificance) override PURE_VIRTUAL(ApplySignificance,);
+    
 };
 

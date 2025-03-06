@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "FMODAudioComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
 #include "VoiceChatComponent.generated.h"
 
 class APawn;

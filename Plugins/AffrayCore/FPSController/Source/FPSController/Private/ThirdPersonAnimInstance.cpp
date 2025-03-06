@@ -1,12 +1,6 @@
 #include "ThirdPersonAnimInstance.h"
 
 UThirdPersonAnimInstance::UThirdPersonAnimInstance() {
-    this->FPSCharacter = NULL;
-    this->ItemData = NULL;
-    this->WeaponData = NULL;
-    this->ThrowableData = NULL;
-    this->MeleeData = NULL;
-    this->RangedWeaponData = NULL;
     this->BasePoseAnimation = NULL;
     this->SprintingAnimation = NULL;
     this->IdleAnimation = NULL;
@@ -19,6 +13,10 @@ UThirdPersonAnimInstance::UThirdPersonAnimInstance() {
     this->RightHandIK = 1.00f;
     this->bUpdateDistanceToGround = true;
     this->DistanceToGround = 0.00f;
+    this->LeftFootLockingAlpha = 1.00f;
+    this->RightFootLockingAlpha = 1.00f;
+    this->SimpleThirdPersonAlpha = 0.00f;
+    this->bIsClimbing = false;
     this->bIsReadyRight = false;
     this->bIsReadyLeft = false;
     this->bIsBallisticHit = false;
@@ -59,10 +57,20 @@ UThirdPersonAnimInstance::UThirdPersonAnimInstance() {
     this->BracedAimAlpha = 0.00f;
     this->AimAlpha = 0.00f;
     this->bIsTurning = false;
+    this->FootPlantAnim = NULL;
     this->TurnRight90Anim = NULL;
     this->TurnRight180Anim = NULL;
     this->TurnLeft90Anim = NULL;
     this->TurnLeft180Anim = NULL;
+}
+
+void UThirdPersonAnimInstance::UpdateRightFootLockedTransform() {
+}
+
+void UThirdPersonAnimInstance::UpdateLockedRotationReference() {
+}
+
+void UThirdPersonAnimInstance::UpdateLeftFootLockedTransform() {
 }
 
 void UThirdPersonAnimInstance::StopTurning() {

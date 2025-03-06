@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Camera/CameraModifier.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=CameraModifier -FallbackName=CameraModifier
 #include "TheatreAnomalyCameraModifier.generated.h"
 
 UCLASS(Blueprintable)

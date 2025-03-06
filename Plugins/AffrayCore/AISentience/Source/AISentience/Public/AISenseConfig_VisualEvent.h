@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Perception/AIPerceptionTypes.h"
-#include "Perception/AISenseConfig.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AISenseAffiliationFilter -FallbackName=AISenseAffiliationFilter
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AISenseConfig -FallbackName=AISenseConfig
 #include "AISenseConfig_VisualEvent.generated.h"
 
 UCLASS(Blueprintable, EditInlineNew, Config=Engine)

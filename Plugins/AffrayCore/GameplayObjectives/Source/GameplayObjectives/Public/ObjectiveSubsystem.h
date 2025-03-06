@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Subsystems/WorldSubsystem.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=WorldSubsystem -FallbackName=WorldSubsystem
+#include "ObjectiveAlivePlayersUpdatedDelegateDelegate.h"
 #include "ObjectiveCompletedDelegateDelegate.h"
 #include "ObjectiveManagerUpdatedDelegateDelegate.h"
 #include "ObjectiveModifiedDelegateDelegate.h"
@@ -16,6 +17,9 @@ public:
     FObjectiveManagerUpdatedDelegate OnObjectiveManagerUpdated;
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FObjectiveAlivePlayersUpdatedDelegate OnAlivePlayersUpdated;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FObjectiveModifiedDelegate OnActivateObjective;
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -24,8 +28,14 @@ public:
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FObjectiveCompletedDelegate OnCompleteObjective;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    int32 CachedAlivePlayers;
+    
     UObjectiveSubsystem();
 
+    UFUNCTION(BlueprintCallable)
+    void UpdateAlivePlayers(int32 AlivePlayers);
+    
     UFUNCTION(BlueprintCallable)
     void RegisterObjectiveManager(AObjectiveManager* NewObjectiveManager);
     

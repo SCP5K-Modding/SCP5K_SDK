@@ -1,15 +1,17 @@
 #include "ResonatorCharacter.h"
-#include "SAIMeleeComponent.h"
-#include "Engine/EngineTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIMeleeComponent -FallbackName=SAIMeleeComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EAutoPossessAI -FallbackName=EAutoPossessAI
+#include "FastCharacterMovementComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "ResonatorController.h"
 
-AResonatorCharacter::AResonatorCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
+AResonatorCharacter::AResonatorCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.SetDefaultSubobjectClass<UFastCharacterMovementComponent>(TEXT("CharMoveComp"))) {
     this->AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
     this->AIControllerClass = AResonatorController::StaticClass();
     this->MeleeComponent = CreateDefaultSubobject<USAIMeleeComponent>(TEXT("SAIMelee"));
     this->CurrentTarget = NULL;
     this->bIsTargetVisible = false;
+    this->bEating = false;
     this->bIsDead = false;
     this->CurrentHealth = 300.00f;
     this->MaxHealth = 300.00f;
@@ -33,16 +35,19 @@ void AResonatorCharacter::SetMaxMoveSpeedVariance(float DesiredMaxVariance) {
 void AResonatorCharacter::SetMaximumMovementSpeed(float DesiredMaximum) {
 }
 
+void AResonatorCharacter::SetEating(bool bNewEating) {
+}
+
 void AResonatorCharacter::SetCurrentMoveSpeed(float DesiredSpeed) {
 }
 
 void AResonatorCharacter::OnRep_IsDead() {
 }
 
-void AResonatorCharacter::OnRep_CurrentMoveSpeed_Implementation() {
+void AResonatorCharacter::OnRep_Eating_Implementation() {
 }
 
-void AResonatorCharacter::OnDamage(AActor* DamagedActor, float Damage, const UDamageType* RecievingDamageType, AController* InstigatedBy, AActor* DamageCauser) {
+void AResonatorCharacter::OnRep_CurrentMoveSpeed_Implementation() {
 }
 
 float AResonatorCharacter::GetRandomMoveSpeedVariance() const {
@@ -83,6 +88,8 @@ void AResonatorCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
     DOREPLIFETIME(AResonatorCharacter, LastSeenTargetPosition);
     DOREPLIFETIME(AResonatorCharacter, FocusLocation);
     DOREPLIFETIME(AResonatorCharacter, ControlRotation);
+    DOREPLIFETIME(AResonatorCharacter, DesiredRotation);
+    DOREPLIFETIME(AResonatorCharacter, bEating);
     DOREPLIFETIME(AResonatorCharacter, bIsDead);
     DOREPLIFETIME(AResonatorCharacter, CurrentHealth);
     DOREPLIFETIME(AResonatorCharacter, CurrentMoveSpeed);

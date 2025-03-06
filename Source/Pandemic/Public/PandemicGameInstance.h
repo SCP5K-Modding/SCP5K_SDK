@@ -1,11 +1,11 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "Engine/EngineBaseTypes.h"
-#include "GameFramework/OnlineReplStructs.h"
-#include "FPSGameplayConfig.h"
-#include "SimpleObjectiveData.h"
-#include "LoadingScreenGameInstance.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ENetworkFailure -FallbackName=ENetworkFailure
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=UniqueNetIdRepl -FallbackName=UniqueNetIdRepl
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FPSGameplayConfig -FallbackName=FPSGameplayConfig
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayObjectives -ObjectName=SimpleObjectiveData -FallbackName=SimpleObjectiveData
+//CROSS-MODULE INCLUDE V2: -ModuleName=LoadingScreen -ObjectName=LoadingScreenGameInstance -FallbackName=LoadingScreenGameInstance
 #include "PlayerBan.h"
 #include "PlayerReport.h"
 #include "SelectedMap.h"
@@ -47,6 +47,9 @@ protected:
     
     UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     FString SteamAPIKey;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bHasPublisherAPIKey;
     
     UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bUseServerPassword;
@@ -169,7 +172,7 @@ protected:
     TArray<FSelectedMap> FullMapList;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    TArray<FSelectedMap> CurrentMapList;
+    TArray<FSelectedMap> CurrentCollectionMapList;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     int32 CurrentMapCollectionIndex;
@@ -208,6 +211,9 @@ public:
     void SetServerName(const FString& NewServerName, bool bUpdateSession);
     
     UFUNCTION(BlueprintCallable)
+    void SetPSOCacheUsageMask(int32 QualityLevel, int32 MapIndex);
+    
+    UFUNCTION(BlueprintCallable)
     void SetMaxPlayerCount(int32 NewMaxPlayers, bool bUpdateSession);
     
     UFUNCTION(BlueprintCallable)
@@ -241,7 +247,7 @@ public:
     bool RemoveAdmin(const FString& PlayerID);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void ReceiveNetworkFailure(ENetworkFailure::Type FailureType, const FString& ErrorString, bool bIsServer);
+    void ReceiveNetworkFailure(TEnumAsByte<ENetworkFailure::Type> FailureType, const FString& ErrorString, bool bIsServer);
     
     UFUNCTION(BlueprintCallable)
     void ParseMapRotation();
@@ -296,6 +302,12 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsFriendsOnly() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool HasValidPublisherAPIKey() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool HasValidAPIKey() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetWasKickedFromServer() const;

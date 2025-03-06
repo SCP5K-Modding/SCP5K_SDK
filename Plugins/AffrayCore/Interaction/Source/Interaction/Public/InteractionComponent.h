@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
-#include "Engine/EngineTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ActorComponent -FallbackName=ActorComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=TimerHandle -FallbackName=TimerHandle
 #include "InteractableDeregisteredMCDelegateDelegate.h"
 #include "InteractableFocusedMCDelegateDelegate.h"
 #include "InteractableRegisteredMCDelegateDelegate.h"
@@ -34,6 +34,9 @@ public:
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FInteractionInterruptedMCDelegate InteractionInterruptedMCDelegate;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FInteractionInterruptedMCDelegate InteractionFailedMCDelegate;
     
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -71,6 +74,9 @@ private:
     
     UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
     void Multicast_BroadcastInteractionFinished(UInteractableComponent* Interactable);
+    
+    UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
+    void Multicast_BroadcastInteractionFailed(UInteractableComponent* Interactable);
     
 public:
     UFUNCTION(BlueprintCallable, BlueprintPure)

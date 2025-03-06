@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "EStaggerDirection.h"
-#include "UObject/NoExportTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=EStaggerDirection -FallbackName=EStaggerDirection
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector2D -FallbackName=Vector2D
 #include "EDeathHitSizeRequirement.h"
 #include "Templates/SubclassOf.h"
 #include "DeathAnimationData.generated.h"

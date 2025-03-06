@@ -3,7 +3,7 @@
 USAICoverGenerationSubsystem::USAICoverGenerationSubsystem() {
 }
 
-void USAICoverGenerationSubsystem::QueueTilesForCoverRegeneration(const TSet<int32>& TileIndices) {
+void USAICoverGenerationSubsystem::QueueTilesForCoverRegeneration(const TSet<uint32>& TileIndices) {
 }
 
 

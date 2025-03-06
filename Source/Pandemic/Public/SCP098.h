@@ -1,9 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "Damageable.h"
-#include "MeleeUser.h"
-#include "Suppressable.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Character -FallbackName=Character
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Damageable -FallbackName=Damageable
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=MeleeUser -FallbackName=MeleeUser
+//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Suppressable -FallbackName=Suppressable
+#include "HungerInterface.h"
 #include "InterruptibleAnimator.h"
 #include "RevealAnimator.h"
 #include "SCP098MeleeHitDataMCDelegateDelegate.h"
@@ -21,7 +22,7 @@ class UInterruptibleAnimComponent;
 class USAIMeleeComponent;
 
 UCLASS(Blueprintable)
-class PANDEMIC_API ASCP098 : public ACharacter, public ISuppressable, public IDamageable, public IMeleeUser, public IInterruptibleAnimator, public IRevealAnimator {
+class PANDEMIC_API ASCP098 : public ACharacter, public ISuppressable, public IDamageable, public IMeleeUser, public IInterruptibleAnimator, public IRevealAnimator, public IHungerInterface {
     GENERATED_BODY()
 public:
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))

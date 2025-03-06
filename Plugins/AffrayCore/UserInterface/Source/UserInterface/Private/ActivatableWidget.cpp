@@ -2,6 +2,10 @@
 
 UActivatableWidget::UActivatableWidget() : UUserWidget(FObjectInitializer::Get()) {
     this->InputMode = EWidgetInputMode::Default;
+    this->bShouldOverrideShowCursor = false;
+    this->bOverrideShowCursor = true;
+    this->bShouldOverrideLockMouseToViewport = false;
+    this->OverrideLockMouseToViewport = EMouseLockMode::DoNotLock;
     this->GameMouseCaptureMode = EMouseCaptureMode::CapturePermanently;
     this->ActionMappings.AddDefaulted(1);
     this->bSupportsBackAction = false;

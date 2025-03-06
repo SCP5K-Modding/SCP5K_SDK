@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Engine/GameInstance.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=GameInstance -FallbackName=GameInstance
 #include "EFadeInOut.h"
 #include "OnMapLoadedDelegate.h"
 #include "Templates/SubclassOf.h"

@@ -5,6 +5,7 @@ AJournalTrigger::AJournalTrigger(const FObjectInitializer& ObjectInitializer) : 
     this->bOneUse = true;
     this->bPerPlayer = true;
     this->AddJournalEntry = true;
+    this->JournalEntry = NULL;
 }
 
 

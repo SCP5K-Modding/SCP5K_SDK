@@ -1,18 +1,26 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "Kismet/BlueprintFunctionLibrary.h"
-#include "GameFramework/OnlineReplStructs.h"
-#include "FindSessionsCallbackProxy.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=DateTime -FallbackName=DateTime
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BlueprintFunctionLibrary -FallbackName=BlueprintFunctionLibrary
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=FindFloorResult -FallbackName=FindFloorResult
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=UniqueNetIdRepl -FallbackName=UniqueNetIdRepl
+//CROSS-MODULE INCLUDE V2: -ModuleName=OnlineSubsystemUtils -ObjectName=BlueprintSessionResult -FallbackName=BlueprintSessionResult
+#include "EBlueprintMessageSeverity.h"
 #include "Templates/SubclassOf.h"
 #include "ConfiguratorLibrary.generated.h"
 
+class AActor;
+class ACharacter;
 class AGameModeBase;
 class AGameStateBase;
+class APlayerController;
 class AWorldSettings;
 class UDirectionalLightComponent;
 class UGameInstance;
+class UMaterialInterface;
+class UMeshComponent;
 class UObject;
+class UPrimitiveComponent;
 class UReflectionCaptureComponent;
 class UTexture2D;
 
@@ -38,40 +46,19 @@ public:
     static int64 ToUnixTimestamp(FDateTime InTime);
     
     UFUNCTION(BlueprintCallable)
+    static void SetRenderInDepthPass(UPrimitiveComponent* PrimitiveComponent, bool bRenderInDepthPass);
+    
+    UFUNCTION(BlueprintCallable)
     static void SetDirectionalLightAngle(UDirectionalLightComponent* Light, float SourceAngle, float SoftSourceAngle);
     
     UFUNCTION(BlueprintCallable)
     static void SetCrashData(const FString& Key, const FString& Value);
     
-    UFUNCTION(BlueprintCallable)
-    static void SetConfigString(const FString& Filename, const FString& Section, const FString& Name, const FString& Value);
-    
-    UFUNCTION(BlueprintCallable)
-    static void SetConfigInt(const FString& Filename, const FString& Section, const FString& Name, int32 Value);
-    
-    UFUNCTION(BlueprintCallable)
-    static void SetConfigFloat(const FString& Filename, const FString& Section, const FString& Name, float Value);
-    
-    UFUNCTION(BlueprintCallable)
-    static void SetConfigBool(const FString& Filename, const FString& Section, const FString& Name, bool Value);
-    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static void SetBit(bool bValue, int32& Mask, int32 MaskValue);
     
     UFUNCTION(BlueprintCallable)
-    static void SaveObjectConfig(UObject* Object, const FString& Path);
-    
-    UFUNCTION(BlueprintCallable)
-    static void SaveDefaultObjectConfig(UObject* Object);
-    
-    UFUNCTION(BlueprintCallable)
-    static void SaveConfigFile(const FString& Filename);
-    
-    UFUNCTION(BlueprintCallable)
-    static void ReloadObjectConfig(UObject* Object, const FString& Path);
-    
-    UFUNCTION(BlueprintCallable)
-    static void ReloadDefaultObjectConfig(UObject* Object);
+    static void ResetMaterials(UMeshComponent* MeshComponent);
     
     UFUNCTION(BlueprintCallable)
     static bool ReadText(const FString& Path, FString& Text);
@@ -91,15 +78,6 @@ public:
     UFUNCTION(BlueprintCallable)
     static void LogError(const FString& Text);
     
-    UFUNCTION(BlueprintCallable)
-    static void LoadObjectConfig(UObject* Object, const FString& Path);
-    
-    UFUNCTION(BlueprintCallable)
-    static void LoadDefaultObjectConfig(UObject* Object);
-    
-    UFUNCTION(BlueprintCallable)
-    static bool LoadConfigFile(const FString& Filename, FString& FinalIniFilename);
-    
     UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContextObject"))
     static bool IsWorldValid(UObject* WorldContextObject);
     
@@ -114,6 +92,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContextObject"))
     static AWorldSettings* GetWorldSettings(UObject* WorldContextObject, TSubclassOf<AWorldSettings> SettingsClass);
+    
+    UFUNCTION(BlueprintCallable)
+    static FName GetUniqueObjectName(UObject* Object, UClass* Class, FName BaseName);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static FString GetUniqueIDAsString(FUniqueNetIdRepl ID);
@@ -152,10 +133,10 @@ public:
     static FString GetNetworkURL(UObject* WorldContextObject);
     
     UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContextObject"))
-    static FString GetLocalIP(UObject* WorldContextObject, int32& Port);
+    static FString GetMapName(UObject* WorldContextObject);
     
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    static FString GetGlobalUserObjectConfigFilename(UObject* Object);
+    UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContextObject"))
+    static FString GetLocalIP(UObject* WorldContextObject, int32& Port);
     
     UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContextObject"))
     static AGameStateBase* GetGameState(UObject* WorldContextObject, TSubclassOf<AGameStateBase> Class);
@@ -166,11 +147,11 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContextObject"))
     static UGameInstance* GetGameInstance(UObject* WorldContextObject, TSubclassOf<UGameInstance> Class);
     
+    UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContextObject"))
+    static APlayerController* GetFirstLocalPlayerController(UObject* WorldContextObject);
+    
     UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static FString GetEditorLevelName(UObject* WorldContextObject);
-    
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    static FString GetDefaultObjectConfigFilename(UObject* Object);
     
     UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContextObject"))
     static FString GetCurrentSessionOwningID(UObject* WorldContextObject);
@@ -197,34 +178,22 @@ public:
     static FString GetConnectedIP(UObject* WorldContextObject, int32& Port);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    static FString GetConfigString(const FString& Filename, const FString& Section, const FString& Name, bool& HasValue);
+    static UClass* GetClassFromBlueprintAsset(UObject* Asset);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    static FString GetConfigPath(const FString& Filename);
-    
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    static int32 GetConfigInt(const FString& Filename, const FString& Section, const FString& Name, bool& HasValue);
-    
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    static float GetConfigFloat(const FString& Filename, const FString& Section, const FString& Name, bool& HasValue);
-    
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    static bool GetConfigBool(const FString& Filename, const FString& Section, const FString& Name, bool& HasValue);
+    static FFindFloorResult GetCharacterKnownFloor(ACharacter* Character);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static int32 GetBuildID();
     
     UFUNCTION(BlueprintCallable)
-    static bool DefaultConfigFileExists(UObject* Object);
+    static AActor* FindContainingVolume(AActor* Actor, const TArray<AActor*>& Volumes);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static bool ContainsBitIndex(int32 Mask, int32 MaskValue);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static bool ContainsBit(int32 Mask, int32 MaskValue);
-    
-    UFUNCTION(BlueprintCallable)
-    static bool ConfigFileExists(const FString& Path);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static int32 BitShiftRight(int32 Original, int32 Shift);
@@ -235,8 +204,14 @@ public:
     UFUNCTION(BlueprintCallable)
     static void ApplyTextureCompressionSettings(UTexture2D* Texture);
     
+    UFUNCTION(BlueprintCallable)
+    static void ApplyMaterialOverrides(UMeshComponent* MeshComponent, const TArray<TSoftObjectPtr<UMaterialInterface>>& Overrides);
+    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static float AngleBetween(float From, float To);
+    
+    UFUNCTION(BlueprintCallable)
+    static void AddToMessageLog(UObject* Object, EBlueprintMessageSeverity Severity, const FString& Message);
     
 };
 

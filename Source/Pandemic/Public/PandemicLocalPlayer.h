@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Engine/LocalPlayer.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=LocalPlayer -FallbackName=LocalPlayer
 #include "PandemicLocalPlayer.generated.h"
 
 UCLASS(Blueprintable, NonTransient)

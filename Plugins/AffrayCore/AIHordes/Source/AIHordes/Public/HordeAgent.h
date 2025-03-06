@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Character -FallbackName=Character
 #include "EHordeAgentMovementMode.h"
 #include "HordeAgent.generated.h"
 

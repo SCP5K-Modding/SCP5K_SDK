@@ -1,11 +1,13 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "Subsystems/WorldSubsystem.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=TickableWorldSubsystem -FallbackName=TickableWorldSubsystem
 #include "EnemyCounterUpdatedSingleDelegateDelegate.h"
 #include "EnemyUpdatedDelegateDelegate.h"
 #include "KillCounter.h"
+#include "SpawnGroup.h"
 #include "SpawnWave.h"
+#include "Templates/SubclassOf.h"
 #include "EnemySubsystem.generated.h"
 
 class AAISpawnArea;
@@ -26,6 +28,9 @@ public:
     UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<TWeakObjectPtr<APawn>> Enemies;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TMap<FName, FSpawnGroup> SpawnGroups;
+    
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FEnemyUpdatedDelegate OnEnemyDied;
     
@@ -41,22 +46,31 @@ public:
     void ValidateEnemyArray();
     
     UFUNCTION(BlueprintCallable)
+    void UpdateEnemies();
+    
+    UFUNCTION(BlueprintCallable)
     void UnRegisterSpawnArea(AAISpawnArea* SpawnArea);
     
     UFUNCTION(BlueprintCallable)
     void StopLoopingSpawn();
     
     UFUNCTION(BlueprintCallable)
-    void StartLoopingSpawn(FSpawnWave Wave, int32 TargetEnemyCount, int32 SpawnInterval, bool bIncludeCurrentlyAlive, FName SpawnerTag);
+    void StartLoopingSpawn(const FSpawnWave Wave, const int32 TargetEnemyCount, const int32 SpawnInterval, const bool bConsiderOtherEnemiesInTarget, const bool bIncludeCurrentlyAlive, const bool bImmediatelySpawnFirstWave, FName SpawnGroup, const FName SpawnerTag);
     
     UFUNCTION(BlueprintCallable)
-    void SpawnWave(FSpawnWave Wave, FName SpawnerTag);
+    int32 SpawnWave(FSpawnWave Wave, FName SpawnGroup, FName SpawnerTag);
     
     UFUNCTION(BlueprintCallable)
-    void SpawnDefault(int32 SpawnerCount, FName SpawnerTag);
+    int32 SpawnDefault(int32 SpawnerCount, FName SpawnGroup, FName SpawnerTag);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool RemoveKillCounter(FName CounterName);
     
     UFUNCTION(BlueprintCallable)
     void RegisterSpawnArea(AAISpawnArea* SpawnArea);
+    
+    UFUNCTION(BlueprintCallable)
+    void OnWorldBeginPlay();
     
     UFUNCTION(BlueprintCallable)
     void InvestigateAll(FVector Location, float Radius, AActor* Instigator);
@@ -64,20 +78,32 @@ public:
     UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static float GetSpawnScore(UObject* WorldContextObject, AAISpawnArea* Spawn, float DistanceWeight, float MinDistance, float VisibilityWeight, float RandomWeight, float TargetDistance, FName Tag);
     
+    UFUNCTION(BlueprintCallable)
+    TArray<APawn*> GetSpawnGroupEnemies(FName SpawnGroup);
+    
+    UFUNCTION(BlueprintCallable)
+    FSpawnGroup GetSpawnGroup(FName SpawnGroup);
+    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetKillCounter(FName CounterName, FKillCounter& Counter);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     int32 GetEnemyCount() const;
     
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    TArray<APawn*> GetEnemiesInRadius(FVector Location, float Radius, TSubclassOf<APawn> ClassFilter, FName SpawnGroup) const;
+    
     UFUNCTION(BlueprintCallable)
-    void EnemySpawned(APawn* Enemy);
+    void EnemySpawned(APawn* Enemy, FName SpawnGroup);
     
     UFUNCTION(BlueprintCallable)
     void EnemyDied(APawn* Enemy);
     
     UFUNCTION(BlueprintCallable)
     void CreateKillCounter(int32 Target, TArray<TSoftClassPtr<APawn>> ClassFilter, FEnemyCounterUpdatedSingleDelegate OnCounterUpdated, FName CounterName);
+    
+    UFUNCTION(BlueprintCallable)
+    void AddToSpawnGroup(APawn* Enemy, FName SpawnGroup);
     
 };
 

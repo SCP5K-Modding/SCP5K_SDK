@@ -5,6 +5,7 @@ UGoreComponent::UGoreComponent(const FObjectInitializer& ObjectInitializer) : Su
     this->DefaultGoreEvent = NULL;
     this->GoreDataTexture = NULL;
     this->bApplyGoreOnDamage = true;
+    this->bDisallowFriendlyFire = false;
     this->GoreDamageThreshold = 20.00f;
     this->bSpawnGoreEffectsWhenOffscreen = true;
     this->bPlayGoreSounds = true;

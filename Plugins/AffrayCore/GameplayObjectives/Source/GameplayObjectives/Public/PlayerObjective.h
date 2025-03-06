@@ -3,6 +3,7 @@
 #include "Objective.h"
 #include "PlayerObjective.generated.h"
 
+class APawn;
 class UObject;
 class UPlayerObjective;
 
@@ -16,6 +17,9 @@ protected:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_CurrentPlayers, meta=(AllowPrivateAccess=true))
     int32 CurrentPlayers;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bRequireAllAlivePlayers;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     bool bRequiresPlayersForTimer;
@@ -32,7 +36,7 @@ public:
     void SetRequiredPlayers(int32 NewRequiredPlayers);
     
     UFUNCTION(BlueprintCallable)
-    void RemovePlayer();
+    void RemovePlayer(APawn* Player);
     
 protected:
     UFUNCTION(BlueprintCallable)
@@ -52,7 +56,13 @@ public:
     static UPlayerObjective* CreatePlayerObjective(UObject* Outer, FName Name, FText DisplayName, FText Description, int32 RequiredAmountPlayers, bool UseTimer, float TimerLength, bool RequirePlayersForTimerTick, bool bShouldAutoActivateWithParent, bool bMajorObjective, bool bShouldStartChildren);
     
     UFUNCTION(BlueprintCallable)
-    void AddPlayer();
+    void CheckPlayerArray();
+    
+    UFUNCTION(BlueprintCallable)
+    void AlivePlayersUpdated(int32 AlivePlayers);
+    
+    UFUNCTION(BlueprintCallable)
+    void AddPlayer(APawn* Player);
     
 };
 

@@ -3,7 +3,8 @@
 UEnvQueryContext_SAITarget::UEnvQueryContext_SAITarget() {
 }
 
-void UEnvQueryContext_SAITarget::ProvideCurrentTarget(const UObject* QuerierObject, AActor*& OutTarget) const {
+AActor* UEnvQueryContext_SAITarget::ProvideCurrentTarget(const UObject* QuerierObject) const {
+    return NULL;
 }
 
 

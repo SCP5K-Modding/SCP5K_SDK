@@ -1,6 +1,7 @@
 #include "FPSItemPickup.h"
-#include "Components/SceneComponent.h"
-#include "Components/SkeletalMeshComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SkeletalMeshComponent -FallbackName=SkeletalMeshComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=SignificanceBase -ObjectName=SignificanceComponent -FallbackName=SignificanceComponent
 #include "Net/UnrealNetwork.h"
 
 AFPSItemPickup::AFPSItemPickup(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
@@ -12,12 +13,15 @@ AFPSItemPickup::AFPSItemPickup(const FObjectInitializer& ObjectInitializer) : Su
     this->PickupEvent = NULL;
     this->bStartEnabled = true;
     this->SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
+    this->SignificanceComponent = CreateDefaultSubobject<USignificanceComponent>(TEXT("Significance"));
     this->bOneUse = false;
     this->bSwap = false;
     this->bEnabled = true;
     this->bHideWhenDisabled = false;
     this->bUsePhysics = true;
     this->bWasSpawned = false;
+    this->MinPhysicsSignificance = 0.30f;
+    this->MinSkelMeshRenderSignificance = 0.30f;
     this->SkeletalMeshComponent->SetupAttachment(RootComponent);
 }
 

@@ -1,6 +1,6 @@
 #include "ModularWall.h"
-#include "Components/InstancedStaticMeshComponent.h"
-#include "Components/SplineComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=InstancedStaticMeshComponent -FallbackName=InstancedStaticMeshComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SplineComponent -FallbackName=SplineComponent
 
 AModularWall::AModularWall(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->RootComponent = CreateDefaultSubobject<USplineComponent>(TEXT("Spline"));

@@ -1,7 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "Animation/AnimInstance.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Rotator -FallbackName=Rotator
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=AnimInstance -FallbackName=AnimInstance
 #include "ResonatorAnimationInstance.generated.h"
 
 class AResonatorCharacter;
@@ -54,10 +55,16 @@ public:
     bool bIsEating;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsMoving;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     FVector SmoothMovement;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     float RotationDelta;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FRotator GroundDeltaRotator;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FVector LookPosition;
@@ -69,6 +76,9 @@ public:
     
     UFUNCTION(BlueprintCallable)
     void StartTurning(UAnimMontage* Montage, float PlayRate);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void PlayStopAnimation();
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     FVector GetGradient() const;

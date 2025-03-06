@@ -8,7 +8,7 @@ UTaskManagerTask::UTaskManagerTask() {
     this->MaxAbortRestoration = 2;
 }
 
-    EBTNodeResult::Type UTaskManagerTask::TickTask_Implementation(UBehaviorTreeComponent* OwnerComp, float DeltaSeconds) {
+TEnumAsByte<EBTNodeResult::Type> UTaskManagerTask::TickTask_Implementation(UBehaviorTreeComponent* OwnerComp, float DeltaSeconds) {
     return EBTNodeResult::Succeeded;
 }
 
@@ -31,7 +31,7 @@ int32 UTaskManagerTask::GetTaskPriority_Implementation() const {
 void UTaskManagerTask::FinishTask_Implementation(AAIController* OwningController) {
 }
 
-EBTNodeResult::Type UTaskManagerTask::ExecuteTask_Implementation(UBehaviorTreeComponent* OwnerComp) {
+TEnumAsByte<EBTNodeResult::Type> UTaskManagerTask::ExecuteTask_Implementation(UBehaviorTreeComponent* OwnerComp) {
     return EBTNodeResult::Succeeded;
 }
 

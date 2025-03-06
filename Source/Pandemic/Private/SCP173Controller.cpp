@@ -1,5 +1,5 @@
 #include "SCP173Controller.h"
-#include "AITaskManagerComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIUtils -ObjectName=AITaskManagerComponent -FallbackName=AITaskManagerComponent
 #include "SCP173NavigationQueryFilter.h"
 #include "SCP173PathFollowingComponent.h"
 

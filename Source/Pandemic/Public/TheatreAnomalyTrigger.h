@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "PlayerTriggerVolume.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameUtilities -ObjectName=PlayerTriggerVolume -FallbackName=PlayerTriggerVolume
 #include "TheatreAnomalyTrigger.generated.h"
 
 class AActor;

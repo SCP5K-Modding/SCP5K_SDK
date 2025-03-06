@@ -29,6 +29,9 @@ void UInteractionComponent::Multicast_BroadcastInteractionInterrupted_Implementa
 void UInteractionComponent::Multicast_BroadcastInteractionFinished_Implementation(UInteractableComponent* Interactable) {
 }
 
+void UInteractionComponent::Multicast_BroadcastInteractionFailed_Implementation(UInteractableComponent* Interactable) {
+}
+
 bool UInteractionComponent::IsInteractingWith(UInteractableComponent* Interactable) const {
     return false;
 }

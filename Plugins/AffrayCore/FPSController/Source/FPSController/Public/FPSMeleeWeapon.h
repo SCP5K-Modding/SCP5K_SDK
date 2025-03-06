@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "Engine/EngineTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=HitResult -FallbackName=HitResult
 #include "EMeleeAttackDirection.h"
 #include "FPSWeapon.h"
 #include "MeleeHitData.h"
@@ -57,6 +57,9 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<AActor*> HitActors;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    int32 NumHits;
+    
     AFPSMeleeWeapon(const FObjectInitializer& ObjectInitializer);
 
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
@@ -77,16 +80,16 @@ public:
     void SetReadyDirection(TEnumAsByte<EMeleeAttackDirection> Direction);
     
     UFUNCTION(BlueprintCallable, Reliable, Server)
-    void ServerUpdateReady(EMeleeAttackDirection Direction, bool bReady);
+    void ServerUpdateReady(TEnumAsByte<EMeleeAttackDirection> Direction, bool bReady);
     
     UFUNCTION(BlueprintCallable, Server, Unreliable)
-    void ServerStartAttack(EMeleeAttackDirection Direction);
+    void ServerStartAttack(TEnumAsByte<EMeleeAttackDirection> Direction);
     
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void ServerProcessHit(FMeleeHitData Hit);
     
     UFUNCTION(BlueprintCallable, Server, Unreliable)
-    void ServerCancelAttack(EMeleeAttackDirection Direction);
+    void ServerCancelAttack(TEnumAsByte<EMeleeAttackDirection> Direction);
     
     UFUNCTION(BlueprintCallable)
     bool RunWeaponTrace(FHitResult& Hit);
@@ -107,7 +110,7 @@ public:
     void CosmeticStartAttack(TEnumAsByte<EMeleeAttackDirection> Direction);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void CosmeticHit(EMeleeAttackDirection Direction, FMeleeHitData HitData);
+    void CosmeticHit(TEnumAsByte<EMeleeAttackDirection> Direction, FMeleeHitData HitData);
     
     UFUNCTION(BlueprintCallable)
     void CosmeticCancelAttack(TEnumAsByte<EMeleeAttackDirection> Direction);

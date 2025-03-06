@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "SAIController.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIController -FallbackName=SAIController
 #include "ResonatorController.generated.h"
 
 class AResonatorCharacter;
@@ -11,6 +11,9 @@ class PANDEMIC_API AResonatorController : public ASAIController {
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     AResonatorCharacter* ResonatorCharacter;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FName EatingKeyName;
     
 private:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))

@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "ObjectiveManager.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayObjectives -ObjectName=ObjectiveManager -FallbackName=ObjectiveManager
 #include "PandemicObjectiveManager.generated.h"
 
 UCLASS(Blueprintable)

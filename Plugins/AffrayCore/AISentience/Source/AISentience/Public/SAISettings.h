@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GenericTeamAgentInterface.h"
-#include "GenericTeamAgentInterface.h"
-#include "Engine/DeveloperSettings.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=ETeamAttitude -FallbackName=ETeamAttitude
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=GenericTeamId -FallbackName=GenericTeamId
+//CROSS-MODULE INCLUDE V2: -ModuleName=DeveloperSettings -ObjectName=DeveloperSettings -FallbackName=DeveloperSettings
 #include "ESAITeam.h"
 #include "SAICoverGenerationSettings.h"
 #include "TeamAttitude.h"

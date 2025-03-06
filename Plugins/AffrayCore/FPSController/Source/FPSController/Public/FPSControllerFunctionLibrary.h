@@ -1,18 +1,19 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "Kismet/BlueprintFunctionLibrary.h"
-#include "Engine/EngineTypes.h"
-#include "Engine/NetSerialization.h"
-#include "Engine/NetSerialization.h"
-#include "Chaos/ChaosEngineInterface.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Rotator -FallbackName=Rotator
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BlueprintFunctionLibrary -FallbackName=BlueprintFunctionLibrary
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EAttachLocation -FallbackName=EAttachLocation
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Vector_NetQuantize -FallbackName=Vector_NetQuantize
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Vector_NetQuantizeNormal -FallbackName=Vector_NetQuantizeNormal
+//CROSS-MODULE INCLUDE V2: -ModuleName=PhysicsCore -ObjectName=EPhysicalSurface -FallbackName=EPhysicalSurface
 #include "BallisticHitData.h"
 #include "ConstantLerpDriver.h"
 #include "EMeleeAttackDirection.h"
 #include "FPSItemSlotData.h"
+#include "FPSLoadout.h"
 #include "LimitedSmoothLerpDriver.h"
 #include "MeleeHitData.h"
 #include "PhysicalLerpDriver.h"
@@ -21,11 +22,12 @@
 #include "Templates/SubclassOf.h"
 #include "FPSControllerFunctionLibrary.generated.h"
 
+class AActor;
 class AFPSAttachment;
 class AFPSCharacterBase;
 class AFPSItem;
 class AFPSItemPickup;
-class UAnimInstance;
+class UDamageType;
 class UFPSItemData;
 class UFPSRangedWeaponData;
 class UFXSystemAsset;
@@ -71,19 +73,22 @@ public:
     static float SettleFloat(float Offset, float Settling, float DeltaTime, bool bNonLinearBlend, float& Delta);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    static FSimpleHitData MakeSimpleHitData(float Damage, FVector position, FVector HitFromDirection, FVector HitNormal, bool bRadial, UPrimitiveComponent* HitComponent, FName HitBoneName);
+    static FSimpleHitData MakeSimpleHitData(float Damage, FVector position, FVector HitFromDirection, FVector HitNormal, bool bRadial, UPrimitiveComponent* HitComponent, FName HitBoneName, TSubclassOf<UDamageType> DamageType, AActor* DamageCauser);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static FMeleeHitData MakeMeleeHitData(bool bUsingMelee, bool bHit, bool bKicking, uint8 Time, TEnumAsByte<EMeleeAttackDirection> AttackDirection, FVector position, FVector Normal, TEnumAsByte<EPhysicalSurface> Surface, UPrimitiveComponent* HitComponent, uint8 AttackType, FName HitBoneName);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    static FBallisticHitData MakeBallisticHitData(bool bDamage, bool bHit, uint8 Time, uint8 PhysicsMaterialIndex, FVector_NetQuantize position, FVector_NetQuantize Velocity, FVector_NetQuantizeNormal Normal, uint8 Distance, UPrimitiveComponent* HitComponent, FName HitBoneName);
+    static FBallisticHitData MakeBallisticHitData(bool bDamage, bool bHit, bool bRicochet, uint8 Time, uint8 PhysicsMaterialIndex, FVector_NetQuantize position, FVector_NetQuantize Velocity, FVector_NetQuantizeNormal Normal, uint8 Distance, UPrimitiveComponent* HitComponent, FName HitBoneName);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static bool IsNiagaraComponent(UFXSystemComponent* Component);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static bool IsNiagaraAsset(UFXSystemAsset* Asset);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    static bool IsLoadoutEmpty(const FFPSLoadout& Loadout);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static bool GetUsingMelee(const FMeleeHitData& Data);
@@ -119,9 +124,6 @@ public:
     static float GetControl(AFPSCharacterBase* Character, UFPSRangedWeaponData* WeaponData, const TArray<AFPSAttachment*>& Attachments);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    static FName GetClosestSyncMarker(UAnimInstance* AnimInstance, FName SyncGroupName);
-    
-    UFUNCTION(BlueprintCallable, BlueprintPure)
     static bool GetBallisticDidHit(const FBallisticHitData& Data);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -129,12 +131,6 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static FName GetBallisticBoneName(const FBallisticHitData& Data);
-    
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    static FVector CubicInterpVector(FVector A, FVector B, float Alpha);
-    
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    static float CubicInterpFloat(float A, float B, float Alpha);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static FVector ConvertVectorToItemSpace(FVector Forward, FVector Up, FVector Vector);

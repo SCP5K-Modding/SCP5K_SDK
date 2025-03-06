@@ -3,7 +3,7 @@
 USAISubsystem::USAISubsystem() {
 }
 
-void USAISubsystem::RemovePointOfInterest(USAIPointOfInterest* Point) {
+void USAISubsystem::RemovePointOfInterest(USAIPointOfInterest* Point, bool bPreserveOrder) {
 }
 
 AActor* USAISubsystem::GetRelevantPointOfInterest(FVector Location, FVector Direction, float MaxRadius, float MinRadius, float MaxAngle, bool bUseFirst) {

@@ -1,5 +1,5 @@
 #include "SAIEQSTest_LineLimitedDistance.h"
-#include "EnvironmentQuery/Contexts/EnvQueryContext_Querier.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryContext_Querier -FallbackName=EnvQueryContext_Querier
 
 USAIEQSTest_LineLimitedDistance::USAIEQSTest_LineLimitedDistance() {
     this->FilterType = EEnvTestFilterType::Match;

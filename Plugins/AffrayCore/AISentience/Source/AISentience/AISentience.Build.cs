@@ -8,18 +8,18 @@ public class AISentience : ModuleRules {
         
         PublicDependencyModuleNames.AddRange(new string[] {
             "AIModule",
-            "AITestSuite",
             "Core",
             "CoreUObject",
             "DeveloperSettings",
+            "DialogueSystem",
             "Engine",
             "FMODStudio",
             "FPSController",
+            "GameplayTags",
             "LightSensing",
             "NavigationSystem",
-            "GameplayTags",
-            "GameplayTasks",
-            "InputCore",
+            "PhysicsCore",
+            "SignificanceBase",
         });
     }
 }

@@ -8,8 +8,11 @@ UZombieAnimationInstance::UZombieAnimationInstance() {
     this->bIsFalling = false;
     this->bIsDead = false;
     this->bIsFakingDeath = false;
+    this->bIsServer = false;
     this->CurrentLifeState = EZombieLifeState::Alive;
+    this->bIsRagdolling = false;
     this->bIsFakeRagdolling = false;
+    this->bIsReanimating = false;
     this->LookAtRotationAlpha = 0.00f;
     this->bIsTargetSeen = false;
     this->bIsBallisticHit = false;
@@ -42,7 +45,7 @@ void UZombieAnimationInstance::OnZombieUpdatedLifeState() {
 void UZombieAnimationInstance::OnZombiePrepareReanimation() {
 }
 
-void UZombieAnimationInstance::OnZombieDied(UHealthComponent* UpdatedHealthComponent) {
+void UZombieAnimationInstance::OnZombieDied_Implementation(UHealthComponent* UpdatedHealthComponent) {
 }
 
 void UZombieAnimationInstance::OnZombieDamaged(UHealthComponent* UpdatedHealthComponent, FSimpleHitData HitData) {
@@ -51,12 +54,19 @@ void UZombieAnimationInstance::OnZombieDamaged(UHealthComponent* UpdatedHealthCo
 void UZombieAnimationInstance::OnZombieBeganFakeDeath(UHealthComponent* UpdatedHealthComponent) {
 }
 
+void UZombieAnimationInstance::OnSyncPoseSnapshot(const FPoseSnapshot UpdatedPoseSnapshot, const bool bIsFaceUp) {
+}
+
 UAnimMontage* UZombieAnimationInstance::GetZombieDeathAnimation() const {
     return NULL;
 }
 
 AAIZombieCharacter* UZombieAnimationInstance::GetZombieCharacter() const {
     return NULL;
+}
+
+FPoseSnapshot UZombieAnimationInstance::GetSyncedRagdollSnapshot() const {
+    return FPoseSnapshot{};
 }
 
 ACharacter* UZombieAnimationInstance::GetCharacter() const {

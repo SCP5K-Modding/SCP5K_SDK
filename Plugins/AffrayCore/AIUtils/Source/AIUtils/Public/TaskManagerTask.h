@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "BehaviorTree/BehaviorTreeTypes.h"
-#include "UObject/Object.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EBTNodeResult -FallbackName=EBTNodeResult
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Object -FallbackName=Object
 #include "TaskManagerTask.generated.h"
 
 class AAIController;
@@ -31,7 +31,7 @@ public:
     UTaskManagerTask();
 
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    EBTNodeResult::Type TickTask(UBehaviorTreeComponent* OwnerComp, float DeltaSeconds);
+    TEnumAsByte<EBTNodeResult::Type> TickTask(UBehaviorTreeComponent* OwnerComp, float DeltaSeconds);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
     bool ShouldBeRestored(bool bRestorationReason) const;
@@ -49,7 +49,7 @@ public:
     void FinishTask(AAIController* OwningController);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent* OwnerComp);
+    TEnumAsByte<EBTNodeResult::Type> ExecuteTask(UBehaviorTreeComponent* OwnerComp);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     bool DoPrerequisiteOperation(AAIController* OwningController);

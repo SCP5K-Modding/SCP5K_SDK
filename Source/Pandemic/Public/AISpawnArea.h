@@ -1,24 +1,38 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "GameFramework/Actor.h"
-#include "Engine/EngineTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Actor -FallbackName=Actor
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ESpawnActorCollisionHandlingMethod -FallbackName=ESpawnActorCollisionHandlingMethod
+#include "ESpawnScaling.h"
+#include "SpawnAIMCDelegateDelegate.h"
 #include "SpawnClass.h"
 #include "Templates/SubclassOf.h"
 #include "WaveSpawn.h"
 #include "AISpawnArea.generated.h"
 
 class AAISpawnArea;
+class AAISpawnLocation;
 class APawn;
 class UFMODEvent;
 class UNavigationQueryFilter;
+class UObject;
+class USAIDirection;
 
 UCLASS(Blueprintable)
 class PANDEMIC_API AAISpawnArea : public AActor {
     GENERATED_BODY()
 public:
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FSpawnAIMCDelegate AISpawnedMCDelegate;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    TArray<USAIDirection*> Directions;
+    
 protected:
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TArray<AAISpawnLocation*> ManualSpawnLocations;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FWaveSpawn DefaultSpawn;
     
@@ -64,6 +78,9 @@ protected:
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     ESpawnActorCollisionHandlingMethod SpawnCollisionHandling;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TArray<AAISpawnLocation*> UsedSpawnLocations;
+    
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<AAISpawnArea*> LinkedSpawnAreas;
     
@@ -83,13 +100,22 @@ public:
     void Spawn();
     
     UFUNCTION(BlueprintCallable)
+    void SetSpawnSound(UFMODEvent* InSpawnSound);
+    
+    UFUNCTION(BlueprintCallable)
     void SetEnabled(bool bNewEnabled);
+    
+    UFUNCTION(BlueprintCallable)
+    void SetDefaultSpawn(const FWaveSpawn& InDefaultSpawn);
     
     UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
     void MulticastSpawn();
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    FTransform GetSpawnTransform();
+    FTransform GetSpawnTransform(TSoftClassPtr<APawn>& Class, AAISpawnLocation*& UsedSpawnLocation);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContext"))
+    static float GetSpawnMultiplier(UObject* WorldContext, ESpawnScaling Scaling);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     FName GetSpawnerTag() const;

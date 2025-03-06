@@ -1,5 +1,5 @@
 #include "SAIEQSGen_CoverPoints.h"
-#include "EnvironmentQuery/Contexts/EnvQueryContext_Querier.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryContext_Querier -FallbackName=EnvQueryContext_Querier
 #include "SAIEnvQueryItemType_Cover.h"
 
 USAIEQSGen_CoverPoints::USAIEQSGen_CoverPoints() {

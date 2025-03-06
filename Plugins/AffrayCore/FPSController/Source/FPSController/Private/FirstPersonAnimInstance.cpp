@@ -1,17 +1,9 @@
 #include "FirstPersonAnimInstance.h"
-#include "Templates/SubclassOf.h"
 
 UFirstPersonAnimInstance::UFirstPersonAnimInstance() {
-    this->FPSCharacter = NULL;
-    this->ItemData = NULL;
-    this->WeaponData = NULL;
-    this->ThrowableData = NULL;
-    this->MeleeData = NULL;
-    this->RangedWeaponData = NULL;
-    this->CurrentItem = NULL;
-    this->CurrentRangedWeapon = NULL;
     this->BasePoseAnimation = NULL;
     this->SprintingAnimation = NULL;
+    this->StableSprintingAnimation = NULL;
     this->IdleAnimation = NULL;
     this->MovementAnimation = NULL;
     this->ReadyBasePoseAnimation = NULL;
@@ -22,8 +14,13 @@ UFirstPersonAnimInstance::UFirstPersonAnimInstance() {
     this->bIsReadyRight = false;
     this->bIsReadyLeft = false;
     this->bIsBasePoseLeft = false;
+    this->bIsStable = false;
     this->CurrentClimbable = NULL;
     this->bIsClimbing = false;
+    this->bIsLeftHandFurtherClimbing = false;
+    this->bIsLeftHandInAir = false;
+    this->bIsRightHandInAir = false;
+    this->ClimbingAlpha = 0.00f;
     this->LeftHandClimbPercent = 0.00f;
     this->RightHandClimbPercent = 0.00f;
     this->MaxMovementSpeed = 400.00f;
@@ -44,6 +41,8 @@ UFirstPersonAnimInstance::UFirstPersonAnimInstance() {
     this->CurrentIdleAmount = 0.00f;
     this->SmoothMovementAmount = 0.00f;
     this->SmoothMovementSpeed = 0.00f;
+    this->bWantsMoving = false;
+    this->bIsMoving = false;
     this->SmoothCrouchOffset = 0.00f;
     this->SmoothBlockingAlpha = 0.00f;
     this->SmoothWallDistanceOffset = 0.00f;
@@ -76,6 +75,8 @@ UFirstPersonAnimInstance::UFirstPersonAnimInstance() {
     this->ShotNoiseIncrement = 0.30f;
     this->AimingShotNoiseIncrement = 0.10f;
     this->ShotNoiseDecay = 7.00f;
+    this->NoiseRollAmount = 1.50f;
+    this->NoiseRollSpeed = 2.00f;
     this->KickRotationAmount = 1.00f;
     this->AimingKickMultiplier = 1.00f;
     this->AimingRecoilAnimationMultiplier = 1.00f;
@@ -122,7 +123,7 @@ void UFirstPersonAnimInstance::UpdateGrabPoint(bool bIsLeft) {
 void UFirstPersonAnimInstance::SetSwayMultiplier(float Multiplier) {
 }
 
-UAnimSequence* UFirstPersonAnimInstance::GetGripPose_Implementation(UFPSGripData* GripData, TSubclassOf<AFPSRangedWeapon> WeaponClass) {
+UAnimSequence* UFirstPersonAnimInstance::GetGripPose_Implementation(UFPSGripData* GripData) {
     return NULL;
 }
 

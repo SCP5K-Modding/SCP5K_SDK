@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/Object.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Object -FallbackName=Object
 #include "ConsoleArgument.h"
 #include "EArgumentType.h"
 #include "EMessageType.h"
@@ -61,10 +61,10 @@ public:
     bool ValidateServer(UConsoleComponent* Component, APlayerController* Controller, const TArray<FConsoleArgument>& InArguments);
     
     UFUNCTION(BlueprintCallable)
-    void ServerAddMessage(const FString& Text, TEnumAsByte<EMessageType> MessageType, const FString& Tooltip);
+    void ServerAddMessage(const FString& Text, EMessageType MessageType, const FString& Tooltip);
     
     UFUNCTION(BlueprintCallable)
-    void MulticastAddMessage(const FString& Text, TEnumAsByte<EMessageType> MessageType, const FString& Tooltip);
+    void MulticastAddMessage(const FString& Text, EMessageType MessageType, const FString& Tooltip);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     UConsoleComponent* GetOwningComponent() const;
@@ -97,7 +97,7 @@ public:
     void ExecuteClient(UConsoleComponent* Component, APlayerController* Controller, const TArray<FConsoleArgument>& InArguments);
     
     UFUNCTION(BlueprintCallable)
-    void ClientAddMessage(const FString& Text, TEnumAsByte<EMessageType> MessageType, const FString& Tooltip);
+    void ClientAddMessage(const FString& Text, EMessageType MessageType, const FString& Tooltip);
     
 };
 

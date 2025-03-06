@@ -1,6 +1,6 @@
 #include "FPSMeleeWeapon.h"
-#include "Components/SceneComponent.h"
-#include "FMODAudioComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
 #include "FPSMeleeWeaponData.h"
 #include "Net/UnrealNetwork.h"
 
@@ -17,6 +17,7 @@ AFPSMeleeWeapon::AFPSMeleeWeapon(const FObjectInitializer& ObjectInitializer) : 
     this->bIsReady = false;
     this->ReadyDirection = AD_None;
     this->LastAttackDirection = AD_None;
+    this->NumHits = 0;
     this->AudioComponent->SetupAttachment(FirstPerson);
     this->TraceStart->SetupAttachment(FirstPerson);
     this->TraceEnd->SetupAttachment(FirstPerson);
@@ -37,16 +38,16 @@ void AFPSMeleeWeapon::StartAttack(TEnumAsByte<EMeleeAttackDirection> Direction) 
 void AFPSMeleeWeapon::SetReadyDirection(TEnumAsByte<EMeleeAttackDirection> Direction) {
 }
 
-void AFPSMeleeWeapon::ServerUpdateReady_Implementation(EMeleeAttackDirection Direction, bool bReady) {
+void AFPSMeleeWeapon::ServerUpdateReady_Implementation(TEnumAsByte<EMeleeAttackDirection> Direction, bool bReady) {
 }
 
-void AFPSMeleeWeapon::ServerStartAttack_Implementation(EMeleeAttackDirection Direction) {
+void AFPSMeleeWeapon::ServerStartAttack_Implementation(TEnumAsByte<EMeleeAttackDirection> Direction) {
 }
 
 void AFPSMeleeWeapon::ServerProcessHit_Implementation(FMeleeHitData Hit) {
 }
 
-void AFPSMeleeWeapon::ServerCancelAttack_Implementation(EMeleeAttackDirection Direction) {
+void AFPSMeleeWeapon::ServerCancelAttack_Implementation(TEnumAsByte<EMeleeAttackDirection> Direction) {
 }
 
 bool AFPSMeleeWeapon::RunWeaponTrace(FHitResult& Hit) {
@@ -69,7 +70,7 @@ void AFPSMeleeWeapon::FlipAttackDirection(TEnumAsByte<EMeleeAttackDirection> Cur
 void AFPSMeleeWeapon::CosmeticStartAttack(TEnumAsByte<EMeleeAttackDirection> Direction) {
 }
 
-void AFPSMeleeWeapon::CosmeticHit_Implementation(EMeleeAttackDirection Direction, FMeleeHitData HitData) {
+void AFPSMeleeWeapon::CosmeticHit_Implementation(TEnumAsByte<EMeleeAttackDirection> Direction, FMeleeHitData HitData) {
 }
 
 void AFPSMeleeWeapon::CosmeticCancelAttack(TEnumAsByte<EMeleeAttackDirection> Direction) {

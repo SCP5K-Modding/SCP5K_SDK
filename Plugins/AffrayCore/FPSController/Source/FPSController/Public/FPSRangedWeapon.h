@@ -1,11 +1,13 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "NiagaraDataInterfaceExport.h"
-#include "Chaos/ChaosEngineInterface.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Rotator -FallbackName=Rotator
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector2D -FallbackName=Vector2D
+//CROSS-MODULE INCLUDE V2: -ModuleName=Niagara -ObjectName=NiagaraParticleCallbackHandler -FallbackName=NiagaraParticleCallbackHandler
+//CROSS-MODULE INCLUDE V2: -ModuleName=PhysicsCore -ObjectName=EPhysicalSurface -FallbackName=EPhysicalSurface
+#include "AlternateLoadAnimation.h"
 #include "AttachmentSlotData.h"
 #include "BallisticProjectileData.h"
 #include "EFireMode.h"
@@ -20,6 +22,7 @@ class AFPSGrip;
 class AFPSSight;
 class UBallisticPhysicsMaterial;
 class UFMODAudioComponent;
+class UFPSAttachmentData;
 class UFPSRangedWeaponData;
 class UFXSystemAsset;
 class UFXSystemComponent;
@@ -91,6 +94,9 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_BurstCount, meta=(AllowPrivateAccess=true))
     int32 BurstCount;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_ServerRejectedShots, meta=(AllowPrivateAccess=true))
+    int32 ServerRejectedShots;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_CurrentFireMode, meta=(AllowPrivateAccess=true))
     EFireMode CurrentFireMode;
     
@@ -127,6 +133,12 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     TArray<TSoftObjectPtr<UBallisticPhysicsMaterial>> Physmats;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_AttachmentIDsToLoad, meta=(AllowPrivateAccess=true))
+    TArray<FPrimaryAssetId> AttachmentIDsToLoad;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bUpdateClientMagazinesOnMagCheck;
+    
 public:
     AFPSRangedWeapon(const FObjectInitializer& ObjectInitializer);
 
@@ -136,10 +148,22 @@ public:
     bool WantsDiscardMagazine() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool WantsAlternateGripPose() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     bool UsingManualAction() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool UseFullAutoAudio() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void UpdateRemainingAmmoAudio();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void UpdateControl();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void UpdateAttachMeshes();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void StopFireAudio();
@@ -149,6 +173,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void StartMuzzleFlash(UFXSystemAsset* Particle);
+    
+    UFUNCTION(BlueprintCallable)
+    void StartLoadAndAddAttachment(TSoftObjectPtr<UFPSAttachmentData> AttachmentData, int32 Slot);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     UFMODAudioComponent* StartFireAudio();
@@ -230,7 +257,16 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void SendMagazines();
     
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool SelectQuickLoadAnimation(FAlternateLoadAnimation& SelectedAnimation) const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    bool RemoveAttachmentAtSlot(int32 SlotIndex);
+    
 protected:
+    UFUNCTION(BlueprintCallable)
+    void OnRep_ServerRejectedShots(int32 OldValue);
+    
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_ReloadData();
     
@@ -279,9 +315,12 @@ protected:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_Attachments();
     
+    UFUNCTION(BlueprintCallable)
+    void OnRep_AttachmentIDsToLoad();
+    
 public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void OnParticleCollide(FVector Location, FVector Velocity, EPhysicalSurface Surface);
+    void OnParticleCollide(FVector Location, FVector Velocity, TEnumAsByte<EPhysicalSurface> Surface);
     
     UFUNCTION(BlueprintCallable)
     void OnCascadeParticleCollide(FName EventName, float EmitterTime, int32 ParticleTime, FVector Location, FVector Velocity, FVector Direction, FVector Normal, FName BoneName, UPhysicalMaterial* PhysMat);
@@ -305,6 +344,9 @@ public:
     bool IsLoaded() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool IsInspecting() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsCompensated() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -324,6 +366,12 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool HasAmmo() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    float GetWeaponLength() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool GetWantsAiming() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetUsingAlternateGripPose() const;
@@ -406,6 +454,12 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
     FVector GetBarrelLocation(bool bTransformToMesh, FRotator& Rotation, bool bIncludeAttachment) const;
     
+    UFUNCTION(BlueprintCallable)
+    bool GetAttachmentSlotData(int32 SlotIndex, FAttachmentSlotData& OutSlotData);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    FTransform GetAttachmentDesiredTransform(const FAttachmentSlotData& InSlotData) const;
+    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     TArray<int32> GetAttachmentData() const;
     
@@ -415,6 +469,12 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
     float GetADSAlignmentSpeedMultiplier() const;
     
+    UFUNCTION(BlueprintCallable)
+    void FinishLoadAndAddAttachment(TSoftObjectPtr<UFPSAttachmentData> AttachmentData, int32 Slot);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool FindAttachmentSlotClassIndex(int32 SlotIndex, int32& ClassIndex, bool& bFoundSlot);
+    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     AFPSAttachment* FindAttachmentAtSlot(int32 Index, FAttachmentSlotData& AttachmentSlotData, bool& bFound) const;
     
@@ -423,6 +483,12 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void CycleMagazines();
+    
+    UFUNCTION(BlueprintCallable, Client, Reliable)
+    void ClientSetMagazines(int32 NewCurrentAmmo, const TArray<int32>& NewMagazines);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool CanUseIronSights() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool CanReloadWhileSprinting() const;
@@ -445,6 +511,9 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool CanAim() const;
     
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void AttachmentFinishedLoading(AFPSAttachment* Attachment, UFPSAttachmentData* AttachmentData);
+    
     UFUNCTION(BlueprintCallable)
     void AddMultipleMagazines(int32 Ammo);
     
@@ -453,6 +522,9 @@ public:
     
     UFUNCTION(BlueprintCallable)
     void AddMagazine(int32 Ammo);
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, BlueprintNativeEvent)
+    AFPSAttachment* AddAttachment(UFPSAttachmentData* AttachmentData, int32 Slot);
     
 
     // Fix for true pure virtual functions not being implemented

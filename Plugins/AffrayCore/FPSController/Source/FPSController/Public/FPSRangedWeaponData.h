@@ -1,14 +1,14 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "GameplayTagContainer.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector2D -FallbackName=Vector2D
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTag -FallbackName=GameplayTag
+#include "AlternateLoadAnimation.h"
 #include "AttachmentSlotData.h"
 #include "EFireMode.h"
 #include "EReloadType.h"
 #include "FPSWeaponData.h"
 #include "ProjectileData.h"
-#include "QuickLoadAnimation.h"
 #include "Templates/SubclassOf.h"
 #include "FPSRangedWeaponData.generated.h"
 
@@ -313,7 +313,7 @@ public:
     TSoftObjectPtr<UAnimMontage> EndADSMontage;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    TArray<FQuickLoadAnimation> QuickLoadAnimations;
+    TArray<FAlternateLoadAnimation> AlternateLoadAnimations;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     int32 ReloadAmmoOffset;
@@ -387,10 +387,22 @@ public:
     UFPSRangedWeaponData();
 
     UFUNCTION(BlueprintCallable)
+    FVector2D GetRecoilMultiplier(const TArray<int32>& Attachments);
+    
+    UFUNCTION(BlueprintCallable)
+    float GetIdleMultiplier(const TArray<int32>& Attachments);
+    
+    UFUNCTION(BlueprintCallable)
     int32 GetFireRate(int32& EffectiveFireRate, int32 FireModeIndex);
     
     UFUNCTION(BlueprintCallable)
+    float GetControl(const TArray<int32>& Attachments);
+    
+    UFUNCTION(BlueprintCallable)
     UAnimSequence* GetAlternateGripPose(bool& bWantsAlternateGripPose);
+    
+    UFUNCTION(BlueprintCallable)
+    float GetADSTime(const TArray<int32>& Attachments);
     
 };
 

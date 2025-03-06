@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "GameAction.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameActions -ObjectName=GameAction -FallbackName=GameAction
 #include "EElectronicProperty.h"
 #include "ElectronicGameAction.generated.h"
 

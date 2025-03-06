@@ -1,6 +1,5 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "FPSAttachmentData.h"
 #include "FPSBarrelData.generated.h"
 
@@ -10,9 +9,6 @@ UCLASS(Blueprintable)
 class FPSCONTROLLER_API UFPSBarrelData : public UFPSAttachmentData {
     GENERATED_BODY()
 public:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    FVector2D RecoilMultiplier;
-    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float LoudnessMultiplier;
     

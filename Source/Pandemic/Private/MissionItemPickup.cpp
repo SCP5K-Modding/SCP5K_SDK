@@ -1,7 +1,7 @@
 #include "MissionItemPickup.h"
-#include "Components/SceneComponent.h"
-#include "Components/StaticMeshComponent.h"
-#include "InteractableComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=StaticMeshComponent -FallbackName=StaticMeshComponent
+//CROSS-MODULE INCLUDE V2: -ModuleName=Interaction -ObjectName=InteractableComponent -FallbackName=InteractableComponent
 #include "Net/UnrealNetwork.h"
 
 AMissionItemPickup::AMissionItemPickup(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
@@ -10,6 +10,7 @@ AMissionItemPickup::AMissionItemPickup(const FObjectInitializer& ObjectInitializ
     (*p_RemoteRole->ContainerPtrToValuePtr<TEnumAsByte<ENetRole>>(this)) = ROLE_SimulatedProxy;
     this->RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
     this->Mesh = NULL;
+    this->PickupSound = NULL;
     this->InteractableComponent = CreateDefaultSubobject<UInteractableComponent>(TEXT("Interactable"));
     this->MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
     this->bOneUse = false;
@@ -18,6 +19,9 @@ AMissionItemPickup::AMissionItemPickup(const FObjectInitializer& ObjectInitializ
     this->PickupGameAction = NULL;
     this->InteractableComponent->SetupAttachment(RootComponent);
     this->MeshComponent->SetupAttachment(RootComponent);
+}
+
+void AMissionItemPickup::SetActive(bool bNewActive) {
 }
 
 void AMissionItemPickup::Pickup_Implementation(AController* Controller) {
@@ -30,6 +34,9 @@ void AMissionItemPickup::OnInteract_Implementation(AActor* EventInstigator) {
 }
 
 void AMissionItemPickup::OnFailed_Implementation(AController* Controller) {
+}
+
+void AMissionItemPickup::MulticastPickup_Implementation() {
 }
 
 void AMissionItemPickup::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
