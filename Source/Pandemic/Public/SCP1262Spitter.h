@@ -1,14 +1,14 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AISightTargetInterface -FallbackName=AISightTargetInterface
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=EStaggerDirection -FallbackName=EStaggerDirection
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Pawn -FallbackName=Pawn
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=AIMeleeAttackType -FallbackName=AIMeleeAttackType
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Damageable -FallbackName=Damageable
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=SimpleHitData -FallbackName=SimpleHitData
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Suppressable -FallbackName=Suppressable
-//CROSS-MODULE INCLUDE V2: -ModuleName=SignificanceBase -ObjectName=SignificanceUser -FallbackName=SignificanceUser
+#include "Perception/AISightTargetInterface.h"
+#include "EStaggerDirection.h"
+#include "UObject/NoExportTypes.h"
+#include "GameFramework/Pawn.h"
+#include "AIMeleeAttackType.h"
+#include "Damageable.h"
+#include "SimpleHitData.h"
+#include "Suppressable.h"
+#include "SignificanceUser.h"
 #include "Templates/SubclassOf.h"
 #include "SCP1262Spitter.generated.h"
 

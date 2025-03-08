@@ -1,5 +1,5 @@
 #include "SAIEQSTest_LookHistory.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryContext_Querier -FallbackName=EnvQueryContext_Querier
+#include "EnvironmentQuery/Contexts/EnvQueryContext_Querier.h"
 #include "EnvQueryContext_LookHistory.h"
 
 USAIEQSTest_LookHistory::USAIEQSTest_LookHistory() {

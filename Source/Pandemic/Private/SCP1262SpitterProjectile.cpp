@@ -1,7 +1,7 @@
 #include "SCP1262SpitterProjectile.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=StaticMeshComponent -FallbackName=StaticMeshComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FPSProjectileMovementComponent -FallbackName=FPSProjectileMovementComponent
+#include "Components/SceneComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "FPSProjectileMovementComponent.h"
 #include "Net/UnrealNetwork.h"
 
 ASCP1262SpitterProjectile::ASCP1262SpitterProjectile(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {

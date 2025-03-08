@@ -1,6 +1,6 @@
 #include "SCP173Base.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIPerceptionStimuliSourceComponent -FallbackName=AIPerceptionStimuliSourceComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
+#include "Perception/AIPerceptionStimuliSourceComponent.h"
+#include "FMODAudioComponent.h"
 #include "DeferredDespawnComponent.h"
 #include "SCP173MovementComponent.h"
 

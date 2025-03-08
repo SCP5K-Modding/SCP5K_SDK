@@ -8,9 +8,11 @@ public class AIUtils : ModuleRules {
         
         PublicDependencyModuleNames.AddRange(new string[] {
             "AIModule",
+
             "Core",
             "CoreUObject",
             "Engine",
+            "GameplayTasks",
         });
     }
 }

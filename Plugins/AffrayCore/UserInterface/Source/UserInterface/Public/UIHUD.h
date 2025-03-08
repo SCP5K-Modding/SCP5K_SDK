@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=HUD -FallbackName=HUD
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTag -FallbackName=GameplayTag
+#include "GameFramework/HUD.h"
+#include "GameplayTagContainer.h"
 #include "AddChatMessageDelegate.h"
 #include "AddNotifierDelegate.h"
 #include "EPlayerActionReturn.h"

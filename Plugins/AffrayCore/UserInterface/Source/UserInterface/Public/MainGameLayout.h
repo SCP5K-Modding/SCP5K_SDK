@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTag -FallbackName=GameplayTag
-//CROSS-MODULE INCLUDE V2: -ModuleName=UMG -ObjectName=UserWidget -FallbackName=UserWidget
+#include "GameplayTagContainer.h"
+#include "Blueprint/UserWidget.h"
 #include "Templates/SubclassOf.h"
 #include "MainGameLayout.generated.h"
 

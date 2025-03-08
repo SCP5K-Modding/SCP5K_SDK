@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=BTService -FallbackName=BTService
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=BlackboardKeySelector -FallbackName=BlackboardKeySelector
+#include "BehaviorTree/BTService.h"
+#include "BehaviorTree/BehaviorTreeTypes.h"
 #include "BTService_AttackSatiation.generated.h"
 
 UCLASS(Blueprintable)

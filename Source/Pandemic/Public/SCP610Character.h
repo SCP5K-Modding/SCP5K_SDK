@@ -1,13 +1,13 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AISightTargetInterface -FallbackName=AISightTargetInterface
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=ESAIAwarenessState -FallbackName=ESAIAwarenessState
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Rotator -FallbackName=Rotator
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Electronics -ObjectName=DoorInteraction -FallbackName=DoorInteraction
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Character -FallbackName=Character
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Damageable -FallbackName=Damageable
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=SimpleHitData -FallbackName=SimpleHitData
+#include "Perception/AISightTargetInterface.h"
+#include "ESAIAwarenessState.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "DoorInteraction.h"
+#include "GameFramework/Character.h"
+#include "Damageable.h"
+#include "SimpleHitData.h"
 #include "EZombieLifeState.h"
 #include "InterruptibleAnimator.h"
 #include "RagdollPuppet.h"

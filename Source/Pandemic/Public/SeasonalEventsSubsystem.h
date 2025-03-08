@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=GameInstanceSubsystem -FallbackName=GameInstanceSubsystem
+#include "Subsystems/GameInstanceSubsystem.h"
 #include "SeasonalEvent.h"
 #include "SeasonalEventsSubsystem.generated.h"
 

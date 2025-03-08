@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Subtitle -ObjectName=Subtitle -FallbackName=Subtitle
+#include "Subtitle.h"
 #include "Dialogue.h"
 #include "CurrentDialogue.generated.h"
 

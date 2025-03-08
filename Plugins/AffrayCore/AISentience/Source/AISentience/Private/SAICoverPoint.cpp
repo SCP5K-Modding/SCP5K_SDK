@@ -1,6 +1,6 @@
 #include "SAICoverPoint.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BoxComponent -FallbackName=BoxComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
+#include "Components/BoxComponent.h"
+#include "Components/SceneComponent.h"
 
 ASAICoverPoint::ASAICoverPoint(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));

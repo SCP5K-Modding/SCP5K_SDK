@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ActorComponent -FallbackName=ActorComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=SimpleHitData -FallbackName=SimpleHitData
+#include "Components/ActorComponent.h"
+#include "SimpleHitData.h"
 #include "DamageReactionInfo.h"
 #include "HitAnimCriteria.h"
 #include "HitReactionData.h"

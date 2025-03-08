@@ -3,7 +3,7 @@
 	"Version": 1,
 	"VersionName": "1.0",
 	"FriendlyName": "FPSController",
-	"Description": "",
+	"Description": "First Person controller base, tools and utilities. This plugin contains some code copied/ported from Unreal Engine for compatibility. It requires a valid Unreal Engine license to use. All Unreal Engine code is subject to Epic Games' Copyright and license terms.",
 	"Category": "Other",
 	"CreatedBy": "Albarnie",
 	"CreatedByURL": "",
@@ -31,7 +31,11 @@
 			"Enabled": true
 		},
 		{
-			"Name": "GameUtilities",
+			"Name": "SignificanceBase",
+			"Enabled": true
+		},
+		{
+			"Name": "RootMovement",
 			"Enabled": true
 		}
 	]

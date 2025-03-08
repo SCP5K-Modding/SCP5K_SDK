@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=GenericTeamAgentInterface -FallbackName=GenericTeamAgentInterface
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PlayerController -FallbackName=PlayerController
+#include "GenericTeamAgentInterface.h"
+#include "GameFramework/PlayerController.h"
 #include "FPSCosmetic.h"
 #include "OnPawnPossessionDelegate.h"
 #include "FPSPlayerControllerBase.generated.h"

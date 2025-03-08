@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=BTService -FallbackName=BTService
+#include "BehaviorTree/BTService.h"
 #include "BTService_DisableFocus.generated.h"
 
 UCLASS(Blueprintable)

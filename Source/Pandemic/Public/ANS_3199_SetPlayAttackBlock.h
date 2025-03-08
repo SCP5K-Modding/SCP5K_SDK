@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=AnimNotifyState -FallbackName=AnimNotifyState
+#include "Animation/AnimNotifies/AnimNotifyState.h"
 #include "ANS_3199_SetPlayAttackBlock.generated.h"
 
 UCLASS(Blueprintable, CollapseCategories, EditInlineNew)

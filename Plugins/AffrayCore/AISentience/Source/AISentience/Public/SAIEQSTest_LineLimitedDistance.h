@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIDataProviderBoolValue -FallbackName=AIDataProviderBoolValue
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIDataProviderFloatValue -FallbackName=AIDataProviderFloatValue
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryTest -FallbackName=EnvQueryTest
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvTraceData -FallbackName=EnvTraceData
+#include "DataProviders/AIDataProvider.h"
+#include "DataProviders/AIDataProvider.h"
+#include "EnvironmentQuery/EnvQueryTest.h"
+#include "EnvironmentQuery/EnvQueryTypes.h"
 #include "Templates/SubclassOf.h"
 #include "SAIEQSTest_LineLimitedDistance.generated.h"
 
@@ -13,7 +13,7 @@ UCLASS(Blueprintable)
 class AISENTIENCE_API USAIEQSTest_LineLimitedDistance : public UEnvQueryTest {
     GENERATED_BODY()
 public:
-    UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(meta=(AllowPrivateAccess=true))
     FEnvTraceData TraceData;
     
     UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -25,10 +25,10 @@ public:
     UPROPERTY(AdvancedDisplay, EditAnywhere, meta=(AllowPrivateAccess=true))
     FAIDataProviderFloatValue ContextHeightOffset;
     
-    UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TSubclassOf<UEnvQueryContext> Context;
     
-    UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float MaxDistance;
     
     USAIEQSTest_LineLimitedDistance();

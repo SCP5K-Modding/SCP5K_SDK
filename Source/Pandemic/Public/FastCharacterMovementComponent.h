@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=CharacterMovementComponent -FallbackName=CharacterMovementComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=SignificanceBase -ObjectName=SignificanceUser -FallbackName=SignificanceUser
+#include "GameFramework/CharacterMovementComponent.h"
+#include "SignificanceUser.h"
 #include "FastCharacterMovementComponent.generated.h"
 
 class USignificanceComponent;

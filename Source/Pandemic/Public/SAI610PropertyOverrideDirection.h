@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIDirection -FallbackName=SAIDirection
+#include "SAIDirection.h"
 #include "RageLevel.h"
 #include "SAI610PropertyOverrideDirection.generated.h"
 

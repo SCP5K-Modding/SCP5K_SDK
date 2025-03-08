@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Interface -FallbackName=Interface
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+#include "UObject/Interface.h"
+#include "UObject/NoExportTypes.h"
 #include "EFireMode.h"
 #include "EMeleeAttackDirection.h"
 #include "Templates/SubclassOf.h"
@@ -88,7 +88,7 @@ public:
     void PlayCheckAmmoAnimation();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void PlayCancelAnimation(TEnumAsByte<EMeleeAttackDirection> Direction);
+    void PlayCancelAnimation(EMeleeAttackDirection Direction);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void PlayBreachAnimation();
@@ -100,7 +100,7 @@ public:
     void PlayBashAnimation(bool bHit);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void PlayAttackAnimation(TEnumAsByte<EMeleeAttackDirection> Direction);
+    void PlayAttackAnimation(EMeleeAttackDirection Direction);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void PlayActionAnimation();

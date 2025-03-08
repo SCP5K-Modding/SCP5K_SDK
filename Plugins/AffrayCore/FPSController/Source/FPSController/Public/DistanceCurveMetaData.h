@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=AnimMetaData -FallbackName=AnimMetaData
+#include "UObject/NoExportTypes.h"
+#include "Animation/AnimMetaData.h"
 #include "DistanceCurveMetaData.generated.h"
 
 UCLASS(Blueprintable, CollapseCategories, EditInlineNew)

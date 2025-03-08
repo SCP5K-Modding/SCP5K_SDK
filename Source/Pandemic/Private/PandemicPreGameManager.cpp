@@ -1,6 +1,6 @@
 #include "PandemicPreGameManager.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=CameraComponent -FallbackName=CameraComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
+#include "Camera/CameraComponent.h"
+#include "Components/SceneComponent.h"
 
 APandemicPreGameManager::APandemicPreGameManager(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));

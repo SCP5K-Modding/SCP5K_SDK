@@ -1,5 +1,5 @@
 #include "SAIPatrolPath.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
+#include "Components/SceneComponent.h"
 
 ASAIPatrolPath::ASAIPatrolPath(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));

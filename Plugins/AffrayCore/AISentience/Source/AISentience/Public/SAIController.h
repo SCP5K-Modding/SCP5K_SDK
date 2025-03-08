@@ -1,10 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIController -FallbackName=AIController
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIStimulus -FallbackName=AIStimulus
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=ETeamAttitude -FallbackName=ETeamAttitude
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=SignificanceBase -ObjectName=SignificanceUser -FallbackName=SignificanceUser
+#include "AIController.h"
+#include "Perception/AIPerceptionTypes.h"
+#include "GenericTeamAgentInterface.h"
+#include "UObject/NoExportTypes.h"
+#include "SignificanceUser.h"
 #include "AIInfoSharer.h"
 #include "ESAIAwarenessState.h"
 #include "ESAISoundType.h"

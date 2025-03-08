@@ -1,6 +1,6 @@
 #include "SCP098.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIMeleeComponent -FallbackName=SAIMeleeComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
+#include "SAIMeleeComponent.h"
+#include "FMODAudioComponent.h"
 #include "InterruptibleAnimComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "SCP098AIController.h"

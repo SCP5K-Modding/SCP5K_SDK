@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIPathFollowingComponent -FallbackName=SAIPathFollowingComponent
+#include "SAIPathFollowingComponent.h"
 #include "ResonatorPathFollowingComponent.generated.h"
 
 UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))

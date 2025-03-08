@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Character -FallbackName=Character
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Damageable -FallbackName=Damageable
+#include "GameFramework/Character.h"
+#include "Damageable.h"
 #include "SCP610CrawlerCharacter.generated.h"
 
 class ASCP610CrawlerController;

@@ -1,15 +1,15 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Electronics -ObjectName=DoorInteraction -FallbackName=DoorInteraction
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Character -FallbackName=Character
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=HitResult -FallbackName=HitResult
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PoseSnapshot -FallbackName=PoseSnapshot
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Vector_NetQuantize -FallbackName=Vector_NetQuantize
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=AIMeleeAttackType -FallbackName=AIMeleeAttackType
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Damageable -FallbackName=Damageable
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=SimpleHitData -FallbackName=SimpleHitData
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Suppressable -FallbackName=Suppressable
+#include "UObject/NoExportTypes.h"
+#include "DoorInteraction.h"
+#include "GameFramework/Character.h"
+#include "Engine/EngineTypes.h"
+#include "Animation/PoseSnapshot.h"
+#include "Engine/NetSerialization.h"
+#include "AIMeleeAttackType.h"
+#include "Damageable.h"
+#include "SimpleHitData.h"
+#include "Suppressable.h"
 #include "DeathAnimationData.h"
 #include "EZombieLifeState.h"
 #include "RagdollPuppet.h"

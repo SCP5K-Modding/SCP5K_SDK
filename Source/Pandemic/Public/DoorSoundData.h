@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODOcclusionDetails -FallbackName=FMODOcclusionDetails
+#include "FMODAudioComponent.h"
 #include "DoorSoundData.generated.h"
 
 class UFMODEvent;

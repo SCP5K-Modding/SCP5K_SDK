@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIDirection -FallbackName=SAIDirection
+#include "SAIDirection.h"
 #include "PlayRevealAnimationDirection.generated.h"
 
 UCLASS(Blueprintable, CollapseCategories, EditInlineNew)

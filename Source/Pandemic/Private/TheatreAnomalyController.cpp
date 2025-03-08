@@ -1,5 +1,5 @@
 #include "TheatreAnomalyController.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIPerceptionComponent -FallbackName=AIPerceptionComponent
+#include "Perception/AIPerceptionComponent.h"
 
 ATheatreAnomalyController::ATheatreAnomalyController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->PerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception"));

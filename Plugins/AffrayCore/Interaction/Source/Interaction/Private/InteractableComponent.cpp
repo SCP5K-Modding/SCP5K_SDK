@@ -1,5 +1,5 @@
 #include "InteractableComponent.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=NavigationSystem -ObjectName=NavArea_Obstacle -FallbackName=NavArea_Obstacle
+#include "NavAreas/NavArea_Obstacle.h"
 #include "Net/UnrealNetwork.h"
 
 UInteractableComponent::UInteractableComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {

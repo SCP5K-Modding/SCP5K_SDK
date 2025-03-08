@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=BTCompositeNode -FallbackName=BTCompositeNode
+#include "BehaviorTree/BTCompositeNode.h"
 #include "BTComposite_RandomSelector.generated.h"
 
 UCLASS(Blueprintable)

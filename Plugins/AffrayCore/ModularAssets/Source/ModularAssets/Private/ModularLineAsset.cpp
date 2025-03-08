@@ -1,6 +1,6 @@
 #include "ModularLineAsset.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=HierarchicalInstancedStaticMeshComponent -FallbackName=HierarchicalInstancedStaticMeshComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SplineComponent -FallbackName=SplineComponent
+#include "Components/HierarchicalInstancedStaticMeshComponent.h"
+#include "Components/SplineComponent.h"
 
 AModularLineAsset::AModularLineAsset(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->RootComponent = CreateDefaultSubobject<USplineComponent>(TEXT("Spline"));

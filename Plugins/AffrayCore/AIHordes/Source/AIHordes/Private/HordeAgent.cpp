@@ -1,5 +1,5 @@
 #include "HordeAgent.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EAutoPossessAI -FallbackName=EAutoPossessAI
+#include "Engine/EngineTypes.h"
 #include "HordeAgentController.h"
 #include "Net/UnrealNetwork.h"
 

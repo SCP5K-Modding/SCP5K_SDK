@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Subtitle -ObjectName=SubtitleLine -FallbackName=SubtitleLine
+#include "SubtitleLine.h"
 #include "DialogueLine.generated.h"
 
 USTRUCT(BlueprintType)

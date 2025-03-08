@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SaveGame -FallbackName=SaveGame
+#include "UObject/NoExportTypes.h"
+#include "GameFramework/SaveGame.h"
 #include "JournalSaveGame.generated.h"
 
 UCLASS(Blueprintable)

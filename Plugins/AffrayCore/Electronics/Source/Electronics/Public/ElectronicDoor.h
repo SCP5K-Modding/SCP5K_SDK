@@ -1,10 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=NavRelevantInterface -FallbackName=NavRelevantInterface
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=NavigationLink -FallbackName=NavigationLink
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Vector_NetQuantize -FallbackName=Vector_NetQuantize
-//CROSS-MODULE INCLUDE V2: -ModuleName=NavigationSystem -ObjectName=NavLinkHostInterface -FallbackName=NavLinkHostInterface
+#include "UObject/NoExportTypes.h"
+#include "AI/Navigation/NavRelevantInterface.h"
+#include "AI/Navigation/NavLinkDefinition.h"
+#include "Engine/NetSerialization.h"
+#include "NavLinkHostInterface.h"
 #include "DoorLinkReachedSignatureDelegate.h"
 #include "Electronic.h"
 #include "Templates/SubclassOf.h"

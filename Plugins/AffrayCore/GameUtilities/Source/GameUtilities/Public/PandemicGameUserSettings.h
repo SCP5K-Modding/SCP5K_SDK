@@ -1,10 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=LinearColor -FallbackName=LinearColor
-//CROSS-MODULE INCLUDE V2: -ModuleName=DLSSBlueprint -ObjectName=UDLSSMode -FallbackName=UDLSSMode
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=GameUserSettings -FallbackName=GameUserSettings
-//CROSS-MODULE INCLUDE V2: -ModuleName=NISBlueprint -ObjectName=UNISMode -FallbackName=UNISMode
-//CROSS-MODULE INCLUDE V2: -ModuleName=UIUtilities -ObjectName=HUDElementVisibility -FallbackName=HUDElementVisibility
+#include "UObject/NoExportTypes.h"
+#include "UDLSSMode.h"
+#include "GameFramework/GameUserSettings.h"
+#include "UNISMode.h"
+#include "HUDElementVisibility.h"
 #include "ECustomReflexMode.h"
 #include "ESubtitleDisplayMode.h"
 #include "ETextSize.h"

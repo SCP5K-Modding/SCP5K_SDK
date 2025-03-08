@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=BTTaskNode -FallbackName=BTTaskNode
+#include "BehaviorTree/BTTaskNode.h"
 #include "BTTask_FireSCP1262.generated.h"
 
 UCLASS(Blueprintable)

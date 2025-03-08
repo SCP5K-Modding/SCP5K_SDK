@@ -18,6 +18,7 @@ public class FPSController : ModuleRules {
             "Niagara",
             "PhysicsCore",
             "SignificanceBase",
+            "InputCore",
         });
     }
 }

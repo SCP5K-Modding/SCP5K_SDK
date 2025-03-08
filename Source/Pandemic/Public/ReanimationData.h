@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=EStaggerDirection -FallbackName=EStaggerDirection
+#include "EStaggerDirection.h"
 #include "ReanimationData.generated.h"
 
 class UAnimMontage;

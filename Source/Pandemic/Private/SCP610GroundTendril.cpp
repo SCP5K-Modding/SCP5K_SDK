@@ -1,6 +1,6 @@
 #include "SCP610GroundTendril.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
+#include "Components/SceneComponent.h"
+#include "FMODAudioComponent.h"
 
 ASCP610GroundTendril::ASCP610GroundTendril(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->bReplicates = true;

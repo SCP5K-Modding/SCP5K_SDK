@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=GameplayStatics -FallbackName=GameplayStatics
+#include "Kismet/GameplayStatics.h"
 #include "PandemicGameplayStatics.generated.h"
 
 UCLASS(Blueprintable)

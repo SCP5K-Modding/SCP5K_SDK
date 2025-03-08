@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EngineSubsystem -FallbackName=EngineSubsystem
+#include "Subsystems/EngineSubsystem.h"
 #include "LensEffectsSubsystem.generated.h"
 
 class UPostProcessLensFlareAsset;

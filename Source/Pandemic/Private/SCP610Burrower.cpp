@@ -1,6 +1,6 @@
 #include "SCP610Burrower.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
+#include "Components/SceneComponent.h"
+#include "FMODAudioComponent.h"
 #include "NavProjectileMovementComponent.h"
 
 ASCP610Burrower::ASCP610Burrower(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {

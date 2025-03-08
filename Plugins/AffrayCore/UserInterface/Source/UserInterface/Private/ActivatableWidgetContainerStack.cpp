@@ -1,5 +1,5 @@
 #include "ActivatableWidgetContainerStack.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=UMG -ObjectName=ESlateVisibility -FallbackName=ESlateVisibility
+#include "Components/SlateWrapperTypes.h"
 #include "Templates/SubclassOf.h"
 
 UActivatableWidgetContainerStack::UActivatableWidgetContainerStack() {

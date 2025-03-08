@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=CameraModifier -FallbackName=CameraModifier
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PostProcessSettings -FallbackName=PostProcessSettings
+#include "Camera/CameraModifier.h"
+#include "Engine/Scene.h"
 #include "BodyCamCameraModifier.generated.h"
 
 UCLASS(Blueprintable)

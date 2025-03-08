@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=UMG -ObjectName=UserWidgetPool -FallbackName=UserWidgetPool
-//CROSS-MODULE INCLUDE V2: -ModuleName=UMG -ObjectName=Widget -FallbackName=Widget
+#include "Blueprint/UserWidgetPool.h"
+#include "Components/Widget.h"
 #include "Templates/SubclassOf.h"
 #include "ActivatableWidgetContainerStack.generated.h"
 

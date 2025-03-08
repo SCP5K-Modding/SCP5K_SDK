@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ActorComponent -FallbackName=ActorComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ECollisionChannel -FallbackName=ECollisionChannel
+#include "UObject/NoExportTypes.h"
+#include "Components/ActorComponent.h"
+#include "Engine/EngineTypes.h"
 #include "EFootstepContext.h"
 #include "Templates/SubclassOf.h"
 #include "FootstepComponent.generated.h"

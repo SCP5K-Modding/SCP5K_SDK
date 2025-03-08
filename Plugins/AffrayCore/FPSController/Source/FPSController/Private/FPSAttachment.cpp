@@ -1,7 +1,7 @@
 #include "FPSAttachment.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SkeletalMeshComponent -FallbackName=SkeletalMeshComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
+#include "Components/SceneComponent.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "FMODAudioComponent.h"
 #include "Net/UnrealNetwork.h"
 
 AFPSAttachment::AFPSAttachment(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
@@ -21,11 +21,11 @@ AFPSAttachment::AFPSAttachment(const FObjectInitializer& ObjectInitializer) : Su
     this->AudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("FMODAudio"));
     this->AttachmentData = NULL;
     this->OwningItem = NULL;
+    this->AudioComponent->SetupAttachment(Mesh);
     this->FirstPerson->SetupAttachment(RootComponent);
     this->ThirdPerson->SetupAttachment(RootComponent);
     this->Mesh->SetupAttachment(FirstPerson);
     this->Mesh3P->SetupAttachment(ThirdPerson);
-    this->AudioComponent->SetupAttachment(Mesh);
 }
 
 void AFPSAttachment::SetupAttachmentData_Implementation(UFPSAttachmentData* InAttachmentData) {

@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=PhysicsCore -ObjectName=PhysicalMaterial -FallbackName=PhysicalMaterial
+#include "PhysicalMaterials/PhysicalMaterial.h"
 #include "SurfaceData.h"
 #include "BallisticPhysicsMaterial.generated.h"
 

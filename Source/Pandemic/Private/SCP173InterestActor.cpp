@@ -1,5 +1,5 @@
 #include "SCP173InterestActor.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SkeletalMeshComponent -FallbackName=SkeletalMeshComponent
+#include "Components/SkeletalMeshComponent.h"
 
 ASCP173InterestActor::ASCP173InterestActor(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->RootComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));

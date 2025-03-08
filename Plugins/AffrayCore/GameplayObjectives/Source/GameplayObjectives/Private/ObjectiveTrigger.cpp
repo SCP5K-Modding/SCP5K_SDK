@@ -1,6 +1,6 @@
 #include "ObjectiveTrigger.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BoxComponent -FallbackName=BoxComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EActorUpdateOverlapsMethod -FallbackName=EActorUpdateOverlapsMethod
+#include "Components/BoxComponent.h"
+#include "GameFramework/Actor.h"
 
 AObjectiveTrigger::AObjectiveTrigger(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->bNetLoadOnClient = false;

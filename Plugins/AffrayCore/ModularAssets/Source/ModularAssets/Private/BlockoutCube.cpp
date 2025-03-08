@@ -1,5 +1,5 @@
 #include "BlockoutCube.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=StaticMeshComponent -FallbackName=StaticMeshComponent
+#include "Components/StaticMeshComponent.h"
 
 ABlockoutCube::ABlockoutCube(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));

@@ -1,14 +1,14 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Rotator -FallbackName=Rotator
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BlueprintFunctionLibrary -FallbackName=BlueprintFunctionLibrary
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EAttachLocation -FallbackName=EAttachLocation
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Vector_NetQuantize -FallbackName=Vector_NetQuantize
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Vector_NetQuantizeNormal -FallbackName=Vector_NetQuantizeNormal
-//CROSS-MODULE INCLUDE V2: -ModuleName=PhysicsCore -ObjectName=EPhysicalSurface -FallbackName=EPhysicalSurface
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "Kismet/BlueprintFunctionLibrary.h"
+#include "Engine/EngineTypes.h"
+#include "Engine/NetSerialization.h"
+#include "Engine/NetSerialization.h"
+#include "Chaos/ChaosEngineInterface.h"
 #include "BallisticHitData.h"
 #include "ConstantLerpDriver.h"
 #include "EMeleeAttackDirection.h"
@@ -76,7 +76,7 @@ public:
     static FSimpleHitData MakeSimpleHitData(float Damage, FVector position, FVector HitFromDirection, FVector HitNormal, bool bRadial, UPrimitiveComponent* HitComponent, FName HitBoneName, TSubclassOf<UDamageType> DamageType, AActor* DamageCauser);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    static FMeleeHitData MakeMeleeHitData(bool bUsingMelee, bool bHit, bool bKicking, uint8 Time, TEnumAsByte<EMeleeAttackDirection> AttackDirection, FVector position, FVector Normal, TEnumAsByte<EPhysicalSurface> Surface, UPrimitiveComponent* HitComponent, uint8 AttackType, FName HitBoneName);
+    static FMeleeHitData MakeMeleeHitData(bool bUsingMelee, bool bHit, bool bKicking, uint8 Time, EMeleeAttackDirection AttackDirection, FVector position, FVector Normal, TEnumAsByte<EPhysicalSurface> Surface, UPrimitiveComponent* HitComponent, uint8 AttackType, FName HitBoneName);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static FBallisticHitData MakeBallisticHitData(bool bDamage, bool bHit, bool bRicochet, uint8 Time, uint8 PhysicsMaterialIndex, FVector_NetQuantize position, FVector_NetQuantize Velocity, FVector_NetQuantizeNormal Normal, uint8 Distance, UPrimitiveComponent* HitComponent, FName HitBoneName);
@@ -109,7 +109,7 @@ public:
     static bool GetMeleeHit(const FMeleeHitData& Data);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    static TEnumAsByte<EMeleeAttackDirection> GetMeleeAttackDirection(const FMeleeHitData& Data);
+    static EMeleeAttackDirection GetMeleeAttackDirection(const FMeleeHitData& Data);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static int32 GetLODLevel(USkeletalMeshComponent* Component);

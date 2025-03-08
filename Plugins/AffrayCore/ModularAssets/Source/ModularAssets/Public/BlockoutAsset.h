@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=LinearColor -FallbackName=LinearColor
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Actor -FallbackName=Actor
+#include "UObject/NoExportTypes.h"
+#include "GameFramework/Actor.h"
 #include "BlockoutAsset.generated.h"
 
 UCLASS(Abstract, Blueprintable)

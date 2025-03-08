@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Actor -FallbackName=Actor
-//CROSS-MODULE INCLUDE V2: -ModuleName=SignificanceBase -ObjectName=SignificanceUser -FallbackName=SignificanceUser
+#include "GameFramework/Actor.h"
+#include "SignificanceUser.h"
 #include "FPSCosmetic.h"
 #include "FPSItemSlotData.h"
 #include "FPSItemPickup.generated.h"

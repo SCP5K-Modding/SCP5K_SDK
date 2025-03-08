@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BoxComponent -FallbackName=BoxComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=HitResult -FallbackName=HitResult
+#include "UObject/NoExportTypes.h"
+#include "Components/BoxComponent.h"
+#include "Engine/EngineTypes.h"
 #include "InteractMCDelegateDelegate.h"
 #include "InterruptMCDelegateDelegate.h"
 #include "InvestigationRemovedDelegateDelegate.h"

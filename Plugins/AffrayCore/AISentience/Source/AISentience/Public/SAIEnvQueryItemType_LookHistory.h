@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryItemType_VectorBase -FallbackName=EnvQueryItemType_VectorBase
+#include "EnvironmentQuery/Items/EnvQueryItemType_VectorBase.h"
 #include "SAIEnvQueryItemType_LookHistory.generated.h"
 
 UCLASS(Blueprintable)

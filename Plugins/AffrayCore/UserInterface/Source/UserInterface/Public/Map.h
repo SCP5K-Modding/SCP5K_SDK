@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Actor -FallbackName=Actor
+#include "GameFramework/Actor.h"
 #include "Map.generated.h"
 
 class UMapComponent;
@@ -10,7 +10,7 @@ class USERINTERFACE_API AMap : public AActor {
     GENERATED_BODY()
 public:
 private:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true, Category=Map))
+    UPROPERTY(BlueprintReadWrite, Category = "Maps", EditAnywhere, Instanced, meta = (AllowPrivateAccess = true))
     UMapComponent* MapComponent;
     
 public:

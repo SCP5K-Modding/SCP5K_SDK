@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=ETeamAttitude -FallbackName=ETeamAttitude
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryTest -FallbackName=EnvQueryTest
+#include "GenericTeamAgentInterface.h"
+#include "EnvironmentQuery/EnvQueryTest.h"
 #include "ESAITargetTestMode.h"
 #include "SAIEQSTest_Target.generated.h"
 

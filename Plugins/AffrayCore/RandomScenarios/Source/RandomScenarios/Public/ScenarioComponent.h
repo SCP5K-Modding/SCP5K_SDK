@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PrimitiveComponent -FallbackName=PrimitiveComponent
+#include "Components/PrimitiveComponent.h"
 #include "ScenarioComponent.generated.h"
 
 class AActor;

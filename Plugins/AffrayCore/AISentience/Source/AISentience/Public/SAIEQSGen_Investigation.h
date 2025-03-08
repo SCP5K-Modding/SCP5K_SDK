@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIDataProviderFloatValue -FallbackName=AIDataProviderFloatValue
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryGenerator -FallbackName=EnvQueryGenerator
+#include "DataProviders/AIDataProvider.h"
+#include "EnvironmentQuery/EnvQueryGenerator.h"
 #include "Templates/SubclassOf.h"
 #include "SAIEQSGen_Investigation.generated.h"
 

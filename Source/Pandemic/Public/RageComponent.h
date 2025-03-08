@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ActorComponent -FallbackName=ActorComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=TimerHandle -FallbackName=TimerHandle
+#include "Components/ActorComponent.h"
+#include "Engine/EngineTypes.h"
 #include "OnRageLevelUpdatedDelegateDelegate.h"
 #include "RageDamageConfig.h"
 #include "RageLevel.h"

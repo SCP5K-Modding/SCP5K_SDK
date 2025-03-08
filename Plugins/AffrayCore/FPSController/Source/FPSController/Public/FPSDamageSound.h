@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=TimerHandle -FallbackName=TimerHandle
-//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODEventInstance -FallbackName=FMODEventInstance
+#include "Engine/EngineTypes.h"
+#include "FMODBlueprintStatics.h"
 #include "FPSDamageSound.generated.h"
 
 class UFMODEvent;

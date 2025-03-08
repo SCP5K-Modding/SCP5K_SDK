@@ -1,5 +1,5 @@
 #include "CrowdFollowingAIController.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=CrowdFollowingComponent -FallbackName=CrowdFollowingComponent
+#include "Navigation/CrowdFollowingComponent.h"
 
 ACrowdFollowingAIController::ACrowdFollowingAIController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>(TEXT("PathFollowingComponent"))) {
     this->bEnableCrowdSeparation = true;

@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=AnimNotifyState -FallbackName=AnimNotifyState
+#include "UObject/NoExportTypes.h"
+#include "Animation/AnimNotifies/AnimNotifyState.h"
 #include "EMotionWarpingMode.h"
 #include "MotionWarpingTarget.h"
 #include "AnimNotifyState_MotionWarping.generated.h"

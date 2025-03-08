@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SplineMetadata -FallbackName=SplineMetadata
+#include "Components/SplineComponent.h"
 #include "WallStripePointParams.h"
 #include "WallStripeMetadata.generated.h"
 

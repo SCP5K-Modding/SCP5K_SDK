@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Rotator -FallbackName=Rotator
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=TableRowBase -FallbackName=TableRowBase
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Vector_NetQuantize -FallbackName=Vector_NetQuantize
+#include "UObject/NoExportTypes.h"
+#include "Engine/DataTable.h"
+#include "Engine/NetSerialization.h"
 #include "EPlayerAnalyticsEventType.h"
 #include "PlayerAnalyticsEvent.generated.h"
 

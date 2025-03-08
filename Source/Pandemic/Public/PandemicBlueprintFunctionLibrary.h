@@ -1,10 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Color -FallbackName=Color
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BlueprintFunctionLibrary -FallbackName=BlueprintFunctionLibrary
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=UniqueNetIdRepl -FallbackName=UniqueNetIdRepl
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameActions -ObjectName=GameActionContainer -FallbackName=GameActionContainer
-//CROSS-MODULE INCLUDE V2: -ModuleName=UserInterface -ObjectName=Date -FallbackName=Date
+#include "UObject/NoExportTypes.h"
+#include "Kismet/BlueprintFunctionLibrary.h"
+#include "GameFramework/OnlineReplStructs.h"
+#include "GameActionContainer.h"
+#include "Date.h"
 #include "EVoteType.h"
 #include "EnvironmentLightSettings.h"
 #include "EnvironmentTimeSettings.h"

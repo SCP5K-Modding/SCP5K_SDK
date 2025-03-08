@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=WorldSettings -FallbackName=WorldSettings
+#include "GameFramework/WorldSettings.h"
 #include "Checkpoint.h"
 #include "PandemicGameOverride.h"
 #include "TeamDefinition.h"

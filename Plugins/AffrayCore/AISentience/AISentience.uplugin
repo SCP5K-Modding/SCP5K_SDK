@@ -37,6 +37,18 @@
 		{
 			"Name": "LightSensing",
 			"Enabled": true
+		},
+		{
+			"Name": "DialogueSystem",
+			"Enabled": true
+		},
+		{
+			"Name": "SignificanceBase",
+			"Enabled": true
+		},
+		{
+			"Name": "EnvironmentQueryEditor",
+			"Enabled": true
 		}
 	]
 }

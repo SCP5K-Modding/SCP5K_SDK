@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BlueprintAsyncActionBase -FallbackName=BlueprintAsyncActionBase
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameUtilities -ObjectName=EAudioSetting -FallbackName=EAudioSetting
+#include "Kismet/BlueprintAsyncActionBase.h"
+#include "EAudioSetting.h"
 #include "AudioSettingsUpdatedDelegate.h"
 #include "SettingsWidgetAsyncAction.generated.h"
 

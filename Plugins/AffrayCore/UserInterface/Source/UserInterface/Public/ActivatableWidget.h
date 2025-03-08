@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EMouseCaptureMode -FallbackName=EMouseCaptureMode
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EMouseLockMode -FallbackName=EMouseLockMode
-//CROSS-MODULE INCLUDE V2: -ModuleName=UMG -ObjectName=ESlateVisibility -FallbackName=ESlateVisibility
-//CROSS-MODULE INCLUDE V2: -ModuleName=UMG -ObjectName=UserWidget -FallbackName=UserWidget
+#include "Engine/EngineBaseTypes.h"
+#include "Engine/EngineBaseTypes.h"
+#include "Components/SlateWrapperTypes.h"
+#include "Blueprint/UserWidget.h"
 #include "EWidgetInputMode.h"
 #include "OnWidgetActivationChangedDelegate.h"
 #include "ActivatableWidget.generated.h"

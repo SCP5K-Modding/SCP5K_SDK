@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=FloatRange -FallbackName=FloatRange
+#include "UObject/NoExportTypes.h"
 #include "AIZombieCharacter.h"
 #include "ESCP3199ActionState.h"
 #include "HungerInterface.h"

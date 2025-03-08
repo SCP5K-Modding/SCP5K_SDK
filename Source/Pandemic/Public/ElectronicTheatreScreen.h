@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Electronics -ObjectName=ElectronicScreen -FallbackName=ElectronicScreen
+#include "ElectronicScreen.h"
 #include "TheatreScreen.h"
 #include "ElectronicTheatreScreen.generated.h"
 

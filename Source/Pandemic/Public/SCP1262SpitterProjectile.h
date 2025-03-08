@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Actor -FallbackName=Actor
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=HitResult -FallbackName=HitResult
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=BallisticHitData -FallbackName=BallisticHitData
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Poolable -FallbackName=Poolable
+#include "GameFramework/Actor.h"
+#include "Engine/EngineTypes.h"
+#include "BallisticHitData.h"
+#include "Poolable.h"
 #include "Templates/SubclassOf.h"
 #include "SCP1262SpitterProjectile.generated.h"
 

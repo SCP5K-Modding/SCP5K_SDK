@@ -1,5 +1,5 @@
 #include "FPSBarrel.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ArrowComponent -FallbackName=ArrowComponent
+#include "Components/ArrowComponent.h"
 
 AFPSBarrel::AFPSBarrel(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->BarrelData = NULL;

@@ -1,5 +1,5 @@
 #include "SAIController.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIPerceptionComponent -FallbackName=AIPerceptionComponent
+#include "Perception/AIPerceptionComponent.h"
 #include "SAIAwarenessComponent.h"
 #include "SAICombatProcessingComponent.h"
 #include "SAIPathFollowingComponent.h"

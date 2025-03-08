@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=CharacterMovementComponent -FallbackName=CharacterMovementComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=SignificanceBase -ObjectName=SignificanceUser -FallbackName=SignificanceUser
+#include "UObject/NoExportTypes.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "SignificanceUser.h"
 #include "EFPSCustomMovementMode.h"
 #include "FPSCharacterMovementComponent.generated.h"
 

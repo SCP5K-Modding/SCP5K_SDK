@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
+#include "UObject/NoExportTypes.h"
 #include "OnPlayerCosmeticsLoadedDelegateDelegate.generated.h"
 
 class APlayerState;

@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIController -FallbackName=AIController
+#include "AIController.h"
 #include "CrowdFollowingAIControllerBase.generated.h"
 
 UCLASS(Blueprintable)

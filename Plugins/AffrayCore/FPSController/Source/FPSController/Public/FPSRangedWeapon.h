@@ -1,12 +1,12 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Rotator -FallbackName=Rotator
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector2D -FallbackName=Vector2D
-//CROSS-MODULE INCLUDE V2: -ModuleName=Niagara -ObjectName=NiagaraParticleCallbackHandler -FallbackName=NiagaraParticleCallbackHandler
-//CROSS-MODULE INCLUDE V2: -ModuleName=PhysicsCore -ObjectName=EPhysicalSurface -FallbackName=EPhysicalSurface
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "NiagaraDataInterfaceExport.h"
+#include "Chaos/ChaosEngineInterface.h"
 #include "AlternateLoadAnimation.h"
 #include "AttachmentSlotData.h"
 #include "BallisticProjectileData.h"
@@ -320,7 +320,7 @@ protected:
     
 public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void OnParticleCollide(FVector Location, FVector Velocity, TEnumAsByte<EPhysicalSurface> Surface);
+    void OnParticleCollide(FVector Location, FVector Velocity, EPhysicalSurface Surface);
     
     UFUNCTION(BlueprintCallable)
     void OnCascadeParticleCollide(FName EventName, float EmitterTime, int32 ParticleTime, FVector Location, FVector Velocity, FVector Direction, FVector Normal, FName BoneName, UPhysicalMaterial* PhysMat);

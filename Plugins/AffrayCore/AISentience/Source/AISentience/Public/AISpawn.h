@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=DataTableRowHandle -FallbackName=DataTableRowHandle
+#include "Engine/DataTable.h"
 #include "ESAIBehaviors_Calm.h"
 #include "ESAIBehaviors_Combat.h"
 #include "ESAISquad_Types.h"

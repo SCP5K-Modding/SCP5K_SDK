@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SaveGame -FallbackName=SaveGame
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FPSLoadout -FallbackName=FPSLoadout
+#include "GameFramework/SaveGame.h"
+#include "FPSLoadout.h"
 #include "CheckpointSave.h"
 #include "CheckpointSaveGame.generated.h"
 

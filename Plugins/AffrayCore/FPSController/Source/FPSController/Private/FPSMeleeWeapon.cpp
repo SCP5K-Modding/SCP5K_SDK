@@ -1,6 +1,6 @@
 #include "FPSMeleeWeapon.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
+#include "Components/SceneComponent.h"
+#include "FMODAudioComponent.h"
 #include "FPSMeleeWeaponData.h"
 #include "Net/UnrealNetwork.h"
 
@@ -26,57 +26,57 @@ AFPSMeleeWeapon::AFPSMeleeWeapon(const FObjectInitializer& ObjectInitializer) : 
 void AFPSMeleeWeapon::UpdateReady() {
 }
 
-void AFPSMeleeWeapon::TryStartReady(TEnumAsByte<EMeleeAttackDirection> Direction) {
+void AFPSMeleeWeapon::TryStartReady(EMeleeAttackDirection Direction) {
 }
 
-void AFPSMeleeWeapon::TryStartAttack(TEnumAsByte<EMeleeAttackDirection> Direction) {
+void AFPSMeleeWeapon::TryStartAttack(EMeleeAttackDirection Direction) {
 }
 
-void AFPSMeleeWeapon::StartAttack(TEnumAsByte<EMeleeAttackDirection> Direction) {
+void AFPSMeleeWeapon::StartAttack(EMeleeAttackDirection Direction) {
 }
 
-void AFPSMeleeWeapon::SetReadyDirection(TEnumAsByte<EMeleeAttackDirection> Direction) {
+void AFPSMeleeWeapon::SetReadyDirection(EMeleeAttackDirection Direction) {
 }
 
-void AFPSMeleeWeapon::ServerUpdateReady_Implementation(TEnumAsByte<EMeleeAttackDirection> Direction, bool bReady) {
+void AFPSMeleeWeapon::ServerUpdateReady_Implementation(EMeleeAttackDirection Direction, bool bReady) {
 }
 
-void AFPSMeleeWeapon::ServerStartAttack_Implementation(TEnumAsByte<EMeleeAttackDirection> Direction) {
+void AFPSMeleeWeapon::ServerStartAttack_Implementation(EMeleeAttackDirection Direction) {
 }
 
 void AFPSMeleeWeapon::ServerProcessHit_Implementation(FMeleeHitData Hit) {
 }
 
-void AFPSMeleeWeapon::ServerCancelAttack_Implementation(TEnumAsByte<EMeleeAttackDirection> Direction) {
+void AFPSMeleeWeapon::ServerCancelAttack_Implementation(EMeleeAttackDirection Direction) {
 }
 
 bool AFPSMeleeWeapon::RunWeaponTrace(FHitResult& Hit) {
     return false;
 }
 
-void AFPSMeleeWeapon::Ready(TEnumAsByte<EMeleeAttackDirection> Direction) {
+void AFPSMeleeWeapon::Ready(EMeleeAttackDirection Direction) {
 }
 
 void AFPSMeleeWeapon::OnRep_MeleeHitData() {
 }
 
-FVector AFPSMeleeWeapon::GetAttackVector(TEnumAsByte<EMeleeAttackDirection> Direction) const {
+FVector AFPSMeleeWeapon::GetAttackVector(EMeleeAttackDirection Direction) const {
     return FVector{};
 }
 
-void AFPSMeleeWeapon::FlipAttackDirection(TEnumAsByte<EMeleeAttackDirection> CurrentDirection) {
+void AFPSMeleeWeapon::FlipAttackDirection(EMeleeAttackDirection CurrentDirection) {
 }
 
-void AFPSMeleeWeapon::CosmeticStartAttack(TEnumAsByte<EMeleeAttackDirection> Direction) {
+void AFPSMeleeWeapon::CosmeticStartAttack(EMeleeAttackDirection Direction) {
 }
 
-void AFPSMeleeWeapon::CosmeticHit_Implementation(TEnumAsByte<EMeleeAttackDirection> Direction, FMeleeHitData HitData) {
+void AFPSMeleeWeapon::CosmeticHit_Implementation(EMeleeAttackDirection Direction, FMeleeHitData HitData) {
 }
 
-void AFPSMeleeWeapon::CosmeticCancelAttack(TEnumAsByte<EMeleeAttackDirection> Direction) {
+void AFPSMeleeWeapon::CosmeticCancelAttack(EMeleeAttackDirection Direction) {
 }
 
-bool AFPSMeleeWeapon::CancelAttack(TEnumAsByte<EMeleeAttackDirection> Direction) {
+bool AFPSMeleeWeapon::CancelAttack(EMeleeAttackDirection Direction) {
     return false;
 }
 

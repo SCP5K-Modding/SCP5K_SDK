@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Character -FallbackName=Character
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Damageable -FallbackName=Damageable
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=MeleeUser -FallbackName=MeleeUser
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Suppressable -FallbackName=Suppressable
+#include "GameFramework/Character.h"
+#include "Damageable.h"
+#include "MeleeUser.h"
+#include "Suppressable.h"
 #include "HungerInterface.h"
 #include "InterruptibleAnimator.h"
 #include "RevealAnimator.h"

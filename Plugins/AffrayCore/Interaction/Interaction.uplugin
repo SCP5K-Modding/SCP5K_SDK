@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 2,
-	"VersionName": "2.0.1",
+	"VersionName": "2.1.0",
 	"FriendlyName": "Interaction",
 	"Description": "A networked interaction system.",
 	"Category": "Gameplay",

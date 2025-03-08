@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=RandomScenarios -ObjectName=Scenario -FallbackName=Scenario
+#include "Scenario.h"
 #include "SeasonalScenario.generated.h"
 
 UCLASS(Blueprintable)

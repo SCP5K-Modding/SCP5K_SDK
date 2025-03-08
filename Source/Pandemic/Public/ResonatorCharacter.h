@@ -1,10 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=Climber -FallbackName=Climber
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Character -FallbackName=Character
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Vector_NetQuantize -FallbackName=Vector_NetQuantize
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Damageable -FallbackName=Damageable
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=MeleeUser -FallbackName=MeleeUser
+#include "Climber.h"
+#include "GameFramework/Character.h"
+#include "Engine/NetSerialization.h"
+#include "Damageable.h"
+#include "MeleeUser.h"
 #include "HungerInterface.h"
 #include "ResonatorMeleeHitDataMCDelegateDelegate.h"
 #include "Rotator_NetQuantize.h"

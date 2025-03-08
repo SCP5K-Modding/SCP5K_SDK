@@ -1,6 +1,6 @@
 #include "Electronic.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
+#include "Components/SceneComponent.h"
+#include "FMODAudioComponent.h"
 #include "Net/UnrealNetwork.h"
 
 AElectronic::AElectronic(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {

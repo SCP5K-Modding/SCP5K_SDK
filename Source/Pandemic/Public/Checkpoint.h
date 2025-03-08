@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FPSLoadout -FallbackName=FPSLoadout
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayObjectives -ObjectName=SimpleObjectiveData -FallbackName=SimpleObjectiveData
+#include "FPSLoadout.h"
+#include "SimpleObjectiveData.h"
 #include "Checkpoint.generated.h"
 
 USTRUCT(BlueprintType)

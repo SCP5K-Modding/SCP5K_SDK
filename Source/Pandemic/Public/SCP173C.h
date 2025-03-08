@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Damageable -FallbackName=Damageable
+#include "Damageable.h"
 #include "SCP173Base.h"
 #include "SCP173C.generated.h"
 
