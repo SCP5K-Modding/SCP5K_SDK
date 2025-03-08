@@ -1,5 +1,5 @@
 #include "SCP610Controller.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIBlindStimuliProcessingComponent -FallbackName=SAIBlindStimuliProcessingComponent
+#include "SAIBlindStimuliProcessingComponent.h"
 
 ASCP610Controller::ASCP610Controller(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.SetDefaultSubobjectClass<USAIBlindStimuliProcessingComponent>(TEXT("StimuliProcessingComponent"))) {
     this->bAttachToPawn = true;

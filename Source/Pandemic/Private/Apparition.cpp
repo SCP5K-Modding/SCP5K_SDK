@@ -1,5 +1,5 @@
 #include "Apparition.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EAutoPossessAI -FallbackName=EAutoPossessAI
+#include "Engine/EngineTypes.h"
 #include "ApparitionController.h"
 
 AApparition::AApparition(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {

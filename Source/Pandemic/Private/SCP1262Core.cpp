@@ -1,8 +1,8 @@
 #include "SCP1262Core.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SphereComponent -FallbackName=SphereComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=HealthComponent -FallbackName=HealthComponent
+#include "Components/SceneComponent.h"
+#include "Components/SphereComponent.h"
+#include "FMODAudioComponent.h"
+#include "HealthComponent.h"
 #include "Net/UnrealNetwork.h"
 
 ASCP1262Core::ASCP1262Core(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {

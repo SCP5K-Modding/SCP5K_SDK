@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIStimulus -FallbackName=AIStimulus
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ActorComponent -FallbackName=ActorComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTag -FallbackName=GameplayTag
+#include "Perception/AIPerceptionTypes.h"
+#include "Components/ActorComponent.h"
+#include "GameplayTagContainer.h"
 #include "OnRevealAnimationFinishedMCDelegateDelegate.h"
 #include "OnRevealAnimationStartedMCDelegateDelegate.h"
 #include "RevealAnimations.h"

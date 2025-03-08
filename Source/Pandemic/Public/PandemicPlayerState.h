@@ -1,10 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PlayerState -FallbackName=PlayerState
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FPSItemSlot -FallbackName=FPSItemSlot
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FPSLoadout -FallbackName=FPSLoadout
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTag -FallbackName=GameplayTag
+#include "UObject/NoExportTypes.h"
+#include "GameFramework/PlayerState.h"
+#include "FPSItemSlot.h"
+#include "FPSLoadout.h"
+#include "GameplayTagContainer.h"
 #include "CosmeticProfile.h"
 #include "CosmeticRequirements.h"
 #include "DLCOwnership.h"

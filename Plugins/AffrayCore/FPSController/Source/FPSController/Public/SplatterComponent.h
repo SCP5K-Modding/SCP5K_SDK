@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ActorComponent -FallbackName=ActorComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=KismetSystemLibrary -FallbackName=KismetSystemLibrary
+#include "UObject/NoExportTypes.h"
+#include "Components/ActorComponent.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "SimpleHitData.h"
 #include "SplatterComponent.generated.h"
 

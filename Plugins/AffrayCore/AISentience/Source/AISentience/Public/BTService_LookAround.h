@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=BTService_BlackboardBase -FallbackName=BTService_BlackboardBase
+#include "BehaviorTree/Services/BTService_BlackboardBase.h"
 #include "BTService_LookAround.generated.h"
 
 UCLASS(Blueprintable)

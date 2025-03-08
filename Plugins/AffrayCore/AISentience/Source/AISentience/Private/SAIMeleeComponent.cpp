@@ -13,7 +13,7 @@ USAIMeleeComponent::USAIMeleeComponent(const FObjectInitializer& ObjectInitializ
     this->AttackRandomWeight = 0.50f;
 }
 
-bool USAIMeleeComponent::StartAttack(const TEnumAsByte<EMeleeAttackDirection>& Direction, uint8 AttackIndex, bool bForceAttack) {
+bool USAIMeleeComponent::StartAttack(const EMeleeAttackDirection& Direction, uint8 AttackIndex, bool bForceAttack) {
     return false;
 }
 
@@ -28,34 +28,34 @@ bool USAIMeleeComponent::IsActorDead(AActor* InputtedActor) const {
     return false;
 }
 
-TEnumAsByte<EMeleeAttackDirection> USAIMeleeComponent::GetIdealAttackDirection(const AActor* Actor) const {
+EMeleeAttackDirection USAIMeleeComponent::GetIdealAttackDirection(const AActor* Actor) const {
     return AD_None;
 }
 
-FVector USAIMeleeComponent::GetAttackVector(const TEnumAsByte<EMeleeAttackDirection>& Direction, bool bUseControlRotation) {
+FVector USAIMeleeComponent::GetAttackVector(const EMeleeAttackDirection& Direction, bool bUseControlRotation) {
     return FVector{};
 }
 
-void USAIMeleeComponent::CosmeticAttackHitActor(TEnumAsByte<EMeleeAttackDirection> Direction, USceneComponent* HitComponent, uint8 AttackIndex) {
+void USAIMeleeComponent::CosmeticAttackHitActor(EMeleeAttackDirection Direction, USceneComponent* HitComponent, uint8 AttackIndex) {
 }
 
-void USAIMeleeComponent::CosmeticAttackFinished(TEnumAsByte<EMeleeAttackDirection> Direction, USceneComponent* HitComponent, uint8 AttackIndex) {
+void USAIMeleeComponent::CosmeticAttackFinished(EMeleeAttackDirection Direction, USceneComponent* HitComponent, uint8 AttackIndex) {
 }
 
-void USAIMeleeComponent::CosmeticAttackCanceled(TEnumAsByte<EMeleeAttackDirection> Direction, USceneComponent* HitComponent, uint8 AttackIndex) {
+void USAIMeleeComponent::CosmeticAttackCanceled(EMeleeAttackDirection Direction, USceneComponent* HitComponent, uint8 AttackIndex) {
 }
 
-void USAIMeleeComponent::CosmeticAttack(TEnumAsByte<EMeleeAttackDirection> Direction, uint8 AttackIndex) {
+void USAIMeleeComponent::CosmeticAttack(EMeleeAttackDirection Direction, uint8 AttackIndex) {
 }
 
-bool USAIMeleeComponent::CanStartAttack(const FAIMeleeAttackType& NewAttack, const TEnumAsByte<EMeleeAttackDirection>& AttackDirection, float TargetDistance, float CurrentSpeedSquared) const {
+bool USAIMeleeComponent::CanStartAttack(const FAIMeleeAttackType& NewAttack, const EMeleeAttackDirection& AttackDirection, float TargetDistance, float CurrentSpeedSquared) const {
     return false;
 }
 
 void USAIMeleeComponent::CancelAttack() {
 }
 
-bool USAIMeleeComponent::Attack(const TEnumAsByte<EMeleeAttackDirection>& Direction, FMeleeHitData& HitData) {
+bool USAIMeleeComponent::Attack(const EMeleeAttackDirection& Direction, FMeleeHitData& HitData) {
     return false;
 }
 

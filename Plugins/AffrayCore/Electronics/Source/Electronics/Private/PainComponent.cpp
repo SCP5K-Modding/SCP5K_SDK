@@ -1,6 +1,6 @@
 #include "PainComponent.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=DamageType -FallbackName=DamageType
-//CROSS-MODULE INCLUDE V2: -ModuleName=NavigationSystem -ObjectName=NavArea_Obstacle -FallbackName=NavArea_Obstacle
+#include "GameFramework/DamageType.h"
+#include "NavAreas/NavArea_Obstacle.h"
 
 UPainComponent::UPainComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->ShapeBodySetup = NULL;

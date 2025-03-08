@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryTest -FallbackName=EnvQueryTest
+#include "EnvironmentQuery/EnvQueryTest.h"
 #include "EnvQueryTest_SCP173Interest.generated.h"
 
 UCLASS(Blueprintable)

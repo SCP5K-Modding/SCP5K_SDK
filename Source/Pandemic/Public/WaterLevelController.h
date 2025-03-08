@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Electronics -ObjectName=Electronic -FallbackName=Electronic
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=RuntimeFloatCurve -FallbackName=RuntimeFloatCurve
+#include "Electronic.h"
+#include "Curves/CurveFloat.h"
 #include "WaterLevelSpawn.h"
 #include "WaterPlane.h"
 #include "WaterLevelController.generated.h"

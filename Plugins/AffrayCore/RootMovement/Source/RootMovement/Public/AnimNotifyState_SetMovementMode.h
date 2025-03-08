@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=AnimNotifyState -FallbackName=AnimNotifyState
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EMovementMode -FallbackName=EMovementMode
+#include "Animation/AnimNotifies/AnimNotifyState.h"
+#include "Engine/EngineTypes.h"
 #include "AnimNotifyState_SetMovementMode.generated.h"
 
 UCLASS(Blueprintable, CollapseCategories, EditInlineNew)

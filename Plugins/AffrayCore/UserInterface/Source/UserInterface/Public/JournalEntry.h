@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PrimaryDataAsset -FallbackName=PrimaryDataAsset
+#include "Engine/DataAsset.h"
 #include "JournalEntryGeneral.h"
 #include "Tracking.h"
 #include "JournalEntry.generated.h"

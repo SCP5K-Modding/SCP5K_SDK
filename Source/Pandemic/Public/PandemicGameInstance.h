@@ -1,11 +1,11 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ENetworkFailure -FallbackName=ENetworkFailure
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=UniqueNetIdRepl -FallbackName=UniqueNetIdRepl
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FPSGameplayConfig -FallbackName=FPSGameplayConfig
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayObjectives -ObjectName=SimpleObjectiveData -FallbackName=SimpleObjectiveData
-//CROSS-MODULE INCLUDE V2: -ModuleName=LoadingScreen -ObjectName=LoadingScreenGameInstance -FallbackName=LoadingScreenGameInstance
+#include "UObject/NoExportTypes.h"
+#include "Engine/EngineBaseTypes.h"
+#include "GameFramework/OnlineReplStructs.h"
+#include "FPSGameplayConfig.h"
+#include "SimpleObjectiveData.h"
+#include "LoadingScreenGameInstance.h"
 #include "PlayerBan.h"
 #include "PlayerReport.h"
 #include "SelectedMap.h"
@@ -247,7 +247,7 @@ public:
     bool RemoveAdmin(const FString& PlayerID);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void ReceiveNetworkFailure(TEnumAsByte<ENetworkFailure::Type> FailureType, const FString& ErrorString, bool bIsServer);
+    void ReceiveNetworkFailure(ENetworkFailure::Type FailureType, const FString& ErrorString, bool bIsServer);
     
     UFUNCTION(BlueprintCallable)
     void ParseMapRotation();

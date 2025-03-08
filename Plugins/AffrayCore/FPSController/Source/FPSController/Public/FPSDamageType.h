@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=DamageType -FallbackName=DamageType
+#include "GameFramework/DamageType.h"
 #include "ECameraModifierDisplayTimeType.h"
 #include "Templates/SubclassOf.h"
 #include "FPSDamageType.generated.h"

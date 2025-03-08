@@ -1,5 +1,5 @@
 #include "SAIEQSTest_CanLookAt.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryContext_Querier -FallbackName=EnvQueryContext_Querier
+#include "EnvironmentQuery/Contexts/EnvQueryContext_Querier.h"
 
 USAIEQSTest_CanLookAt::USAIEQSTest_CanLookAt() {
     this->FilterType = EEnvTestFilterType::Match;

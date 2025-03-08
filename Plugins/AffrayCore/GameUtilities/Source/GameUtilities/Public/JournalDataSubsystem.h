@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=GameInstanceSubsystem -FallbackName=GameInstanceSubsystem
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTag -FallbackName=GameplayTag
+#include "UObject/NoExportTypes.h"
+#include "Subsystems/GameInstanceSubsystem.h"
+#include "GameplayTagContainer.h"
 #include "OnMasterJournalSavingCompleteDelegate.h"
 #include "OnMasterJournalSavingStartedDelegate.h"
 #include "JournalDataSubsystem.generated.h"

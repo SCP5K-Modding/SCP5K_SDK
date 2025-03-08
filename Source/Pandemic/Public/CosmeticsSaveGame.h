@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SaveGame -FallbackName=SaveGame
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTag -FallbackName=GameplayTag
+#include "GameFramework/SaveGame.h"
+#include "GameplayTagContainer.h"
 #include "CosmeticProfileSet.h"
 #include "CosmeticsSaveGame.generated.h"
 

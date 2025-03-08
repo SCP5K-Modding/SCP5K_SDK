@@ -1,6 +1,6 @@
 #include "SAIPatrol_NEW.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BillboardComponent -FallbackName=BillboardComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SplineComponent -FallbackName=SplineComponent
+#include "Components/BillboardComponent.h"
+#include "Components/SplineComponent.h"
 
 ASAIPatrol_NEW::ASAIPatrol_NEW(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->RootComponent = CreateDefaultSubobject<UBillboardComponent>(TEXT("Billboard Component"));

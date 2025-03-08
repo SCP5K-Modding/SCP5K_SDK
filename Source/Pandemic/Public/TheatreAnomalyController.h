@@ -1,12 +1,12 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIController -FallbackName=AIController
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIStimulus -FallbackName=AIStimulus
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=ESAISoundType -FallbackName=ESAISoundType
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=ESAITeam -FallbackName=ESAITeam
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAITarget -FallbackName=SAITarget
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=RuntimeFloatCurve -FallbackName=RuntimeFloatCurve
+#include "AIController.h"
+#include "Perception/AIPerceptionTypes.h"
+#include "ESAISoundType.h"
+#include "ESAITeam.h"
+#include "SAITarget.h"
+#include "UObject/NoExportTypes.h"
+#include "Curves/CurveFloat.h"
 #include "ScreenPath.h"
 #include "TheatreAnomalyController.generated.h"
 

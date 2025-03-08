@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=NavigationSystem -ObjectName=RecastNavMesh -FallbackName=RecastNavMesh
+#include "NavMesh/RecastNavMesh.h"
 #include "SAINavMesh.generated.h"
 
 UCLASS(Blueprintable)

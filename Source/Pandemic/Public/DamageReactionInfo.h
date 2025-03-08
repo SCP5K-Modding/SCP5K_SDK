@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=TimerHandle -FallbackName=TimerHandle
+#include "Engine/EngineTypes.h"
 #include "DamageReactionInfo.generated.h"
 
 USTRUCT(BlueprintType)

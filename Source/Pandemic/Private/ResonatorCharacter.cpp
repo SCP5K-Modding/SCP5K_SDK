@@ -1,6 +1,6 @@
 #include "ResonatorCharacter.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIMeleeComponent -FallbackName=SAIMeleeComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EAutoPossessAI -FallbackName=EAutoPossessAI
+#include "SAIMeleeComponent.h"
+#include "Engine/EngineTypes.h"
 #include "FastCharacterMovementComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "ResonatorController.h"

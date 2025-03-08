@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=BTDecorator -FallbackName=BTDecorator
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=BlackboardKeySelector -FallbackName=BlackboardKeySelector
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EBTBlackboardRestart -FallbackName=EBTBlackboardRestart
+#include "BehaviorTree/BTDecorator.h"
+#include "BehaviorTree/BehaviorTreeTypes.h"
+#include "BehaviorTree/Decorators/BTDecorator_Blackboard.h"
 #include "EBlackBoardNumericalEntryComparison.h"
 #include "BTDecorator_CompareBBNumbers.generated.h"
 

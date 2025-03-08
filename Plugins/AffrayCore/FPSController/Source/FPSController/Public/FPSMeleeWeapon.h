@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=HitResult -FallbackName=HitResult
+#include "UObject/NoExportTypes.h"
+#include "Engine/EngineTypes.h"
 #include "EMeleeAttackDirection.h"
 #include "FPSWeapon.h"
 #include "MeleeHitData.h"
@@ -68,55 +68,55 @@ public:
     void UpdateReady();
     
     UFUNCTION(BlueprintCallable)
-    void TryStartReady(TEnumAsByte<EMeleeAttackDirection> Direction);
+    void TryStartReady(EMeleeAttackDirection Direction);
     
     UFUNCTION(BlueprintCallable)
-    void TryStartAttack(TEnumAsByte<EMeleeAttackDirection> Direction);
+    void TryStartAttack(EMeleeAttackDirection Direction);
     
     UFUNCTION(BlueprintCallable)
-    void StartAttack(TEnumAsByte<EMeleeAttackDirection> Direction);
+    void StartAttack(EMeleeAttackDirection Direction);
     
     UFUNCTION(BlueprintCallable)
-    void SetReadyDirection(TEnumAsByte<EMeleeAttackDirection> Direction);
+    void SetReadyDirection(EMeleeAttackDirection Direction);
     
     UFUNCTION(BlueprintCallable, Reliable, Server)
-    void ServerUpdateReady(TEnumAsByte<EMeleeAttackDirection> Direction, bool bReady);
+    void ServerUpdateReady(EMeleeAttackDirection Direction, bool bReady);
     
     UFUNCTION(BlueprintCallable, Server, Unreliable)
-    void ServerStartAttack(TEnumAsByte<EMeleeAttackDirection> Direction);
+    void ServerStartAttack(EMeleeAttackDirection Direction);
     
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void ServerProcessHit(FMeleeHitData Hit);
     
     UFUNCTION(BlueprintCallable, Server, Unreliable)
-    void ServerCancelAttack(TEnumAsByte<EMeleeAttackDirection> Direction);
+    void ServerCancelAttack(EMeleeAttackDirection Direction);
     
     UFUNCTION(BlueprintCallable)
     bool RunWeaponTrace(FHitResult& Hit);
     
     UFUNCTION(BlueprintCallable)
-    void Ready(TEnumAsByte<EMeleeAttackDirection> Direction);
+    void Ready(EMeleeAttackDirection Direction);
     
     UFUNCTION(BlueprintCallable)
     void OnRep_MeleeHitData();
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    FVector GetAttackVector(TEnumAsByte<EMeleeAttackDirection> Direction) const;
+    FVector GetAttackVector(EMeleeAttackDirection Direction) const;
     
     UFUNCTION(BlueprintCallable)
-    void FlipAttackDirection(TEnumAsByte<EMeleeAttackDirection> CurrentDirection);
+    void FlipAttackDirection(EMeleeAttackDirection CurrentDirection);
     
     UFUNCTION(BlueprintCallable)
-    void CosmeticStartAttack(TEnumAsByte<EMeleeAttackDirection> Direction);
+    void CosmeticStartAttack(EMeleeAttackDirection Direction);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void CosmeticHit(TEnumAsByte<EMeleeAttackDirection> Direction, FMeleeHitData HitData);
+    void CosmeticHit(EMeleeAttackDirection Direction, FMeleeHitData HitData);
     
     UFUNCTION(BlueprintCallable)
-    void CosmeticCancelAttack(TEnumAsByte<EMeleeAttackDirection> Direction);
+    void CosmeticCancelAttack(EMeleeAttackDirection Direction);
     
     UFUNCTION(BlueprintCallable)
-    bool CancelAttack(TEnumAsByte<EMeleeAttackDirection> Direction);
+    bool CancelAttack(EMeleeAttackDirection Direction);
     
 };
 

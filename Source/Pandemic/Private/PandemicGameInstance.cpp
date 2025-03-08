@@ -102,7 +102,7 @@ bool UPandemicGameInstance::RemoveAdmin(const FString& PlayerID) {
     return false;
 }
 
-void UPandemicGameInstance::ReceiveNetworkFailure_Implementation(TEnumAsByte<ENetworkFailure::Type> FailureType, const FString& ErrorString, bool bIsServer) {
+void UPandemicGameInstance::ReceiveNetworkFailure_Implementation(ENetworkFailure::Type FailureType, const FString& ErrorString, bool bIsServer) {
 }
 
 void UPandemicGameInstance::ParseMapRotation() {

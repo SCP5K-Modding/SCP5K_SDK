@@ -1,8 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIController -FallbackName=AIController
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIStimulus -FallbackName=AIStimulus
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=ESAITeam -FallbackName=ESAITeam
+#include "AIController.h"
+#include "Perception/AIPerceptionTypes.h"
+#include "ESAITeam.h"
 #include "DoorSquidAIController.generated.h"
 
 class AActor;

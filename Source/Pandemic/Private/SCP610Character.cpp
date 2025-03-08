@@ -1,14 +1,14 @@
 #include "SCP610Character.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIPerceptionStimuliSourceComponent -FallbackName=AIPerceptionStimuliSourceComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIAttackComponent -FallbackName=SAIAttackComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Dismemberment -ObjectName=GoreComponent -FallbackName=GoreComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EAutoPossessAI -FallbackName=EAutoPossessAI
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PhysicalAnimationComponent -FallbackName=PhysicalAnimationComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FootstepComponent -FallbackName=FootstepComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=HealthComponent -FallbackName=HealthComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=SplatterComponent -FallbackName=SplatterComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=TickOptimizerComponent -FallbackName=TickOptimizerComponent
+#include "Perception/AIPerceptionStimuliSourceComponent.h"
+#include "SAIAttackComponent.h"
+#include "GoreComponent.h"
+#include "Engine/EngineTypes.h"
+#include "PhysicsEngine/PhysicalAnimationComponent.h"
+#include "FMODAudioComponent.h"
+#include "FootstepComponent.h"
+#include "HealthComponent.h"
+#include "SplatterComponent.h"
+#include "TickOptimizerComponent.h"
 #include "DoorAttackComponent.h"
 #include "FastReplicatedRagdoll.h"
 #include "HitReactionComponent.h"

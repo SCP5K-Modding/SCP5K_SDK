@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Color -FallbackName=Color
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=UniqueNetIdRepl -FallbackName=UniqueNetIdRepl
+#include "UObject/NoExportTypes.h"
+#include "GameFramework/OnlineReplStructs.h"
 #include "PlayerAnalyticsEvent.h"
 #include "PlayerAnalyticsPlayer.generated.h"
 

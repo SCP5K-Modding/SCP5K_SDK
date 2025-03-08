@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=WorldSubsystem -FallbackName=WorldSubsystem
+#include "Subsystems/WorldSubsystem.h"
 #include "ObjectiveAlivePlayersUpdatedDelegateDelegate.h"
 #include "ObjectiveCompletedDelegateDelegate.h"
 #include "ObjectiveManagerUpdatedDelegateDelegate.h"

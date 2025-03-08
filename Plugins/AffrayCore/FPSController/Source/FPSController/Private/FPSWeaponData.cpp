@@ -1,5 +1,5 @@
 #include "FPSWeaponData.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=DamageType -FallbackName=DamageType
+#include "GameFramework/DamageType.h"
 
 UFPSWeaponData::UFPSWeaponData() {
     this->Damage = 20.00f;

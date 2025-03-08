@@ -1,6 +1,6 @@
 #include "FPSItem.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SkeletalMeshComponent -FallbackName=SkeletalMeshComponent
+#include "Components/SceneComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "FPSItemData.h"
 #include "Net/UnrealNetwork.h"
 

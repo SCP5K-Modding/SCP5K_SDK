@@ -11,7 +11,7 @@ UPandemicGameUserSettings::UPandemicGameUserSettings() {
     this->bCenterViewOnADS = false;
     this->bInvertHorizontalInput = false;
     this->bInvertVerticalInput = false;
-    this->InputSensitivity = 1.00f;
+    this->InputSensitivity = 0.80f;
     this->AimingSensitivity = 0.70f;
     this->DeadzoneSensitivity = 0.50f;
     this->HeadBobIntensity = 1.00f;
@@ -23,21 +23,21 @@ UPandemicGameUserSettings::UPandemicGameUserSettings() {
     this->bEnableUpscalerAutoExposure = false;
     this->bEnableDepthOfField = true;
     this->bEnableMotionBlur = false;
-    this->bEnableSSGI = true;
+    this->bEnableSSGI = false;
     this->bEnablePaniniProjection = false;
     this->PaniniProjectionAmount = 0.20f;
     this->Brightness = 1.00f;
-    this->FieldOfView = 110.00f;
+    this->FieldOfView = 100.00f;
     this->Language = TEXT("en");
     this->TextSize = ETextSize::Normal;
     this->UIScale = 1.00f;
     this->DisplayTimeScale = 1;
-    this->MasterVolume = 0.30f;
-    this->MusicVolume = 0.50f;
-    this->SFXVolume = 0.50f;
-    this->UIVolume = 0.50f;
-    this->VoiceVolume = 0.50f;
-    this->SubtitleDisplayMode = ESubtitleDisplayMode::All;
+    this->MasterVolume = 0.45f;
+    this->MusicVolume = 1.00f;
+    this->SFXVolume = 1.00f;
+    this->UIVolume = 1.00f;
+    this->VoiceVolume = 1.00f;
+    this->SubtitleDisplayMode = ESubtitleDisplayMode::Story;
 }
 
 void UPandemicGameUserSettings::SetVoiceVolume(float NewVoiceVolume) {

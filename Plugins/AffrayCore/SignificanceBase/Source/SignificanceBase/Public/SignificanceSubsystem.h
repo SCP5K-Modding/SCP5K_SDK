@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=TickableWorldSubsystem -FallbackName=TickableWorldSubsystem
+#include "Subsystems/WorldSubsystem.h"
 #include "SignificanceSubsystem.generated.h"
 
 UCLASS(Blueprintable)

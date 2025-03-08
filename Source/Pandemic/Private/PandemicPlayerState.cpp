@@ -31,7 +31,7 @@ APandemicPlayerState::APandemicPlayerState(const FObjectInitializer& ObjectIniti
     this->PlayerKillScoreAmount = 30;
     this->TeamKillScoreAmount = -50;
     this->SelectedFaction = 0;
-    this->RandomValue = 15040;
+    this->RandomValue = 31873;
     this->SelectedSkinToneIndex = 0;
     this->SelectedGenderIndex = 0;
     this->bIsReady = false;

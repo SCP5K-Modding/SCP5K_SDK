@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PrimaryDataAsset -FallbackName=PrimaryDataAsset
-//CROSS-MODULE INCLUDE V2: -ModuleName=PhysicsCore -ObjectName=EPhysicalSurface -FallbackName=EPhysicalSurface
+#include "Engine/DataAsset.h"
+#include "Chaos/ChaosEngineInterface.h"
 #include "SimpleSurfaceData.h"
 #include "SurfaceDataMap.generated.h"
 

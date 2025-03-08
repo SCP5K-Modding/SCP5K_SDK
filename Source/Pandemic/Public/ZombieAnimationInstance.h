@@ -1,10 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector2D -FallbackName=Vector2D
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=AnimInstance -FallbackName=AnimInstance
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PoseSnapshot -FallbackName=PoseSnapshot
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=SimpleHitData -FallbackName=SimpleHitData
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "Animation/AnimInstance.h"
+#include "Animation/PoseSnapshot.h"
+#include "SimpleHitData.h"
 #include "EZombieLifeState.h"
 #include "ReanimationAnimInstance.h"
 #include "Templates/SubclassOf.h"

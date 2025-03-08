@@ -1,7 +1,7 @@
 #include "MissionItemPickup.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=StaticMeshComponent -FallbackName=StaticMeshComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Interaction -ObjectName=InteractableComponent -FallbackName=InteractableComponent
+#include "Components/SceneComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "InteractableComponent.h"
 #include "Net/UnrealNetwork.h"
 
 AMissionItemPickup::AMissionItemPickup(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {

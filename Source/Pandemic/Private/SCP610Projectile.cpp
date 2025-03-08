@@ -1,7 +1,7 @@
 #include "SCP610Projectile.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FPSProjectileMovementComponent -FallbackName=FPSProjectileMovementComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Niagara -ObjectName=NiagaraComponent -FallbackName=NiagaraComponent
+#include "Components/SceneComponent.h"
+#include "FPSProjectileMovementComponent.h"
+#include "NiagaraComponent.h"
 #include "Net/UnrealNetwork.h"
 
 ASCP610Projectile::ASCP610Projectile(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {

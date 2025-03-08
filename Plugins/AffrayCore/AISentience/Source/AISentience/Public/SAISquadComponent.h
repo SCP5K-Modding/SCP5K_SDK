@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Guid -FallbackName=Guid
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ActorComponent -FallbackName=ActorComponent
+#include "UObject/NoExportTypes.h"
+#include "Components/ActorComponent.h"
 #include "ChangedSquadMCDelegateDelegate.h"
 #include "SAISquadComponent.generated.h"
 

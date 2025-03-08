@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=SlateCore -ObjectName=SlateFontInfo -FallbackName=SlateFontInfo
-//CROSS-MODULE INCLUDE V2: -ModuleName=UMG -ObjectName=EditableText -FallbackName=EditableText
+#include "Fonts/SlateFontInfo.h"
+#include "Components/EditableText.h"
 #include "PandemicEditableText.generated.h"
 
 UCLASS(Blueprintable)

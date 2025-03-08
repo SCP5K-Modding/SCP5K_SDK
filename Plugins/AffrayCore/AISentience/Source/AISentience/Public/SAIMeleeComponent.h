@@ -1,11 +1,11 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ActorComponent -FallbackName=ActorComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EObjectTypeQuery -FallbackName=EObjectTypeQuery
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=AIMeleeAttackType -FallbackName=AIMeleeAttackType
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=EMeleeAttackDirection -FallbackName=EMeleeAttackDirection
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=MeleeHitData -FallbackName=MeleeHitData
+#include "UObject/NoExportTypes.h"
+#include "Components/ActorComponent.h"
+#include "Engine/EngineTypes.h"
+#include "AIMeleeAttackType.h"
+#include "EMeleeAttackDirection.h"
+#include "MeleeHitData.h"
 #include "Templates/SubclassOf.h"
 #include "SAIMeleeComponent.generated.h"
 
@@ -76,7 +76,7 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
     UFUNCTION(BlueprintCallable)
-    bool StartAttack(const TEnumAsByte<EMeleeAttackDirection>& Direction, uint8 AttackIndex, bool bForceAttack);
+    bool StartAttack(const EMeleeAttackDirection& Direction, uint8 AttackIndex, bool bForceAttack);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     uint8 PickAttack(const AActor* TargetActor) const;
@@ -90,33 +90,33 @@ protected:
     
 public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    TEnumAsByte<EMeleeAttackDirection> GetIdealAttackDirection(const AActor* Actor) const;
+    EMeleeAttackDirection GetIdealAttackDirection(const AActor* Actor) const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    FVector GetAttackVector(const TEnumAsByte<EMeleeAttackDirection>& Direction, bool bUseControlRotation);
+    FVector GetAttackVector(const EMeleeAttackDirection& Direction, bool bUseControlRotation);
     
 protected:
     UFUNCTION(BlueprintCallable)
-    void CosmeticAttackHitActor(TEnumAsByte<EMeleeAttackDirection> Direction, USceneComponent* HitComponent, uint8 AttackIndex);
+    void CosmeticAttackHitActor(EMeleeAttackDirection Direction, USceneComponent* HitComponent, uint8 AttackIndex);
     
     UFUNCTION(BlueprintCallable)
-    void CosmeticAttackFinished(TEnumAsByte<EMeleeAttackDirection> Direction, USceneComponent* HitComponent, uint8 AttackIndex);
+    void CosmeticAttackFinished(EMeleeAttackDirection Direction, USceneComponent* HitComponent, uint8 AttackIndex);
     
     UFUNCTION(BlueprintCallable)
-    void CosmeticAttackCanceled(TEnumAsByte<EMeleeAttackDirection> Direction, USceneComponent* HitComponent, uint8 AttackIndex);
+    void CosmeticAttackCanceled(EMeleeAttackDirection Direction, USceneComponent* HitComponent, uint8 AttackIndex);
     
     UFUNCTION(BlueprintCallable)
-    void CosmeticAttack(TEnumAsByte<EMeleeAttackDirection> Direction, uint8 AttackIndex);
+    void CosmeticAttack(EMeleeAttackDirection Direction, uint8 AttackIndex);
     
 public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool CanStartAttack(const FAIMeleeAttackType& NewAttack, const TEnumAsByte<EMeleeAttackDirection>& AttackDirection, float TargetDistance, float CurrentSpeedSquared) const;
+    bool CanStartAttack(const FAIMeleeAttackType& NewAttack, const EMeleeAttackDirection& AttackDirection, float TargetDistance, float CurrentSpeedSquared) const;
     
     UFUNCTION(BlueprintCallable)
     void CancelAttack();
     
     UFUNCTION(BlueprintCallable)
-    bool Attack(const TEnumAsByte<EMeleeAttackDirection>& Direction, FMeleeHitData& HitData);
+    bool Attack(const EMeleeAttackDirection& Direction, FMeleeHitData& HitData);
     
 };
 

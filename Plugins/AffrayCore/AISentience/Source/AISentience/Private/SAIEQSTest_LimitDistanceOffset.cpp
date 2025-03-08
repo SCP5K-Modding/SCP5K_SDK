@@ -1,5 +1,5 @@
 #include "SAIEQSTest_LimitDistanceOffset.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryContext_Querier -FallbackName=EnvQueryContext_Querier
+#include "EnvironmentQuery/Contexts/EnvQueryContext_Querier.h"
 
 USAIEQSTest_LimitDistanceOffset::USAIEQSTest_LimitDistanceOffset() {
     this->FilterType = EEnvTestFilterType::Match;

@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SkeletalMeshComponent -FallbackName=SkeletalMeshComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTag -FallbackName=GameplayTag
+#include "Components/SkeletalMeshComponent.h"
+#include "GameplayTagContainer.h"
 #include "SeasonalSkeletalMeshComponent.generated.h"
 
 class USkeletalMesh;

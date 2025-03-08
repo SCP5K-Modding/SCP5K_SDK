@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=BlueprintAsyncActionBase -FallbackName=BlueprintAsyncActionBase
+#include "Kismet/BlueprintAsyncActionBase.h"
 #include "ObjectiveAsyncOutputPinDelegate.h"
 #include "ObjectiveAsyncAction.generated.h"
 

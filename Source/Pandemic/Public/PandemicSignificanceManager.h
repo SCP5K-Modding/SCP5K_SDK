@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=SignificanceManager -ObjectName=SignificanceManager -FallbackName=SignificanceManager
+#include "SignificanceManager.h"
 #include "PandemicSignificanceManager.generated.h"
 
 UCLASS(Blueprintable)

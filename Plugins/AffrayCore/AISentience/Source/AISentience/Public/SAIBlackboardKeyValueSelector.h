@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=BlackboardKeySelector -FallbackName=BlackboardKeySelector
+#include "BehaviorTree/BehaviorTreeTypes.h"
 #include "SAIBlackboardKeyValueSelector.generated.h"
 
 class UBlackboardKeyType;

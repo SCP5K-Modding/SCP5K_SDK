@@ -1,5 +1,5 @@
 #include "DoorSquidAIController.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AIPerceptionComponent -FallbackName=AIPerceptionComponent
+#include "Perception/AIPerceptionComponent.h"
 #include "Net/UnrealNetwork.h"
 
 ADoorSquidAIController::ADoorSquidAIController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {

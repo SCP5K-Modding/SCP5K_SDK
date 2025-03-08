@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameActions -ObjectName=GameAction -FallbackName=GameAction
+#include "GameAction.h"
 #include "NumberObjectiveGameAction.generated.h"
 
 UCLASS(Blueprintable, CollapseCategories, EditInlineNew)

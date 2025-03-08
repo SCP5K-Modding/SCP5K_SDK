@@ -1,5 +1,5 @@
 #include "SCP173MovementComponent.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ENetworkSmoothingMode -FallbackName=ENetworkSmoothingMode
+#include "Engine/EngineTypes.h"
 #include "Net/UnrealNetwork.h"
 
 USCP173MovementComponent::USCP173MovementComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {

@@ -1,5 +1,5 @@
 #include "TOCDialogueSource.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=DialogueSystem -ObjectName=DialogueComponent -FallbackName=DialogueComponent
+#include "DialogueComponent.h"
 
 ATOCDialogueSource::ATOCDialogueSource(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->bReplicates = true;

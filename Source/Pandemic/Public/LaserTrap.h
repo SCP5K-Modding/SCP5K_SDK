@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Electronics -ObjectName=Electronic -FallbackName=Electronic
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=HitResult -FallbackName=HitResult
+#include "Electronic.h"
+#include "Engine/EngineTypes.h"
 #include "Templates/SubclassOf.h"
 #include "LaserTrap.generated.h"
 

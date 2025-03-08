@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PlayerStart -FallbackName=PlayerStart
+#include "GameFramework/PlayerStart.h"
 #include "EPlayerSpawnType.h"
 #include "PandemicPlayerStart.generated.h"
 

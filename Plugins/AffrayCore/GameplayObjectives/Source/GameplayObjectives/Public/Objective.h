@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Object -FallbackName=Object
+#include "UObject/Object.h"
 #include "ObjectiveActivatedDelegateDelegate.h"
 #include "ObjectiveCompletedDelegateDelegate.h"
 #include "ObjectiveDeactivatedDelegateDelegate.h"

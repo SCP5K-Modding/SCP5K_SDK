@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=AISenseAffiliationFilter -FallbackName=AISenseAffiliationFilter
+#include "Perception/AIPerceptionTypes.h"
 #include "ESAISoundTypes.h"
 #include "SAIHearingConfig.generated.h"
 

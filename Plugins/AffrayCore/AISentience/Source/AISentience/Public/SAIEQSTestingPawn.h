@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EQSTestingPawn -FallbackName=EQSTestingPawn
+#include "EnvironmentQuery/EQSTestingPawn.h"
 #include "SAIEQSTestingPawn.generated.h"
 
 class AActor;

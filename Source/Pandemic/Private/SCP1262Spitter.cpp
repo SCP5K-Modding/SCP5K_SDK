@@ -1,10 +1,10 @@
 #include "SCP1262Spitter.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIMeleeComponent -FallbackName=SAIMeleeComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SkeletalMeshComponent -FallbackName=SkeletalMeshComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=HealthComponent -FallbackName=HealthComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=SignificanceBase -ObjectName=SignificanceComponent -FallbackName=SignificanceComponent
+#include "SAIMeleeComponent.h"
+#include "Components/SceneComponent.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "FMODAudioComponent.h"
+#include "HealthComponent.h"
+#include "SignificanceComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "SCP1262SpitterProjectile.h"
 

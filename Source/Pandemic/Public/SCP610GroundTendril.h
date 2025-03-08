@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=ProjectileInterface -FallbackName=ProjectileInterface
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Actor -FallbackName=Actor
+#include "ProjectileInterface.h"
+#include "GameFramework/Actor.h"
 #include "Templates/SubclassOf.h"
 #include "SCP610GroundTendril.generated.h"
 

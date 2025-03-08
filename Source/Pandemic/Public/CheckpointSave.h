@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FPSLoadout -FallbackName=FPSLoadout
+#include "FPSLoadout.h"
 #include "CheckpointSave.generated.h"
 
 USTRUCT(BlueprintType)

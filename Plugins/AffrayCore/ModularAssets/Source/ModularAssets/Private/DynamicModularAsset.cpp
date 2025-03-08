@@ -1,5 +1,5 @@
 #include "DynamicModularAsset.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=StaticMeshComponent -FallbackName=StaticMeshComponent
+#include "Components/StaticMeshComponent.h"
 
 ADynamicModularAsset::ADynamicModularAsset(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->RootComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));

@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=UniqueNetIdRepl -FallbackName=UniqueNetIdRepl
+#include "GameFramework/OnlineReplStructs.h"
 #include "UniqueVote.generated.h"
 
 USTRUCT(BlueprintType)

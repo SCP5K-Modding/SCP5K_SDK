@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=SlateCore -ObjectName=TextBlockStyle -FallbackName=TextBlockStyle
-//CROSS-MODULE INCLUDE V2: -ModuleName=UMG -ObjectName=RichTextBlockDecorator -FallbackName=RichTextBlockDecorator
+#include "Styling/SlateTypes.h"
+#include "Components/RichTextBlockDecorator.h"
 #include "RichTextBlockTooltipDecorator.generated.h"
 
 UCLASS(Abstract, Blueprintable)

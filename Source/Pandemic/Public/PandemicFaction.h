@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=LinearColor -FallbackName=LinearColor
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PrimaryDataAsset -FallbackName=PrimaryDataAsset
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FPSItemSlot -FallbackName=FPSItemSlot
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTag -FallbackName=GameplayTag
+#include "UObject/NoExportTypes.h"
+#include "Engine/DataAsset.h"
+#include "FPSItemSlot.h"
+#include "GameplayTagContainer.h"
 #include "PandemicFaction.generated.h"
 
 class ACharacter;

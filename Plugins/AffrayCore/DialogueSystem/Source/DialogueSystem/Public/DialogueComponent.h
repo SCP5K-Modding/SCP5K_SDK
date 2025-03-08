@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Color -FallbackName=Color
-//CROSS-MODULE INCLUDE V2: -ModuleName=FMODStudio -ObjectName=FMODAudioComponent -FallbackName=FMODAudioComponent
+#include "UObject/NoExportTypes.h"
+#include "FMODAudioComponent.h"
 #include "CurrentDialogue.h"
 #include "Dialogue.h"
 #include "DialogueComponent.generated.h"

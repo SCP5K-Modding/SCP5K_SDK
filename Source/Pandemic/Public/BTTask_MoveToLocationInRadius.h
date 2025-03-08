@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=BTTask_MoveTo -FallbackName=BTTask_MoveTo
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
+#include "BehaviorTree/Tasks/BTTask_MoveTo.h"
+#include "UObject/NoExportTypes.h"
 #include "BTTask_MoveToLocationInRadius.generated.h"
 
 UCLASS(Blueprintable)

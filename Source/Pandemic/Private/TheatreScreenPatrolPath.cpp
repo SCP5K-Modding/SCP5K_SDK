@@ -1,5 +1,5 @@
 #include "TheatreScreenPatrolPath.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=SceneComponent -FallbackName=SceneComponent
+#include "Components/SceneComponent.h"
 #include "TheatreScreenPatrolPathComponent.h"
 
 ATheatreScreenPatrolPath::ATheatreScreenPatrolPath(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {

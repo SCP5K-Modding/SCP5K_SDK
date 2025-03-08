@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=WorldSubsystem -FallbackName=WorldSubsystem
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameUtilities -ObjectName=EAudioSetting -FallbackName=EAudioSetting
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameUtilities -ObjectName=ESubtitleDisplayMode -FallbackName=ESubtitleDisplayMode
+#include "UObject/NoExportTypes.h"
+#include "Subsystems/WorldSubsystem.h"
+#include "EAudioSetting.h"
+#include "ESubtitleDisplayMode.h"
 #include "ESubtitleCategory.h"
 #include "Subtitle.h"
 #include "SubtitleLine.h"

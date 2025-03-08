@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ActorComponent -FallbackName=ActorComponent
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=KismetSystemLibrary -FallbackName=KismetSystemLibrary
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PoseSnapshot -FallbackName=PoseSnapshot
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Vector_NetQuantize -FallbackName=Vector_NetQuantize
+#include "Components/ActorComponent.h"
+#include "Kismet/KismetSystemLibrary.h"
+#include "Animation/PoseSnapshot.h"
+#include "Engine/NetSerialization.h"
 #include "EAxisToVector.h"
 #include "FastReplicatedRagdoll.generated.h"
 

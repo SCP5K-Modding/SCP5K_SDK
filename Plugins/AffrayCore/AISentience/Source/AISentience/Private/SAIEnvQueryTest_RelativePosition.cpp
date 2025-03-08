@@ -1,6 +1,6 @@
 #include "SAIEnvQueryTest_RelativePosition.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryContext_Item -FallbackName=EnvQueryContext_Item
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryContext_Querier -FallbackName=EnvQueryContext_Querier
+#include "EnvironmentQuery/Contexts/EnvQueryContext_Item.h"
+#include "EnvironmentQuery/Contexts/EnvQueryContext_Querier.h"
 
 USAIEnvQueryTest_RelativePosition::USAIEnvQueryTest_RelativePosition() {
     this->TestPurpose = EEnvTestPurpose::Filter;

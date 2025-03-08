@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=AnimInstance -FallbackName=AnimInstance
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=PoseSnapshot -FallbackName=PoseSnapshot
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "Animation/AnimInstance.h"
+#include "Animation/PoseSnapshot.h"
 #include "SCP1262AnimationInstance.generated.h"
 
 class ASCP1262Spitter;

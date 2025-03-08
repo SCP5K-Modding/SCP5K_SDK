@@ -48,7 +48,7 @@ FSimpleHitData UFPSControllerFunctionLibrary::MakeSimpleHitData(float Damage, FV
     return FSimpleHitData{};
 }
 
-FMeleeHitData UFPSControllerFunctionLibrary::MakeMeleeHitData(bool bUsingMelee, bool bHit, bool bKicking, uint8 Time, TEnumAsByte<EMeleeAttackDirection> AttackDirection, FVector position, FVector Normal, TEnumAsByte<EPhysicalSurface> Surface, UPrimitiveComponent* HitComponent, uint8 AttackType, FName HitBoneName) {
+FMeleeHitData UFPSControllerFunctionLibrary::MakeMeleeHitData(bool bUsingMelee, bool bHit, bool bKicking, uint8 Time, EMeleeAttackDirection AttackDirection, FVector position, FVector Normal, TEnumAsByte<EPhysicalSurface> Surface, UPrimitiveComponent* HitComponent, uint8 AttackType, FName HitBoneName) {
     return FMeleeHitData{};
 }
 
@@ -92,7 +92,7 @@ bool UFPSControllerFunctionLibrary::GetMeleeHit(const FMeleeHitData& Data) {
     return false;
 }
 
-TEnumAsByte<EMeleeAttackDirection> UFPSControllerFunctionLibrary::GetMeleeAttackDirection(const FMeleeHitData& Data) {
+EMeleeAttackDirection UFPSControllerFunctionLibrary::GetMeleeAttackDirection(const FMeleeHitData& Data) {
     return AD_None;
 }
 

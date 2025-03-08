@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Transform -FallbackName=Transform
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=GameModeBase -FallbackName=GameModeBase
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=UniqueNetIdRepl -FallbackName=UniqueNetIdRepl
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "GameFramework/GameModeBase.h"
+#include "GameFramework/OnlineReplStructs.h"
 #include "ChatMessageContent.h"
 #include "PlayerReport.h"
 #include "Templates/SubclassOf.h"

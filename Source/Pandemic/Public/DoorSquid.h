@@ -1,15 +1,15 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=GenericTeamAgentInterface -FallbackName=GenericTeamAgentInterface
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=ESAITeam -FallbackName=ESAITeam
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=FloatRange -FallbackName=FloatRange
-//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=Vector -FallbackName=Vector
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=HitResult -FallbackName=HitResult
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Pawn -FallbackName=Pawn
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Damageable -FallbackName=Damageable
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=MeleeUser -FallbackName=MeleeUser
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=Suppressable -FallbackName=Suppressable
-//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTagContainer -FallbackName=GameplayTagContainer
+#include "GenericTeamAgentInterface.h"
+#include "ESAITeam.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "Engine/EngineTypes.h"
+#include "GameFramework/Pawn.h"
+#include "Damageable.h"
+#include "MeleeUser.h"
+#include "Suppressable.h"
+#include "GameplayTagContainer.h"
 #include "RevealAnimator.h"
 #include "Templates/SubclassOf.h"
 #include "DoorSquid.generated.h"

@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=Actor -FallbackName=Actor
-//CROSS-MODULE INCLUDE V2: -ModuleName=FPSController -ObjectName=FPSSlowVolumeConfig -FallbackName=FPSSlowVolumeConfig
+#include "GameFramework/Actor.h"
+#include "FPSSlowVolumeConfig.h"
 #include "Templates/SubclassOf.h"
 #include "BlizzardActor.generated.h"
 

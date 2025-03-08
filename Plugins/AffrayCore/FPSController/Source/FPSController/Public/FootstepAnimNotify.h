@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=AnimNotify -FallbackName=AnimNotify
+#include "Animation/AnimNotifies/AnimNotify.h"
 #include "EFootstepContext.h"
 #include "Templates/SubclassOf.h"
 #include "FootstepAnimNotify.generated.h"

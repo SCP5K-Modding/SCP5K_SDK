@@ -208,7 +208,7 @@ void AFPSRangedWeapon::OnRep_Attachments_Implementation() {
 void AFPSRangedWeapon::OnRep_AttachmentIDsToLoad() {
 }
 
-void AFPSRangedWeapon::OnParticleCollide_Implementation(FVector Location, FVector Velocity, TEnumAsByte<EPhysicalSurface> Surface) {
+void AFPSRangedWeapon::OnParticleCollide_Implementation(FVector Location, FVector Velocity, EPhysicalSurface Surface) {
 }
 
 void AFPSRangedWeapon::OnCascadeParticleCollide(FName EventName, float EmitterTime, int32 ParticleTime, FVector Location, FVector Velocity, FVector Direction, FVector Normal, FName BoneName, UPhysicalMaterial* PhysMat) {

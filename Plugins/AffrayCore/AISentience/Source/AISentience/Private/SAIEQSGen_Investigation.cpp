@@ -1,5 +1,5 @@
 #include "SAIEQSGen_Investigation.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AIModule -ObjectName=EnvQueryContext_Querier -FallbackName=EnvQueryContext_Querier
+#include "EnvironmentQuery/Contexts/EnvQueryContext_Querier.h"
 #include "SAIEnvQueryItemType_Investigation.h"
 
 USAIEQSGen_Investigation::USAIEQSGen_Investigation() {

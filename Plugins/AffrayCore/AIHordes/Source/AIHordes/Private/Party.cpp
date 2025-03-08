@@ -1,6 +1,6 @@
 #include "Party.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=EAutoPossessAI -FallbackName=EAutoPossessAI
-//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ESpawnActorCollisionHandlingMethod -FallbackName=ESpawnActorCollisionHandlingMethod
+#include "Engine/EngineTypes.h"
+#include "Engine/EngineTypes.h"
 #include "Net/UnrealNetwork.h"
 #include "PartyController.h"
 

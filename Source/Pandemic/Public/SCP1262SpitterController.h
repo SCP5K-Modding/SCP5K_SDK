@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-//CROSS-MODULE INCLUDE V2: -ModuleName=AISentience -ObjectName=SAIController -FallbackName=SAIController
+#include "SAIController.h"
 #include "SCP1262SpitterController.generated.h"
 
 UCLASS(Blueprintable)
