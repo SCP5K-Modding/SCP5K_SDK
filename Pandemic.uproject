@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "4.27Source",
+	"EngineAssociation": "4.27",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -307,10 +307,10 @@
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/d337b97aca8947a893526964e179acfd"
 		}
 	],
-	"PostBuildSteps":
-	{
-		"Win64": [
-			""
-		]
-	}
+  "PostBuildSteps":
+  {
+    "Win64": [
+      "\"$(ProjectDir)/PostBuild.bat\" \"$(ProjectDir)\""
+    ]
+  }
 }
