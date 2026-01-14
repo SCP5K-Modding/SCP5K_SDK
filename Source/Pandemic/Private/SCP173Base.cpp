@@ -19,8 +19,8 @@ ASCP173Base::ASCP173Base(const FObjectInitializer& ObjectInitializer) : Super(Ob
     this->MovementSound = NULL;
     this->TeleportSound = NULL;
     this->KillSound = NULL;
-    this->OneshotAudioComponent->SetupAttachment(RootComponent);
     this->MovementAudioComponent->SetupAttachment(RootComponent);
+    this->OneshotAudioComponent->SetupAttachment(RootComponent);
 }
 
 bool ASCP173Base::WouldBeVisibleToQuerier(const FVector& TargetLocation, const FVector& QueryLocation, const FVector& QueryDirection, float QueryFOV, bool bSingleTrace, FColor DebugColor) const {

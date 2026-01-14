@@ -9,6 +9,7 @@
 #include "Damageable.h"
 #include "SimpleHitData.h"
 #include "EZombieLifeState.h"
+#include "GameplayTagContainer.h"
 #include "InterruptibleAnimator.h"
 #include "RagdollPuppet.h"
 #include "Rotator_NetQuantize.h"
@@ -114,6 +115,15 @@ protected:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     ASCP610Controller* SCP610Controller;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FGameplayTag OnKillScoreModifierTag;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UAnimMontage* LandingMontage;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float MinFallDistanceForLandingMontage;
     
 private:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_IsAIPermanentlyDead, meta=(AllowPrivateAccess=true))
@@ -379,6 +389,9 @@ public:
     void NetMulticast_RagdollInitiate();
     
 protected:
+    UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+    void MulticastPlayLandingAnimation();
+    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     UFMODEvent* GetVocalLoopSound() const;
     

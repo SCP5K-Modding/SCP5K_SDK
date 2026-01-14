@@ -75,7 +75,20 @@ protected:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UAnimSequenceBase* RandomLocomotionAdditiveAnimation;
-    
+    float VelocityDirection;
+    float AccellerationDirection;
+    float AccellerationAmount;
+    bool bIsSprinting;
+    bool bIsFalling;
+    float WalkingSpeedRatio;
+    float RunningSpeedRatio;
+    float SpeedRatioAmount;
+    float WalkingSpeed;
+    float RunningSpeed;
+    float RunningTransition;
+    float CurrentSpeedCurveValue;
+    float CurrentSpeed;
+
 public:
     USCP610AnimationInstance();
 

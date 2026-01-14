@@ -27,6 +27,11 @@ bool UTheatreAnomalySubsystem::ForceMoveToScreen(UTheatreScreenComponent* Screen
     return false;
 }
 
+bool UTheatreAnomalySubsystem::ForceLeaveScreen()
+{
+    return false;
+}
+
 bool UTheatreAnomalySubsystem::AlertToScreen(UTheatreScreenComponent* Screen, AActor* EventInstigator, FVector Location) {
     return false;
 }

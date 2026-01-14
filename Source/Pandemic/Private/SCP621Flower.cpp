@@ -24,9 +24,10 @@ ASCP621Flower::ASCP621Flower(const FObjectInitializer& ObjectInitializer) : Supe
     this->AudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("Audio Component"));
     this->LoopingAudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("Looping Audio Component"));
     this->SignificanceComponent = CreateDefaultSubobject<USignificanceComponent>(TEXT("Significance"));
-    this->SkeletalMeshComponent->SetupAttachment(RootComponent);
+    
     this->AudioComponent->SetupAttachment(RootComponent);
     this->LoopingAudioComponent->SetupAttachment(RootComponent);
+	this->SkeletalMeshComponent->SetupAttachment(RootComponent);
 }
 
 void ASCP621Flower::Open() {

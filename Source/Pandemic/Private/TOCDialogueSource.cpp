@@ -15,4 +15,17 @@ void ATOCDialogueSource::ServerRequestStop_Implementation(FName DialogueTableID)
 void ATOCDialogueSource::ServerRequestReportToTOC_Implementation(FName DialogueTableID) {
 }
 
+bool ATOCDialogueSource::HasPlayedLine(FName DialogueTableID)
+{
+    return false;
+}
+
+void ATOCDialogueSource::ServerRequestReportToTOC_Implementation(FName DialogueTableID, bool bIgnorePlayedBefore)
+{
+}
+
+void ATOCDialogueSource::ServerRequestStopAny_Implementation()
+{
+}
+
 

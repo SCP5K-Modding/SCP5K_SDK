@@ -7,8 +7,9 @@ ASCP610Burrower::ASCP610Burrower(const FObjectInitializer& ObjectInitializer) : 
     this->bReplicates = true;
     const FProperty* p_RemoteRole = GetClass()->FindPropertyByName("RemoteRole");
     (*p_RemoteRole->ContainerPtrToValuePtr<TEnumAsByte<ENetRole>>(this)) = ROLE_SimulatedProxy;
+    this->RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
     this->MovementComp = CreateDefaultSubobject<UNavProjectileMovementComponent>(TEXT("MovementComp"));
-    this->TrueRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+    this->TrueRoot = (USceneComponent*)RootComponent;
     this->AudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("AudioComponent"));
     this->ExplodeDamage = 0.00f;
     this->DamageRadius = 250.00f;
@@ -23,7 +24,7 @@ ASCP610Burrower::ASCP610Burrower(const FObjectInitializer& ObjectInitializer) : 
     this->Particle = NULL;
     this->TriggeringAttack = NULL;
     this->NiagraComponent = NULL;
-    this->AudioComponent->SetupAttachment(TrueRoot);
+    this->AudioComponent->SetupAttachment(RootComponent);
 }
 
 void ASCP610Burrower::OnProjectileStop(const FHitResult& ImpactResult) {

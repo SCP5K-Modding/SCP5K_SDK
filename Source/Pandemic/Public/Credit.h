@@ -1,31 +1,28 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "ECreditCategory.h"
-#include "ECreditCompany.h"
-#include "ECreditPriority.h"
+#include "CreditedPerson.h"
 #include "Credit.generated.h"
+
+class UCreditsRole;
 
 USTRUCT(BlueprintType)
 struct FCredit {
     GENERATED_BODY()
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    FText Role;
+    UCreditsRole* Role;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    ECreditCategory Category;
+    bool bGreyOutForcefully;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    ECreditCompany Company;
+    bool bForceNickname;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    ECreditPriority Priority;
+    bool bShowRoleTitle;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    bool bFormer;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    FName RowNameParent;
+    FCreditedPerson Person;
     
     PANDEMIC_API FCredit();
 };

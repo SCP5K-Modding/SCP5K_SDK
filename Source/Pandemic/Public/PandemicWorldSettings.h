@@ -11,6 +11,8 @@ class ACameraActor;
 class AGameStateBase;
 class ALightManager;
 class APandemicPreGameManager;
+class UFlowAsset;
+class UStoryletDefinition;
 
 UCLASS(Blueprintable)
 class PANDEMIC_API APandemicWorldSettings : public AWorldSettings {
@@ -41,6 +43,12 @@ public:
     TArray<FCheckpoint> Checkpoints;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TArray<UStoryletDefinition*> StoryletDefinitions;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TArray<UFlowAsset*> FlowDefinitions;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FString DiscordImageID;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -48,6 +56,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bCanHost;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bEnableRoomBasedAudioOcclusion;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bWaitForAllLevelsToLoad;

@@ -138,7 +138,8 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetCurrentMoveSpeed() const;
-    
+    virtual void Die_Implementation(AActor* DamageCauser, AController* InstigatorController);
+
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void Die(AActor* Causer, AController* InstigatedBy);
     

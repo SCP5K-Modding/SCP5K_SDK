@@ -2,7 +2,6 @@
 #include "CoreMinimal.h"
 #include "Perception/AISightTargetInterface.h"
 #include "EStaggerDirection.h"
-#include "UObject/NoExportTypes.h"
 #include "GameFramework/Pawn.h"
 #include "AIMeleeAttackType.h"
 #include "Damageable.h"
@@ -70,7 +69,8 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float MinBlendPhysicsSignificance;
-    
+    float MinSignificanceForAnimation;
+
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     USkeletalMeshComponent* MeshComponent;
@@ -113,7 +113,9 @@ public:
     
     UFUNCTION(BlueprintCallable)
     void StartFireProjectile(FVector TargetLocation);
-    
+    void SetCurrentLookTarget(FVector NewLookTarget);
+    void SetAlert(bool bNewAlert);
+
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void ReviveOrReveal();
     

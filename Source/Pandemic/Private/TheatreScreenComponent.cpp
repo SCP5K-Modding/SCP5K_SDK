@@ -45,6 +45,10 @@ float UTheatreScreenComponent::GetMinRadius() const {
     return 0.0f;
 }
 
+void UTheatreScreenComponent::GetEnabledConnectedScreens(TArray<UTheatreScreenComponent*>& ConnectedScreens)
+{
+}
+
 bool UTheatreScreenComponent::CanSeeScreen(TScriptInterface<ITheatreScreen> Other) const {
     return false;
 }

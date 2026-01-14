@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "TeamDataPlayersUpdatedDelegate.h"
 #include "TeamDataUpdatedDelegate.h"
 #include "TeamData.generated.h"
 
@@ -20,6 +21,12 @@ public:
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FTeamDataUpdated OnScoreUpdated;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FTeamDataPlayersUpdated OnPlayerAdded;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FTeamDataPlayersUpdated OnPlayerRemoved;
     
     PANDEMIC_API FTeamData();
 };

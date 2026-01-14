@@ -4,6 +4,7 @@
 APandemicPlayerState::APandemicPlayerState(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->Status = EPlayerStatus::PS_Waiting;
     this->Team = 0;
+    this->RequestedTeam = -1;
     this->TotalKills = 0;
     this->PlayerKills = 0;
     this->TeamKills = 0;
@@ -19,22 +20,20 @@ APandemicPlayerState::APandemicPlayerState(const FObjectInitializer& ObjectIniti
     this->bIsAdmin = false;
     this->bIsDev = false;
     this->bIsSupporter = false;
+    this->bIsOmniEdition = false;
     this->bIsSpeaking = false;
     this->bIsServerMuted = false;
     this->bIsLocallyMuted = false;
+    this->bHasVoiceActivity = false;
     this->bRespawning = false;
     this->RespawnTimeStamp = 0;
     this->RespawnTime = 0.00f;
-    this->HeadshotScoreAmount = 5;
-    this->KillScoreAmount = 10;
-    this->DeathScoreAmount = -20;
-    this->PlayerKillScoreAmount = 30;
-    this->TeamKillScoreAmount = -50;
     this->SelectedFaction = 0;
-    this->RandomValue = 31873;
+    this->RandomValue = 7693;
     this->SelectedSkinToneIndex = 0;
     this->SelectedGenderIndex = 0;
     this->bIsReady = false;
+    this->bCanIssueVoteKick = true;
     this->bIsFullyLoaded = false;
 }
 
@@ -72,6 +71,11 @@ void APandemicPlayerState::SetLoadout(FFPSLoadout Loadout) {
 void APandemicPlayerState::SetDLCOwnership(int32 DLCID, FName DLCName, bool bIsOwned) {
 }
 
+void APandemicPlayerState::SetCanIssueVoteKick(bool bNewVoteKick) {
+}
+
+void APandemicPlayerState::ServerTryVoteKickPlayer_Implementation(const FVote& VoteToBegin, const FKickData& NewKickData, float CooldownDuration) {
+}
 void APandemicPlayerState::ServerSubmitDLCOwnership_Implementation(const TArray<FDLCOwnership>& Ownership) {
 }
 
@@ -84,7 +88,19 @@ void APandemicPlayerState::ServerRequestSelectedPatches_Implementation(const TAr
 void APandemicPlayerState::ServerRequestSelectedCharacterSkin_Implementation(int32 InSelectedSkin) {
 }
 
+void APandemicPlayerState::ServerRequestDefaultCharacterSkin_Implementation() {
+}
+
 void APandemicPlayerState::ServerRequestCosmeticsProfile_Implementation(const FCosmeticProfile& Profile) {
+}
+
+void APandemicPlayerState::ServerPlayerVoteKick_Implementation(int32 VoteValue) {
+}
+
+void APandemicPlayerState::ServerBeginKickAvailabilityCooldown(float CooldownDuration) {
+}
+
+void APandemicPlayerState::ServerAbortKickAvailabilityCooldown() {
 }
 
 void APandemicPlayerState::Server_RequestUnBanPlayer_Implementation(const FPlayerID& Player) {
@@ -111,13 +127,22 @@ void APandemicPlayerState::Server_RequestAddOwner_Implementation(const FPlayerID
 void APandemicPlayerState::Server_RequestAddAdmin_Implementation(const FPlayerID& Player) {
 }
 
+void APandemicPlayerState::RequestTeamChange(int32 NewTeam) {
+}
+
 void APandemicPlayerState::RequestSelectedSkinToneIndex_Implementation(uint8 InSelectedIndex) {
 }
 
 void APandemicPlayerState::RequestSelectedGenderIndex_Implementation(uint8 InSelectedIndex) {
 }
 
+void APandemicPlayerState::RequestLoadoutChange(FFPSLoadout Loadout) {
+}
+
 void APandemicPlayerState::RequestAvailablePatches_Implementation() {
+}
+
+void APandemicPlayerState::RequestAvailableItemSkins_Implementation(FPrimaryAssetId ItemAssetID) {
 }
 
 void APandemicPlayerState::RequestAvailableItems_Implementation(int32 Slots) {
@@ -132,6 +157,10 @@ bool APandemicPlayerState::PassesCosmeticRequirements(const FCosmeticRequirement
     return false;
 }
 
+bool APandemicPlayerState::PassesBasicCosmeticRequirements(const FCosmeticRequirements& Requirements) {
+    return false;
+}
+
 void APandemicPlayerState::OnRep_TotalKills_Implementation() {
 }
 
@@ -141,7 +170,7 @@ void APandemicPlayerState::OnRep_TotalDeaths_Implementation() {
 void APandemicPlayerState::OnRep_TeamKills_Implementation() {
 }
 
-void APandemicPlayerState::OnRep_Team_Implementation() {
+void APandemicPlayerState::OnRep_Team_Implementation(int32 PreviousTeam) {
 }
 
 void APandemicPlayerState::OnRep_Status_Implementation() {
@@ -189,6 +218,9 @@ void APandemicPlayerState::OnRep_IsReady_Implementation() {
 void APandemicPlayerState::OnRep_IsOwner_Implementation() {
 }
 
+void APandemicPlayerState::OnRep_IsOmniEdition_Implementation() {
+}
+
 void APandemicPlayerState::OnRep_IsDev_Implementation() {
 }
 
@@ -199,6 +231,9 @@ void APandemicPlayerState::OnRep_CurrentLoadout_Implementation() {
 }
 
 void APandemicPlayerState::OnRep_AvailablePatches_Implementation() {
+}
+
+void APandemicPlayerState::OnRep_AvailableItemSkins_Implementation() {
 }
 
 void APandemicPlayerState::OnRep_AvailableItems_Implementation() {
@@ -247,8 +282,8 @@ int32 APandemicPlayerState::GetPingMS() const {
     return 0;
 }
 
-int32 APandemicPlayerState::GetIsAlive() const {
-    return 0;
+bool APandemicPlayerState::GetIsAlive() const {
+    return false;
 }
 
 int32 APandemicPlayerState::GetHeadshots() const {
@@ -271,12 +306,23 @@ bool APandemicPlayerState::GetDoesOwnDLC_Implementation(int32 DLCID) {
     return false;
 }
 
+FName APandemicPlayerState::GetDLCName(int32 DLCID) {
+    return NAME_None;
+}
 FFPSLoadout APandemicPlayerState::GetCurrentLoadout() const {
     return FFPSLoadout{};
 }
 
 APlayerController* APandemicPlayerState::GetController() const {
     return NULL;
+}
+
+bool APandemicPlayerState::GetCanIssueVoteKick() const {
+    return false;
+}
+
+TArray<FPrimaryAssetId> APandemicPlayerState::GetAvailableItemSkins(const FPrimaryAssetId& ItemAssetID) {
+    return TArray<FPrimaryAssetId>();
 }
 
 void APandemicPlayerState::FinishGrantMissionItem(TSoftObjectPtr<UMissionItem> Item) {
@@ -299,6 +345,14 @@ void APandemicPlayerState::CheckDLCOwnership() {
 }
 
 void APandemicPlayerState::ChangeTeam(int32 NewTeam) {
+}
+
+bool APandemicPlayerState::CanUseItemSkinByName(const FPrimaryAssetId& ItemAssetID, const FName& InternalName) {
+    return false;
+}
+
+bool APandemicPlayerState::CanUseItemSkin(const FPrimaryAssetId& ItemAssetID, const FPrimaryAssetId& SkinAssetID) {
+    return false;
 }
 
 bool APandemicPlayerState::CanPickupMissionItem(TSoftObjectPtr<UMissionItem> Item) {
@@ -341,10 +395,13 @@ int32 APandemicPlayerState::CalculateRandomValue(int32 Seed, int32 Max) const {
     return 0;
 }
 
+void APandemicPlayerState::AddScoreForTags(const FGameplayTagContainer& InTags) {
+}
+
 void APandemicPlayerState::AddScore(int32 Amount) {
 }
 
-void APandemicPlayerState::AddKill(bool IsHeadshot, bool IsPlayer, APawn* Killed, APlayerState* PlayerState, float ScoreModifier) {
+void APandemicPlayerState::AddKill(bool IsHeadshot, bool IsPlayer, FGameplayTagContainer InTags, APawn* Killed, APlayerState* PlayerState) {
 }
 
 void APandemicPlayerState::AddJournalEntryToUser_Implementation(UJournalDataEntry* JournalEntry) {
@@ -353,7 +410,7 @@ void APandemicPlayerState::AddJournalEntryToUser_Implementation(UJournalDataEntr
 void APandemicPlayerState::AddJournalEntry(UJournalDataEntry* JournalEntry) {
 }
 
-void APandemicPlayerState::AddDeath() {
+void APandemicPlayerState::AddDeath(FGameplayTagContainer InTags) {
 }
 
 void APandemicPlayerState::AddCustomJournalEntry(UJournalDataEntry* JournalEntry) {
@@ -379,6 +436,7 @@ void APandemicPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>&
     DOREPLIFETIME(APandemicPlayerState, bIsAdmin);
     DOREPLIFETIME(APandemicPlayerState, bIsDev);
     DOREPLIFETIME(APandemicPlayerState, bIsSupporter);
+    DOREPLIFETIME(APandemicPlayerState, bIsOmniEdition);
     DOREPLIFETIME(APandemicPlayerState, bIsSpeaking);
     DOREPLIFETIME(APandemicPlayerState, bIsServerMuted);
     DOREPLIFETIME(APandemicPlayerState, bRespawning);
@@ -392,11 +450,13 @@ void APandemicPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>&
     DOREPLIFETIME(APandemicPlayerState, AvailableCharacterSkins);
     DOREPLIFETIME(APandemicPlayerState, AvailablePatches);
     DOREPLIFETIME(APandemicPlayerState, AvailableItems);
+    DOREPLIFETIME(APandemicPlayerState, AvailableItemSkins);
     DOREPLIFETIME(APandemicPlayerState, SelectedCharacterSkin);
     DOREPLIFETIME(APandemicPlayerState, SelectedPatches);
     DOREPLIFETIME(APandemicPlayerState, SelectedSkinToneIndex);
     DOREPLIFETIME(APandemicPlayerState, SelectedGenderIndex);
     DOREPLIFETIME(APandemicPlayerState, bIsReady);
+    DOREPLIFETIME(APandemicPlayerState, bCanIssueVoteKick);
     DOREPLIFETIME(APandemicPlayerState, bIsFullyLoaded);
 }
 

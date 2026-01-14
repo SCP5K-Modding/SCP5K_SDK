@@ -82,6 +82,9 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetMinRadius() const;
     
+    UFUNCTION(BlueprintCallable)
+    void GetEnabledConnectedScreens(TArray<UTheatreScreenComponent*>& ConnectedScreens);
+    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool CanSeeScreen(TScriptInterface<ITheatreScreen> Other) const;
     

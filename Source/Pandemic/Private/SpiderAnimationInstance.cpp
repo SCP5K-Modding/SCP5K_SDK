@@ -6,6 +6,7 @@ USpiderAnimationInstance::USpiderAnimationInstance() {
     this->MaxMovingLimbs = 0;
     this->CurrentMovingLimbs = 0;
     this->MaxDistance = 100.00f;
+	this->MaxBodyDistance = 50.00f;
     this->TimeToMove = 0.30f;
     this->AnticipationMultiplier = 0.20f;
     this->AcceptanceThreshold = 0.70f;

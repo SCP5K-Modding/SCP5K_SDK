@@ -69,7 +69,8 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     ASCP1262Spitter* SpitterPawn;
-    
+    float MaxAngle;
+
     USCP1262AnimationInstance();
 
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)

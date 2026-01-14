@@ -18,7 +18,9 @@ ASCP3199Controller::ASCP3199Controller(const FObjectInitializer& ObjectInitializ
     this->TargetHealthWeight = 1.20f;
     this->RelevantNavmeshTargetsCount = 5;
     this->GeneralSightLineCost = 200.00f;
+    this->GeneralSightLineMultiplier = 2.00f;
     this->DirectSightLineCost = 400.00f;
+    this->DirectSightLineMultiplier = 4.00f;
     this->DirectSightLineDot = 0.87f;
     this->NearProximityCost = 200.00f;
     this->NearProximityRange = 500.00f;
@@ -111,10 +113,6 @@ bool ASCP3199Controller::GetWasDamagedRecently() const {
 
 float ASCP3199Controller::GetTargetHealthWeight() const {
     return 0.0f;
-}
-
-TArray<ASCP3199Character*> ASCP3199Controller::GetSCP3199CharacterAllies() const {
-    return TArray<ASCP3199Character*>();
 }
 
 bool ASCP3199Controller::GetIsSeenByTargets() const {

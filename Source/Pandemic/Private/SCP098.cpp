@@ -20,10 +20,15 @@ ASCP098::ASCP098(const FObjectInitializer& ObjectInitializer) : Super(ObjectInit
     this->AlertSound = NULL;
     this->IdleSound = NULL;
     this->DamageDelay = 1.00f;
+    this->FreezeRagdollTime = 15.00f;
     this->bInitializedRevealAnimations = false;
     this->IdleAudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("IdleAudio"));
-    this->IdleAudioComponent->SetupAttachment(RootComponent);
     this->AudioComponent->SetupAttachment(RootComponent);
+    this->IdleAudioComponent->SetupAttachment(RootComponent);
+}
+
+float ASCP098::TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser) {
+    return 0.0f;
 }
 
 void ASCP098::SetInCorner(bool bNewInCorner) {
@@ -33,6 +38,15 @@ void ASCP098::SetEating(bool bNewEating) {
 }
 
 void ASCP098::SetAlert(bool bNewAlert) {
+}
+
+void ASCP098::OnDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy,
+    AActor* DamageCauser)
+{
+}
+
+void ASCP098::Die_Implementation_Implementation(AActor* Causer, AController* InstigatedBy)
+{
 }
 
 void ASCP098::OnRep_IsDead_Implementation() {
@@ -50,16 +64,16 @@ void ASCP098::OnRep_Eating_Implementation() {
 void ASCP098::OnRep_CurrentHealth_Implementation() {
 }
 
-void ASCP098::OnDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser) {
-}
-
 void ASCP098::Multicast_StopRevealAnimation_Implementation() {
 }
 
 void ASCP098::Multicast_SetRevealAnimation_Implementation(UAnimSequence* RevealAnimation) {
 }
 
-void ASCP098::Die_Implementation(AActor* Causer, AController* InstigatedBy) {
+void ASCP098::FreezeRagdoll() {
+}
+
+void ASCP098::Die_Implementation(AActor* Causer, AController* InstigatedBy, bool bHeadshot) {
 }
 
 void ASCP098::CosmeticDie_Implementation() {

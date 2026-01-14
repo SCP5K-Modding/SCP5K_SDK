@@ -4,6 +4,7 @@ USCP1262AnimationInstance::USCP1262AnimationInstance() {
     this->HeadDistance = 400.00f;
     this->TangentLength = 200.00f;
     this->bIsDead = false;
+    this->MaxAngle = 60.00f;
     this->RandomStartPosition = 0.00f;
     this->StaggerFrontMontage = NULL;
     this->StaggerLeftMontage = NULL;

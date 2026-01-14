@@ -7,5 +7,6 @@ FHitReactionData::FHitReactionData() {
     this->HitDamageType = NULL;
     this->ReactionType = EReactionType::None;
     this->HitDuration = 0.00f;
+    this->bIsCurrentlyStaggered = 0.00f;
 }
 

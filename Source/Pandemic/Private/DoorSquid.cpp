@@ -44,17 +44,10 @@ ADoorSquid::ADoorSquid(const FObjectInitializer& ObjectInitializer) : Super(Obje
     this->SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
     this->AudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("Audio"));
     this->IdleAudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("IdleAudio"));
-    this->AudioDoorSquidDoorCrackingEvent = NULL;
-    this->AudioDoorSquidDoorCrackingLongEvent = NULL;
-    this->AudioDoorSquidLowJitteringEvent = NULL;
-    this->AudioDoorSquidAggressiveJitteringEvent = NULL;
     this->AudioDoorSquidHeartBeatKnockEvent = NULL;
-    this->AudioDoorSquidKnockingEvent = NULL;
-    this->AudioDoorSquidDoorBreach = NULL;
-    this->AudioDoorSquidKillingTarget = NULL;
+    this->AudioDoorSquidGotTargetEvent = NULL;
     this->AudioDoorSquidEatingEdibleEvent = NULL;
     this->AudioDoorSquidEatingInedibleEvent = NULL;
-    this->AudioDoorSquidSpitOutEvent = NULL;
     this->AudioDoorSquidDeathAteGrenade = NULL;
     this->DetectionZoneSphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("DetectionZoneSphere"));
     this->DangerZoneSphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("DangerZoneSphere"));
@@ -63,13 +56,13 @@ ADoorSquid::ADoorSquid(const FObjectInitializer& ObjectInitializer) : Super(Obje
     this->TongueHookTargetComponent = NULL;
     this->BulletCatchTrigger = CreateDefaultSubobject<UBoxComponent>(TEXT("BulletCatchTrigger"));
     this->PhysicsHandleComponent = CreateDefaultSubobject<UPhysicsHandleComponent>(TEXT("PhysicsHandle"));
-    this->SkeletalMeshComponent->SetupAttachment(RootComponent);
     this->AudioComponent->SetupAttachment(RootComponent);
-    this->IdleAudioComponent->SetupAttachment(RootComponent);
-    this->DetectionZoneSphereComponent->SetupAttachment(RootComponent);
+    this->BulletCatchTrigger->SetupAttachment(RootComponent);
     this->DangerZoneSphereComponent->SetupAttachment(RootComponent);
     this->DeathZoneSphereComponent->SetupAttachment(RootComponent);
-    this->BulletCatchTrigger->SetupAttachment(RootComponent);
+    this->DetectionZoneSphereComponent->SetupAttachment(RootComponent);
+    this->IdleAudioComponent->SetupAttachment(RootComponent);
+    this->SkeletalMeshComponent->SetupAttachment(RootComponent);
 }
 
 void ADoorSquid::TryKillActorInitiate(AActor* TargetActor) {

@@ -6,6 +6,7 @@
 
 class AController;
 class APawn;
+class APlayerController;
 class UHallucinogenComponent;
 
 UCLASS(Blueprintable)
@@ -18,6 +19,9 @@ public:
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     TWeakObjectPtr<APawn> HallucinatingPawn;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    APlayerController* PlayerController;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     float StartTime;

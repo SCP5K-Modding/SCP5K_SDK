@@ -4,14 +4,18 @@
 #include "GameFramework/PlayerState.h"
 #include "FPSItemSlot.h"
 #include "FPSLoadout.h"
-#include "GameplayTagContainer.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTag -FallbackName=GameplayTag
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTagContainer -FallbackName=GameplayTagContainer
+#include "AvailableCosmetics.h"
 #include "CosmeticProfile.h"
 #include "CosmeticRequirements.h"
 #include "DLCOwnership.h"
 #include "EMissionItemType.h"
 #include "EPlayerStatus.h"
+#include "KickData.h"
 #include "PlayerID.h"
 #include "TeamDefinition.h"
+#include "Vote.h"
 #include "PandemicPlayerState.generated.h"
 
 class AController;
@@ -38,6 +42,7 @@ public:
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FPlayerKillStatsUpdatedDelegate, APandemicPlayerState*, Player, int32, Stat, APawn*, Target);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerFlagUpdatedDelegate, APandemicPlayerState*, Player, bool, Flag);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerAvailableItemsUpdatedDelegate, APandemicPlayerState*, Player, const TArray<FFPSItemSlot>&, AvailableItems);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerAvailableItemSkinsUpdatedDelegate, APandemicPlayerState*, Player, const TArray<FAvailableCosmetics>&, AvailableItems);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerAvailableCosmeticsUpdatedDelegate, APandemicPlayerState*, Player, const TArray<FPrimaryAssetId>&, AvailableItems);
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_Status, meta=(AllowPrivateAccess=true))
@@ -45,6 +50,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_Team, meta=(AllowPrivateAccess=true))
     int32 Team;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    int32 RequestedTeam;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_TotalKills, meta=(AllowPrivateAccess=true))
     int32 TotalKills;
@@ -100,6 +108,9 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bIsLocallyMuted;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bHasVoiceActivity;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     bool bRespawning;
     
@@ -138,13 +149,17 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_SelectedFaction, meta=(AllowPrivateAccess=true))
     uint8 SelectedFaction;
-    
+    bool bIsOmniEdition;
+
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     int32 RandomValue;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_CurrentLoadout, meta=(AllowPrivateAccess=true))
     FFPSLoadout CurrentLoadout;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FFPSLoadout RequestedLoadout;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_AvailableCharacterSkins, meta=(AllowPrivateAccess=true))
     TArray<FPrimaryAssetId> AvailableCharacterSkins;
@@ -154,6 +169,9 @@ protected:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_AvailableItems, meta=(AllowPrivateAccess=true))
     TArray<FFPSItemSlot> AvailableItems;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_AvailableItemSkins, meta=(AllowPrivateAccess=true))
+    TArray<FAvailableCosmetics> AvailableItemSkins;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_SelectedCharacterSkin, meta=(AllowPrivateAccess=true))
     FPrimaryAssetId SelectedCharacterSkin;
@@ -170,12 +188,25 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_IsReady, meta=(AllowPrivateAccess=true))
     bool bIsReady;
     
+private:
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, Transient, meta=(AllowPrivateAccess=true))
+    bool bCanIssueVoteKick;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     bool bIsFullyLoaded;
     
 public:
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FPlayerStatsUpdatedDelegate OnTeamUpdated;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FPlayerStatsUpdatedDelegate OnTeamPlayerAdded;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FPlayerStatsUpdatedDelegate OnTeamPlayerRemoved;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FPlayerStatsUpdatedDelegate OnRequestedTeamUpdated;
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FPlayerKillStatsUpdatedDelegate OnTotalKillsUpdated;
@@ -217,6 +248,9 @@ public:
     FPlayerLoadoutUpdatedDelegate OnPlayerLoadoutUpdated;
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FPlayerLoadoutUpdatedDelegate OnPlayerRequestedLoadoutUpdated;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FPlayerAvailableItemsUpdatedDelegate OnPlayerAvailableItemsUpdated;
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -224,6 +258,9 @@ public:
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FPlayerAvailableCosmeticsUpdatedDelegate OnPlayerAvailablePatchesUpdated;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FPlayerAvailableItemSkinsUpdatedDelegate OnPlayerAvailableItemSkinsUpdated;
     
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FPlayerSelectedCosmeticUpdatedDelegate OnPlayerSelectedCharacterSkinUpdated;
@@ -280,6 +317,14 @@ public:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void SetDLCOwnership(int32 DLCID, FName DLCName, bool bIsOwned);
     
+protected:
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void SetCanIssueVoteKick(bool bNewVoteKick);
+    
+public:
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerTryVoteKickPlayer(const FVote& VoteToBegin, const FKickData& NewKickData, float CooldownDuration);
+    
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void ServerSubmitDLCOwnership(const TArray<FDLCOwnership>& Ownership);
     
@@ -293,7 +338,19 @@ public:
     void ServerRequestSelectedCharacterSkin(int32 InSelectedSkin);
     
     UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerRequestDefaultCharacterSkin();
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
     void ServerRequestCosmeticsProfile(const FCosmeticProfile& Profile);
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerPlayerVoteKick(int32 VoteValue);
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void ServerBeginKickAvailabilityCooldown(float CooldownDuration);
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void ServerAbortKickAvailabilityCooldown();
     
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void Server_RequestUnBanPlayer(const FPlayerID& Player);
@@ -319,14 +376,23 @@ public:
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void Server_RequestAddAdmin(const FPlayerID& Player);
     
+    UFUNCTION(BlueprintCallable)
+    void RequestTeamChange(int32 NewTeam);
+    
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void RequestSelectedSkinToneIndex(uint8 InSelectedIndex);
     
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void RequestSelectedGenderIndex(uint8 InSelectedIndex);
     
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void RequestLoadoutChange(FFPSLoadout Loadout);
+    
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void RequestAvailablePatches();
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void RequestAvailableItemSkins(FPrimaryAssetId ItemAssetID);
     
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void RequestAvailableItems(int32 Slots);
@@ -343,6 +409,9 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool PassesCosmeticRequirements(const FCosmeticRequirements& Requirements);
     
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool PassesBasicCosmeticRequirements(const FCosmeticRequirements& Requirements);
+    
 protected:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_TotalKills();
@@ -354,7 +423,7 @@ protected:
     void OnRep_TeamKills();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void OnRep_Team();
+    void OnRep_Team(int32 PreviousTeam);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_Status();
@@ -406,6 +475,9 @@ protected:
     void OnRep_IsOwner();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_IsOmniEdition();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_IsDev();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
@@ -417,6 +489,9 @@ protected:
 public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_AvailablePatches();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_AvailableItemSkins();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_AvailableItems();
@@ -455,7 +530,7 @@ public:
     int32 GetPingMS() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    int32 GetIsAlive() const;
+    bool GetIsAlive() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     int32 GetHeadshots() const;
@@ -473,10 +548,19 @@ public:
     bool GetDoesOwnDLC(int32 DLCID);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    FName GetDLCName(int32 DLCID);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     FFPSLoadout GetCurrentLoadout() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     APlayerController* GetController() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool GetCanIssueVoteKick() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    TArray<FPrimaryAssetId> GetAvailableItemSkins(const FPrimaryAssetId& ItemAssetID);
     
     UFUNCTION(BlueprintCallable)
     void FinishGrantMissionItem(TSoftObjectPtr<UMissionItem> Item);
@@ -498,6 +582,12 @@ public:
     
     UFUNCTION(BlueprintCallable)
     void ChangeTeam(int32 NewTeam);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool CanUseItemSkinByName(const FPrimaryAssetId& ItemAssetID, const FName& InternalName);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool CanUseItemSkin(const FPrimaryAssetId& ItemAssetID, const FPrimaryAssetId& SkinAssetID);
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     bool CanPickupMissionItem(TSoftObjectPtr<UMissionItem> Item);
@@ -530,10 +620,13 @@ public:
     int32 CalculateRandomValue(int32 Seed, int32 Max) const;
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
+    void AddScoreForTags(const FGameplayTagContainer& InTags);
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void AddScore(int32 Amount);
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
-    void AddKill(bool IsHeadshot, bool IsPlayer, APawn* Killed, APlayerState* PlayerState, float ScoreModifier);
+    void AddKill(bool IsHeadshot, bool IsPlayer, FGameplayTagContainer InTags, APawn* Killed, APlayerState* PlayerState);
     
     UFUNCTION(BlueprintCallable, Client, Reliable)
     void AddJournalEntryToUser(UJournalDataEntry* JournalEntry);
@@ -542,7 +635,7 @@ public:
     void AddJournalEntry(UJournalDataEntry* JournalEntry);
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
-    void AddDeath();
+    void AddDeath(FGameplayTagContainer InTags);
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void AddCustomJournalEntry(UJournalDataEntry* JournalEntry);

@@ -8,6 +8,12 @@ UPandemicGameInstance::UPandemicGameInstance() {
     this->bAnyoneUseAdminCam = false;
     this->bHasPublisherAPIKey = false;
     this->bUseServerPassword = false;
+    this->bUseVoteKicking = true;
+    this->VoteKickCooldownDuration = 60.00f;
+    this->VoteKickVoteDuration = 60;
+    this->VoteKickNotificationDuration = 6.00f;
+    this->bVoteKickEndAfterAllVoted = true;
+    this->VoteKickRequiredPercentage = 0.51f;
     this->MaxGameBans = 6;
     this->MaxVACBans = 6;
     this->MinDaysSinceLastBan = 150;
@@ -26,6 +32,7 @@ UPandemicGameInstance::UPandemicGameInstance() {
     this->bHasSavedThisGame = false;
     this->bHasModifiedAdmins = false;
     this->bHasModifiedWhitelist = false;
+    this->bHasModifiedBans = false;
     this->bHasModifiedConfig = false;
     this->bWasKickedFromServer = false;
     this->bReturnedToMainMenu = false;
@@ -33,8 +40,8 @@ UPandemicGameInstance::UPandemicGameInstance() {
     this->bLostConnectionToServer = false;
     this->SteamAppId = 872670;
     this->CurrentMapCollectionIndex = -1;
-    this->bTeamDamageEnabled = false;
-    this->TeamDamageReflection = 0.00f;
+    this->bTeamDamageEnabled = true;
+    this->TeamDamageReflection = 0.30f;
 }
 
 bool UPandemicGameInstance::WantsStandbyMap() const {
@@ -46,6 +53,12 @@ bool UPandemicGameInstance::UseSeamlessTravel() const {
 }
 
 void UPandemicGameInstance::UpdateSession() {
+}
+
+void UPandemicGameInstance::SyncBans() {
+}
+
+void UPandemicGameInstance::SetUseVoteKicking(bool bNewUseVoteKicking, bool bUpdateSession) {
 }
 
 void UPandemicGameInstance::SetUseServerPassword(bool bNewUseServerPasword, bool bUpdateSession) {
@@ -78,6 +91,9 @@ void UPandemicGameInstance::SavePlayerReport(FPlayerReport Report) {
 void UPandemicGameInstance::SaveConfigs_Implementation(bool bForceSave) {
 }
 
+void UPandemicGameInstance::SaveBans() {
+}
+
 bool UPandemicGameInstance::RemovePlayerFromWhitelist(const FString& PlayerID) {
     return false;
 }
@@ -102,7 +118,7 @@ bool UPandemicGameInstance::RemoveAdmin(const FString& PlayerID) {
     return false;
 }
 
-void UPandemicGameInstance::ReceiveNetworkFailure_Implementation(ENetworkFailure::Type FailureType, const FString& ErrorString, bool bIsServer) {
+void UPandemicGameInstance::ReceiveNetworkFailure_Implementation(TEnumAsByte<ENetworkFailure::Type> FailureType, const FString& ErrorString, bool bIsServer) {
 }
 
 void UPandemicGameInstance::ParseMapRotation() {
@@ -117,10 +133,13 @@ void UPandemicGameInstance::LoadServerMapData() {
 void UPandemicGameInstance::LoadServerConfig() {
 }
 
-void UPandemicGameInstance::LoadConfigs_Implementation() {
+void UPandemicGameInstance::LoadMapData() {
 }
 
-void UPandemicGameInstance::LoadBansSoft() {
+void UPandemicGameInstance::LoadGamemodes() {
+}
+
+void UPandemicGameInstance::LoadConfigs_Implementation() {
 }
 
 void UPandemicGameInstance::LoadBans() {
@@ -166,6 +185,10 @@ bool UPandemicGameInstance::IsJoiningServer() const {
     return false;
 }
 
+bool UPandemicGameInstance::IsInSession() const {
+    return false;
+}
+
 bool UPandemicGameInstance::IsFriendsOnly() const {
     return false;
 }
@@ -182,7 +205,31 @@ bool UPandemicGameInstance::GetWasKickedFromServer() const {
     return false;
 }
 
+int32 UPandemicGameInstance::GetVoteKickVoteDuration() const {
+    return 0;
+}
+
+float UPandemicGameInstance::GetVoteKickRequiredPercentage() const {
+    return 0.0f;
+}
+
+float UPandemicGameInstance::GetVoteKickNotificationDuration() const {
+    return 0.0f;
+}
+
+bool UPandemicGameInstance::GetVoteKickEndAfterVoted() const {
+    return false;
+}
+
+float UPandemicGameInstance::GetVoteKickCooldownDuration() const {
+    return 0.0f;
+}
+
 bool UPandemicGameInstance::GetUseWhitelist() const {
+    return false;
+}
+
+bool UPandemicGameInstance::GetUseVoteKicking() const {
     return false;
 }
 
@@ -283,6 +330,10 @@ bool UPandemicGameInstance::GetHasModifiedWhitelist() const {
 }
 
 bool UPandemicGameInstance::GetHasModifiedConfig() const {
+    return false;
+}
+
+bool UPandemicGameInstance::GetHasModifiedBans() const {
     return false;
 }
 

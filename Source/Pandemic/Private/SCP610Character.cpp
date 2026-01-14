@@ -37,6 +37,8 @@ ASCP610Character::ASCP610Character(const FObjectInitializer& ObjectInitializer) 
     this->DoorAttackComponent = CreateDefaultSubobject<UDoorAttackComponent>(TEXT("DoorAttackComponent"));
     this->PerceptionStimuliSourceComponent = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>(TEXT("PerceptionStimulusSource"));
     this->SCP610Controller = NULL;
+    this->LandingMontage = NULL;
+    this->MinFallDistanceForLandingMontage = 100.00f;
     this->bIsAIPermanentlyDead = false;
     this->DestroyEnemyActorDelay = 120.00f;
     this->DeathHitImpulseMultiplier = 1.00f;
@@ -66,7 +68,7 @@ ASCP610Character::ASCP610Character(const FObjectInitializer& ObjectInitializer) 
     this->CurrentLifeState = EZombieLifeState::Alive;
     this->VelocityCheckAbortDuration = 15.00f;
     this->AwarenessState = ESAIAwarenessState::Error;
-    this->PelvisBoneName = TEXT("hips");
+    this->PelvisBoneName = TEXT("Hips");
     this->StopOnDeathRagdollDelay = 5.00f;
     this->InitialStopRagdollDelay = 0.20f;
     this->RagdollVelocityReductionDelay = 10.00f;
@@ -187,32 +189,35 @@ void ASCP610Character::NetMulticast_RagdollPrepare_Implementation() {
 void ASCP610Character::NetMulticast_RagdollInitiate_Implementation() {
 }
 
+void ASCP610Character::MulticastPlayLandingAnimation_Implementation() {
+}
+
 UFMODEvent* ASCP610Character::GetVocalLoopSound() const {
-    return NULL;
+    return nullptr;
 }
 
 USkeletalMesh* ASCP610Character::GetThirdPersonMesh() const {
-    return NULL;
+    return nullptr;
 }
 
 USplatterComponent* ASCP610Character::GetSplatterComponent() const {
-    return NULL;
+    return nullptr;
 }
 
 UFastReplicatedRagdoll* ASCP610Character::GetReplicatedRagdollComponent() const {
-    return NULL;
+    return nullptr;
 }
 
 FRotator ASCP610Character::GetReplicatedControlRotation() const {
-    return FRotator{};
+    return FRotator();
 }
 
 URageComponent* ASCP610Character::GetRageComponent() const {
-    return NULL;
+    return nullptr;
 }
 
 UPhysicalAnimationComponent* ASCP610Character::GetPhysicalAnimationComponent() const {
-    return NULL;
+    return nullptr;
 }
 
 float ASCP610Character::GetMinMoveSpeedVariance() const {
@@ -244,19 +249,19 @@ bool ASCP610Character::GetIsAIPermanentlyDead() const {
 }
 
 UHealthComponent* ASCP610Character::GetHealthComponent() const {
-    return NULL;
+    return nullptr;
 }
 
 UGoreComponent* ASCP610Character::GetGoreComponent() const {
-    return NULL;
+    return nullptr;
 }
 
 FRotator ASCP610Character::GetDesiredRotation() const {
-    return FRotator{};
+    return FRotator();
 }
 
 EZombieLifeState ASCP610Character::GetCurrentLifeState() const {
-    return EZombieLifeState::Alive;
+    return EZombieLifeState(); // Adjust default as needed
 }
 
 bool ASCP610Character::GetCanFakeDeathStart() const {
@@ -274,7 +279,7 @@ void ASCP610Character::CancelFakeDeath() {
 
 void ASCP610Character::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-    
+
     DOREPLIFETIME(ASCP610Character, bIsAIPermanentlyDead);
     DOREPLIFETIME(ASCP610Character, DesiredRotation);
     DOREPLIFETIME(ASCP610Character, ControlRotation);

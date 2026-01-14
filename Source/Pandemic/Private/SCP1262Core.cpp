@@ -30,6 +30,7 @@ ASCP1262Core::ASCP1262Core(const FObjectInitializer& ObjectInitializer) : Super(
     this->OpenDuringPuzzleSound = NULL;
     this->LoopingAudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("LoopingAudio"));
     this->AudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("Audio"));
+    this->AudioComponent->SetupAttachment(RootComponent);
     this->LoopingAudioComponent->SetupAttachment(RootComponent);
     this->AudioComponent->SetupAttachment(RootComponent);
     this->WeakPoint->SetupAttachment(RootComponent);

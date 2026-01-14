@@ -1,9 +1,9 @@
 #include "Credit.h"
 
 FCredit::FCredit() {
-    this->Category = ECreditCategory::Studio;
-    this->Company = ECreditCompany::Internal;
-    this->Priority = ECreditPriority::Highest;
-    this->bFormer = false;
+    this->Role = NULL;
+    this->bGreyOutForcefully = false;
+    this->bForceNickname = false;
+    this->bShowRoleTitle = false;
 }
 

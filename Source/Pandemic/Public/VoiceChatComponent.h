@@ -23,6 +23,12 @@ public:
     UFUNCTION(BlueprintCallable)
     void StartTalking();
     
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool HasVoiceActivity(const TArray<uint8>& AdditionalBuffer, int32 Threshold) const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    int32 GetVoiceLoudness(const TArray<uint8>& AdditionalBuffer) const;
+    
     UFUNCTION(BlueprintCallable)
     void AddToBuffer(TArray<uint8> AdditionalBuffer);
     

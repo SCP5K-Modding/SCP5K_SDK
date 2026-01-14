@@ -2,6 +2,7 @@
 #include "Net/UnrealNetwork.h"
 
 UHallucination::UHallucination() {
+    this->PlayerController = NULL;
     this->StartTime = 0.00f;
     this->Duration = -1.00f;
     this->TickInterval = 10.00f;

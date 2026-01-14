@@ -34,6 +34,9 @@ private:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     USkeletalMeshComponent* SkeletalMesh;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float MaxCharacterHealth;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_LastHitReactionData, meta=(AllowPrivateAccess=true))
     FHitReactionData LastHitReactionData;
     
@@ -80,9 +83,6 @@ public:
     
 protected:
     UFUNCTION(BlueprintCallable)
-    void StopStagger();
-    
-    UFUNCTION(BlueprintCallable)
     void StopHitReaction();
     
 public:
@@ -98,14 +98,17 @@ protected:
     
 public:
     UFUNCTION(BlueprintCallable)
-    void PlayStagger(FHitReactionData ReactionData);
+    void PlayStagger();
     
     UFUNCTION(BlueprintCallable)
-    void PlayHitReaction(FHitReactionData ReactionData);
+    void PlayHitReaction();
     
 protected:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_LastHitReactionData();
+    
+    UFUNCTION(BlueprintCallable)
+    void OnReactionEnded();
     
 public:
     UFUNCTION(BlueprintCallable)

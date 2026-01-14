@@ -12,6 +12,7 @@
 #include "Suppressable.h"
 #include "DeathAnimationData.h"
 #include "EZombieLifeState.h"
+#include "GameplayTagContainer.h"
 #include "RagdollPuppet.h"
 #include "ReanimationData.h"
 #include "Templates/SubclassOf.h"
@@ -28,7 +29,7 @@ class UEnemySubsystem;
 class UFMODAudioComponent;
 class UFMODEvent;
 class UFastReplicatedRagdoll;
-class UFootstepComponent;
+class UFoleyComponent;
 class UGoreComponent;
 class UHealthComponent;
 class UNavLinkCustomComponent;
@@ -41,7 +42,9 @@ class USplatterComponent;
 class UTickOptimizerComponent;
 
 UCLASS(Blueprintable)
-class PANDEMIC_API AAIZombieCharacter : public ACharacter, public IDamageable, public ISuppressable, public IDoorInteraction, public IRagdollPuppet {
+class PANDEMIC_API AAIZombieCharacter : public ACharacter, public IDamageable, public ISuppressable,
+                                        public IDoorInteraction, public IRagdollPuppet
+{
     GENERATED_BODY()
 public:
     DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnZombieUpdatedLifeStateDelegate);
@@ -76,6 +79,9 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bRagdollIsFaceUp;
     
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FGameplayTag OnKillScoreModifierTag;
+    
 private:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UEnemySubsystem* EnemySubsystem;
@@ -92,8 +98,8 @@ private:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     UFMODAudioComponent* FMODAudioComponent;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
-    UFootstepComponent* FootstepComponent;
+   // UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
+  //  UFoleyComponent* FootstepComponent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, Transient, meta=(AllowPrivateAccess=true))
     UHealthComponent* HealthComponent;
@@ -166,6 +172,9 @@ private:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     float RandomMoveSpeedVariance;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FVector FallStart;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_IsAlert, meta=(AllowPrivateAccess=true))
     bool bIsAlert;
@@ -287,6 +296,7 @@ private:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TSubclassOf<UNavigationQueryFilter> ZombieNavigationFilter;
     
+protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<FDeathAnimationData> DeathAnimations;
     
@@ -319,6 +329,12 @@ private:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float FlinchRate;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UAnimMontage* LandingMontage;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float MinFallHeightForLanding;
     
 public:
     AAIZombieCharacter(const FObjectInitializer& ObjectInitializer);
@@ -510,6 +526,9 @@ public:
     
 protected:
     UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+    void MulticastPlayLandingAnimation();
+    
+    UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
     void MulticastFakeDeath();
     
 private:
@@ -605,9 +624,10 @@ public:
 protected:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     UGoreComponent* GetGoreComponent() const;
-    
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    UFootstepComponent* GetFootstepComponent() const;
+    UFoleyComponent* GetFootstepComponent() const;
+
+    //    UFUNCTION(BlueprintCallable, BlueprintPure)
+//    UFoleyComponent* GetFootstepComponent() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     UFMODAudioComponent* GetFMODAudioComponent() const;
@@ -692,6 +712,12 @@ public:
     // Fix for true pure virtual functions not being implemented
     UFUNCTION()
     bool RagdollCanActivate() override PURE_VIRTUAL(RagdollCanActivate, return false;);
+    
+    UFUNCTION(BlueprintCallable)
+    bool IsReadyForCleanup() PURE_VIRTUAL(IsReadyForCleanup, return false;);
+    
+    UFUNCTION(BlueprintCallable)
+    bool IsActive() PURE_VIRTUAL(IsActive, return false;);
     
 };
 

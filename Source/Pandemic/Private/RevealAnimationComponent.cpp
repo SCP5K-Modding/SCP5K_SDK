@@ -3,33 +3,31 @@
 
 URevealAnimationComponent::URevealAnimationComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->bAutoActivate = true;
+    this->bStartIdle = false;
     this->TriggerableDistance = 1400.00f;
     this->bTriggerWithDirectLineOfSight = false;
-    this->bStartIdle = false;
     this->CurrentIdleAnimation = -1;
-    this->bOverrideIdleAnimation = false;
-    this->bAutoInitialize = false;
+    this->bDisableCollisionDuringAnimation = true;
+    this->State = ERevealState::Error;
+    this->TriggerState = ERevealTriggerState::Error;
 }
 
-void URevealAnimationComponent::SetTriggerableDistance(float InTriggerableDistance) {
+void URevealAnimationComponent::WakeAI() const {
 }
 
-void URevealAnimationComponent::SetStartIdle(bool bInStartIdle) {
-}
-
-void URevealAnimationComponent::SetOverrideIdleAnimation(FGameplayTag InOverrideAnimationTag) {
+void URevealAnimationComponent::SetupRevealAnimationComponent() {
 }
 
 void URevealAnimationComponent::Server_PlayIdleAnimation(int32 Index) {
 }
 
-void URevealAnimationComponent::RunBehaviorTree() {
+void URevealAnimationComponent::PlayRevealAnimation(const AActor* Instigator) {
 }
 
-void URevealAnimationComponent::PlayRevealAnimation() {
+void URevealAnimationComponent::PlayIdleAnimationWithTag(const FGameplayTag& Tag) {
 }
 
-void URevealAnimationComponent::PlayIdleAnimationWithTag(FGameplayTag Tag) {
+void URevealAnimationComponent::PlayIdleAnimation() {
 }
 
 void URevealAnimationComponent::OnRep_CurrentIdleAnimation(int32 PreviousValue) {
@@ -44,22 +42,23 @@ void URevealAnimationComponent::OnActorPerceptionUpdated(AActor* Actor, FAIStimu
 void URevealAnimationComponent::Multicast_PlayRevealAnimation_Implementation() {
 }
 
-void URevealAnimationComponent::Multicast_PlayIdleAnimation_Implementation(int32 Index) {
-}
-
 bool URevealAnimationComponent::MontageHasSlot(UAnimMontage* Montage, FName SlotName) {
     return false;
 }
 
-void URevealAnimationComponent::InitializeRevealAnimation() {
+URevealAnimationComponent* URevealAnimationComponent::GetRevealAnimationComponent(const AActor* Actor) {
+    return NULL;
 }
 
-URevealAnimationComponent* URevealAnimationComponent::GetRevealAnimationComponent(AActor* Actor) {
-    return NULL;
+FGameplayTag URevealAnimationComponent::GetCurrentIdleAnimationTag() const {
+    return FGameplayTag{};
 }
 
 int32 URevealAnimationComponent::GetCurrentIdleAnimation() const {
     return 0;
+}
+
+void URevealAnimationComponent::EnableCollision() {
 }
 
 void URevealAnimationComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {

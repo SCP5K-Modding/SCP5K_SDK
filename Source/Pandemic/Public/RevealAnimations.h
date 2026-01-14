@@ -24,7 +24,8 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bPriorityStartAnimation;
-    
+    bool bHasAttack;
+
     FRevealAnimations();
 };
 

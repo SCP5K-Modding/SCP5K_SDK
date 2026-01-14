@@ -1,0 +1,38 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "0.17",
+	"FriendlyName": "GameEventBus",
+	"Description": "Event Bus for Unreal Engine game events",
+	"Category": "Code",
+	"CreatedBy": "🦅Hunter@Affray🦅",
+	"CreatedByURL": "https://www.affray.co",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": true,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "GameEventBus",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+		],
+	"Plugins": [
+		{
+			"Name": "OpenUnrealUtilities",
+			"Enabled": true
+		},
+		{
+			"Name": "GameEventBusTag",
+			"Enabled": false
+		},
+		{
+			"Name": "ModularGameplay",
+			"Enabled": true
+		}
+	]
+}

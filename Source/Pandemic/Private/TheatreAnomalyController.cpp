@@ -63,6 +63,10 @@ bool ATheatreAnomalyController::ForceMoveToScreen(UTheatreScreenComponent* Targe
     return false;
 }
 
+bool ATheatreAnomalyController::ForceLeaveScreen() {
+    return false;
+}
+
 bool ATheatreAnomalyController::FindScreenPath(UTheatreScreenComponent* Target, FScreenPath& Path) {
     return false;
 }
@@ -75,6 +79,10 @@ void ATheatreAnomalyController::ExitPatrolPath() {
 }
 
 void ATheatreAnomalyController::EnterPatrolPath(UTheatreScreenPatrolPathComponent* NewPatrolPath) {
+}
+
+bool ATheatreAnomalyController::CancelPathfinding() {
+    return false;
 }
 
 void ATheatreAnomalyController::AlertToScreen(UTheatreScreenComponent* Target, AActor* EventInstigator, FVector Location) {

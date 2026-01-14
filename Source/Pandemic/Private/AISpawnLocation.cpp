@@ -6,10 +6,12 @@ AAISpawnLocation::AAISpawnLocation(const FObjectInitializer& ObjectInitializer) 
     this->bAllowSubclasses = true;
     this->bOverrideActivationRadius = false;
     this->ActivationRadius = 1000.00f;
+    this->bOneUse = false;
+    this->SpawnLocationComponent = CreateDefaultSubobject<UAISpawnLocationComponent>(TEXT("SpawnLocationComponent"));
+    this->SpawnLocationComponent->SetupAttachment(RootComponent);
 }
 
-bool AAISpawnLocation::SupportsClass(const TSoftClassPtr<APawn>& Class) const {
-    return false;
+void AAISpawnLocation::CopyPropertiesToComponent() {
 }
 
 

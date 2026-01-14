@@ -27,3 +27,7 @@ public:
     GAMEPLAYOBJECTIVES_API FSimpleObjectiveData();
 };
 
+struct X : FSimpleObjectiveData
+{
+};
+

@@ -4,12 +4,17 @@
 #include "ESCP3199ActionState.h"
 #include "3199NavmeshWorldData.generated.h"
 
+class UObject;
+
 USTRUCT(BlueprintType)
 struct F3199NavmeshWorldData {
     GENERATED_BODY()
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<FVector> AllyLocations;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TWeakObjectPtr<UObject> Querier;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FVector QuerierLocation;

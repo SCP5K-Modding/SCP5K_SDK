@@ -152,6 +152,9 @@ public:
     bool ForceMoveToScreen(UTheatreScreenComponent* Target);
     
     UFUNCTION(BlueprintCallable)
+    bool ForceLeaveScreen();
+    
+    UFUNCTION(BlueprintCallable)
     bool FindScreenPath(UTheatreScreenComponent* Target, FScreenPath& Path);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -162,6 +165,9 @@ public:
     
     UFUNCTION(BlueprintCallable)
     void EnterPatrolPath(UTheatreScreenPatrolPathComponent* NewPatrolPath);
+    
+    UFUNCTION(BlueprintCallable)
+    bool CancelPathfinding();
     
     UFUNCTION(BlueprintCallable)
     void AlertToScreen(UTheatreScreenComponent* Target, AActor* EventInstigator, FVector Location);

@@ -10,7 +10,15 @@ void UChatComponent::Server_SendMessage(const FString& Message, const FString& U
 void UChatComponent::SendMessageToUser() {
 }
 
+void UChatComponent::SendMessageToUser_Implementation(const FString& Message, FChatMessageContent ChatMessageContent)
+{
+}
+
 void UChatComponent::SendMessageToEveryone_Implementation(const FString& Message, FChatMessageContent ChatMessageContent) {
+}
+
+void UChatComponent::RunCommand(const FString& Command)
+{
 }
 
 void UChatComponent::RunCommand() {

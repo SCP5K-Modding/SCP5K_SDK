@@ -3,7 +3,14 @@
 UDataBlueprintFunctionLibrary::UDataBlueprintFunctionLibrary() {
 }
 
-void UDataBlueprintFunctionLibrary::InsertIntoCreditsList(TArray<FCredit>& CreditsList, FCredit Credit) {
+void UDataBlueprintFunctionLibrary::SortCreditsList(TArray<FCredit>& CreditsList) {
+}
+
+void UDataBlueprintFunctionLibrary::InsertIntoCreditsList(TArray<FCredit>& CreditsList, FCredit& Credit) {
+}
+
+FString UDataBlueprintFunctionLibrary::GetCreditName(FCredit& Credit) {
+    return TEXT("");
 }
 
 FText UDataBlueprintFunctionLibrary::FormatTextData(APlayerController* PlayerController, FText Text) {
@@ -15,6 +22,10 @@ FString UDataBlueprintFunctionLibrary::FormatInput(const FString& Prefix, const 
 }
 
 void UDataBlueprintFunctionLibrary::FormatDocumentTextTest(const FText Text, TArray<FText>& Pages, FText& Footer) {
+}
+
+FCreditedPerson UDataBlueprintFunctionLibrary::CreateCreditedPersonFromEntry(FCreditsEntry& CreditsEntry) {
+    return FCreditedPerson{};
 }
 
 

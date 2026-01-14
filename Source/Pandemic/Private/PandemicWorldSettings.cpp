@@ -7,6 +7,7 @@ APandemicWorldSettings::APandemicWorldSettings(const FObjectInitializer& ObjectI
     this->PreGameManager = NULL;
     this->bIsGameplay = true;
     this->bCanHost = true;
+    this->bEnableRoomBasedAudioOcclusion = true;
     this->bWaitForAllLevelsToLoad = false;
 }
 

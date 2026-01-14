@@ -33,6 +33,9 @@ public:
     bool ForceMoveToScreen(UTheatreScreenComponent* Screen);
     
     UFUNCTION(BlueprintCallable)
+    bool ForceLeaveScreen();
+    
+    UFUNCTION(BlueprintCallable)
     bool AlertToScreen(UTheatreScreenComponent* Screen, AActor* EventInstigator, FVector Location);
     
 };

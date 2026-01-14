@@ -2,6 +2,8 @@
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Credit.h"
+#include "CreditedPerson.h"
+#include "CreditsEntry.h"
 #include "DataBlueprintFunctionLibrary.generated.h"
 
 class APlayerController;
@@ -14,7 +16,13 @@ public:
 
 private:
     UFUNCTION(BlueprintCallable)
-    static void InsertIntoCreditsList(UPARAM(Ref) TArray<FCredit>& CreditsList, FCredit Credit);
+    static void SortCreditsList(UPARAM(Ref) TArray<FCredit>& CreditsList);
+    
+    UFUNCTION(BlueprintCallable)
+    static void InsertIntoCreditsList(UPARAM(Ref) TArray<FCredit>& CreditsList, UPARAM(Ref) FCredit& Credit);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    static FString GetCreditName(UPARAM(Ref) FCredit& Credit);
     
     UFUNCTION(BlueprintCallable)
     static FText FormatTextData(APlayerController* PlayerController, FText Text);
@@ -24,6 +32,9 @@ private:
     
     UFUNCTION(BlueprintCallable)
     static void FormatDocumentTextTest(const FText Text, TArray<FText>& Pages, FText& Footer);
+    
+    UFUNCTION(BlueprintCallable)
+    static FCreditedPerson CreateCreditedPersonFromEntry(UPARAM(Ref) FCreditsEntry& CreditsEntry);
     
 };
 

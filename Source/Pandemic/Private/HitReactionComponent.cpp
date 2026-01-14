@@ -5,6 +5,7 @@
 UHitReactionComponent::UHitReactionComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->OwningCharacter = NULL;
     this->SkeletalMesh = NULL;
+    this->MaxCharacterHealth = 0.00f;
     this->FrontQuadrantMin = 25.00f;
     this->FrontQuadrantMax = 155.00f;
     this->LeftQuadrantMin = -155.00f;
@@ -19,9 +20,6 @@ bool UHitReactionComponent::TryUpdateHitReactionData(const FSimpleHitData& HitDa
     return false;
 }
 
-void UHitReactionComponent::StopStagger() {
-}
-
 void UHitReactionComponent::StopHitReaction() {
 }
 
@@ -34,13 +32,16 @@ void UHitReactionComponent::SetOwningCharacter(ACharacter* Owner) {
 void UHitReactionComponent::SetLastHitReactionData(FHitReactionData NewData) {
 }
 
-void UHitReactionComponent::PlayStagger(FHitReactionData ReactionData) {
+void UHitReactionComponent::PlayStagger() {
 }
 
-void UHitReactionComponent::PlayHitReaction(FHitReactionData ReactionData) {
+void UHitReactionComponent::PlayHitReaction() {
 }
 
 void UHitReactionComponent::OnRep_LastHitReactionData_Implementation() {
+}
+
+void UHitReactionComponent::OnReactionEnded() {
 }
 
 void UHitReactionComponent::OnHit(UHealthComponent* HealthComponent, FSimpleHitData HitData) {

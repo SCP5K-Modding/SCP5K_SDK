@@ -31,6 +31,9 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TMap<FName, FSpawnGroup> SpawnGroups;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TArray<AAISpawnArea*> SpawnAreas;
+    
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FEnemyUpdatedDelegate OnEnemyDied;
     
@@ -50,6 +53,9 @@ public:
     
     UFUNCTION(BlueprintCallable)
     void UnRegisterSpawnArea(AAISpawnArea* SpawnArea);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool TryGetSpawnGroup(FName SpawnGroupName, FSpawnGroup& OutSpawnGroup) const;
     
     UFUNCTION(BlueprintCallable)
     void StopLoopingSpawn();
@@ -72,17 +78,20 @@ public:
     UFUNCTION(BlueprintCallable)
     void OnWorldBeginPlay();
     
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool IsValidSpawnGroup(const FName& SpawnGroupName) const;
+    
     UFUNCTION(BlueprintCallable)
     void InvestigateAll(FVector Location, float Radius, AActor* Instigator);
     
     UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject"))
     static float GetSpawnScore(UObject* WorldContextObject, AAISpawnArea* Spawn, float DistanceWeight, float MinDistance, float VisibilityWeight, float RandomWeight, float TargetDistance, FName Tag);
     
-    UFUNCTION(BlueprintCallable)
-    TArray<APawn*> GetSpawnGroupEnemies(FName SpawnGroup);
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    TArray<APawn*> GetSpawnGroupEnemies(FName SpawnGroup) const;
     
-    UFUNCTION(BlueprintCallable)
-    FSpawnGroup GetSpawnGroup(FName SpawnGroup);
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    int32 GetNumSpawnGroupEnemies(FName SpawnGroup) const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetKillCounter(FName CounterName, FKillCounter& Counter);

@@ -7,9 +7,21 @@ USCP610AnimationInstance::USCP610AnimationInstance() {
     this->CurrentLifeState = EZombieLifeState::Alive;
     this->bIsRagdolling = false;
     this->bIsReanimating = false;
+   this->VelocityDirection = 0.00f;
     this->RelativeRotation = 0.00f;
     this->bIsMoving = false;
-    this->RandomIdleAnimation = NULL;
+    this->AccellerationDirection = 0.00f;
+    this->AccellerationAmount = 0.00f;
+    this->bIsSprinting = false;
+    this->bIsFalling = false;
+    this->WalkingSpeedRatio = 0.00f;
+    this->RunningSpeedRatio = 0.00f;
+    this->SpeedRatioAmount = 0.50f;
+    this->WalkingSpeed = 100.00f;
+    this->RunningSpeed = 400.00f;
+    this->RunningTransition = 0.30f;
+    this->CurrentSpeedCurveValue = 0.00f;
+    this->CurrentSpeed = 0.00f;    this->RandomIdleAnimation = NULL;
     this->RandomizedAnimStartPosition = 0.00f;
     this->RandomLocomotionAdditiveAnimation = NULL;
 }

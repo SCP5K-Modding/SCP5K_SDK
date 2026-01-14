@@ -1,16 +1,22 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "Engine/EngineBaseTypes.h"
-#include "GameFramework/OnlineReplStructs.h"
 #include "FPSGameplayConfig.h"
-#include "SimpleObjectiveData.h"
 #include "LoadingScreenGameInstance.h"
+#include "UObject/PrimaryAssetId.h"
+#include "Engine/EngineTypes.h"
+#include "Engine/Engine.h"
+#include "Engine/GameInstance.h"
+#include "Engine/NetConnection.h"
+#include "OnGamemodeLoadedDelegate.h"
+#include "OnMapDataLoadedDelegate.h"
 #include "PlayerBan.h"
 #include "PlayerReport.h"
 #include "SelectedMap.h"
+#include "SimpleObjectiveData.h"
+#include "Templates/SubclassOf.h"
 #include "PandemicGameInstance.generated.h"
 
+class APandemicGameModeBase;
 class UMapData;
 
 UCLASS(Blueprintable, ConfigDoNotCheckDefaults, NonTransient, Config=ServerConfig)
@@ -56,6 +62,24 @@ protected:
     
     UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     FString ServerPassword;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bUseVoteKicking;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float VoteKickCooldownDuration;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    int32 VoteKickVoteDuration;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float VoteKickNotificationDuration;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bVoteKickEndAfterAllVoted;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float VoteKickRequiredPercentage;
     
     UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     int32 MaxGameBans;
@@ -118,6 +142,9 @@ protected:
     bool bHasModifiedWhitelist;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bHasModifiedBans;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     bool bHasModifiedConfig;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
@@ -177,6 +204,12 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     int32 CurrentMapCollectionIndex;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TArray<UMapData*> AllAvailableMaps;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TArray<TSubclassOf<APandemicGameModeBase>> AllAvailableGamemodes;
+    
     UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bTeamDamageEnabled;
     
@@ -187,6 +220,12 @@ protected:
     FFPSGameplayConfig GameplayConfig;
     
 public:
+    UPROPERTY(BlueprintAssignable, BlueprintCallable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FOnMapDataLoaded OnMapDataLoaded;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintCallable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FOnGamemodeLoaded OnGamemodeLoaded;
+    
     UPandemicGameInstance();
 
     UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -197,6 +236,12 @@ public:
     
     UFUNCTION(BlueprintCallable)
     void UpdateSession();
+    
+    UFUNCTION(BlueprintCallable)
+    void SyncBans();
+    
+    UFUNCTION(BlueprintCallable)
+    void SetUseVoteKicking(bool bNewUseVoteKicking, bool bUpdateSession);
     
     UFUNCTION(BlueprintCallable)
     void SetUseServerPassword(bool bNewUseServerPasword, bool bUpdateSession);
@@ -229,6 +274,9 @@ public:
     void SaveConfigs(bool bForceSave);
     
     UFUNCTION(BlueprintCallable)
+    void SaveBans();
+    
+    UFUNCTION(BlueprintCallable)
     bool RemovePlayerFromWhitelist(const FString& PlayerID);
     
     UFUNCTION(BlueprintCallable)
@@ -246,9 +294,11 @@ public:
     UFUNCTION(BlueprintCallable)
     bool RemoveAdmin(const FString& PlayerID);
     
-    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    UFUNCTION(BlueprintImplementableEvent, Category = "Network")
     void ReceiveNetworkFailure(ENetworkFailure::Type FailureType, const FString& ErrorString, bool bIsServer);
     
+    virtual void ReceiveNetworkFailure_Implementation(TEnumAsByte<ENetworkFailure::Type> FailureType, const FString& ErrorString, bool bIsServer);
+
     UFUNCTION(BlueprintCallable)
     void ParseMapRotation();
     
@@ -261,11 +311,14 @@ public:
     UFUNCTION(BlueprintCallable)
     void LoadServerConfig();
     
-    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void LoadConfigs();
+    UFUNCTION(BlueprintCallable)
+    void LoadMapData();
     
     UFUNCTION(BlueprintCallable)
-    void LoadBansSoft();
+    void LoadGamemodes();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void LoadConfigs();
     
     UFUNCTION(BlueprintCallable)
     void LoadBans();
@@ -301,6 +354,9 @@ public:
     bool IsJoiningServer() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool IsInSession() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsFriendsOnly() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -313,7 +369,25 @@ public:
     bool GetWasKickedFromServer() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    int32 GetVoteKickVoteDuration() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    float GetVoteKickRequiredPercentage() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    float GetVoteKickNotificationDuration() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool GetVoteKickEndAfterVoted() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    float GetVoteKickCooldownDuration() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetUseWhitelist() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool GetUseVoteKicking() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetUseServerPassword() const;
@@ -389,6 +463,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetHasModifiedConfig() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool GetHasModifiedBans() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetHasModifiedAdmins() const;

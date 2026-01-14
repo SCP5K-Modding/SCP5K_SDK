@@ -19,6 +19,12 @@ UCLASS(Blueprintable, EditInlineNew, ClassGroup=Custom, meta=(BlueprintSpawnable
 class PANDEMIC_API UShootableGlass : public UStaticMeshComponent {
     GENERATED_BODY()
 public:
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FOnGlassBreak OnBreak;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FOnGlassBreak OnBreakUpdated;
+    
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bUseShatteredMesh;
@@ -59,9 +65,6 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FVector DefaultShatterLocation;
     
-    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    FOnGlassBreak OnBreak;
-    
 public:
     UShootableGlass(const FObjectInitializer& ObjectInitializer);
 
@@ -95,6 +98,9 @@ public:
     
     UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
     void MulticastBreak();
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    FSimpleHitData GetHitData() const;
     
 };
 

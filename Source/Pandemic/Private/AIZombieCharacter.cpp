@@ -24,7 +24,7 @@ AAIZombieCharacter::AAIZombieCharacter(const FObjectInitializer& ObjectInitializ
     this->DismembermentComponent = CreateDefaultSubobject<UDismembermentComponent>(TEXT("Dismemberment"));
     this->GoreComponent = CreateDefaultSubobject<UGoreComponent>(TEXT("Gore"));
     this->FMODAudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("FMODAudio"));
-    this->FootstepComponent = CreateDefaultSubobject<UFootstepComponent>(TEXT("Footstep"));
+//    this->FootstepComponent = CreateDefaultSubobject<UFoleyComponent>(TEXT("Footstep"));
     this->HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
     this->PhysicalAnimationComponent = CreateDefaultSubobject<UPhysicalAnimationComponent>(TEXT("PhysicalAnimation"));
     this->SAIMeleeComponent = CreateDefaultSubobject<USAIMeleeComponent>(TEXT("SAIMelee"));
@@ -94,7 +94,8 @@ AAIZombieCharacter::AAIZombieCharacter(const FObjectInitializer& ObjectInitializ
     this->bCanFlinch = true;
     this->FlinchMontage = NULL;
     this->FlinchRate = 0.10f;
-    this->DismembermentComponent->SetupAttachment(RootComponent);
+    this->LandingMontage = NULL;
+    this->MinFallHeightForLanding = 100.00f;
     this->FMODAudioComponent->SetupAttachment(RootComponent);
 }
 
@@ -264,6 +265,9 @@ void AAIZombieCharacter::NetMulticast_RagdollPrepare_Implementation() {
 void AAIZombieCharacter::NetMulticast_RagdollInitiate_Implementation() {
 }
 
+void AAIZombieCharacter::MulticastPlayLandingAnimation_Implementation() {
+}
+
 void AAIZombieCharacter::MulticastFakeDeath_Implementation() {
 }
 
@@ -374,7 +378,7 @@ UGoreComponent* AAIZombieCharacter::GetGoreComponent() const {
     return NULL;
 }
 
-UFootstepComponent* AAIZombieCharacter::GetFootstepComponent() const {
+UFoleyComponent* AAIZombieCharacter::GetFootstepComponent() const {
     return NULL;
 }
 

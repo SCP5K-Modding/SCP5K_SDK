@@ -149,37 +149,16 @@ private:
     TArray<UStaticMeshComponent*> DoorPanelComponents;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    UFMODEvent* AudioDoorSquidDoorCrackingEvent;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    UFMODEvent* AudioDoorSquidDoorCrackingLongEvent;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    UFMODEvent* AudioDoorSquidLowJitteringEvent;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    UFMODEvent* AudioDoorSquidAggressiveJitteringEvent;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UFMODEvent* AudioDoorSquidHeartBeatKnockEvent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    UFMODEvent* AudioDoorSquidKnockingEvent;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    UFMODEvent* AudioDoorSquidDoorBreach;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    UFMODEvent* AudioDoorSquidKillingTarget;
+    UFMODEvent* AudioDoorSquidGotTargetEvent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UFMODEvent* AudioDoorSquidEatingEdibleEvent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UFMODEvent* AudioDoorSquidEatingInedibleEvent;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    UFMODEvent* AudioDoorSquidSpitOutEvent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UFMODEvent* AudioDoorSquidDeathAteGrenade;

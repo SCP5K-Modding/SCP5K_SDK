@@ -6,6 +6,8 @@
 #include "SelectedMap.h"
 #include "MapCollection.generated.h"
 
+class UUserWidget;
+
 UCLASS(Blueprintable)
 class PANDEMIC_API UMapCollection : public UPrimaryDataAsset {
     GENERATED_BODY()
@@ -21,6 +23,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<FIndividualMapData> Maps;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TSoftClassPtr<UUserWidget> CustomMapListUI;
     
     UMapCollection();
 

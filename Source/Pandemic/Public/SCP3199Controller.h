@@ -12,7 +12,6 @@
 class AActor;
 class APawn;
 class ASAIController;
-class ASCP3199Character;
 class USAIMeleeComponent;
 
 UCLASS(Blueprintable)
@@ -69,7 +68,13 @@ private:
     float GeneralSightLineCost;
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float GeneralSightLineMultiplier;
+    
+    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float DirectSightLineCost;
+    
+    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float DirectSightLineMultiplier;
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float DirectSightLineDot;
@@ -226,11 +231,6 @@ protected:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetTargetHealthWeight() const;
     
-public:
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    TArray<ASCP3199Character*> GetSCP3199CharacterAllies() const;
-    
-protected:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetIsSeenByTargets() const;
     

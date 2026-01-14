@@ -12,9 +12,10 @@
 #include "AISpawnArea.generated.h"
 
 class AAISpawnArea;
-class AAISpawnLocation;
 class APawn;
+class UAISpawnLocationComponent;
 class UFMODEvent;
+class UGameAction;
 class UNavigationQueryFilter;
 class UObject;
 class USAIDirection;
@@ -23,6 +24,9 @@ UCLASS(Blueprintable)
 class PANDEMIC_API AAISpawnArea : public AActor {
     GENERATED_BODY()
 public:
+    UFUNCTION(BlueprintCallable, Category = "Spawn")
+    TSoftClassPtr<APawn> GetClass(const TArray<FSpawnClass>& AvailableClasses);
+    
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FSpawnAIMCDelegate AISpawnedMCDelegate;
     
@@ -31,7 +35,10 @@ public:
     
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    TArray<AAISpawnLocation*> ManualSpawnLocations;
+    TArray<AActor*> ManualSpawnLocations;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FName SpawnGroup;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FWaveSpawn DefaultSpawn;
@@ -78,8 +85,11 @@ protected:
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     ESpawnActorCollisionHandlingMethod SpawnCollisionHandling;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    TArray<AAISpawnLocation*> UsedSpawnLocations;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    UGameAction* AllSpawnedActorsDiedGameAction;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    TArray<UAISpawnLocationComponent*> UsedSpawnLocations;
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<AAISpawnArea*> LinkedSpawnAreas;
@@ -91,13 +101,13 @@ public:
     AAISpawnArea(const FObjectInitializer& ObjectInitializer);
 
     UFUNCTION(BlueprintCallable)
-    void SpawnActors(int32 Amount, TArray<FSpawnClass> AvailableClasses);
+    void SpawnActors(int32 Amount, TArray<FSpawnClass> AvailableClasses, const AActor* SpawnInstigator);
     
     UFUNCTION(BlueprintCallable)
-    APawn* SpawnActor(TSoftClassPtr<APawn> Class);
+    APawn* SpawnActor(TSoftClassPtr<APawn> Class, const AActor* SpawnInstigator);
     
     UFUNCTION(BlueprintCallable)
-    void Spawn();
+    void Spawn(const AActor* SpawnInstigator);
     
     UFUNCTION(BlueprintCallable)
     void SetSpawnSound(UFMODEvent* InSpawnSound);
@@ -108,14 +118,17 @@ public:
     UFUNCTION(BlueprintCallable)
     void SetDefaultSpawn(const FWaveSpawn& InDefaultSpawn);
     
+    UFUNCTION(BlueprintCallable)
+    void OnEnemyDied(APawn* Died, int32 RemainingEnemies);
+    
     UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
     void MulticastSpawn();
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    FTransform GetSpawnTransform(TSoftClassPtr<APawn>& Class, AAISpawnLocation*& UsedSpawnLocation);
+    FTransform GetSpawnTransform(TSoftClassPtr<APawn>& Class, UAISpawnLocationComponent*& UsedSpawnLocation);
     
     UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContext"))
-    static float GetSpawnMultiplier(UObject* WorldContext, ESpawnScaling Scaling);
+    static float GetSpawnMultiplier(const UObject* WorldContext, ESpawnScaling Scaling);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     FName GetSpawnerTag() const;
@@ -131,10 +144,10 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     FVector GetClosestPointInSpawnBounds(FVector Location) const;
-    
+
     UFUNCTION(BlueprintCallable)
-    static TSoftClassPtr<APawn> GetClass(const TArray<FSpawnClass>& AvailableClasses);
-    
+    static TSoftClassPtr<APawn> GetSpawnClass(const TArray<FSpawnClass>& AvailableClasses);
+
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetCanBeUsedForWaves() const;
     

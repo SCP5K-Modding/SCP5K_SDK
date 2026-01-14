@@ -13,12 +13,20 @@ public:
     UDialogueComponent* DialogueComponent;
     
     ATOCDialogueSource(const FObjectInitializer& ObjectInitializer);
+    void ServerRequestReportToTOC_Implementation(FName DialogueTableID, bool bIgnorePlayedBefore);
 
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerRequestStopAny();
+    
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void ServerRequestStop(FName DialogueTableID);
     
     UFUNCTION(BlueprintCallable, Reliable, Server)
-    void ServerRequestReportToTOC(FName DialogueTableID);
+    void ServerRequestReportToTOC(FName DialogueTableID, bool bIgnorePlayedBefore);
+
+    void ServerRequestReportToTOC_Implementation(FName DialogueTableID);
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, BlueprintPure)
+    bool HasPlayedLine(FName DialogueTableID);
     
 };
 

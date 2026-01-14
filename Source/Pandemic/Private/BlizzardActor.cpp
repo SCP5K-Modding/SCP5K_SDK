@@ -12,14 +12,22 @@ ABlizzardActor::ABlizzardActor(const FObjectInitializer& ObjectInitializer) : Su
     this->IntensePeriod = 2.00f;
     this->DamageAmount = 1.00f;
     this->DamageFrequency = 0.10f;
-    this->DamageType = NULL;
     this->PhysicsVolume = NULL;
+    this->DamageType = NULL;
+    this->bBlizzardIsIntense = false;
+    this->bBlizzardEnabled = false;
 }
 
 void ABlizzardActor::StopBlizzard_Implementation() {
 }
 
 void ABlizzardActor::StartBlizzard_Implementation() {
+}
+
+void ABlizzardActor::SetBlizzardIsIntense(bool bInBlizzardIsIntense) {
+}
+
+void ABlizzardActor::SetBlizzardEnabled(bool bInBlizzardEnabled) {
 }
 
 void ABlizzardActor::SetApplySlow(bool bInApplySlow) {
@@ -30,6 +38,12 @@ void ABlizzardActor::SetApplySlow(bool bInApplySlow) {
 
 
 void ABlizzardActor::OnRep_SetApplySlow() {
+}
+
+void ABlizzardActor::OnRep_BlizzardIsIntense() {
+}
+
+void ABlizzardActor::OnRep_BlizzardEnabled() {
 }
 
 void ABlizzardActor::OnExcludedActorRemoved(UWeatherExclusionComponent* Component, AActor* OldActor) {
@@ -63,6 +77,8 @@ void ABlizzardActor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     
     DOREPLIFETIME(ABlizzardActor, bActivelySlowing);
+    DOREPLIFETIME(ABlizzardActor, bBlizzardIsIntense);
+    DOREPLIFETIME(ABlizzardActor, bBlizzardEnabled);
 }
 
 

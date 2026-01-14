@@ -8,22 +8,25 @@ public class Pandemic : ModuleRules {
         
         PublicDependencyModuleNames.AddRange(new string[] {
             "AIModule",
-            "AISentience",
             "AIUtils",
+            "AnimationInteractions",
             "Core",
             "CoreUObject",
             "DeveloperSettings",
             "DialogueSystem",
             "Dismemberment",
+            "DynamicAudio",
             "Electronics",
             "Engine",
             "FMODStudio",
             "FPSController",
+            "Flow",
             "GameActions",
+            "GameEventBus",
             "GameUtilities",
+            "GameplayConsole",
             "GameplayObjectives",
             "GameplayTags",
-            "GameplayTasks",
             "Interaction",
             "LevelSequence",
             "LightSensing",
@@ -39,8 +42,11 @@ public class Pandemic : ModuleRules {
             "SignificanceManager",
             "Slate",
             "SlateCore",
+            "Storylets",
             "UMG",
-            "UserInterface",
+            "UserInterface", 
+            "AISentience", 
+            "GameplayTasks"
         });
     }
 }

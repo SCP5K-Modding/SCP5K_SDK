@@ -1,5 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "AISpawnLocationComponent.h"
+#include "AnimInteraction.h"
 #include "GameFramework/Actor.h"
 #include "GameplayTagContainer.h"
 #include "AISpawnLocation.generated.h"
@@ -14,6 +16,9 @@ public:
     FGameplayTag RevealAnimationTag;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TMap<FGameplayTag, FAnimInteraction> AnimationInteractions;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<TSoftClassPtr<APawn>> AllowedClasses;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -25,10 +30,18 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float ActivationRadius;
     
+    UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bOneUse;
+    
+protected:
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    UAISpawnLocationComponent* SpawnLocationComponent;
+    
+public:
     AAISpawnLocation(const FObjectInitializer& ObjectInitializer);
 
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool SupportsClass(const TSoftClassPtr<APawn>& Class) const;
+    UFUNCTION(BlueprintCallable)
+    void CopyPropertiesToComponent();
     
 };
 

@@ -13,6 +13,7 @@ APandemicGameModeBase::APandemicGameModeBase(const FObjectInitializer& ObjectIni
     this->DefaultRespawnTime = 10.00f;
     this->bAllowSinglePlayerRespawns = true;
     this->SinglePlayerRespawns = 4;
+    this->SpawnInvulnerabilityTime = 2.00f;
     this->GameModeName = TEXT("PandemicGameMode");
     this->bUseFactionCharacter = true;
     this->CurrentPlayers = 0;
@@ -21,6 +22,7 @@ APandemicGameModeBase::APandemicGameModeBase(const FObjectInitializer& ObjectIni
     this->AISpawnScale = 1.00f;
     this->bRequirePlayerReady = true;
     this->bUseMapVote = true;
+    this->bUseVoteKicking = true;
     this->DisplayableStats = 0;
     this->PandemicGameStateBase = NULL;
     this->bFailOnNoPlayers = true;
@@ -28,12 +30,16 @@ APandemicGameModeBase::APandemicGameModeBase(const FObjectInitializer& ObjectIni
     this->RestartTime = 15;
     this->StartGameTime = 3;
     this->MinPlayers = 1;
+    this->CreditsDataTable = NULL;
 }
 
 void APandemicGameModeBase::TryRemoveGlobalBan_Implementation(const FString& PlayerID) {
 }
 
 void APandemicGameModeBase::TryAddGlobalBan_Implementation(const FString& PlayerID, const FString& Reason, int32 Days) {
+}
+
+void APandemicGameModeBase::StopRespawnWave() {
 }
 
 void APandemicGameModeBase::StartRespawnWaveWithTime(int32 CustomRespawnWaveTime) {
@@ -48,7 +54,7 @@ void APandemicGameModeBase::StartRespawnPlayer(APlayerController* Player, float 
 void APandemicGameModeBase::SpectatePlayer(APlayerController* Controller) {
 }
 
-bool APandemicGameModeBase::SpawnPlayerAtPlayerStart(APlayerController* Controller, TSubclassOf<APawn> Class) {
+bool APandemicGameModeBase::SpawnPlayerAtPlayerStart(APlayerController* Controller, TSubclassOf<APawn> Class, AActor*& ChosenPlayerStart) {
     return false;
 }
 
@@ -100,7 +106,7 @@ bool APandemicGameModeBase::ReceivePreLogin_Implementation(const FString& Option
 }
 
 
-void APandemicGameModeBase::PlayerDied_Implementation(APandemicPlayerState* Player, bool bIsDeath) {
+void APandemicGameModeBase::PlayerDied_Implementation(APandemicPlayerState* Player, EPlayerDeathReason Reason) {
 }
 
 void APandemicGameModeBase::PlayerAlive_Implementation(APandemicPlayerState* Player) {
@@ -114,11 +120,15 @@ bool APandemicGameModeBase::KickPlayer(const FString& PlayerNameOrID, const FStr
     return false;
 }
 
+bool APandemicGameModeBase::IsVoteKickingAllowed() const {
+    return false;
+}
+
 bool APandemicGameModeBase::IsPlayerOwner(APlayerController* Player) const {
     return false;
 }
 
-bool APandemicGameModeBase::IsPlayerDev(APlayerController* Player, UDataTable* CreditsDataTable) const {
+bool APandemicGameModeBase::IsPlayerDev(APlayerController* Player, UDataTable* InCreditsDataTable) const {
     return false;
 }
 
@@ -194,12 +204,18 @@ TArray<TSoftObjectPtr<UFPSItemData>> APandemicGameModeBase::GetAvailableItemsInS
     return TArray<TSoftObjectPtr<UFPSItemData>>();
 }
 
+void APandemicGameModeBase::ForceRespawnPlayer(APlayerController* Player, AActor*& ChosenPlayerStart) {
+}
+
 bool APandemicGameModeBase::CanAlwaysJoin_Implementation(FUniqueNetIdRepl NetID) {
     return false;
 }
 
 bool APandemicGameModeBase::AreAllPlayersReady() const {
     return false;
+}
+
+void APandemicGameModeBase::AddUsersMessage(const FChatMessageContent Message) {
 }
 
 bool APandemicGameModeBase::AddOwnerFromPlayerState(APlayerState* Player) {

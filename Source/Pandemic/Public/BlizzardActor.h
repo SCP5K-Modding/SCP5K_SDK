@@ -39,11 +39,17 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float DamageFrequency;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    AFPSPhysicsVolume* PhysicsVolume;
+    
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TSubclassOf<UDamageType> DamageType;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    AFPSPhysicsVolume* PhysicsVolume;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_BlizzardIsIntense, meta=(AllowPrivateAccess=true))
+    bool bBlizzardIsIntense;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_BlizzardEnabled, meta=(AllowPrivateAccess=true))
+    bool bBlizzardEnabled;
     
 public:
     ABlizzardActor(const FObjectInitializer& ObjectInitializer);
@@ -57,6 +63,12 @@ public:
     void StartBlizzard();
     
 protected:
+    UFUNCTION(BlueprintCallable)
+    void SetBlizzardIsIntense(bool bInBlizzardIsIntense);
+    
+    UFUNCTION(BlueprintCallable)
+    void SetBlizzardEnabled(bool bInBlizzardEnabled);
+    
     UFUNCTION(BlueprintCallable)
     void SetApplySlow(bool bInApplySlow);
     
@@ -76,6 +88,12 @@ public:
 protected:
     UFUNCTION(BlueprintCallable)
     void OnRep_SetApplySlow();
+    
+    UFUNCTION(BlueprintCallable)
+    void OnRep_BlizzardIsIntense();
+    
+    UFUNCTION(BlueprintCallable)
+    void OnRep_BlizzardEnabled();
     
 private:
     UFUNCTION(BlueprintCallable)

@@ -1,4 +1,5 @@
 #include "PandemicGameStateBase.h"
+#include "AchievementManagerComponent.h"
 #include "Net/UnrealNetwork.h"
 
 APandemicGameStateBase::APandemicGameStateBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
@@ -8,6 +9,7 @@ APandemicGameStateBase::APandemicGameStateBase(const FObjectInitializer& ObjectI
     this->Difficulty = NULL;
     this->CurrentMapCollectionIndex = -1;
     this->bForceHideHUD = false;
+    this->AchievementManager = CreateDefaultSubobject<UAchievementManagerComponent>(TEXT("Achievement Manager"));
     this->EndGameTimestamp = 0;
     this->RestartGameTimestamp = 0;
     this->StartGameTimestamp = 0;
@@ -16,6 +18,10 @@ APandemicGameStateBase::APandemicGameStateBase(const FObjectInitializer& ObjectI
     this->CurrentSinglePlayerRespawns = 0;
     this->bAllowSinglePlayerRespawns = false;
     this->GameStatus = EGameStatus::GS_PreGame;
+    this->RandomSeedMode = ERandomSeedMode::RandomizeAtStart;
+    this->RandomSeed = 0;
+    this->LongshotDistance = 2000.00f;
+    this->bIsVoteKickAllowed = false;
     this->bIsUsingMapCollection = false;
     this->MaxCharacterCount = 100;
 }
@@ -30,10 +36,16 @@ void APandemicGameStateBase::StartCinematic(bool bSkippable, float Duration, FNa
 void APandemicGameStateBase::SkipCinematic(FName Name) {
 }
 
+void APandemicGameStateBase::SetVotesInProgress(const TArray<FVote>& NewVotes) {
+}
+
 void APandemicGameStateBase::SetUnlockedCheckpoint(FName CheckpointName) {
 }
 
 void APandemicGameStateBase::SetUIState(FGameUIState NewUIState) {
+}
+
+void APandemicGameStateBase::SetTeams(const TArray<FTeamData>& NewTeams) {
 }
 
 void APandemicGameStateBase::SetStatus(EGameStatus NewStatus) {
@@ -43,6 +55,9 @@ void APandemicGameStateBase::SetMaxCharacterCount(int32 MaxCharacters) {
 }
 
 void APandemicGameStateBase::SetMapCollectionList(TArray<FName> Maps) {
+}
+
+void APandemicGameStateBase::SetIsVoteKickAllowed(bool bNewVoteKickAllowed) {
 }
 
 void APandemicGameStateBase::SetIndividualMapList(TArray<FSelectedMap> Maps) {
@@ -69,7 +84,44 @@ void APandemicGameStateBase::SetCinematicState(FCinematicState NewCinematicState
 void APandemicGameStateBase::SetAllowSinglePlayerRespawns(bool bNewAllowSinglePlayerRespawns) {
 }
 
+void APandemicGameStateBase::SetActiveVoteKicks(const TArray<FKickData>& NewVoteKicks) {
+}
+
+void APandemicGameStateBase::ServerSubmitVoteKick(int32 VoteResult, int32 CurrentVoteIndex, int32 CurrentKickIndex) {
+}
+
+void APandemicGameStateBase::ServerRemoveVoteKick(const APlayerState* VoteOwningPlayer) {
+}
+
+void APandemicGameStateBase::ServerEndVoteKick(int32 CurrentVoteIndex, int32 CurrentKickIndex) {
+}
+
+void APandemicGameStateBase::ServerCancelVoteKick(int32 CurrentVoteIndex, int32 CurrentKickIndex) {
+}
+
+void APandemicGameStateBase::ServerBeginVoteKick(const FVote& VoteToBegin, const FKickData& NewKickData) {
+}
+
+void APandemicGameStateBase::ServerAddVoteKick(const APlayerState* VotingPlayer, int32 NewVoteValue) {
+}
+
 void APandemicGameStateBase::SavePlayerLoadouts() {
+}
+
+bool APandemicGameStateBase::RetrieveVoteIndicesByType(int32 TeamIndex, EVoteType DesiredVoteType, TArray<int32>& OutVoteIndices) const {
+    return false;
+}
+
+bool APandemicGameStateBase::RetrieveTeamVotesByType(int32 TeamIndex, EVoteType DesiredVoteType, TArray<FVote>& OutFoundVotes) const {
+    return false;
+}
+
+bool APandemicGameStateBase::RetrieveKickIndexByTeam(int32 TeamIndex, int32& OutKickIndex) const {
+    return false;
+}
+
+bool APandemicGameStateBase::RetrieveKickDataByTeam(int32 TeamIndex, FKickData& OutKickData) const {
+    return false;
 }
 
 void APandemicGameStateBase::RemoveCustomJournalEntryByID(FName JournalID) {
@@ -78,7 +130,19 @@ void APandemicGameStateBase::RemoveCustomJournalEntryByID(FName JournalID) {
 void APandemicGameStateBase::RemoveCustomJournalEntry(UJournalDataEntry* JournalList) {
 }
 
+void APandemicGameStateBase::RemoveActiveVoteKickData(int32 IndexToRemove) {
+}
+
+void APandemicGameStateBase::ReceivedMessage(const FString& Name, const FString& Message) {
+}
+
 void APandemicGameStateBase::PushGameUI_Implementation(const TArray<TSoftClassPtr<UActivatableWidget>>& UIList) {
+}
+
+void APandemicGameStateBase::PushCachedPreGameUI() {
+}
+
+void APandemicGameStateBase::PushCachedPostGameUI() {
 }
 
 void APandemicGameStateBase::PlayerReadyUpdated_Implementation(APandemicPlayerState* Player, bool bIsReady) {
@@ -87,7 +151,7 @@ void APandemicGameStateBase::PlayerReadyUpdated_Implementation(APandemicPlayerSt
 void APandemicGameStateBase::PlayerFinishedLoading_Implementation(APandemicPlayerState* Player) {
 }
 
-void APandemicGameStateBase::PlayerDied_Implementation(APandemicPlayerState* Player, bool bIsDeath) {
+void APandemicGameStateBase::PlayerDied_Implementation(APandemicPlayerState* Player, EPlayerDeathReason Reason) {
 }
 
 void APandemicGameStateBase::PlayerAlive_Implementation(APandemicPlayerState* Player) {
@@ -96,10 +160,19 @@ void APandemicGameStateBase::PlayerAlive_Implementation(APandemicPlayerState* Pl
 void APandemicGameStateBase::PassOnMissionItemFromPlayer(APandemicPlayerState* Player, UMissionItemSlot* Slot, bool bForcePassOn) {
 }
 
+void APandemicGameStateBase::OnTeamPlayerRemoved(const APandemicPlayerState* Player, int32 PreviousTeamIndex) {
+}
+
+void APandemicGameStateBase::OnTeamPlayerAdded(const APandemicPlayerState* Player, int32 NewTeamIndex) {
+}
+
 void APandemicGameStateBase::OnRep_UpdateCharacterCount_Implementation() {
 }
 
 void APandemicGameStateBase::OnRep_UIState_Implementation(FGameUIState PreviousState) {
+}
+
+void APandemicGameStateBase::OnRep_Teams_Implementation(const TArray<FTeamData>& PreviousTeamsData) {
 }
 
 void APandemicGameStateBase::OnRep_SpawnLocations_Implementation() {
@@ -118,6 +191,9 @@ void APandemicGameStateBase::OnRep_MapCollectionIndex_Implementation() {
 }
 
 void APandemicGameStateBase::OnRep_LastCheckpoint_Implementation() {
+}
+
+void APandemicGameStateBase::OnRep_IsVoteKickAllowed_Implementation() {
 }
 
 void APandemicGameStateBase::OnRep_IndividualMapList_Implementation() {
@@ -150,10 +226,32 @@ void APandemicGameStateBase::OnRep_bForceHideHUD_Implementation() {
 void APandemicGameStateBase::OnRep_AlivePlayers_Implementation() {
 }
 
+void APandemicGameStateBase::OnRep_ActiveVoteKicks_Implementation(const TArray<FKickData>& PreviousVoteKicks) {
+}
+
+void APandemicGameStateBase::OnCoOpPlayerRemoved(APlayerState* RemovedPlayer) {
+}
+
+void APandemicGameStateBase::OnCoOpPlayerAdded(APlayerState* AddedPlayer) {
+}
+
 void APandemicGameStateBase::ObjectiveCompleted_Implementation(UObjective* Objective, bool bSucceeded) {
 }
 
+void APandemicGameStateBase::MulticastCosmeticEndVoteKick_Implementation(int32 VoteKickTeamIndex) {
+}
+
+void APandemicGameStateBase::MulticastCosmeticCancelVoteKick_Implementation(int32 VoteKickTeamIndex) {
+}
+
 void APandemicGameStateBase::Multicast_SendMessageToAll_Implementation(const FString& Name, const FString& Message) {
+}
+
+void APandemicGameStateBase::LoadAchievementData() {
+}
+
+bool APandemicGameStateBase::IsVoteKickInProgress(int32 TeamIndex) const {
+    return false;
 }
 
 bool APandemicGameStateBase::IsUsingMapCollection(FName& CollectionName) const {
@@ -165,6 +263,14 @@ bool APandemicGameStateBase::IsSessionBegun() {
 }
 
 bool APandemicGameStateBase::IsReadyForUI() {
+    return false;
+}
+
+bool APandemicGameStateBase::IsLocalPlayersTeam(int32 TeamIndex) const {
+    return false;
+}
+
+bool APandemicGameStateBase::IsLocalPlayer(APlayerState* Player) const {
     return false;
 }
 
@@ -192,8 +298,20 @@ bool APandemicGameStateBase::HasCheckpoint() const {
     return false;
 }
 
+TArray<FVote> APandemicGameStateBase::GetVotesInProgress() const {
+    return TArray<FVote>();
+}
+
 EGameStatus APandemicGameStateBase::GetStatus() const {
     return EGameStatus::GS_Standby;
+}
+
+int32 APandemicGameStateBase::GetScoreForTags(const FGameplayTagContainer& InTags) const {
+    return 0;
+}
+
+int32 APandemicGameStateBase::GetRandomSeed() const {
+    return 0;
 }
 
 FVector APandemicGameStateBase::GetRandomPlayerLocation(APlayerState*& Player) {
@@ -202,6 +320,10 @@ FVector APandemicGameStateBase::GetRandomPlayerLocation(APlayerState*& Player) {
 
 TArray<UJournalDataEntry*> APandemicGameStateBase::GetPublicCustomJournalList() {
     return TArray<UJournalDataEntry*>();
+}
+
+TArray<APandemicPlayerState*> APandemicGameStateBase::GetPlayersPendingRespawn() const {
+    return TArray<APandemicPlayerState*>();
 }
 
 int32 APandemicGameStateBase::GetNumReadyPlayers() const {
@@ -232,6 +354,10 @@ FCheckpoint APandemicGameStateBase::GetLastCheckpoint() const {
     return FCheckpoint{};
 }
 
+bool APandemicGameStateBase::GetIsVoteKickAllowed() const {
+    return false;
+}
+
 int32 APandemicGameStateBase::GetCurrentSinglePlayerRespawns() const {
     return 0;
 }
@@ -248,6 +374,10 @@ bool APandemicGameStateBase::GetAllowSinglePlayerRespawns() const {
     return false;
 }
 
+TArray<FKickData> APandemicGameStateBase::GetActiveVoteKicks() const {
+    return TArray<FKickData>();
+}
+
 void APandemicGameStateBase::EndCinematic(FName Name) {
 }
 
@@ -255,6 +385,9 @@ void APandemicGameStateBase::CinematicStarted_Implementation(FName Name, ALevelS
 }
 
 void APandemicGameStateBase::CinematicEnded_Implementation(FName Name, bool bWasSkipped) {
+}
+
+void APandemicGameStateBase::CheckAllPlayersLoaded() {
 }
 
 bool APandemicGameStateBase::AreAllPlayersReady() const {
@@ -271,6 +404,10 @@ void APandemicGameStateBase::AddSharedMissionItem(UMissionItem* MissionItem) {
 void APandemicGameStateBase::AddCustomJournalEntry(UJournalDataEntry* JournalEntry) {
 }
 
+int32 APandemicGameStateBase::AddActiveVoteKickData(const FKickData& DataToAdd) {
+    return 0;
+}
+
 void APandemicGameStateBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     
@@ -285,7 +422,9 @@ void APandemicGameStateBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
     DOREPLIFETIME(APandemicGameStateBase, CurrentCollectionMapList);
     DOREPLIFETIME(APandemicGameStateBase, CurrentMapCollectionIndex);
     DOREPLIFETIME(APandemicGameStateBase, AlivePlayers);
+    DOREPLIFETIME(APandemicGameStateBase, Teams);
     DOREPLIFETIME(APandemicGameStateBase, GameUIList);
+    DOREPLIFETIME(APandemicGameStateBase, LateJoinUIList);
     DOREPLIFETIME(APandemicGameStateBase, SpawnLocations);
     DOREPLIFETIME(APandemicGameStateBase, bForceHideHUD);
     DOREPLIFETIME(APandemicGameStateBase, UIState);
@@ -298,6 +437,10 @@ void APandemicGameStateBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
     DOREPLIFETIME(APandemicGameStateBase, bAllowSinglePlayerRespawns);
     DOREPLIFETIME(APandemicGameStateBase, LastCheckpointID);
     DOREPLIFETIME(APandemicGameStateBase, GameStatus);
+    DOREPLIFETIME(APandemicGameStateBase, RandomSeed);
+    DOREPLIFETIME(APandemicGameStateBase, bIsVoteKickAllowed);
+    DOREPLIFETIME(APandemicGameStateBase, ActiveVoteKicks);
+    DOREPLIFETIME(APandemicGameStateBase, VotesInProgress);
     DOREPLIFETIME(APandemicGameStateBase, PublicCustomJournalList);
     DOREPLIFETIME(APandemicGameStateBase, bIsUsingMapCollection);
     DOREPLIFETIME(APandemicGameStateBase, MaxCharacterCount);

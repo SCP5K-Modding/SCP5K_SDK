@@ -75,7 +75,8 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float DamageDelay;
-    
+    float FreezeRagdollTime;
+
 private:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     bool bInitializedRevealAnimations;
@@ -85,7 +86,11 @@ private:
     
 public:
     ASCP098(const FObjectInitializer& ObjectInitializer);
+    float TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent, AController* EventInstigator,
+                     AActor* DamageCauser);
 
+    void FreezeRagdoll();
+    void Die_Implementation(AActor* Causer, AController* InstigatedBy, bool bHeadshot);
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
@@ -125,7 +130,7 @@ private:
     
 public:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, BlueprintNativeEvent)
-    void Die(AActor* Causer, AController* InstigatedBy);
+    void Die_Implementation    (AActor* Causer, AController* InstigatedBy);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void CosmeticDie();

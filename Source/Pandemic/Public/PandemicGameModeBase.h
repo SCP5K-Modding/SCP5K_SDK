@@ -5,11 +5,13 @@
 #include "GameFramework/GameModeBase.h"
 #include "GameFramework/OnlineReplStructs.h"
 #include "ChatMessageContent.h"
+#include "EPlayerDeathReason.h"
 #include "PlayerReport.h"
 #include "Templates/SubclassOf.h"
 #include "PandemicGameModeBase.generated.h"
 
 class AAISpawnArea;
+class AActor;
 class APandemicGameStateBase;
 class APandemicPlayerState;
 class APawn;
@@ -20,7 +22,7 @@ class UDataTable;
 class UFPSItemData;
 class UPrimitiveComponent;
 
-UCLASS(Blueprintable, NonTransient)
+UCLASS(Blueprintable, NonTransient, Config=Engine)
 class PANDEMIC_API APandemicGameModeBase : public AGameModeBase {
     GENERATED_BODY()
 public:
@@ -44,6 +46,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     int32 SinglePlayerRespawns;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float SpawnInvulnerabilityTime;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FName GameModeName;
@@ -76,6 +81,9 @@ public:
     bool bUseMapVote;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bUseVoteKicking;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     int32 DisplayableStats;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -100,7 +108,13 @@ public:
     TArray<TSoftClassPtr<UActivatableWidget>> PreGameUI;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TArray<TSoftClassPtr<UActivatableWidget>> LateJoinUI;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<TSoftClassPtr<UActivatableWidget>> PostGameUI;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UDataTable* CreditsDataTable;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<FChatMessageContent> MessageLog;
@@ -119,6 +133,9 @@ public:
     void TryAddGlobalBan(const FString& PlayerID, const FString& Reason, int32 Days);
     
     UFUNCTION(BlueprintCallable)
+    void StopRespawnWave();
+    
+    UFUNCTION(BlueprintCallable)
     void StartRespawnWaveWithTime(int32 CustomRespawnWaveTime);
     
     UFUNCTION(BlueprintCallable)
@@ -131,7 +148,7 @@ public:
     void SpectatePlayer(APlayerController* Controller);
     
     UFUNCTION(BlueprintCallable)
-    bool SpawnPlayerAtPlayerStart(APlayerController* Controller, TSubclassOf<APawn> Class);
+    bool SpawnPlayerAtPlayerStart(APlayerController* Controller, TSubclassOf<APawn> Class, AActor*& ChosenPlayerStart);
     
     UFUNCTION(BlueprintCallable)
     bool SpawnPlayer(APlayerController* Controller, TSubclassOf<APawn> Class, FTransform Transform);
@@ -175,7 +192,7 @@ public:
     void ReceivePostSeamlessTravel();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void PlayerDied(APandemicPlayerState* Player, bool bIsDeath);
+    void PlayerDied(APandemicPlayerState* Player, EPlayerDeathReason Reason);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void PlayerAlive(APandemicPlayerState* Player);
@@ -187,10 +204,13 @@ public:
     bool KickPlayer(const FString& PlayerNameOrID, const FString& Reason);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool IsVoteKickingAllowed() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsPlayerOwner(APlayerController* Player) const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsPlayerDev(APlayerController* Player, UDataTable* CreditsDataTable) const;
+    bool IsPlayerDev(APlayerController* Player, UDataTable* InCreditsDataTable) const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsPlayerBanned(APlayerController* Player) const;
@@ -246,11 +266,17 @@ public:
     UFUNCTION(BlueprintCallable)
     TArray<TSoftObjectPtr<UFPSItemData>> GetAvailableItemsInSlot(int32 SlotIndex, APandemicPlayerState* Player);
     
+    UFUNCTION(BlueprintCallable)
+    void ForceRespawnPlayer(APlayerController* Player, AActor*& ChosenPlayerStart);
+    
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     bool CanAlwaysJoin(FUniqueNetIdRepl NetID);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool AreAllPlayersReady() const;
+    
+    UFUNCTION(BlueprintCallable)
+    void AddUsersMessage(const FChatMessageContent Message);
     
     UFUNCTION(BlueprintCallable)
     bool AddOwnerFromPlayerState(APlayerState* Player);

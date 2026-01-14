@@ -3,7 +3,7 @@
 
 AAISpawnArea::AAISpawnArea(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
     this->bReplicates = true;
-    const FProperty* p_RemoteRole = UObjectBase::GetClass()->FindPropertyByName("RemoteRole");
+    const FProperty* p_RemoteRole = Super::GetClass()->FindPropertyByName("RemoteRole");
     (*p_RemoteRole->ContainerPtrToValuePtr<TEnumAsByte<ENetRole>>(this)) = ROLE_SimulatedProxy;
     this->RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
     this->Attempts = 10;
@@ -17,17 +17,18 @@ AAISpawnArea::AAISpawnArea(const FObjectInitializer& ObjectInitializer) : Super(
     this->bDisableOnSpawn = true;
     this->ReEnableTime = 0.00f;
     this->SpawnCollisionHandling = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    this->AllSpawnedActorsDiedGameAction = NULL;
     this->QueryFilterClass = NULL;
 }
 
-void AAISpawnArea::SpawnActors(int32 Amount, TArray<FSpawnClass> AvailableClasses) {
+void AAISpawnArea::SpawnActors(int32 Amount, TArray<FSpawnClass> AvailableClasses, const AActor* SpawnInstigator) {
 }
 
-APawn* AAISpawnArea::SpawnActor(TSoftClassPtr<APawn> Class) {
+APawn* AAISpawnArea::SpawnActor(TSoftClassPtr<APawn> Class, const AActor* SpawnInstigator) {
     return NULL;
 }
 
-void AAISpawnArea::Spawn() {
+void AAISpawnArea::Spawn(const AActor* SpawnInstigator) {
 }
 
 void AAISpawnArea::SetSpawnSound(UFMODEvent* InSpawnSound) {
@@ -39,14 +40,17 @@ void AAISpawnArea::SetEnabled(bool bNewEnabled) {
 void AAISpawnArea::SetDefaultSpawn(const FWaveSpawn& InDefaultSpawn) {
 }
 
+void AAISpawnArea::OnEnemyDied(APawn* Died, int32 RemainingEnemies) {
+}
+
 void AAISpawnArea::MulticastSpawn_Implementation() {
 }
 
-FTransform AAISpawnArea::GetSpawnTransform(TSoftClassPtr<APawn>& Class, AAISpawnLocation*& UsedSpawnLocation) {
+FTransform AAISpawnArea::GetSpawnTransform(TSoftClassPtr<APawn>& Class, UAISpawnLocationComponent*& UsedSpawnLocation) {
     return FTransform{};
 }
 
-float AAISpawnArea::GetSpawnMultiplier(UObject* WorldContext, ESpawnScaling Scaling) {
+float AAISpawnArea::GetSpawnMultiplier(const UObject* WorldContext, ESpawnScaling Scaling) {
     return 0.0f;
 }
 
@@ -68,6 +72,11 @@ FWaveSpawn AAISpawnArea::GetDefaultSpawn() const {
 
 FVector AAISpawnArea::GetClosestPointInSpawnBounds(FVector Location) const {
     return FVector{};
+}
+
+TSoftClassPtr<APawn> AAISpawnArea::GetSpawnClass(const TArray<FSpawnClass>& AvailableClasses)
+{
+    return APawn::StaticClass();
 }
 
 TSoftClassPtr<APawn> AAISpawnArea::GetClass(const TArray<FSpawnClass>& AvailableClasses) {

@@ -21,6 +21,7 @@ ASCP1262Spitter::ASCP1262Spitter(const FObjectInitializer& ObjectInitializer) : 
     this->IdleSound = NULL;
     this->bStartAlert = false;
     this->MinBlendPhysicsSignificance = 0.70f;
+    this->MinSignificanceForAnimation = 0.50f;
     this->MeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
     this->LoopingAudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("LoopingAudio"));
     this->MeleeComponent = CreateDefaultSubobject<USAIMeleeComponent>(TEXT("Melee"));
@@ -30,6 +31,7 @@ ASCP1262Spitter::ASCP1262Spitter(const FObjectInitializer& ObjectInitializer) : 
     this->SCP1262Controller = NULL;
     this->bIsFiring = false;
     this->StaggerDirection = EStaggerDirection::None;
+    this->LoopingAudioComponent->SetupAttachment(RootComponent);
     this->MeshComponent->SetupAttachment(RootComponent);
     this->LoopingAudioComponent->SetupAttachment(RootComponent);
 }
@@ -41,6 +43,12 @@ void ASCP1262Spitter::StartStaggering(FVector StaggerVector) {
 }
 
 void ASCP1262Spitter::StartFireProjectile(FVector TargetLocation) {
+}
+
+void ASCP1262Spitter::SetCurrentLookTarget(FVector NewLookTarget) {
+}
+
+void ASCP1262Spitter::SetAlert(bool bNewAlert) {
 }
 
 void ASCP1262Spitter::ReviveOrReveal() {

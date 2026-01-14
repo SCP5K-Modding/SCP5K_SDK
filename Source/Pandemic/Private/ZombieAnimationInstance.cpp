@@ -11,6 +11,11 @@ UZombieAnimationInstance::UZombieAnimationInstance() {
     this->bIsServer = false;
     this->CurrentLifeState = EZombieLifeState::Alive;
     this->bIsRagdolling = false;
+	this->VelocityDirection = 0.00f;
+    this->RelativeRotation = 0.00f;
+    this->AccellerationDirection = 0.00f;
+    this->AccellerationAmount = 0.00f;
+    this->AccelerationSmoothingSpeed = 5.00f;
     this->bIsFakeRagdolling = false;
     this->bIsReanimating = false;
     this->LookAtRotationAlpha = 0.00f;

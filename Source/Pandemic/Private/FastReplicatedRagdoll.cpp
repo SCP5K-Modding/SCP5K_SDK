@@ -7,6 +7,7 @@ UFastReplicatedRagdoll::UFastReplicatedRagdoll(const FObjectInitializer& ObjectI
     this->ForceCorrectionTargetBone = TEXT("head");
     this->TorgueForceMultiplier = 1.00f;
     this->RagdollPhysicalAnimationProfileName = TEXT("ActiveRagdoll");
+    this->RagdollCollisionProfileName = TEXT("Ragdoll");
     this->bDoRagdollPhysicalAnimation = true;
     this->RagdollAnimationSlotName = TEXT("Additive");
     this->RagdollPhysicalAnimationSpeedScale = 0.10f;

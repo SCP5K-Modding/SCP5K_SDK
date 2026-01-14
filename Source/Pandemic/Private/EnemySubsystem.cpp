@@ -15,6 +15,10 @@ void UEnemySubsystem::UpdateEnemies() {
 void UEnemySubsystem::UnRegisterSpawnArea(AAISpawnArea* SpawnArea) {
 }
 
+bool UEnemySubsystem::TryGetSpawnGroup(FName SpawnGroupName, FSpawnGroup& OutSpawnGroup) const {
+    return false;
+}
+
 void UEnemySubsystem::StopLoopingSpawn() {
 }
 
@@ -39,6 +43,10 @@ void UEnemySubsystem::RegisterSpawnArea(AAISpawnArea* SpawnArea) {
 void UEnemySubsystem::OnWorldBeginPlay() {
 }
 
+bool UEnemySubsystem::IsValidSpawnGroup(const FName& SpawnGroupName) const {
+    return false;
+}
+
 void UEnemySubsystem::InvestigateAll(FVector Location, float Radius, AActor* Instigator) {
 }
 
@@ -46,12 +54,12 @@ float UEnemySubsystem::GetSpawnScore(UObject* WorldContextObject, AAISpawnArea* 
     return 0.0f;
 }
 
-TArray<APawn*> UEnemySubsystem::GetSpawnGroupEnemies(FName SpawnGroup) {
+TArray<APawn*> UEnemySubsystem::GetSpawnGroupEnemies(FName SpawnGroup) const {
     return TArray<APawn*>();
 }
 
-FSpawnGroup UEnemySubsystem::GetSpawnGroup(FName SpawnGroup) {
-    return FSpawnGroup{};
+int32 UEnemySubsystem::GetNumSpawnGroupEnemies(FName SpawnGroup) const {
+    return 0;
 }
 
 bool UEnemySubsystem::GetKillCounter(FName CounterName, FKillCounter& Counter) {

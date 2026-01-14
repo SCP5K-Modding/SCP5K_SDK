@@ -1,7 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Engine/EngineBaseTypes.h"
-#include "Engine/EngineBaseTypes.h"
 #include "Components/SlateWrapperTypes.h"
 #include "Blueprint/UserWidget.h"
 #include "EWidgetInputMode.h"

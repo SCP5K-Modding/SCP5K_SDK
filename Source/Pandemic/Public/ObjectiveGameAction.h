@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "GameAction.h"
 #include "EObjectiveTriggerAction.h"
+#include "GameplayTagContainer.h"
 #include "ObjectiveGameAction.generated.h"
 
 UCLASS(Blueprintable, CollapseCategories, EditInlineNew)
@@ -10,6 +11,9 @@ class PANDEMIC_API UObjectiveGameAction : public UGameAction {
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FName ObjectiveName;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FGameplayTag ObjectiveTag;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     EObjectiveTriggerAction Action;

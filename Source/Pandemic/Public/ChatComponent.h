@@ -14,20 +14,25 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<FString> TextHistory;
     
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bLogChat;
+    
     UChatComponent(const FObjectInitializer& ObjectInitializer);
 
     UFUNCTION(BlueprintCallable)
     void Server_SendMessage(const FString& Message, const FString& User, int32 Team);
-    
-    UFUNCTION(BlueprintCallable)
     void SendMessageToUser();
+
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void SendMessageToUser(const FString& Message, FChatMessageContent ChatMessageContent);
     
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void SendMessageToEveryone(const FString& Message, FChatMessageContent ChatMessageContent);
     
     UFUNCTION(BlueprintCallable)
+    void RunCommand(const FString& Command);
+
     void RunCommand();
-    
     UFUNCTION(BlueprintCallable)
     FString RemoveCommandPrefix(const FString& Command);
     

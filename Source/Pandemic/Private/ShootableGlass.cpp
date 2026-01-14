@@ -43,6 +43,9 @@ void UShootableGlass::MulticastImpact_Implementation(FVector Location) {
 void UShootableGlass::MulticastBreak_Implementation() {
 }
 
+FSimpleHitData UShootableGlass::GetHitData() const {
+    return FSimpleHitData{};
+}
 void UShootableGlass::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     

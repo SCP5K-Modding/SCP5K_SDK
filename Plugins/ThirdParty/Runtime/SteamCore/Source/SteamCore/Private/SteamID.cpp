@@ -1,5 +1,5 @@
 #include "SteamID.h"
 
-FSteamID::FSteamID() {
-}
+// FSteamID::FSteamID() {
+// }
 

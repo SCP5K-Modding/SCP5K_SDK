@@ -74,7 +74,8 @@ float AResonatorCharacter::GetCurrentMoveSpeed() const {
     return 0.0f;
 }
 
-void AResonatorCharacter::Die_Implementation(AActor* Causer, AController* InstigatedBy) {
+void AResonatorCharacter::Die_Implementation(AActor* DamageCauser, AController* InstigatorController)
+{
 }
 
 void AResonatorCharacter::CosmeticDie_Implementation() {

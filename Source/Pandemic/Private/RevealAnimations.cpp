@@ -4,5 +4,6 @@ FRevealAnimations::FRevealAnimations() {
     this->IdleAnimation = NULL;
     this->RevealAnimation = NULL;
     this->bPriorityStartAnimation = false;
+    this->bHasAttack = false;
 }
 

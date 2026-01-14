@@ -6,6 +6,7 @@
 #include "CosmeticsSubsystem.generated.h"
 
 class APandemicPlayerState;
+class UFPSItemData;
 
 UCLASS(Blueprintable)
 class PANDEMIC_API UCosmeticsSubsystem : public UGameInstanceSubsystem {
@@ -18,6 +19,15 @@ public:
 
     UFUNCTION(BlueprintCallable)
     static TArray<FPrimaryAssetId> GetValidPatches(APandemicPlayerState* PlayerState);
+    
+    UFUNCTION(BlueprintCallable)
+    static TArray<FPrimaryAssetId> GetValidNonAvailableItemSkins(APandemicPlayerState* PlayerState, UFPSItemData* ItemData);
+    
+    UFUNCTION(BlueprintCallable)
+    static TArray<FPrimaryAssetId> GetValidNonAvailableCosmetics(APandemicPlayerState* PlayerState, FName PrimaryAssetType);
+    
+    UFUNCTION(BlueprintCallable)
+    static TArray<FPrimaryAssetId> GetValidItemSkins(APandemicPlayerState* PlayerState, UFPSItemData* ItemData);
     
     UFUNCTION(BlueprintCallable)
     static TArray<FPrimaryAssetId> GetValidCharacterSkins(APandemicPlayerState* PlayerState);
