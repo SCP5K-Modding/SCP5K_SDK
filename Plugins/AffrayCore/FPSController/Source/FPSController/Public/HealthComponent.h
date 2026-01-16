@@ -3,12 +3,16 @@
 #include "UObject/NoExportTypes.h"
 #include "Components/ActorComponent.h"
 #include "Engine/EngineTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameplayTags -ObjectName=GameplayTagContainer -FallbackName=GameplayTagContainer
 #include "SimpleHitData.h"
+#include "Templates/SubclassOf.h"
 #include "HealthComponent.generated.h"
 
 class AActor;
 class AController;
+class APawn;
 class UDamageType;
+class UGameEventBusSubsystem;
 class UHealthComponent;
 class UPrimitiveComponent;
 
@@ -33,6 +37,9 @@ public:
     UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FOnHealthComponentHealthChangedDelegate OnHealthChanged;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UGameEventBusSubsystem* GameEventBus;
+    
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_CurrentHealth, meta=(AllowPrivateAccess=true))
     float CurrentHealth;
@@ -53,7 +60,13 @@ protected:
     TMap<FName, float> BoneDamageMultipliers;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TMap<TSubclassOf<UDamageType>, float> DamageTypeMultipliers;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float DefaultDamageMultiplier;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FName HeadBoneName;
     
 public:
     UHealthComponent(const FObjectInitializer& ObjectInitializer);
@@ -80,7 +93,10 @@ protected:
     void OnRep_bIsDead();
     
     UFUNCTION(BlueprintCallable)
-    void OnRadialDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, FVector Origin, FHitResult HitInfo, AController* InstigatedBy, AActor* DamageCauser);
+    void OnRadialDamageOld(AActor* DamagedActor, float Damage, const UDamageType* DamageType, FVector Origin, FHitResult HitInfo, AController* InstigatedBy, AActor* DamageCauser);
+    
+    UFUNCTION(BlueprintCallable)
+    void OnRadialDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, FVector Origin, const FHitResult& HitInfo, AController* InstigatedBy, AActor* DamageCauser);
     
     UFUNCTION(BlueprintCallable)
     void OnPointDamage(AActor* DamagedActor, float Damage, AController* InstigatedBy, FVector HitLocation, UPrimitiveComponent* FHitComponent, FName BoneName, FVector ShotFromDirection, const UDamageType* DamageType, AActor* DamageCauser);
@@ -92,6 +108,11 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsDead() const;
     
+protected:
+    UFUNCTION(BlueprintCallable)
+    void InvokeEventOnEventBusWithOurSubjectAndDamageType(const APawn* InstigatedBy, const AActor* Subject, FGameplayTagContainer TagContainer, bool bReportDamageType);
+    
+public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetMaxHealth() const;
     

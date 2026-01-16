@@ -2,8 +2,6 @@
 #include "CoreMinimal.h"
 #include "Perception/AISightTargetInterface.h"
 #include "ESAIAwarenessState.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
 #include "DoorInteraction.h"
 #include "GameFramework/Character.h"
 #include "Damageable.h"
@@ -28,7 +26,7 @@ class UEnemySubsystem;
 class UFMODAudioComponent;
 class UFMODEvent;
 class UFastReplicatedRagdoll;
-class UFootstepComponent;
+class UFoleyComponent;
 class UGoreComponent;
 class UHealthComponent;
 class UHitReactionComponent;
@@ -77,8 +75,8 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UFMODAudioComponent* LoopingAudioComponent;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
-    UFootstepComponent* FootstepComponent;
+    //UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    //UFoleyComponent* FootstepComponent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UPhysicalAnimationComponent* PhysicalAnimationComponent;

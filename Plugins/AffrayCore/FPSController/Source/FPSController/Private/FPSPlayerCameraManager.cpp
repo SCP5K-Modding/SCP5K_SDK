@@ -4,7 +4,4 @@ AFPSPlayerCameraManager::AFPSPlayerCameraManager(const FObjectInitializer& Objec
     this->DefaultModifiers.AddDefaulted(1);
 }
 
-void AFPSPlayerCameraManager::OnVideoSettingsUpdated(EVideoSetting Setting) {
-}
-
 

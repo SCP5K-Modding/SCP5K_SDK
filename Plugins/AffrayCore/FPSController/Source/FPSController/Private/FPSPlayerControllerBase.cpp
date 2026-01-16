@@ -16,7 +16,9 @@ AFPSPlayerControllerBase::AFPSPlayerControllerBase(const FObjectInitializer& Obj
     this->bIsInputEnabled = true;
     this->bInvertHorizontalLook = false;
     this->bInvertVerticalLook = false;
+    this->bDestroyPawnOnLeaveGame = true;
     this->FPSCharacterBase = NULL;
+    this->bIsLeavingGame = false;
     this->AITeam = 0;
     this->LastActionTimestamp = 0;
 }
@@ -46,7 +48,28 @@ void AFPSPlayerControllerBase::ServerSetLookX_Implementation(uint8 InLookX) {
 
 
 
+
 void AFPSPlayerControllerBase::PlayerStateUpdated_Implementation() {
+}
+
+void AFPSPlayerControllerBase::ReceiveReturnToMainMenu(const FText& ReturnReason)
+{
+}
+
+void AFPSPlayerControllerBase::ReceivePostSeamlessTravel()
+{
+}
+
+void AFPSPlayerControllerBase::ReceivePawnLeavingGame()
+{
+}
+
+void AFPSPlayerControllerBase::ReceiveClientWasKicked(const FText& KickReason)
+{
+}
+
+bool AFPSPlayerControllerBase::IsLeavingGame() const {
+    return false;
 }
 
 float AFPSPlayerControllerBase::GetVerticalSensitivity() {
@@ -65,7 +88,7 @@ float AFPSPlayerControllerBase::GetHorizontalSensitivity() {
     return 0.0f;
 }
 
-bool AFPSPlayerControllerBase::CanUseCosmetic_Implementation(int32 Index, FFPSCosmetic Cosmetic) {
+bool AFPSPlayerControllerBase::CanUseCosmetic_Implementation(int32 Index, FFPSCosmetic Cosmetic, FPrimaryAssetId ItemId) {
     return false;
 }
 

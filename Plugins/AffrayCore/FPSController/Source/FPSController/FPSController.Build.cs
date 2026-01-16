@@ -13,12 +13,12 @@ public class FPSController : ModuleRules {
             "CoreUObject",
             "Engine",
             "FMODStudio",
-            "GameUtilities",
+            "GameEventBus",
             "GameplayTags",
             "Niagara",
             "PhysicsCore",
             "SignificanceBase",
-            "InputCore",
+            "InputCore"
         });
     }
 }

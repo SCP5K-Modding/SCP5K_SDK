@@ -25,10 +25,11 @@ UFirstPersonAnimInstance::UFirstPersonAnimInstance() {
     this->RightHandClimbPercent = 0.00f;
     this->MaxMovementSpeed = 400.00f;
     this->MovementLeanAmount = 10.00f;
-    this->CrouchHeightOffset = 1.00f;
-    this->CrouchIdleMultiplier = 0.75f;
+    this->CrouchIdleMultiplier = 0.80f;
     this->RightHandIKAlpha = 1.00f;
     this->LeftHandIKAlpha = 1.00f;
+    this->RightHandFollowAlpha = 1.00f;
+    this->LeftHandFollowAlpha = 1.00f;
     this->MaxWallOffset = 20.00f;
     this->MovementPitchAmount = -4.00f;
     this->LeanElbowInfluence = 0.50f;
@@ -43,7 +44,7 @@ UFirstPersonAnimInstance::UFirstPersonAnimInstance() {
     this->SmoothMovementSpeed = 0.00f;
     this->bWantsMoving = false;
     this->bIsMoving = false;
-    this->SmoothCrouchOffset = 0.00f;
+    this->SmoothCrouchAlpha = 0.00f;
     this->SmoothBlockingAlpha = 0.00f;
     this->SmoothWallDistanceOffset = 0.00f;
     this->LeanAmount = -20.00f;
@@ -56,7 +57,6 @@ UFirstPersonAnimInstance::UFirstPersonAnimInstance() {
     this->BracedAimAlpha = 0.00f;
     this->BracedAimTilt = 0.00f;
     this->Control = 1.00f;
-    this->AimingActionMovementAmount = 0.40f;
     this->CurrentActionMovementAmount = 1.00f;
     this->SmoothActionMovementAmount = 0.00f;
     this->bIsUsingBipod = false;
@@ -114,7 +114,11 @@ UFirstPersonAnimInstance::UFirstPersonAnimInstance() {
 void UFirstPersonAnimInstance::UpdateGripPosition() {
 }
 
-void UFirstPersonAnimInstance::UpdateGripAlpha() {
+void UFirstPersonAnimInstance::UpdateGripAlpha(float DeltaTime) {
+}
+
+void UFirstPersonAnimInstance::UpdateGripAlpha()
+{
 }
 
 void UFirstPersonAnimInstance::UpdateGrabPoint(bool bIsLeft) {

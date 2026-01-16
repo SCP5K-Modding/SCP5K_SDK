@@ -2,12 +2,6 @@
 #include "CoreMinimal.h"
 #include "Perception/AISightTargetInterface.h"
 #include "GenericTeamAgentInterface.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
-#include "UObject/NoExportTypes.h"
 #include "GameFramework/Character.h"
 #include "Engine/EngineTypes.h"
 #include "SignificanceUser.h"
@@ -19,14 +13,17 @@
 #include "ClimbableExit.h"
 #include "EFPSCharacterAbilities.h"
 #include "EFPSCharacterState.h"
+#include "FPSCharacterSnapshot.h"
 #include "FPSDamageSound.h"
 #include "FPSItemSlotData.h"
 #include "FPSLoadout.h"
 #include "MagazineData.h"
 #include "MeleeUser.h"
+#include "OnReloadUpdatedDelegateDelegate.h"
 #include "SimpleHitData.h"
 #include "Suppressable.h"
 #include "Templates/SubclassOf.h"
+#include "GameEventBusComponent.h"
 #include "FPSCharacterBase.generated.h"
 
 class AActor;
@@ -38,52 +35,31 @@ class APlayerController;
 class APlayerState;
 class UAimingCameraModifier;
 class UAnimMontage;
-class UCameraAnimationCameraModifier;
 class UCameraComponent;
 class UCameraModifier;
 class UClimbableComponent;
 class UDamageCameraModifier;
 class UDamageType;
 class UFMODEvent;
+class UFPSCameraAnimationCameraModifier;
 class UFPSCharacterMovementComponent;
 class UFPSItemData;
 class ULowHealthCameraModifier;
 class UNightVisionCameraModifier;
 class UObject;
 class UPrimitiveComponent;
-class USceneComponent;
 class USignificanceComponent;
 class USkeletalMeshComponent;
+class USpringArmComponent;
 class USprintingCameraModifier;
 class USuppressionCameraModifier;
 
-UCLASS(Blueprintable)
+UCLASS(Abstract, Blueprintable, Config=Engine)
 class FPSCONTROLLER_API AFPSCharacterBase : public ACharacter, public IAISightTargetInterface, public IMeleeUser, public ISuppressable, public IGenericTeamAgentInterface, public ISignificanceUser {
     GENERATED_BODY()
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float MaxDistance;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_EquippedItem, meta=(AllowPrivateAccess=true))
-    AFPSItem* EquippedItem;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_Hotbar, meta=(AllowPrivateAccess=true))
-    TArray<AFPSItem*> Hotbar;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_AssetIDsToLoad, meta=(AllowPrivateAccess=true))
-    TArray<FPrimaryAssetId> AssetIDsToLoad;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    AFPSItem* ClientEquippedItem;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    AFPSItem* ClientDequippedItem;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_State, meta=(AllowPrivateAccess=true))
-    int32 State;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    int32 LastState;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_Abilities, meta=(AllowPrivateAccess=true))
     int32 Abilities;
@@ -91,32 +67,20 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     int32 LastAbilities;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
-    float MaxHealth;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    bool bIsEquipping;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    bool bIsDequipping;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
-    bool bAllowedToSprint;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bAllowedToBracedAim;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bForceBracedAimInNightVision;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bCanUseItems;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float JumpItemDelay;
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bCanEverUseNightVision;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float LowReadySpeedMultiplier;
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
+    float MaxHealth;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TArray<TSubclassOf<UDamageType>> GenericDamageClasses;
@@ -130,74 +94,68 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TMap<TSubclassOf<UDamageType>, FFPSDamageSound> DamageSoundOverrides;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float WalkingSpeed;
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float HealthMultiplier;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float SprintingSpeed;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float CrouchingSpeed;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     float LeanAngle;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     float LeaningHeight;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     float LeaningDistance;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     float PositionOffsetSpeed;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     float MaxSafeFallingDistance;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     float FallDamagePerMetre;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bAlwaysDropHeldItemOnDeath;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float MountDistance;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float CurrentMountEyeHeight;
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
+    bool bAllowedToSprint;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    FVector CurrentMountLocation;
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float WalkingSpeed;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float CurrentMountHeight;
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float SprintingSpeed;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float DamageMultiplier;
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float CrouchingSpeed;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float HealthMultiplier;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     float CharacterMovementSpeedMultiplier;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     float MinSprintForwardFraction;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     float LandSprintDelay;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     float LandJumpDelay;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bDisableSprintDelay;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float JumpDelay;
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float JumpItemDelay;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float SprintDelay;
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float LowReadySpeedMultiplier;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float DamageMultiplier;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FVector2D RecoilSettling;
@@ -238,17 +196,8 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bUseHeightOverBore;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float ProneEyeHeight;
-    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float CameraInterpolationSpeed;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float CameraTargetFOV;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float CameraCurrentFOV;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float CameraDefaultFOV;
@@ -271,6 +220,18 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bCenterViewOnADS;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Interp, meta=(AllowPrivateAccess=true))
+    bool bShouldUseDeathCamera;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bForceDisableArmsAnimationOnServer;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float CameraAnimationStrength;
+    
+    UPROPERTY(BlueprintReadWrite, Config, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float AimingCameraAnimationStrength;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float RotationOffsetSpeed;
     
@@ -292,83 +253,44 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float AnimationCameraRotationMultiplier;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float LookX;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float LookY;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    FVector RotationOffset;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    FVector2D SmoothRecoil;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, Transient, meta=(AllowPrivateAccess=true))
-    FVector2D CurrentRecoil;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    FVector CurrentFreeAim;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    FVector SmoothFreeAim;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    FVector PendingCameraPositionOffset;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    FVector CameraPositionOffset;
-    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FVector BaseCameraPositionOffset;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float CurrentFreeAimMultiplier;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    FVector SmoothLocalSightForward;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    FVector SmoothLocalPosition;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float ADSPercent;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, Transient, meta=(AllowPrivateAccess=true))
-    float TargetEyeHeight;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float CurrentEyeHeight;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float SmoothEyeHeight;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float LastApexHeight;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float LastGroundedHeight;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float CurrentWalkSpeed;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float CurrentCrouchSpeed;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Interp, Transient, ReplicatedUsing=OnRep_Rotation, meta=(AllowPrivateAccess=true))
-    FRotator Rotation;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float DeltaTime;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float RepRotationInterpolationSpeed;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Interp, meta=(AllowPrivateAccess=true))
     bool bIsDisplay;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
-    TArray<FMagazineData> Ammunition;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float MaxSuppression;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Interp, meta=(AllowPrivateAccess=true))
-    bool bShouldUseDeathCamera;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float SuperSonicShotSuppression;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float ShotSuppression;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float SuppressionDecay;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, meta=(AllowPrivateAccess=true))
+    TSubclassOf<USuppressionCameraModifier> SuppressionCameraModifierClass;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, meta=(AllowPrivateAccess=true))
+    TSubclassOf<ULowHealthCameraModifier> LowHealthCameraModifierClass;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, meta=(AllowPrivateAccess=true))
+    TSubclassOf<USprintingCameraModifier> SprintingCameraModifierClass;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, meta=(AllowPrivateAccess=true))
+    TSubclassOf<UNightVisionCameraModifier> NighVisionCameraModifierClass;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, meta=(AllowPrivateAccess=true))
+    TSubclassOf<UAimingCameraModifier> AimingCameraModifierClass;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, meta=(AllowPrivateAccess=true))
+    TSubclassOf<UDamageCameraModifier> DamageCameraModifierClass;
     
     UPROPERTY(BlueprintAssignable, BlueprintCallable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FCharacterItemSlotUpdatedDelegate OnEquipItem;
@@ -394,30 +316,141 @@ public:
     UPROPERTY(BlueprintAssignable, BlueprintCallable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FCharacterSlotUpdatedDelegate OnHotbarChanged;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, meta=(AllowPrivateAccess=true))
-    TSubclassOf<USuppressionCameraModifier> SuppressionCameraModifierClass;
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FOnReloadUpdatedDelegate OnReloadStarted;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, meta=(AllowPrivateAccess=true))
-    TSubclassOf<ULowHealthCameraModifier> LowHealthCameraModifierClass;
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FOnReloadUpdatedDelegate OnReloadFinished;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, meta=(AllowPrivateAccess=true))
-    TSubclassOf<USprintingCameraModifier> SprintingCameraModifierClass;
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FOnReloadUpdatedDelegate OnReloadCancelled;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, meta=(AllowPrivateAccess=true))
-    TSubclassOf<UNightVisionCameraModifier> NighVisionCameraModifierClass;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, meta=(AllowPrivateAccess=true))
-    TSubclassOf<UAimingCameraModifier> AimingCameraModifierClass;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, meta=(AllowPrivateAccess=true))
-    TSubclassOf<UCameraAnimationCameraModifier> CameraAnimationCameraModifierClass;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, NoClear, meta=(AllowPrivateAccess=true))
-    TSubclassOf<UDamageCameraModifier> DamageCameraModifierClass;
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FOnReloadUpdatedDelegate OnReloadUpdated;
     
 protected:
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_EquippedItem, meta=(AllowPrivateAccess=true))
+    AFPSItem* EquippedItem;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_Hotbar, meta=(AllowPrivateAccess=true))
+    TArray<AFPSItem*> Hotbar;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_AssetIDsToLoad, meta=(AllowPrivateAccess=true))
+    TArray<FPrimaryAssetId> AssetIDsToLoad;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    AFPSItem* ClientEquippedItem;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    AFPSItem* ClientDequippedItem;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_State, meta=(AllowPrivateAccess=true))
+    int32 State;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    int32 LastState;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float LastApexHeight;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float LastGroundedHeight;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float CurrentWalkSpeed;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float CurrentCrouchSpeed;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsEquipping;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsDequipping;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FVector2D SmoothRecoil;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, Transient, meta=(AllowPrivateAccess=true))
+    FVector2D CurrentRecoil;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float ProneEyeHeight;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float CameraTargetFOV;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float CameraCurrentFOV;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float LookX;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float LookY;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FRotator PendingRotationOffset;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FRotator RotationOffset;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FRotator TargetRotationOffset;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FVector PendingCameraPositionOffset;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FVector CameraPositionOffset;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FVector SmoothLocalSightForward;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FVector SmoothLocalPosition;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FVector CameraAnimationLocationOffset;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FRotator CameraAnimationRotationOffset;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float ADSPercent;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, Transient, meta=(AllowPrivateAccess=true))
+    float TargetEyeHeight;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float CurrentEyeHeight;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float SmoothEyeHeight;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float MaxCrouchedEyeHeight;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float KickTime;
+    float MaxEyeHeightBias;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FVector CurrentFreeAim;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FVector SmoothFreeAim;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float CurrentFreeAimMultiplier;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Interp, Transient, meta=(AllowPrivateAccess=true))
+    FRotator InterpolatedRotation;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Interp, Transient, meta=(AllowPrivateAccess=true))
+    FRotator Rotation;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
+    TArray<FMagazineData> Ammunition;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_Suppression, meta=(AllowPrivateAccess=true))
     float Suppression;
@@ -425,17 +458,29 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_CurrentHealth, meta=(AllowPrivateAccess=true))
     float CurrentHealth;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float MaxSuppression;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float CurrentMountEyeHeight;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FVector CurrentMountLocation;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float CurrentMountHeight;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float MaxMountEyeHeightOffset;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float JumpDelay;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float SprintDelay;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    float DeltaTime;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float SuperSonicShotSuppression;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float ShotSuppression;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float SuppressionDecay;
+    float KickTime;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     USuppressionCameraModifier* SuppressionCameraModifier;
@@ -453,7 +498,7 @@ protected:
     UAimingCameraModifier* AimingCameraModifier;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    UCameraAnimationCameraModifier* CameraAnimationCameraModifier;
+    UFPSCameraAnimationCameraModifier* CameraAnimationCameraModifier;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UDamageCameraModifier* DamageCameraModifier;
@@ -463,6 +508,12 @@ protected:
     
     UPROPERTY(AdvancedDisplay, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TWeakObjectPtr<APlayerController> LastViewTarget;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    UGameEventBusComponent* EventBusComponent;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    USkeletalMeshComponent* FirstPersonLegsMesh;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     UFPSCharacterMovementComponent* FPSCharacterMovement;
@@ -541,6 +592,15 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void SetPerspective(bool bNewIsFirstPerson, bool bApplyArmsAnimation);
     
+    UFUNCTION(BlueprintCallable)
+    void SetMagazineData(FPrimaryAssetId AssetID, FMagazineData Data);
+    
+    UFUNCTION(BlueprintCallable)
+    void SetLookY(float Value);
+    
+    UFUNCTION(BlueprintCallable)
+    void SetLookX(float Value);
+    
 protected:
     UFUNCTION(BlueprintCallable)
     void SetLastHit(FSimpleHitData HitData);
@@ -585,6 +645,11 @@ public:
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, BlueprintNativeEvent)
     void RemoveItem(AFPSItem* Item);
     
+protected:
+    UFUNCTION(BlueprintCallable, Exec)
+    void RefreshAnimation();
+    
+public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     float ReceiveTakeDamage(float DamageAmount, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser);
     
@@ -605,7 +670,7 @@ protected:
     void OnRep_State();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void OnRep_Rotation();
+    void OnRep_Rotation(FRotator PrevRotation);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_LastHit();
@@ -631,6 +696,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnEndClimb(UClimbableComponent* ClimbableComponent, const FClimbableExit& Exit);
+    
+    UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
+    void MulticastDamageTaken(float Damage, APawn* InInstigatorPawn, TSubclassOf<UDamageType> DamageType);
     
     UFUNCTION(BlueprintCallable)
     bool IsReserveAmmoFull();
@@ -662,6 +730,11 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
     USkeletalMeshComponent* GetThirdPersonMesh();
     
+protected:
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    FRotator GetTargetRotationOffset();
+    
+public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetSuppression() const;
     
@@ -672,7 +745,16 @@ public:
     bool GetSprinting() const;
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
-    USceneComponent* GetSpringArm();
+    USpringArmComponent* GetSpringArm();
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    FVector2D GetSmoothRecoil() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    FVector GetSmoothFreeAim() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    float GetSmoothEyeHeight() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetReloading() const;
@@ -705,6 +787,12 @@ public:
     bool GetLowReady() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    float GetLookY() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    float GetLookX() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     FFPSLoadout GetLoadout() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -721,6 +809,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetInspecting() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    TArray<AFPSItem*> GetHotbar() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     UFPSCharacterMovementComponent* GetFPSCharacterMovement();
@@ -747,6 +838,9 @@ public:
     int32 GetEquippedItemIndex() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    AFPSItem* GetEquippedItem() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetEmptyReload() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -757,6 +851,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetClimbing() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    AFPSItem* GetClientEquippedItem() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetCheckingAmmo() const;
@@ -772,6 +869,12 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetAiming() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    float GetADSPercent() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    FGameplayTagContainer GetAdditionalDeathTags(const FGameplayTagContainer& InDeathTags, AController* InInstigator, TSubclassOf<UDamageType> KillingDamageType, FName LastHitBone) const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool GetAbilities(TEnumAsByte<EFPSCharacterAbilities::Type> Mask) const;
@@ -796,6 +899,12 @@ public:
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     AFPSItemPickup* DropItem(AFPSItem* Item, TSubclassOf<AFPSItemPickup> PickupClass);
+    
+    UFUNCTION(BlueprintCallable)
+    void DebugPhysics();
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    FFPSCharacterSnapshot CreateSnapshot() const;
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void CosmeticUpdatedSprinting(bool bSprinting);
@@ -852,6 +961,9 @@ public:
     void CosmeticSwitchItem(AFPSItem* Item);
     
     UFUNCTION(BlueprintCallable, BlueprintCosmetic)
+    void CosmeticStopDamageSound(TSubclassOf<UDamageType> DamageType);
+    
+    UFUNCTION(BlueprintCallable, BlueprintCosmetic)
     void CosmeticPlayDamageSound(float Damage, APawn* InInstigatorPawn, TSubclassOf<UDamageType> DamageType);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
@@ -874,6 +986,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool CanVault(FTransform CornerLocation, float EyeHeight, UAnimMontage* Montage) const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
+    bool CanUseNightVision() const;
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
     bool CanSprint();
@@ -900,6 +1015,14 @@ protected:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void BlendHeight(bool bCovered);
     
+public:
+    UFUNCTION(BlueprintCallable)
+    void BecomeInvulnerable(float Time);
+    
+    UFUNCTION(BlueprintCallable)
+    void ApplySnapshot(const FFPSCharacterSnapshot& Snapshot);
+    
+protected:
     UFUNCTION(BlueprintCallable)
     void ApplyRotationOffset();
     
@@ -914,7 +1037,7 @@ public:
     void AddSuppression(float Amount);
     
     UFUNCTION(BlueprintCallable)
-    void AddRotationOffset(FVector Offset);
+    void AddRotationOffset(FRotator Offset);
     
     UFUNCTION(BlueprintCallable)
     void AddRecoil(FVector2D Recoil);

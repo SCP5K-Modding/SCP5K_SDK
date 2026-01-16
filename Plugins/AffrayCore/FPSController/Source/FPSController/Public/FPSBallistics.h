@@ -25,13 +25,16 @@ public:
     static bool VerifyBallistics(AActor* User, FProjectileData Projectile, const TArray<TSoftObjectPtr<UBallisticPhysicsMaterial>>& Physmats, float TimeStep, float Time, int32 Index, bool bFilterHits, float Drag, float MaxRange, FVector StartingPosition, FVector Direction, const TArray<FBallisticHitData>& Hits);
     
     UFUNCTION(BlueprintCallable)
-    static void SpawnBallisticEffects(TArray<FBallisticProjectileData> Projectiles, const TArray<TSoftObjectPtr<UBallisticPhysicsMaterial>>& Physmats, bool bTwoSidedDecals, UStaticMesh* TransparentDecalMesh);
+    static void SpawnBallisticEffects(TArray<FBallisticProjectileData> Projectiles, const TArray<TSoftObjectPtr<UBallisticPhysicsMaterial>>& Physmats, bool bTwoSidedDecals, UStaticMesh* TransparentDecalMesh, bool bIsFirstPerson);
     
     UFUNCTION(BlueprintCallable)
     static bool SimulateBallistics(AActor* User, FProjectileData Projectile, const TArray<TSoftObjectPtr<UBallisticPhysicsMaterial>>& Physmats, float TimeStep, float Time, int32 Index, bool bFilterHits, float Drag, float MaxRange, FVector StartingPosition, FVector Direction, TArray<FBallisticHitData>& OutHits);
     
     UFUNCTION(BlueprintCallable)
     static bool IsCloseToPoints(FVector Point, const TArray<FVector>& Points, float Distance);
+    
+    UFUNCTION(BlueprintCallable)
+    static bool HasHit(const TArray<FBallisticProjectileData>& Projectiles, FBallisticHitData& FirstHit);
     
     UFUNCTION(BlueprintCallable)
     static FVector GetResultingImpactVelocity(FVector ProjectileVelocity, FVector ImpactNormal, float ProjectilePiercing, float ProjectileMass, float SurfaceHardness, float SurfaceThickness, float SurfaceFriction, float SurfaceRicochetChance, bool& bIsRicochet);
@@ -50,9 +53,6 @@ public:
     
     UFUNCTION(BlueprintCallable)
     static float CalculateSpread(float Spread, FRandomStream& Stream);
-    
-    UFUNCTION(BlueprintCallable)
-    static void CalculateBallistics(AActor* User, float ProjectileMass, float ProjectilePiercing, FRandomStream& Stream, FVector position, FVector Velocity, float TimeStep, float Drag, float Time, bool bWasHit, FVector& OutPosition, FVector& OutVelocity, float& OutDistance, FHitResult& OutHit, float& OutTime, bool& bOutWasRicochet);
     
     UFUNCTION(BlueprintCallable)
     static void ApplyBallisticDamage(AActor* User, TArray<FBallisticProjectileData> Projectiles, float IdealRange, float MaxRange, float ProjectileVelocity, float Damage, TSubclassOf<UDamageType> DamageType);

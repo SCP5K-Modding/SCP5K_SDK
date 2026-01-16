@@ -10,5 +10,7 @@ enum class EAttachmentSlotType : uint8 {
     ST_Grip,
     ST_Special,
     ST_CantedSight,
+    ST_Magazine,
+    ST_AmmoType,
 };
 

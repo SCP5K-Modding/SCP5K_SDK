@@ -23,9 +23,9 @@ AFPSAttachment::AFPSAttachment(const FObjectInitializer& ObjectInitializer) : Su
     this->OwningItem = NULL;
     this->AudioComponent->SetupAttachment(Mesh);
     this->FirstPerson->SetupAttachment(RootComponent);
-    this->ThirdPerson->SetupAttachment(RootComponent);
     this->Mesh->SetupAttachment(FirstPerson);
     this->Mesh3P->SetupAttachment(ThirdPerson);
+    this->ThirdPerson->SetupAttachment(RootComponent);
 }
 
 void AFPSAttachment::SetupAttachmentData_Implementation(UFPSAttachmentData* InAttachmentData) {

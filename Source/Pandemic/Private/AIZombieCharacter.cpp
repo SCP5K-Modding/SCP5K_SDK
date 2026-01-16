@@ -6,7 +6,7 @@
 #include "Engine/EngineTypes.h"
 #include "PhysicsEngine/PhysicalAnimationComponent.h"
 #include "FMODAudioComponent.h"
-#include "FootstepComponent.h"
+//#include "FootstepComponent.h"
 #include "HealthComponent.h"
 #include "SplatterComponent.h"
 #include "TickOptimizerComponent.h"

@@ -25,12 +25,13 @@ USplatterComponent::USplatterComponent(const FObjectInitializer& ObjectInitializ
     this->bCheckDamageTypes = false;
     this->bAutoLoadResources = true;
     this->bSpawnSplattersOnDedicatedServer = false;
+    this->bUseHealthComponentForReplication = false;
 }
 
-void USplatterComponent::SpawnSplatterDecals() {
+void USplatterComponent::SpawnSplatterDecals(int32 Count) {
 }
 
-void USplatterComponent::SpawnDecal(FVector Location, FVector Normal, FVector Direction, float Distance, UPrimitiveComponent* HitComponent, float Damage) {
+void USplatterComponent::SpawnDecal(FVector Location, FVector Normal, FVector Direction, float Distance, UPrimitiveComponent* HitComponent) {
 }
 
 void USplatterComponent::SpawnDeathDecal(FVector Location) {
@@ -39,11 +40,13 @@ void USplatterComponent::SpawnDeathDecal(FVector Location) {
 void USplatterComponent::OnRep_LastHit() {
 }
 
+void USplatterComponent::OnHealthComponentDamaged(UHealthComponent* HealthComponent, FSimpleHitData HitData) {
+}
+
 void USplatterComponent::OnDamage(AActor* DamagedActor, float Damage, AController* InstigatedBy, FVector HitLocation, UPrimitiveComponent* HitComponent, FName BoneName, FVector ShotFromDirection, const UDamageType* DamageType, AActor* DamageCauser) {
 }
 
-bool USplatterComponent::AddTrace(FVector HitLocation, FVector ShotFromDirection, float Damage) {
-    return false;
+void USplatterComponent::AddTrace(FVector HitLocation, FVector ShotFromDirection, float Damage) {
 }
 
 void USplatterComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {

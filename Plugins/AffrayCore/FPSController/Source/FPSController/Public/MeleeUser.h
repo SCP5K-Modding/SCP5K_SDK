@@ -14,10 +14,10 @@ class IMeleeUser : public IInterface {
     GENERATED_BODY()
 public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    bool IsBlocking(const TEnumAsByte<EMeleeAttackDirection>& Direction);
+    bool IsBlocking(EMeleeAttackDirection Direction);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    FVector GetAttackVector(const TEnumAsByte<EMeleeAttackDirection>& Direction);
+    FVector GetAttackVector(EMeleeAttackDirection Direction);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     EMeleeAttackDirection GetAttackDirection();

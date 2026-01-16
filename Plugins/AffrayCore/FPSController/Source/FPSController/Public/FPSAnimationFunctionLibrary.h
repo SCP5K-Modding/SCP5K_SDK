@@ -17,10 +17,10 @@ public:
     static FName GetClosestSyncMarker(UAnimInstance* AnimInstance, FName SyncGroupName);
     
     UFUNCTION(BlueprintCallable)
-    static float FindPositionFromDistanceCurve(UAnimSequence* Animation, float TargetValue, FName CurveName);
+    static float FindPositionFromDistanceCurve(const UAnimSequence* Animation, float TargetValue, FName CurveName);
     
     UFUNCTION(BlueprintCallable)
-    static float FindPositionFromCurve(UAnimSequence* Animation, float TargetValue, FName CurveName, int32 ZeroCurveIndex);
+    static float FindPositionFromCurve(const UAnimSequence* Animation, float TargetValue, FName CurveName, int32 ZeroCurveIndex);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static FVector CubicInterpVector(FVector A, FVector B, float Alpha);

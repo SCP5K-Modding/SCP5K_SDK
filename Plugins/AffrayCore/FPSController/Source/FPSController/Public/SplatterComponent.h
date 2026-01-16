@@ -9,6 +9,7 @@
 class AActor;
 class AController;
 class UDamageType;
+class UHealthComponent;
 class UMaterialInterface;
 class UPrimitiveComponent;
 
@@ -24,6 +25,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     FVector TraceOffset;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FVector SplatterTraceOffset;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float TraceLength;
@@ -112,6 +116,9 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bSpawnSplattersOnDedicatedServer;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bUseHealthComponentForReplication;
+    
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     UKismetSystemLibrary::FOnAssetLoaded OnAssetLoaded;
@@ -122,10 +129,10 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
     UFUNCTION(BlueprintCallable)
-    void SpawnSplatterDecals();
+    void SpawnSplatterDecals(int32 Count);
     
     UFUNCTION(BlueprintCallable)
-    void SpawnDecal(FVector Location, FVector Normal, FVector Direction, float Distance, UPrimitiveComponent* HitComponent, float Damage);
+    void SpawnDecal(FVector Location, FVector Normal, FVector Direction, float Distance, UPrimitiveComponent* HitComponent);
     
     UFUNCTION(BlueprintCallable)
     void SpawnDeathDecal(FVector Location);
@@ -135,10 +142,13 @@ public:
     
 protected:
     UFUNCTION(BlueprintCallable)
+    void OnHealthComponentDamaged(UHealthComponent* HealthComponent, FSimpleHitData HitData);
+    
+    UFUNCTION(BlueprintCallable)
     void OnDamage(AActor* DamagedActor, float Damage, AController* InstigatedBy, FVector HitLocation, UPrimitiveComponent* HitComponent, FName BoneName, FVector ShotFromDirection, const UDamageType* DamageType, AActor* DamageCauser);
     
     UFUNCTION(BlueprintCallable)
-    bool AddTrace(FVector HitLocation, FVector ShotFromDirection, float Damage);
+    void AddTrace(FVector HitLocation, FVector ShotFromDirection, float Damage);
     
 };
 

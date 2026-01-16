@@ -7,11 +7,11 @@ FName UFPSAnimationFunctionLibrary::GetClosestSyncMarker(UAnimInstance* AnimInst
     return NAME_None;
 }
 
-float UFPSAnimationFunctionLibrary::FindPositionFromDistanceCurve(UAnimSequence* Animation, float TargetValue, FName CurveName) {
+float UFPSAnimationFunctionLibrary::FindPositionFromDistanceCurve(const UAnimSequence* Animation, float TargetValue, FName CurveName) {
     return 0.0f;
 }
 
-float UFPSAnimationFunctionLibrary::FindPositionFromCurve(UAnimSequence* Animation, float TargetValue, FName CurveName, int32 ZeroCurveIndex) {
+float UFPSAnimationFunctionLibrary::FindPositionFromCurve(const UAnimSequence* Animation, float TargetValue, FName CurveName, int32 ZeroCurveIndex) {
     return 0.0f;
 }
 

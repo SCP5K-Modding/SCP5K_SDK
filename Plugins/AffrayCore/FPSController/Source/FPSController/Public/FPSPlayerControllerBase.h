@@ -46,9 +46,15 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bInvertVerticalLook;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bDestroyPawnOnLeaveGame;
+    
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     AFPSCharacterBase* FPSCharacterBase;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    bool bIsLeavingGame;
     
 public:
     UPROPERTY(BlueprintAssignable, BlueprintCallable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -86,17 +92,23 @@ public:
     UFUNCTION(BlueprintCallable, Server, Unreliable)
     void ServerSetLookX(uint8 InLookX);
     
-    UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+    UFUNCTION(BlueprintCallable)
     void ReceiveReturnToMainMenu(const FText& ReturnReason);
     
-    UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+    UFUNCTION(BlueprintCallable)
     void ReceivePostSeamlessTravel();
     
-    UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+    UFUNCTION(BlueprintCallable)
+    void ReceivePawnLeavingGame();
+    
+    UFUNCTION(BlueprintCallable)
     void ReceiveClientWasKicked(const FText& KickReason);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void PlayerStateUpdated();
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool IsLeavingGame() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetVerticalSensitivity();
@@ -111,7 +123,7 @@ public:
     float GetHorizontalSensitivity();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
-    bool CanUseCosmetic(int32 Index, FFPSCosmetic Cosmetic);
+    bool CanUseCosmetic(int32 Index, FFPSCosmetic Cosmetic, FPrimaryAssetId ItemId);
     
 
     // Fix for true pure virtual functions not being implemented

@@ -5,7 +5,7 @@
 #include "Engine/EngineTypes.h"
 #include "PhysicsEngine/PhysicalAnimationComponent.h"
 #include "FMODAudioComponent.h"
-#include "FootstepComponent.h"
+//#include "FootstepComponent.h"
 #include "HealthComponent.h"
 #include "SplatterComponent.h"
 #include "TickOptimizerComponent.h"
@@ -24,7 +24,7 @@ ASCP610Character::ASCP610Character(const FObjectInitializer& ObjectInitializer) 
     this->GoreComponent = CreateDefaultSubobject<UGoreComponent>(TEXT("Gore"));
     this->FMODAudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("FMODAudio"));
     this->LoopingAudioComponent = CreateDefaultSubobject<UFMODAudioComponent>(TEXT("LoopingAudio"));
-    this->FootstepComponent = CreateDefaultSubobject<UFootstepComponent>(TEXT("Footstep"));
+//    this->FootstepComponent = CreateDefaultSubobject<UFootstepComponent>(TEXT("Footstep"));
     this->PhysicalAnimationComponent = CreateDefaultSubobject<UPhysicalAnimationComponent>(TEXT("PhysicalAnimation"));
     this->HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
     this->SplatterComponent = CreateDefaultSubobject<USplatterComponent>(TEXT("Splatter"));

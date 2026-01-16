@@ -13,4 +13,8 @@ UFPSAnimInstanceBase::UFPSAnimInstanceBase() {
     this->CurrentRangedWeapon = NULL;
 }
 
+UAnimMontage* UFPSAnimInstanceBase::GetFinalMontage(TSoftObjectPtr<UAnimMontage> Montage) {
+    return NULL;
+}
+
 

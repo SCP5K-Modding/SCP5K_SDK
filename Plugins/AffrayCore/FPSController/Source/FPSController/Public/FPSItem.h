@@ -2,13 +2,15 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "GameFramework/Actor.h"
-#include "AttachMeshHierachy.h"
+#include "GameplayTagContainer.h" 
 #include "AttachmentSlotData.h"
 #include "FPSCosmetic.h"
 #include "FPSItemSlotData.h"
 #include "MeleeHitData.h"
 #include "SimpleHitData.h"
 #include "Templates/SubclassOf.h"
+#include "AttachMeshHierachy.h"
+#include "GameEventBusComponent.h"
 #include "FPSItem.generated.h"
 
 class AFPSAttachment;
@@ -16,6 +18,7 @@ class AFPSCharacterBase;
 class AFPSItem;
 class IFPSAnimationInstance;
 class UFPSAnimationInstance;
+class UAnimMontage;
 class UFPSItemData;
 class UFirstPersonAnimInstance;
 class UMaterialInterface;
@@ -117,6 +120,9 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
     USkeletalMeshComponent* Mesh3P;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Instanced, meta=(AllowPrivateAccess=true))
+    UGameEventBusComponent* GameEventBus;
+    
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, Transient, meta=(AllowPrivateAccess=true))
     bool bIsCheckingAmmo;
     
@@ -165,7 +171,7 @@ public:
     void SetupItemData(UFPSItemData* Data);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void SetupAnimationData();
+    void SetupAnimationData(bool bForce);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void SetItemVisibility(bool bVisible);
@@ -212,6 +218,12 @@ public:
     UFUNCTION(BlueprintCallable)
     bool RemoveAttachMesh(const FAttachmentSlotData& AttachmentSlotData, AFPSAttachment* Attachment);
     
+    UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+    void ReceiveCheckAmmo();
+    
+    UFUNCTION(BlueprintCallable)
+    void PlayMontageOnInstances(UAnimMontage* Montage);
+    
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OwnerTick();
     
@@ -237,6 +249,9 @@ public:
     void OnRep_CurrentCosmetic();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRemoveCosmetic();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRemove();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
@@ -260,12 +275,23 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsValidItem() const;
     
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
+    bool IsUsingItem() const;
+    
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsLocallyOwned() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool IsFirstPerson(bool bCheckLocal) const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsCheckingAmmo() const;
     
+protected:
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool InvokeEventOnBus(const AFPSCharacterBase* InstigatorChar, const FGameplayTagContainer& EventTags, bool bHasSubject, const AActor* Subject) const;
+    
+public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     USceneComponent* GetThirdPersonRoot() const;
     
@@ -299,11 +325,17 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetDelay() const;
     
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    int32 GetCosmeticIndex(FName InternalName) const;
+    
     UFUNCTION(BlueprintCallable)
     void FinishedLoadingItemData();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void CycleMode();
+    
+    UFUNCTION(BlueprintCallable)
+    void CreateAnimInstance();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void CosmeticStartEquip();
@@ -351,6 +383,9 @@ public:
     bool CanUseCosmetic(int32 Index);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
+    bool CanCheckAmmo();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
     bool CanBash(float Bias) const;
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
@@ -358,6 +393,12 @@ public:
     
     UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
     void ApplyCosmeticNoChecks(int32 Index);
+    
+    UFUNCTION(BlueprintCallable)
+    void ApplyCosmeticForAttachMesh(FAttachMeshHierachy& AttachMesh, const FFPSCosmetic& Cosmetic);
+    
+    UFUNCTION(BlueprintCallable)
+    void ApplyCosmeticByName(FName InternalName);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void ApplyCosmetic(int32 Index);

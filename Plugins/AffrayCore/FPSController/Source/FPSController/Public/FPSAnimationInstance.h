@@ -4,6 +4,7 @@
 #include "UObject/NoExportTypes.h"
 #include "EFireMode.h"
 #include "EMeleeAttackDirection.h"
+#include "ESimpleMeleeWeaponAttackType.h"
 #include "Templates/SubclassOf.h"
 #include "FPSAnimationInstance.generated.h"
 
@@ -41,6 +42,12 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void PlayStartReloadingAnimation(bool bEmpty);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void PlaySimpleAttackCancelAnimation(ESimpleMeleeWeaponAttackType AttackType, int32 AttackIndex);
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void PlaySimpleAttackAnimation(ESimpleMeleeWeaponAttackType AttackType, int32 AttackIndex, bool bStartFromStartAttack);
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void PlayReloadingAnimation(bool bEmpty);

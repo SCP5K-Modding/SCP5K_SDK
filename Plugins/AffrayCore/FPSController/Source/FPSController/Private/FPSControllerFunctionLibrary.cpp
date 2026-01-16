@@ -48,8 +48,12 @@ FSimpleHitData UFPSControllerFunctionLibrary::MakeSimpleHitData(float Damage, FV
     return FSimpleHitData{};
 }
 
-FMeleeHitData UFPSControllerFunctionLibrary::MakeMeleeHitData(bool bUsingMelee, bool bHit, bool bKicking, uint8 Time, EMeleeAttackDirection AttackDirection, FVector position, FVector Normal, TEnumAsByte<EPhysicalSurface> Surface, UPrimitiveComponent* HitComponent, uint8 AttackType, FName HitBoneName) {
+FMeleeHitData UFPSControllerFunctionLibrary::MakeMeleeHitData(bool bUsingMelee, bool bHit, bool bKicking, uint8 Time, TEnumAsByte<EMeleeAttackDirection> AttackDirection, FVector position, FVector Normal, TEnumAsByte<EPhysicalSurface> Surface, UPrimitiveComponent* HitComponent, uint8 AttackType, FName HitBoneName) {
     return FMeleeHitData{};
+}
+
+FBallisticFireEvent UFPSControllerFunctionLibrary::MakeFireEvent(UObject* WorldContextObject, TArray<FBallisticProjectileData> Projectiles) {
+    return FBallisticFireEvent{};
 }
 
 FBallisticHitData UFPSControllerFunctionLibrary::MakeBallisticHitData(bool bDamage, bool bHit, bool bRicochet, uint8 Time, uint8 PhysicsMaterialIndex, FVector_NetQuantize position, FVector_NetQuantize Velocity, FVector_NetQuantizeNormal Normal, uint8 Distance, UPrimitiveComponent* HitComponent, FName HitBoneName) {
@@ -64,8 +68,24 @@ bool UFPSControllerFunctionLibrary::IsNiagaraAsset(UFXSystemAsset* Asset) {
     return false;
 }
 
+bool UFPSControllerFunctionLibrary::IsMagazineFull(const FMagazine& Magazine) {
+    return false;
+}
+
+bool UFPSControllerFunctionLibrary::IsMagazineEmpty(const FMagazine& Magazine) {
+    return false;
+}
+
 bool UFPSControllerFunctionLibrary::IsLoadoutEmpty(const FFPSLoadout& Loadout) {
     return false;
+}
+
+bool UFPSControllerFunctionLibrary::IsFireEventValid(UObject* WorldContextObject, const FBallisticFireEvent& Event, float Threshold) {
+    return false;
+}
+
+FMagazine UFPSControllerFunctionLibrary::IncrementMagazine(FMagazine& Magazine) {
+    return FMagazine{};
 }
 
 bool UFPSControllerFunctionLibrary::GetUsingMelee(const FMeleeHitData& Data) {
@@ -122,6 +142,18 @@ bool UFPSControllerFunctionLibrary::GetBallisticDidDamage(const FBallisticHitDat
 
 FName UFPSControllerFunctionLibrary::GetBallisticBoneName(const FBallisticHitData& Data) {
     return NAME_None;
+}
+
+FMagazine UFPSControllerFunctionLibrary::FillMagazine(FMagazine& Magazine, int32& Delta) {
+    return FMagazine{};
+}
+
+FMagazine UFPSControllerFunctionLibrary::EmptyMagazine(FMagazine& Magazine) {
+    return FMagazine{};
+}
+
+FMagazine UFPSControllerFunctionLibrary::DecrementMagazine(FMagazine& Magazine) {
+    return FMagazine{};
 }
 
 FVector UFPSControllerFunctionLibrary::ConvertVectorToItemSpace(FVector Forward, FVector Up, FVector Vector) {

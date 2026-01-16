@@ -6,6 +6,9 @@ UFPSMeleeWeaponData::UFPSMeleeWeaponData() {
     this->bCanLowReady = false;
     this->PrimaryType = EPrimaryMeleeType::Blunt;
     this->SecondaryType = ESecondaryMeleeType::Long;
+    this->MaxHitsPerAttack = 2;
+    this->HitDetectionMode = EMeleeHitDetectionMode::ItemThirdPerson;
+    this->SimpleHitDetectionTraceLength = 120.00f;
     this->TraceThickness = 5.00f;
     this->SuccessfulAttackDelay = 0.30f;
     this->ReadyDelay = 0.20f;
@@ -13,10 +16,11 @@ UFPSMeleeWeaponData::UFPSMeleeWeaponData() {
     this->MinHitTime = 0.10f;
     this->MaxHitTimeRemaining = 0.10f;
     this->bResetAttackDirectionOnBash = true;
-    this->MaxHitsPerAttack = 2;
     this->AttackShakeClass = NULL;
     this->HitShakeClass = NULL;
     this->HitData = NULL;
+    this->AttackMode = EMeleeItemMode::Simple;
+    this->HeavyAttackDamageMultiplier = 1.50f;
     this->PerceptionSoundRadius = 500.00f;
     this->Loudness = 1.00f;
     this->AttackSound = NULL;

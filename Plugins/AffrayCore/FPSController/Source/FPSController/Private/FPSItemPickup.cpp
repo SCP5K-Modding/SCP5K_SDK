@@ -20,6 +20,7 @@ AFPSItemPickup::AFPSItemPickup(const FObjectInitializer& ObjectInitializer) : Su
     this->bHideWhenDisabled = false;
     this->bUsePhysics = true;
     this->bWasSpawned = false;
+    this->bSetMeshAutomatically = true;
     this->MinPhysicsSignificance = 0.30f;
     this->MinSkelMeshRenderSignificance = 0.30f;
     this->SkeletalMeshComponent->SetupAttachment(RootComponent);

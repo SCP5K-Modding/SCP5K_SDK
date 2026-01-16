@@ -116,16 +116,22 @@ public:
     float MovementLeanAmount;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float CrouchHeightOffset;
+    float CrouchIdleMultiplier;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float CrouchIdleMultiplier;
+    FVector CrouchOffsetAmount;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float RightHandIKAlpha;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float LeftHandIKAlpha;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float RightHandFollowAlpha;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float LeftHandFollowAlpha;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float MaxWallOffset;
@@ -141,6 +147,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float MovementOffsetAmount;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FVector MovementOffsetMultiplier;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float RecoilRotationAmount;
@@ -191,7 +200,7 @@ public:
     bool bIsMoving;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
-    float SmoothCrouchOffset;
+    float SmoothCrouchAlpha;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     float SmoothBlockingAlpha;
@@ -246,9 +255,6 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     float Control;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    float AimingActionMovementAmount;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     float CurrentActionMovementAmount;
@@ -452,7 +458,8 @@ public:
 
     UFUNCTION(BlueprintCallable)
     void UpdateGripPosition();
-    
+    void UpdateGripAlpha(float DeltaTime);
+
     UFUNCTION(BlueprintCallable)
     void UpdateGripAlpha();
     
@@ -461,7 +468,8 @@ public:
     
     UFUNCTION(BlueprintCallable)
     void SetSwayMultiplier(float Multiplier);
-    
+    UAnimSequence* GetGripPose_Implementation(UFPSGripData* GripData);
+
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     UAnimSequence* GetGripPose(UFPSGripData* GripData);
     

@@ -7,6 +7,7 @@
 class AFPSCharacterBase;
 class AFPSItem;
 class AFPSRangedWeapon;
+class UAnimMontage;
 class UFPSItemData;
 class UFPSMeleeWeaponData;
 class UFPSRangedWeaponData;
@@ -49,9 +50,15 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     AFPSRangedWeapon* CurrentRangedWeapon;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    FRotator ItemRotationSpace;
+    
 public:
     UFPSAnimInstanceBase();
 
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    UAnimMontage* GetFinalMontage(TSoftObjectPtr<UAnimMontage> Montage);
+    
 
     // Fix for true pure virtual functions not being implemented
 };

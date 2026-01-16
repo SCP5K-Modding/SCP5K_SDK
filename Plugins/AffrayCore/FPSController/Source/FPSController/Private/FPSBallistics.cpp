@@ -8,7 +8,7 @@ bool UFPSBallistics::VerifyBallistics(AActor* User, FProjectileData Projectile, 
     return false;
 }
 
-void UFPSBallistics::SpawnBallisticEffects(TArray<FBallisticProjectileData> Projectiles, const TArray<TSoftObjectPtr<UBallisticPhysicsMaterial>>& Physmats, bool bTwoSidedDecals, UStaticMesh* TransparentDecalMesh) {
+void UFPSBallistics::SpawnBallisticEffects(TArray<FBallisticProjectileData> Projectiles, const TArray<TSoftObjectPtr<UBallisticPhysicsMaterial>>& Physmats, bool bTwoSidedDecals, UStaticMesh* TransparentDecalMesh, bool bIsFirstPerson) {
 }
 
 bool UFPSBallistics::SimulateBallistics(AActor* User, FProjectileData Projectile, const TArray<TSoftObjectPtr<UBallisticPhysicsMaterial>>& Physmats, float TimeStep, float Time, int32 Index, bool bFilterHits, float Drag, float MaxRange, FVector StartingPosition, FVector Direction, TArray<FBallisticHitData>& OutHits) {
@@ -16,6 +16,10 @@ bool UFPSBallistics::SimulateBallistics(AActor* User, FProjectileData Projectile
 }
 
 bool UFPSBallistics::IsCloseToPoints(FVector Point, const TArray<FVector>& Points, float Distance) {
+    return false;
+}
+
+bool UFPSBallistics::HasHit(const TArray<FBallisticProjectileData>& Projectiles, FBallisticHitData& FirstHit) {
     return false;
 }
 
@@ -41,9 +45,6 @@ float UFPSBallistics::ConvertFromByte(uint8 Input, float Max) {
 
 float UFPSBallistics::CalculateSpread(float Spread, FRandomStream& Stream) {
     return 0.0f;
-}
-
-void UFPSBallistics::CalculateBallistics(AActor* User, float ProjectileMass, float ProjectilePiercing, FRandomStream& Stream, FVector position, FVector Velocity, float TimeStep, float Drag, float Time, bool bWasHit, FVector& OutPosition, FVector& OutVelocity, float& OutDistance, FHitResult& OutHit, float& OutTime, bool& bOutWasRicochet) {
 }
 
 void UFPSBallistics::ApplyBallisticDamage(AActor* User, TArray<FBallisticProjectileData> Projectiles, float IdealRange, float MaxRange, float ProjectileVelocity, float Damage, TSubclassOf<UDamageType> DamageType) {

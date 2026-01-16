@@ -9,10 +9,12 @@
 #include "Chaos/ChaosEngineInterface.h"
 #include "AlternateLoadAnimation.h"
 #include "AttachmentSlotData.h"
-#include "BallisticProjectileData.h"
+#include "BallisticFireEvent.h"
 #include "EFireMode.h"
+#include "EReloadMode.h"
 #include "EReloadType.h"
 #include "FPSWeapon.h"
+#include "Magazine.h"
 #include "ReloadData.h"
 #include "FPSRangedWeapon.generated.h"
 
@@ -68,7 +70,7 @@ protected:
     FReloadData ReloadData;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_Magazines, meta=(AllowPrivateAccess=true))
-    TArray<int32> Magazines;
+    TArray<FMagazine> Magazines;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, Transient, meta=(AllowPrivateAccess=true))
     int32 CurrentMagIndex;
@@ -88,14 +90,17 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_CurrentSight, meta=(AllowPrivateAccess=true))
     AFPSSight* CurrentSight;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_CurrentAmmo, meta=(AllowPrivateAccess=true))
-    int32 CurrentAmmo;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_CurrentMagazine, meta=(AllowPrivateAccess=true))
+    FMagazine CurrentMagazine;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_BurstCount, meta=(AllowPrivateAccess=true))
     int32 BurstCount;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_ServerRejectedShots, meta=(AllowPrivateAccess=true))
     int32 ServerRejectedShots;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    TArray<FBallisticFireEvent> ServerPendingShots;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, ReplicatedUsing=OnRep_CurrentFireMode, meta=(AllowPrivateAccess=true))
     EFireMode CurrentFireMode;
@@ -109,8 +114,8 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
     bool bWantsAim;
     
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_LastProjectiles, meta=(AllowPrivateAccess=true))
-    TArray<FBallisticProjectileData> LastProjectiles;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_LastFireEvent, meta=(AllowPrivateAccess=true))
+    FBallisticFireEvent LastFireEvent;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, Transient, meta=(AllowPrivateAccess=true))
     TArray<AFPSSight*> Sights;
@@ -139,6 +144,9 @@ protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bUpdateClientMagazinesOnMagCheck;
     
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
+    float LastFireTime;
+    
 public:
     AFPSRangedWeapon(const FObjectInitializer& ObjectInitializer);
 
@@ -149,9 +157,6 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool WantsAlternateGripPose() const;
-    
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool UsingManualAction() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool UseFullAutoAudio() const;
@@ -165,8 +170,20 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void UpdateAttachMeshes();
     
+    UFUNCTION(BlueprintCallable)
+    void TryLoadRound();
+    
+    UFUNCTION(BlueprintCallable)
+    void StopReload();
+    
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void StopFireAudio();
+    
+    UFUNCTION(BlueprintCallable)
+    void StartUseAction();
+    
+    UFUNCTION(BlueprintCallable)
+    void StartReload();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void StartMuzzleSmoke(UFXSystemAsset* Particle);
@@ -186,6 +203,9 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void SortMagazines();
     
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool ShouldUseManualAction() const;
+    
     UFUNCTION(BlueprintCallable)
     void SetUsingAlternateGripPose(bool bNewValue);
     
@@ -194,10 +214,13 @@ protected:
     void SetReloadData(FReloadData NewValue);
     
     UFUNCTION(BlueprintCallable)
-    void SetMagazines(TArray<int32> NewValue);
+    void SetMagazines(TArray<FMagazine> NewValue);
     
     UFUNCTION(BlueprintCallable)
-    void SetLastProjectiles(const TArray<FBallisticProjectileData>& InLastProjectiles);
+    void SetLastFireTime(float NewTime);
+    
+    UFUNCTION(BlueprintCallable)
+    void SetLastFireEvent(const FBallisticFireEvent& InLastFireEvent);
     
     UFUNCTION(BlueprintCallable)
     void SetIsUsingAction(bool bNewValue);
@@ -221,6 +244,9 @@ protected:
     void SetCurrentSight(AFPSSight* Sight);
     
     UFUNCTION(BlueprintCallable)
+    void SetCurrentMagazine(FMagazine NewValue);
+    
+    UFUNCTION(BlueprintCallable)
     void SetCurrentGrip(AFPSGrip* Grip);
     
     UFUNCTION(BlueprintCallable)
@@ -230,14 +256,22 @@ protected:
     void SetCurrentBarrel(AFPSBarrel* Barrel);
     
     UFUNCTION(BlueprintCallable)
-    void SetCurrentAmmo(int32 NewValue);
-    
-    UFUNCTION(BlueprintCallable)
     void SetBurstCount(int32 NewValue);
     
     UFUNCTION(BlueprintCallable)
     void SetAttachments(TArray<AFPSAttachment*> NewValue);
     
+public:
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerStopReload();
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerStartUseAction();
+    
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerStartReload();
+    
+protected:
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void ServerSetIsFiring(bool bNewValue);
     
@@ -250,7 +284,13 @@ protected:
     UFUNCTION(BlueprintCallable, Reliable, Server)
     void ServerSetCurrentBarrel(AFPSBarrel* Barrel);
     
+    UFUNCTION(BlueprintCallable)
+    void ServerRejectShot();
+    
 public:
+    UFUNCTION(BlueprintCallable, Reliable, Server)
+    void ServerCancelReload();
+    
     UFUNCTION(BlueprintCallable)
     void SerializeAttachments();
     
@@ -274,10 +314,13 @@ protected:
     void OnRep_Magazines();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void OnRep_LastProjectiles();
+    void OnRep_LastFireEvent();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_CurrentSight();
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+    void OnRep_CurrentMagazine();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_CurrentGrip();
@@ -287,9 +330,6 @@ protected:
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_CurrentBarrel();
-    
-    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-    void OnRep_CurrentAmmo();
     
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void OnRep_BurstCount();
@@ -325,8 +365,20 @@ public:
     UFUNCTION(BlueprintCallable)
     void OnCascadeParticleCollide(FName EventName, float EmitterTime, int32 ParticleTime, FVector Location, FVector Velocity, FVector Direction, FVector Normal, FName BoneName, UPhysicalMaterial* PhysMat);
     
+    UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
+    void MulticastStartUseAction();
+    
+    UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
+    void MulticastCancelReload();
+    
+    UFUNCTION(BlueprintCallable, BlueprintCosmetic)
+    void LocalStopReload();
+    
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void LoadRound();
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool IsUsingAction() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool IsSuppressed() const;
@@ -377,6 +429,9 @@ public:
     bool GetUsingAlternateGripPose() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    float GetTimeSinceLastFired() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     FVector GetSightPosition();
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -393,6 +448,12 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     int32 GetReserveAmmo(bool bIncludeCurrentMag) const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    float GetRemainingTimeInReload() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    float GetRemainingTimeInAction() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     EReloadType GetReloadType() const;
@@ -429,6 +490,9 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     float GetIdleMultiplier() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    EReloadMode GetDesiredReloadMode() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     AFPSSight* GetCurrentSight() const;
@@ -469,6 +533,9 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
     float GetADSAlignmentSpeedMultiplier() const;
     
+    UFUNCTION(BlueprintCallable, BlueprintCosmetic)
+    void FinishUseAction();
+    
     UFUNCTION(BlueprintCallable)
     void FinishLoadAndAddAttachment(TSoftObjectPtr<UFPSAttachmentData> AttachmentData, int32 Slot);
     
@@ -484,11 +551,29 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
     void CycleMagazines();
     
+    UFUNCTION(BlueprintCallable, BlueprintCosmetic)
+    void CosmeticStopReload();
+    
+    UFUNCTION(BlueprintCallable, BlueprintCosmetic)
+    void CosmeticStartUseAction();
+    
+    UFUNCTION(BlueprintCallable, BlueprintCosmetic)
+    void CosmeticStartReload();
+    
+    UFUNCTION(BlueprintCallable, BlueprintCosmetic)
+    void CosmeticCancelReload();
+    
     UFUNCTION(BlueprintCallable, Client, Reliable)
-    void ClientSetMagazines(int32 NewCurrentAmmo, const TArray<int32>& NewMagazines);
+    void ClientSetMagazines(FMagazine NewCurrentAmmo, const TArray<FMagazine>& NewMagazines, int32 NewMagIndex);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool CanUseIronSights() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool CanUseActionWhileAiming() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool CanUseAction() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool CanReloadWhileSprinting() const;
@@ -496,14 +581,23 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool CanReloadWhileAiming() const;
     
-    UFUNCTION(BlueprintCallable, BlueprintPure)
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
     bool CanReload() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool CanMagCheckWhileAiming() const;
+    
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintPure)
+    bool CanLoadRound() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool CanInspect() const;
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool CanChangeFiremode() const;
+    
+    UFUNCTION(BlueprintCallable)
+    void CancelReload();
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     bool CanCancelReload() const;

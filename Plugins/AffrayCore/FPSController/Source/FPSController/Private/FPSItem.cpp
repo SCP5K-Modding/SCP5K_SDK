@@ -1,6 +1,7 @@
 #include "FPSItem.h"
 #include "Components/SceneComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameEventBus -ObjectName=GameEventBusComponent -FallbackName=GameEventBusComponent
 #include "FPSItemData.h"
 #include "Net/UnrealNetwork.h"
 
@@ -33,11 +34,12 @@ AFPSItem::AFPSItem(const FObjectInitializer& ObjectInitializer) : Super(ObjectIn
     this->ThirdPerson = CreateDefaultSubobject<USceneComponent>(TEXT("ThirdPerson"));
     this->Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
     this->Mesh3P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh3P"));
+    this->GameEventBus = CreateDefaultSubobject<UGameEventBusComponent>(TEXT("GameEventBusComponent"));
     this->bIsCheckingAmmo = false;
     this->FirstPerson->SetupAttachment(RootComponent);
-    this->ThirdPerson->SetupAttachment(RootComponent);
     this->Mesh->SetupAttachment(FirstPerson);
     this->Mesh3P->SetupAttachment(ThirdPerson);
+    this->ThirdPerson->SetupAttachment(RootComponent);
 }
 
 void AFPSItem::ToggleSpecial_Implementation() {
@@ -67,7 +69,7 @@ void AFPSItem::StartBash_Implementation() {
 void AFPSItem::SetupItemData_Implementation(UFPSItemData* Data) {
 }
 
-void AFPSItem::SetupAnimationData_Implementation() {
+void AFPSItem::SetupAnimationData_Implementation(bool bForce) {
 }
 
 void AFPSItem::SetItemVisibility_Implementation(bool bVisible) {
@@ -116,6 +118,10 @@ bool AFPSItem::RemoveAttachMesh(const FAttachmentSlotData& AttachmentSlotData, A
     return false;
 }
 
+
+void AFPSItem::PlayMontageOnInstances(UAnimMontage* Montage) {
+}
+
 void AFPSItem::OwnerTick_Implementation() {
 }
 
@@ -138,6 +144,9 @@ void AFPSItem::OnRep_FPSCharacter_Implementation() {
 }
 
 void AFPSItem::OnRep_CurrentCosmetic_Implementation() {
+}
+
+void AFPSItem::OnRemoveCosmetic_Implementation() {
 }
 
 void AFPSItem::OnRemove_Implementation() {
@@ -165,11 +174,23 @@ bool AFPSItem::IsValidItem() const {
     return false;
 }
 
+bool AFPSItem::IsUsingItem_Implementation() const {
+    return false;
+}
+
 bool AFPSItem::IsLocallyOwned() const {
     return false;
 }
 
+bool AFPSItem::IsFirstPerson(bool bCheckLocal) const {
+    return false;
+}
+
 bool AFPSItem::IsCheckingAmmo() const {
+    return false;
+}
+
+bool AFPSItem::InvokeEventOnBus(const AFPSCharacterBase* InstigatorChar, const FGameplayTagContainer& EventTags, bool bHasSubject, const AActor* Subject) const {
     return false;
 }
 
@@ -217,10 +238,17 @@ float AFPSItem::GetDelay() const {
     return 0.0f;
 }
 
+int32 AFPSItem::GetCosmeticIndex(FName InternalName) const {
+    return 0;
+}
+
 void AFPSItem::FinishedLoadingItemData() {
 }
 
 void AFPSItem::CycleMode_Implementation() {
+}
+
+void AFPSItem::CreateAnimInstance() {
 }
 
 void AFPSItem::CosmeticStartEquip_Implementation() {
@@ -271,6 +299,10 @@ bool AFPSItem::CanUseCosmetic_Implementation(int32 Index) {
     return false;
 }
 
+bool AFPSItem::CanCheckAmmo_Implementation() {
+    return false;
+}
+
 bool AFPSItem::CanBash_Implementation(float Bias) const {
     return false;
 }
@@ -280,6 +312,12 @@ bool AFPSItem::CanAddAmmo_Implementation(int32 InAmount) const {
 }
 
 void AFPSItem::ApplyCosmeticNoChecks(int32 Index) {
+}
+
+void AFPSItem::ApplyCosmeticForAttachMesh(FAttachMeshHierachy& AttachMesh, const FFPSCosmetic& Cosmetic) {
+}
+
+void AFPSItem::ApplyCosmeticByName(FName InternalName) {
 }
 
 void AFPSItem::ApplyCosmetic_Implementation(int32 Index) {

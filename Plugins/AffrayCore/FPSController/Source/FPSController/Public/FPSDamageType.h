@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/DamageType.h"
 #include "ECameraModifierDisplayTimeType.h"
+#include "GameplayTagContainer.h"
 #include "Templates/SubclassOf.h"
 #include "FPSDamageType.generated.h"
 
@@ -38,6 +39,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bIsLooping;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FGameplayTag DamageTypeTag;
     
     UFPSDamageType();
 

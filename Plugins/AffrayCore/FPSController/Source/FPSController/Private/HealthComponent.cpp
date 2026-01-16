@@ -1,12 +1,16 @@
 #include "HealthComponent.h"
+
+#include "GameplayTagContainer.h"
 #include "Net/UnrealNetwork.h"
 
 UHealthComponent::UHealthComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {
+    this->GameEventBus = NULL;
     this->CurrentHealth = 100.00f;
     this->MaxHealth = 100.00f;
     this->MaxHealthPlayerMultiplier = 0.00f;
     this->bIsDead = false;
     this->DefaultDamageMultiplier = 1.00f;
+    this->HeadBoneName = TEXT("head");
 }
 
 void UHealthComponent::SetHealth(float NewHealth, AController* InstigatedBy, AActor* DamageCauser, bool bCheckDeath) {
@@ -27,7 +31,10 @@ void UHealthComponent::OnRep_CurrentHealth() {
 void UHealthComponent::OnRep_bIsDead() {
 }
 
-void UHealthComponent::OnRadialDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, FVector Origin, FHitResult HitInfo, AController* InstigatedBy, AActor* DamageCauser) {
+void UHealthComponent::OnRadialDamageOld(AActor* DamagedActor, float Damage, const UDamageType* DamageType, FVector Origin, FHitResult HitInfo, AController* InstigatedBy, AActor* DamageCauser) {
+}
+
+void UHealthComponent::OnRadialDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, FVector Origin, const FHitResult& HitInfo, AController* InstigatedBy, AActor* DamageCauser) {
 }
 
 void UHealthComponent::OnPointDamage(AActor* DamagedActor, float Damage, AController* InstigatedBy, FVector HitLocation, UPrimitiveComponent* FHitComponent, FName BoneName, FVector ShotFromDirection, const UDamageType* DamageType, AActor* DamageCauser) {
@@ -38,6 +45,9 @@ void UHealthComponent::OnDamage(AActor* DamagedActor, float Damage, const UDamag
 
 bool UHealthComponent::IsDead() const {
     return false;
+}
+
+void UHealthComponent::InvokeEventOnEventBusWithOurSubjectAndDamageType(const APawn* InstigatedBy, const AActor* Subject, FGameplayTagContainer TagContainer, bool bReportDamageType) {
 }
 
 float UHealthComponent::GetMaxHealth() const {

@@ -4,6 +4,7 @@
 #include "SignificanceUser.h"
 #include "FPSCosmetic.h"
 #include "FPSItemSlotData.h"
+#include "OnPickedUpDelegateDelegate.h"
 #include "FPSItemPickup.generated.h"
 
 class AFPSCharacterBase;
@@ -25,6 +26,9 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bStartEnabled;
+    
+    UPROPERTY(BlueprintAssignable, BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    FOnPickedUpDelegate OnPickedUp;
     
 protected:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing=OnRep_Item, meta=(AllowPrivateAccess=true))
@@ -56,6 +60,9 @@ protected:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated, meta=(AllowPrivateAccess=true))
     bool bWasSpawned;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    bool bSetMeshAutomatically;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float MinPhysicsSignificance;

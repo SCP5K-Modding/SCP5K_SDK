@@ -4,5 +4,7 @@ FReloadData::FReloadData() {
     this->bIsReloading = false;
     this->bCancelled = false;
     this->bIsSpeedReload = false;
+    this->ReloadMode = EReloadMode::None;
+    this->ReloadIndex = 0;
 }
 

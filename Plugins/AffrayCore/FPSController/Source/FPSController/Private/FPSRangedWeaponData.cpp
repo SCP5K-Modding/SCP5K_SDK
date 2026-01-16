@@ -37,7 +37,10 @@ UFPSRangedWeaponData::UFPSRangedWeaponData() {
     this->bCanReloadWhileAiming = false;
     this->bCanMagCheckWhileAiming = true;
     this->bCanNeverReloadWhileAiming = false;
+    this->bCanUseActionWhileAiming = true;
     this->AimingSightDistance = 5.00f;
+    this->AimingActionMovementMultiplier = 0.15f;
+    this->BracedAimingActionMovementMultiplier = 0.50f;
     this->AimingMovementMultiplier = 0.40f;
     this->AimingRecoilAnimationMultiplier = 0.40f;
     this->AimingRecoilKickMultiplier = 2.00f;

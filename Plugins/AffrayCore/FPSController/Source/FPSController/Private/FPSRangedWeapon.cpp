@@ -16,10 +16,9 @@ AFPSRangedWeapon::AFPSRangedWeapon(const FObjectInitializer& ObjectInitializer) 
     this->CurrentGrip = NULL;
     this->CurrentBarrel = NULL;
     this->CurrentSight = NULL;
-    this->CurrentAmmo = 0;
     this->BurstCount = 0;
     this->ServerRejectedShots = 0;
-    this->CurrentFireMode = EFireMode::FM_Automatic;
+    this->CurrentFireMode = EFireMode::FM_SemiAutomatic;
     this->bUsingAlternateGripPose = false;
     this->bWantsAction = false;
     this->bWantsAim = false;
@@ -28,6 +27,7 @@ AFPSRangedWeapon::AFPSRangedWeapon(const FObjectInitializer& ObjectInitializer) 
     this->ADSAlignmentSpeedMultiplier = 1.00f;
     this->ADSSpeedMultiplier = 1.00f;
     this->bUpdateClientMagazinesOnMagCheck = true;
+    this->LastFireTime = 0.00f;
 }
 
 bool AFPSRangedWeapon::WantsDiscardMagazine() const {
@@ -35,10 +35,6 @@ bool AFPSRangedWeapon::WantsDiscardMagazine() const {
 }
 
 bool AFPSRangedWeapon::WantsAlternateGripPose() const {
-    return false;
-}
-
-bool AFPSRangedWeapon::UsingManualAction() const {
     return false;
 }
 
@@ -55,7 +51,19 @@ void AFPSRangedWeapon::UpdateControl_Implementation() {
 void AFPSRangedWeapon::UpdateAttachMeshes_Implementation() {
 }
 
+void AFPSRangedWeapon::TryLoadRound() {
+}
+
+void AFPSRangedWeapon::StopReload() {
+}
+
 void AFPSRangedWeapon::StopFireAudio_Implementation() {
+}
+
+void AFPSRangedWeapon::StartUseAction() {
+}
+
+void AFPSRangedWeapon::StartReload() {
 }
 
 void AFPSRangedWeapon::StartMuzzleSmoke_Implementation(UFXSystemAsset* Particle) {
@@ -77,16 +85,23 @@ void AFPSRangedWeapon::StartCasing_Implementation(UFXSystemAsset* Particle) {
 void AFPSRangedWeapon::SortMagazines_Implementation() {
 }
 
+bool AFPSRangedWeapon::ShouldUseManualAction() const {
+    return false;
+}
+
 void AFPSRangedWeapon::SetUsingAlternateGripPose(bool bNewValue) {
 }
 
 void AFPSRangedWeapon::SetReloadData(FReloadData NewValue) {
 }
 
-void AFPSRangedWeapon::SetMagazines(TArray<int32> NewValue) {
+void AFPSRangedWeapon::SetMagazines(TArray<FMagazine> NewValue) {
 }
 
-void AFPSRangedWeapon::SetLastProjectiles(const TArray<FBallisticProjectileData>& InLastProjectiles) {
+void AFPSRangedWeapon::SetLastFireTime(float NewTime) {
+}
+
+void AFPSRangedWeapon::SetLastFireEvent(const FBallisticFireEvent& InLastFireEvent) {
 }
 
 void AFPSRangedWeapon::SetIsUsingAction(bool bNewValue) {
@@ -110,6 +125,9 @@ void AFPSRangedWeapon::SetIsAiming(bool bNewValue) {
 void AFPSRangedWeapon::SetCurrentSight(AFPSSight* Sight) {
 }
 
+void AFPSRangedWeapon::SetCurrentMagazine(FMagazine NewValue) {
+}
+
 void AFPSRangedWeapon::SetCurrentGrip(AFPSGrip* Grip) {
 }
 
@@ -119,13 +137,19 @@ void AFPSRangedWeapon::SetCurrentFireMode(EFireMode NewValue) {
 void AFPSRangedWeapon::SetCurrentBarrel(AFPSBarrel* Barrel) {
 }
 
-void AFPSRangedWeapon::SetCurrentAmmo(int32 NewValue) {
-}
-
 void AFPSRangedWeapon::SetBurstCount(int32 NewValue) {
 }
 
 void AFPSRangedWeapon::SetAttachments(TArray<AFPSAttachment*> NewValue) {
+}
+
+void AFPSRangedWeapon::ServerStopReload_Implementation() {
+}
+
+void AFPSRangedWeapon::ServerStartUseAction_Implementation() {
+}
+
+void AFPSRangedWeapon::ServerStartReload_Implementation() {
 }
 
 void AFPSRangedWeapon::ServerSetIsFiring_Implementation(bool bNewValue) {
@@ -138,6 +162,12 @@ void AFPSRangedWeapon::ServerSetCurrentGrip_Implementation(AFPSGrip* Grip) {
 }
 
 void AFPSRangedWeapon::ServerSetCurrentBarrel_Implementation(AFPSBarrel* Barrel) {
+}
+
+void AFPSRangedWeapon::ServerRejectShot() {
+}
+
+void AFPSRangedWeapon::ServerCancelReload_Implementation() {
 }
 
 void AFPSRangedWeapon::SerializeAttachments() {
@@ -163,10 +193,13 @@ void AFPSRangedWeapon::OnRep_ReloadData_Implementation() {
 void AFPSRangedWeapon::OnRep_Magazines_Implementation() {
 }
 
-void AFPSRangedWeapon::OnRep_LastProjectiles_Implementation() {
+void AFPSRangedWeapon::OnRep_LastFireEvent_Implementation() {
 }
 
 void AFPSRangedWeapon::OnRep_CurrentSight_Implementation() {
+}
+
+void AFPSRangedWeapon::OnRep_CurrentMagazine_Implementation() {
 }
 
 void AFPSRangedWeapon::OnRep_CurrentGrip_Implementation() {
@@ -176,9 +209,6 @@ void AFPSRangedWeapon::OnRep_CurrentFireMode_Implementation() {
 }
 
 void AFPSRangedWeapon::OnRep_CurrentBarrel_Implementation() {
-}
-
-void AFPSRangedWeapon::OnRep_CurrentAmmo_Implementation() {
 }
 
 void AFPSRangedWeapon::OnRep_BurstCount_Implementation() {
@@ -208,13 +238,27 @@ void AFPSRangedWeapon::OnRep_Attachments_Implementation() {
 void AFPSRangedWeapon::OnRep_AttachmentIDsToLoad() {
 }
 
-void AFPSRangedWeapon::OnParticleCollide_Implementation(FVector Location, FVector Velocity, EPhysicalSurface Surface) {
+void AFPSRangedWeapon::OnParticleCollide_Implementation(FVector Location, FVector Velocity, EPhysicalSurface Surface)
+{
 }
 
 void AFPSRangedWeapon::OnCascadeParticleCollide(FName EventName, float EmitterTime, int32 ParticleTime, FVector Location, FVector Velocity, FVector Direction, FVector Normal, FName BoneName, UPhysicalMaterial* PhysMat) {
 }
 
+void AFPSRangedWeapon::MulticastStartUseAction_Implementation() {
+}
+
+void AFPSRangedWeapon::MulticastCancelReload_Implementation() {
+}
+
+void AFPSRangedWeapon::LocalStopReload() {
+}
+
 void AFPSRangedWeapon::LoadRound_Implementation() {
+}
+
+bool AFPSRangedWeapon::IsUsingAction() const {
+    return false;
 }
 
 bool AFPSRangedWeapon::IsSuppressed() const {
@@ -281,6 +325,10 @@ bool AFPSRangedWeapon::GetUsingAlternateGripPose() const {
     return false;
 }
 
+float AFPSRangedWeapon::GetTimeSinceLastFired() const {
+    return 0.0f;
+}
+
 FVector AFPSRangedWeapon::GetSightPosition() {
     return FVector{};
 }
@@ -303,6 +351,14 @@ int32 AFPSRangedWeapon::GetReserveMagazines() const {
 
 int32 AFPSRangedWeapon::GetReserveAmmo(bool bIncludeCurrentMag) const {
     return 0;
+}
+
+float AFPSRangedWeapon::GetRemainingTimeInReload() const {
+    return 0.0f;
+}
+
+float AFPSRangedWeapon::GetRemainingTimeInAction() const {
+    return 0.0f;
 }
 
 EReloadType AFPSRangedWeapon::GetReloadType() const {
@@ -351,6 +407,10 @@ USceneComponent* AFPSRangedWeapon::GetIronSight_Implementation() {
 
 float AFPSRangedWeapon::GetIdleMultiplier() const {
     return 0.0f;
+}
+
+EReloadMode AFPSRangedWeapon::GetDesiredReloadMode() const {
+    return EReloadMode::None;
 }
 
 AFPSSight* AFPSRangedWeapon::GetCurrentSight() const {
@@ -405,6 +465,9 @@ float AFPSRangedWeapon::GetADSAlignmentSpeedMultiplier_Implementation() const {
     return 0.0f;
 }
 
+void AFPSRangedWeapon::FinishUseAction() {
+}
+
 void AFPSRangedWeapon::FinishLoadAndAddAttachment(TSoftObjectPtr<UFPSAttachmentData> AttachmentData, int32 Slot) {
 }
 
@@ -422,10 +485,30 @@ void AFPSRangedWeapon::DropMagazine_Implementation() {
 void AFPSRangedWeapon::CycleMagazines_Implementation() {
 }
 
-void AFPSRangedWeapon::ClientSetMagazines_Implementation(int32 NewCurrentAmmo, const TArray<int32>& NewMagazines) {
+void AFPSRangedWeapon::CosmeticStopReload() {
+}
+
+void AFPSRangedWeapon::CosmeticStartUseAction() {
+}
+
+void AFPSRangedWeapon::CosmeticStartReload() {
+}
+
+void AFPSRangedWeapon::CosmeticCancelReload() {
+}
+
+void AFPSRangedWeapon::ClientSetMagazines_Implementation(FMagazine NewCurrentAmmo, const TArray<FMagazine>& NewMagazines, int32 NewMagIndex) {
 }
 
 bool AFPSRangedWeapon::CanUseIronSights() const {
+    return false;
+}
+
+bool AFPSRangedWeapon::CanUseActionWhileAiming() const {
+    return false;
+}
+
+bool AFPSRangedWeapon::CanUseAction() const {
     return false;
 }
 
@@ -437,7 +520,15 @@ bool AFPSRangedWeapon::CanReloadWhileAiming() const {
     return false;
 }
 
-bool AFPSRangedWeapon::CanReload() const {
+bool AFPSRangedWeapon::CanReload_Implementation() const {
+    return false;
+}
+
+bool AFPSRangedWeapon::CanMagCheckWhileAiming() const {
+    return false;
+}
+
+bool AFPSRangedWeapon::CanLoadRound_Implementation() const {
     return false;
 }
 
@@ -447,6 +538,9 @@ bool AFPSRangedWeapon::CanInspect() const {
 
 bool AFPSRangedWeapon::CanChangeFiremode() const {
     return false;
+}
+
+void AFPSRangedWeapon::CancelReload() {
 }
 
 bool AFPSRangedWeapon::CanCancelReload() const {
@@ -490,14 +584,15 @@ void AFPSRangedWeapon::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
     DOREPLIFETIME(AFPSRangedWeapon, CurrentGrip);
     DOREPLIFETIME(AFPSRangedWeapon, CurrentBarrel);
     DOREPLIFETIME(AFPSRangedWeapon, CurrentSight);
-    DOREPLIFETIME(AFPSRangedWeapon, CurrentAmmo);
+    DOREPLIFETIME(AFPSRangedWeapon, CurrentMagazine);
     DOREPLIFETIME(AFPSRangedWeapon, BurstCount);
     DOREPLIFETIME(AFPSRangedWeapon, ServerRejectedShots);
     DOREPLIFETIME(AFPSRangedWeapon, CurrentFireMode);
-    DOREPLIFETIME(AFPSRangedWeapon, LastProjectiles);
+    DOREPLIFETIME(AFPSRangedWeapon, LastFireEvent);
     DOREPLIFETIME(AFPSRangedWeapon, Sights);
     DOREPLIFETIME(AFPSRangedWeapon, Physmats);
     DOREPLIFETIME(AFPSRangedWeapon, AttachmentIDsToLoad);
+    DOREPLIFETIME(AFPSRangedWeapon, LastFireTime);
 }
 
 

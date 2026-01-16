@@ -1,6 +1,6 @@
 #include "FPSCharacterBase.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=GameEventBus -ObjectName=GameEventBusComponent -FallbackName=GameEventBusComponent
 #include "AimingCameraModifier.h"
-#include "CameraAnimationCameraModifier.h"
 #include "DamageCameraModifier.h"
 #include "FPSCharacterMovementComponent.h"
 #include "LowHealthCameraModifier.h"
@@ -12,26 +12,15 @@
 
 AFPSCharacterBase::AFPSCharacterBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.SetDefaultSubobjectClass<UFPSCharacterMovementComponent>(TEXT("CharMoveComp"))) {
     this->MaxDistance = 5000.00f;
-    this->EquippedItem = NULL;
-    this->ClientEquippedItem = NULL;
-    this->ClientDequippedItem = NULL;
-    this->State = 0;
-    this->LastState = 0;
     this->Abilities = -1;
     this->LastAbilities = 0;
-    this->MaxHealth = 100.00f;
-    this->bIsEquipping = false;
-    this->bIsDequipping = false;
-    this->bAllowedToSprint = true;
     this->bAllowedToBracedAim = true;
     this->bForceBracedAimInNightVision = true;
     this->bCanUseItems = true;
-    this->JumpItemDelay = 0.30f;
-    this->LowReadySpeedMultiplier = 0.65f;
+    this->bCanEverUseNightVision = true;
+    this->MaxHealth = 100.00f;
     this->DefaultDamageSound = NULL;
-    this->WalkingSpeed = 300.00f;
-    this->SprintingSpeed = 500.00f;
-    this->CrouchingSpeed = 200.00f;
+    this->HealthMultiplier = 1.00f;
     this->LeanAngle = 5.00f;
     this->LeaningHeight = -10.00f;
     this->LeaningDistance = 40.00f;
@@ -40,17 +29,18 @@ AFPSCharacterBase::AFPSCharacterBase(const FObjectInitializer& ObjectInitializer
     this->FallDamagePerMetre = 20.00f;
     this->bAlwaysDropHeldItemOnDeath = false;
     this->MountDistance = 50.00f;
-    this->CurrentMountEyeHeight = 0.00f;
-    this->CurrentMountHeight = 0.00f;
-    this->DamageMultiplier = 1.00f;
-    this->HealthMultiplier = 1.00f;
+    this->bAllowedToSprint = true;
+    this->WalkingSpeed = 300.00f;
+    this->SprintingSpeed = 500.00f;
+    this->CrouchingSpeed = 200.00f;
     this->CharacterMovementSpeedMultiplier = 1.00f;
     this->MinSprintForwardFraction = 0.50f;
-    this->LandSprintDelay = 0.50f;
-    this->LandJumpDelay = 0.50f;
+    this->LandSprintDelay = 0.20f;
+    this->LandJumpDelay = 0.28f;
     this->bDisableSprintDelay = false;
-    this->JumpDelay = 0.00f;
-    this->SprintDelay = 0.00f;
+    this->JumpItemDelay = 0.30f;
+    this->LowReadySpeedMultiplier = 0.65f;
+    this->DamageMultiplier = 1.00f;
     this->RecoilSmoothingSpeed = 4.00f;
     this->HipfireRecoilAmount = 1.20f;
     this->AimingRecoilAmount = 0.80f;
@@ -61,10 +51,7 @@ AFPSCharacterBase::AFPSCharacterBase(const FObjectInitializer& ObjectInitializer
     this->bUseOneHanded = false;
     this->bForceLowReady = false;
     this->bUseHeightOverBore = false;
-    this->ProneEyeHeight = 20.00f;
     this->CameraInterpolationSpeed = 10.00f;
-    this->CameraTargetFOV = 100.00f;
-    this->CameraCurrentFOV = 100.00f;
     this->CameraDefaultFOV = 100.00f;
     this->SmoothSightDirectionSpeed = 8.00f;
     this->SmoothSightPositionSpeed = 30.00f;
@@ -72,40 +59,60 @@ AFPSCharacterBase::AFPSCharacterBase(const FObjectInitializer& ObjectInitializer
     this->bIsFirstPerson = false;
     this->CrouchHeightSpeed = 300.00f;
     this->bCenterViewOnADS = true;
+    this->bShouldUseDeathCamera = true;
+    this->bForceDisableArmsAnimationOnServer = false;
+    this->CameraAnimationStrength = 1.00f;
+    this->AimingCameraAnimationStrength = 0.50f;
     this->RotationOffsetSpeed = 10.00f;
     this->FreeAimAmount = 0.20f;
     this->FreeAimSmoothingSpeed = 15.00f;
     this->bFreeAimInBracedAim = false;
     this->AimingSensitivityMultiplier = 0.70f;
     this->AnimationCameraRotationMultiplier = 1.00f;
-    this->LookX = 0.00f;
-    this->LookY = 0.00f;
-    this->CurrentFreeAimMultiplier = 1.00f;
-    this->ADSPercent = 0.00f;
-    this->TargetEyeHeight = 0.00f;
-    this->CurrentEyeHeight = 90.00f;
-    this->SmoothEyeHeight = 0.00f;
-    this->LastApexHeight = 0.00f;
-    this->LastGroundedHeight = 0.00f;
-    this->CurrentWalkSpeed = 0.00f;
-    this->CurrentCrouchSpeed = 0.00f;
-    this->DeltaTime = 0.00f;
+    this->RepRotationInterpolationSpeed = 25.00f;
     this->bIsDisplay = false;
-    this->bShouldUseDeathCamera = true;
+    this->MaxSuppression = 10.00f;
+    this->SuperSonicShotSuppression = 1.00f;
+    this->ShotSuppression = 0.50f;
+    this->SuppressionDecay = 1.00f;
     this->SuppressionCameraModifierClass = USuppressionCameraModifier::StaticClass();
     this->LowHealthCameraModifierClass = ULowHealthCameraModifier::StaticClass();
     this->SprintingCameraModifierClass = USprintingCameraModifier::StaticClass();
     this->NighVisionCameraModifierClass = UNightVisionCameraModifier::StaticClass();
     this->AimingCameraModifierClass = UAimingCameraModifier::StaticClass();
-    this->CameraAnimationCameraModifierClass = UCameraAnimationCameraModifier::StaticClass();
     this->DamageCameraModifierClass = UDamageCameraModifier::StaticClass();
-    this->KickTime = 0.45f;
+    this->EquippedItem = NULL;
+    this->ClientEquippedItem = NULL;
+    this->ClientDequippedItem = NULL;
+    this->State = 0;
+    this->LastState = 0;
+    this->LastApexHeight = 0.00f;
+    this->LastGroundedHeight = 0.00f;
+    this->CurrentWalkSpeed = 0.00f;
+    this->CurrentCrouchSpeed = 0.00f;
+    this->bIsEquipping = false;
+    this->bIsDequipping = false;
+    this->ProneEyeHeight = 20.00f;
+    this->CameraTargetFOV = 100.00f;
+    this->CameraCurrentFOV = 100.00f;
+    this->LookX = 0.00f;
+    this->LookY = 0.00f;
+    this->ADSPercent = 0.00f;
+    this->TargetEyeHeight = 0.00f;
+    this->CurrentEyeHeight = 90.00f;
+    this->SmoothEyeHeight = 0.00f;
+    this->MaxCrouchedEyeHeight = 0.00f;
+    this->MaxEyeHeightBias = 5.00f;
+    this->CurrentFreeAimMultiplier = 1.00f;
     this->Suppression = 0.00f;
     this->CurrentHealth = 100.00f;
-    this->MaxSuppression = 10.00f;
-    this->SuperSonicShotSuppression = 1.00f;
-    this->ShotSuppression = 0.50f;
-    this->SuppressionDecay = 1.00f;
+    this->CurrentMountEyeHeight = 0.00f;
+    this->CurrentMountHeight = 0.00f;
+    this->MaxMountEyeHeightOffset = 25.00f;
+    this->JumpDelay = 0.00f;
+    this->SprintDelay = 0.00f;
+    this->DeltaTime = 0.00f;
+    this->KickTime = 0.45f;
     this->SuppressionCameraModifier = NULL;
     this->SprintingCameraModifier = NULL;
     this->LowHealthCameraModifier = NULL;
@@ -113,6 +120,8 @@ AFPSCharacterBase::AFPSCharacterBase(const FObjectInitializer& ObjectInitializer
     this->AimingCameraModifier = NULL;
     this->CameraAnimationCameraModifier = NULL;
     this->DamageCameraModifier = NULL;
+    this->EventBusComponent = CreateDefaultSubobject<UGameEventBusComponent>(TEXT("EventBus"));
+    this->FirstPersonLegsMesh = NULL;
     FProperty* p_CharacterMovement_Prior = GetClass()->FindPropertyByName("CharacterMovement");
     this->FPSCharacterMovement = (UFPSCharacterMovementComponent*)*p_CharacterMovement_Prior->ContainerPtrToValuePtr<UFPSCharacterMovementComponent*>(this);
 }
@@ -176,6 +185,15 @@ void AFPSCharacterBase::SetPostProcessLayerBlendWeight(UCameraComponent* Compone
 void AFPSCharacterBase::SetPerspective_Implementation(bool bNewIsFirstPerson, bool bApplyArmsAnimation) {
 }
 
+void AFPSCharacterBase::SetMagazineData(FPrimaryAssetId AssetID, FMagazineData Data) {
+}
+
+void AFPSCharacterBase::SetLookY(float Value) {
+}
+
+void AFPSCharacterBase::SetLookX(float Value) {
+}
+
 void AFPSCharacterBase::SetLastHit(FSimpleHitData HitData) {
 }
 
@@ -218,6 +236,9 @@ void AFPSCharacterBase::RemoveItemAndEquip_Implementation(AFPSItem* Item, int32 
 void AFPSCharacterBase::RemoveItem_Implementation(AFPSItem* Item) {
 }
 
+void AFPSCharacterBase::RefreshAnimation() {
+}
+
 float AFPSCharacterBase::ReceiveTakeDamage_Implementation(float DamageAmount, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser) {
     return 0.0f;
 }
@@ -236,7 +257,7 @@ void AFPSCharacterBase::OnRep_Suppression_Implementation() {
 void AFPSCharacterBase::OnRep_State() {
 }
 
-void AFPSCharacterBase::OnRep_Rotation_Implementation() {
+void AFPSCharacterBase::OnRep_Rotation_Implementation(FRotator PrevRotation) {
 }
 
 void AFPSCharacterBase::OnRep_LastHit_Implementation() {
@@ -261,6 +282,9 @@ void AFPSCharacterBase::OnItemDataLoaded(AFPSItem* Item) {
 }
 
 void AFPSCharacterBase::OnEndClimb_Implementation(UClimbableComponent* ClimbableComponent, const FClimbableExit& Exit) {
+}
+
+void AFPSCharacterBase::MulticastDamageTaken_Implementation(float Damage, APawn* InInstigatorPawn, TSubclassOf<UDamageType> DamageType) {
 }
 
 bool AFPSCharacterBase::IsReserveAmmoFull() {
@@ -303,6 +327,10 @@ USkeletalMeshComponent* AFPSCharacterBase::GetThirdPersonMesh_Implementation() {
     return NULL;
 }
 
+FRotator AFPSCharacterBase::GetTargetRotationOffset_Implementation() {
+    return FRotator{};
+}
+
 float AFPSCharacterBase::GetSuppression() const {
     return 0.0f;
 }
@@ -315,8 +343,20 @@ bool AFPSCharacterBase::GetSprinting() const {
     return false;
 }
 
-USceneComponent* AFPSCharacterBase::GetSpringArm_Implementation() {
+USpringArmComponent* AFPSCharacterBase::GetSpringArm_Implementation() {
     return NULL;
+}
+
+FVector2D AFPSCharacterBase::GetSmoothRecoil() const {
+    return FVector2D{};
+}
+
+FVector AFPSCharacterBase::GetSmoothFreeAim() const {
+    return FVector{};
+}
+
+float AFPSCharacterBase::GetSmoothEyeHeight() const {
+    return 0.0f;
 }
 
 bool AFPSCharacterBase::GetReloading() const {
@@ -359,6 +399,14 @@ bool AFPSCharacterBase::GetLowReady() const {
     return false;
 }
 
+float AFPSCharacterBase::GetLookY() const {
+    return 0.0f;
+}
+
+float AFPSCharacterBase::GetLookX() const {
+    return 0.0f;
+}
+
 FFPSLoadout AFPSCharacterBase::GetLoadout() const {
     return FFPSLoadout{};
 }
@@ -381,6 +429,10 @@ bool AFPSCharacterBase::GetKicking() const {
 
 bool AFPSCharacterBase::GetInspecting() const {
     return false;
+}
+
+TArray<AFPSItem*> AFPSCharacterBase::GetHotbar() const {
+    return TArray<AFPSItem*>();
 }
 
 UFPSCharacterMovementComponent* AFPSCharacterBase::GetFPSCharacterMovement() {
@@ -415,6 +467,10 @@ int32 AFPSCharacterBase::GetEquippedItemIndex() const {
     return 0;
 }
 
+AFPSItem* AFPSCharacterBase::GetEquippedItem() const {
+    return NULL;
+}
+
 bool AFPSCharacterBase::GetEmptyReload() const {
     return false;
 }
@@ -429,6 +485,10 @@ float AFPSCharacterBase::GetCurrentHealth() const {
 
 bool AFPSCharacterBase::GetClimbing() const {
     return false;
+}
+
+AFPSItem* AFPSCharacterBase::GetClientEquippedItem() const {
+    return NULL;
 }
 
 bool AFPSCharacterBase::GetCheckingAmmo() const {
@@ -449,6 +509,14 @@ float AFPSCharacterBase::GetAimingMovementSpeedMultiplierForItem(int32 Slot) con
 
 bool AFPSCharacterBase::GetAiming() const {
     return false;
+}
+
+float AFPSCharacterBase::GetADSPercent() const {
+    return 0.0f;
+}
+
+FGameplayTagContainer AFPSCharacterBase::GetAdditionalDeathTags_Implementation(const FGameplayTagContainer& InDeathTags, AController* InInstigator, TSubclassOf<UDamageType> KillingDamageType, FName LastHitBone) const {
+    return FGameplayTagContainer{};
 }
 
 bool AFPSCharacterBase::GetAbilities(TEnumAsByte<EFPSCharacterAbilities::Type> Mask) const {
@@ -476,6 +544,13 @@ void AFPSCharacterBase::EndClimb() {
 
 AFPSItemPickup* AFPSCharacterBase::DropItem(AFPSItem* Item, TSubclassOf<AFPSItemPickup> PickupClass) {
     return NULL;
+}
+
+void AFPSCharacterBase::DebugPhysics() {
+}
+
+FFPSCharacterSnapshot AFPSCharacterBase::CreateSnapshot() const {
+    return FFPSCharacterSnapshot{};
 }
 
 void AFPSCharacterBase::CosmeticUpdatedSprinting_Implementation(bool bSprinting) {
@@ -532,6 +607,9 @@ void AFPSCharacterBase::CosmeticUpdatedAiming_Implementation(bool bAiming) {
 void AFPSCharacterBase::CosmeticSwitchItem_Implementation(AFPSItem* Item) {
 }
 
+void AFPSCharacterBase::CosmeticStopDamageSound(TSubclassOf<UDamageType> DamageType) {
+}
+
 void AFPSCharacterBase::CosmeticPlayDamageSound(float Damage, APawn* InInstigatorPawn, TSubclassOf<UDamageType> DamageType) {
 }
 
@@ -554,6 +632,10 @@ void AFPSCharacterBase::CosmeticDeathCamera_Implementation(APawn* InInstigatorPa
 }
 
 bool AFPSCharacterBase::CanVault(FTransform CornerLocation, float EyeHeight, UAnimMontage* Montage) const {
+    return false;
+}
+
+bool AFPSCharacterBase::CanUseNightVision_Implementation() const {
     return false;
 }
 
@@ -587,6 +669,12 @@ void AFPSCharacterBase::BlendNightVision_Implementation() {
 void AFPSCharacterBase::BlendHeight_Implementation(bool bCovered) {
 }
 
+void AFPSCharacterBase::BecomeInvulnerable(float Time) {
+}
+
+void AFPSCharacterBase::ApplySnapshot(const FFPSCharacterSnapshot& Snapshot) {
+}
+
 void AFPSCharacterBase::ApplyRotationOffset() {
 }
 
@@ -599,7 +687,7 @@ void AFPSCharacterBase::ApplyDamage_Implementation(AController* InInstigator, fl
 void AFPSCharacterBase::AddSuppression(float Amount) {
 }
 
-void AFPSCharacterBase::AddRotationOffset(FVector Offset) {
+void AFPSCharacterBase::AddRotationOffset(FRotator Offset) {
 }
 
 void AFPSCharacterBase::AddRecoil(FVector2D Recoil) {
@@ -614,16 +702,15 @@ void AFPSCharacterBase::AddFreeAim(FVector FreeAim) {
 void AFPSCharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     
+    DOREPLIFETIME(AFPSCharacterBase, Abilities);
+    DOREPLIFETIME(AFPSCharacterBase, MaxHealth);
+    DOREPLIFETIME(AFPSCharacterBase, bAllowedToSprint);
     DOREPLIFETIME(AFPSCharacterBase, EquippedItem);
     DOREPLIFETIME(AFPSCharacterBase, Hotbar);
     DOREPLIFETIME(AFPSCharacterBase, AssetIDsToLoad);
     DOREPLIFETIME(AFPSCharacterBase, State);
-    DOREPLIFETIME(AFPSCharacterBase, Abilities);
-    DOREPLIFETIME(AFPSCharacterBase, MaxHealth);
-    DOREPLIFETIME(AFPSCharacterBase, bAllowedToSprint);
     DOREPLIFETIME(AFPSCharacterBase, CurrentRecoil);
     DOREPLIFETIME(AFPSCharacterBase, TargetEyeHeight);
-    DOREPLIFETIME(AFPSCharacterBase, Rotation);
     DOREPLIFETIME(AFPSCharacterBase, Ammunition);
     DOREPLIFETIME(AFPSCharacterBase, Suppression);
     DOREPLIFETIME(AFPSCharacterBase, CurrentHealth);

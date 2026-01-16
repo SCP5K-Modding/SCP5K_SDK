@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=CoreUObject -ObjectName=PrimaryAssetId -FallbackName=PrimaryAssetId
+#include "Magazine.h"
 #include "MagazineData.generated.h"
 
 USTRUCT(BlueprintType)
@@ -11,7 +12,7 @@ public:
     FPrimaryAssetId AssetID;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    TArray<int32> Magazines;
+    TArray<FMagazine> Magazines;
     
     FPSCONTROLLER_API FMagazineData();
 };

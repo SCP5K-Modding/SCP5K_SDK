@@ -37,16 +37,15 @@ public class Pandemic : ModuleRules {
             "Niagara",
             "OnlineSubsystemUtils",
             "RandomScenarios",
-            "OnlineSubsystem",
             "SignificanceBase",
             "SignificanceManager",
             "Slate",
             "SlateCore",
             "Storylets",
             "UMG",
-            "UserInterface", 
-            "AISentience", 
-            "GameplayTasks"
+            "UserInterface",
+            "GameplayTasks",
+            "InputCore"
         });
     }
 }

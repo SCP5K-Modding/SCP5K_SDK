@@ -13,6 +13,7 @@ UThirdPersonAnimInstance::UThirdPersonAnimInstance() {
     this->RightHandIK = 1.00f;
     this->bUpdateDistanceToGround = true;
     this->DistanceToGround = 0.00f;
+    this->PrimaryMovementDirection = EMovementDirection::None;
     this->LeftFootLockingAlpha = 1.00f;
     this->RightFootLockingAlpha = 1.00f;
     this->SimpleThirdPersonAlpha = 0.00f;
@@ -52,7 +53,9 @@ UThirdPersonAnimInstance::UThirdPersonAnimInstance() {
     this->bIsLowReady = false;
     this->LowReadyAlpha = 0.00f;
     this->bIsMoving = false;
+    this->bIsStationary = false;
     this->bIsReadyToThrow = false;
+    this->StopDistance = 0.00f;
     this->bIsBracedAiming = false;
     this->BracedAimAlpha = 0.00f;
     this->AimAlpha = 0.00f;
@@ -71,6 +74,12 @@ void UThirdPersonAnimInstance::UpdateLockedRotationReference() {
 }
 
 void UThirdPersonAnimInstance::UpdateLeftFootLockedTransform() {
+}
+
+void UThirdPersonAnimInstance::UpdateGripPosition() {
+}
+
+void UThirdPersonAnimInstance::UpdateGripAlpha(float DeltaTime) {
 }
 
 void UThirdPersonAnimInstance::StopTurning() {

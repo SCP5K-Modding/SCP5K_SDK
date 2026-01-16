@@ -9,12 +9,15 @@
 #include "Engine/NetSerialization.h"
 #include "Engine/NetSerialization.h"
 #include "Chaos/ChaosEngineInterface.h"
+#include "BallisticFireEvent.h"
 #include "BallisticHitData.h"
+#include "BallisticProjectileData.h"
 #include "ConstantLerpDriver.h"
 #include "EMeleeAttackDirection.h"
 #include "FPSItemSlotData.h"
 #include "FPSLoadout.h"
 #include "LimitedSmoothLerpDriver.h"
+#include "Magazine.h"
 #include "MeleeHitData.h"
 #include "PhysicalLerpDriver.h"
 #include "SimpleHitData.h"
@@ -76,7 +79,10 @@ public:
     static FSimpleHitData MakeSimpleHitData(float Damage, FVector position, FVector HitFromDirection, FVector HitNormal, bool bRadial, UPrimitiveComponent* HitComponent, FName HitBoneName, TSubclassOf<UDamageType> DamageType, AActor* DamageCauser);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
-    static FMeleeHitData MakeMeleeHitData(bool bUsingMelee, bool bHit, bool bKicking, uint8 Time, EMeleeAttackDirection AttackDirection, FVector position, FVector Normal, TEnumAsByte<EPhysicalSurface> Surface, UPrimitiveComponent* HitComponent, uint8 AttackType, FName HitBoneName);
+    static FMeleeHitData MakeMeleeHitData(bool bUsingMelee, bool bHit, bool bKicking, uint8 Time, TEnumAsByte<EMeleeAttackDirection> AttackDirection, FVector position, FVector Normal, TEnumAsByte<EPhysicalSurface> Surface, UPrimitiveComponent* HitComponent, uint8 AttackType, FName HitBoneName);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContextObject"))
+    static FBallisticFireEvent MakeFireEvent(UObject* WorldContextObject, TArray<FBallisticProjectileData> Projectiles);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static FBallisticHitData MakeBallisticHitData(bool bDamage, bool bHit, bool bRicochet, uint8 Time, uint8 PhysicsMaterialIndex, FVector_NetQuantize position, FVector_NetQuantize Velocity, FVector_NetQuantizeNormal Normal, uint8 Distance, UPrimitiveComponent* HitComponent, FName HitBoneName);
@@ -88,7 +94,19 @@ public:
     static bool IsNiagaraAsset(UFXSystemAsset* Asset);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
+    static bool IsMagazineFull(const FMagazine& Magazine);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    static bool IsMagazineEmpty(const FMagazine& Magazine);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure)
     static bool IsLoadoutEmpty(const FFPSLoadout& Loadout);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure, meta=(WorldContext="WorldContextObject"))
+    static bool IsFireEventValid(UObject* WorldContextObject, const FBallisticFireEvent& Event, float Threshold);
+    
+    UFUNCTION(BlueprintCallable)
+    static FMagazine IncrementMagazine(UPARAM(Ref) FMagazine& Magazine);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static bool GetUsingMelee(const FMeleeHitData& Data);
@@ -131,6 +149,15 @@ public:
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static FName GetBallisticBoneName(const FBallisticHitData& Data);
+    
+    UFUNCTION(BlueprintCallable)
+    static FMagazine FillMagazine(UPARAM(Ref) FMagazine& Magazine, int32& Delta);
+    
+    UFUNCTION(BlueprintCallable)
+    static FMagazine EmptyMagazine(UPARAM(Ref) FMagazine& Magazine);
+    
+    UFUNCTION(BlueprintCallable)
+    static FMagazine DecrementMagazine(UPARAM(Ref) FMagazine& Magazine);
     
     UFUNCTION(BlueprintCallable, BlueprintPure)
     static FVector ConvertVectorToItemSpace(FVector Forward, FVector Up, FVector Vector);

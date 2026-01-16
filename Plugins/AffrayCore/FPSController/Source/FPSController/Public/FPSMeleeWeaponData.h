@@ -1,7 +1,10 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "EMeleeHitDetectionMode.h"
+#include "EMeleeItemMode.h"
 #include "EPrimaryMeleeType.h"
 #include "ESecondaryMeleeType.h"
+#include "FPSMeleeAttack.h"
 #include "FPSWeaponData.h"
 #include "Templates/SubclassOf.h"
 #include "FPSMeleeWeaponData.generated.h"
@@ -23,6 +26,15 @@ public:
     ESecondaryMeleeType SecondaryType;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    int32 MaxHitsPerAttack;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    EMeleeHitDetectionMode HitDetectionMode;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float SimpleHitDetectionTraceLength;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float TraceThickness;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
@@ -42,9 +54,6 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     bool bResetAttackDirectionOnBash;
-    
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
-    int32 MaxHitsPerAttack;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     TSoftObjectPtr<UAnimSequence> LeftBasePose;
@@ -75,6 +84,18 @@ public:
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     USurfaceDataMap* HitData;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    EMeleeItemMode AttackMode;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TArray<FFPSMeleeAttack> LightAttacks;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    TArray<FFPSMeleeAttack> HeavyAttacks;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
+    float HeavyAttackDamageMultiplier;
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess=true))
     float PerceptionSoundRadius;

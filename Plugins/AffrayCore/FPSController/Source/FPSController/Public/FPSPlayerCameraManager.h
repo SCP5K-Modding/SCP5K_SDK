@@ -2,7 +2,6 @@
 #include "CoreMinimal.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Engine/Scene.h"
-#include "EVideoSetting.h"
 #include "FPSPlayerCameraManager.generated.h"
 
 UCLASS(Blueprintable, NonTransient)
@@ -14,8 +13,5 @@ public:
     
     AFPSPlayerCameraManager(const FObjectInitializer& ObjectInitializer);
 
-    UFUNCTION(BlueprintCallable)
-    void OnVideoSettingsUpdated(EVideoSetting Setting);
-    
 };
 
